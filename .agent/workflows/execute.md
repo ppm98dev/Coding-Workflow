@@ -167,7 +167,12 @@ For each plan in the current wave:
    git add -A
    git commit -m "feat(phase-{N}): {task-name}"
    ```
+
+   > **Antigravity:** Use `run_command` with `SafeToAutoRun: false` for git commits to ensure user approval on each atomic commit.
+
 5. **Create SUMMARY.md** — Document what was done
+
+> **Antigravity:** Use native tools (`write_to_file`, `replace_file_content`, `multi_replace_file_content`) instead of shell `echo >` or `cat >` for file creation and editing. Use `run_command` with `RunPersistent: true` for stateful operations. See [adapters/ANTIGRAVITY.md](../../adapters/ANTIGRAVITY.md) for details.
 
 ### 6b. Verify Wave Complete
 Check all plans in wave have SUMMARY.md files.
@@ -313,6 +318,7 @@ Gap closure plans created.
 | `/verify` | Validates work after /execute completes |
 | `/debug` | Use when tasks fail verification |
 | `/pause` | Use after 3 debugging failures |
+| `adapters/ANTIGRAVITY.md` | Antigravity-specific tool guidance |
 
 ### Skills
 | Skill | Purpose |
