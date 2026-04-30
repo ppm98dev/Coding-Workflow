@@ -38,6 +38,8 @@ capabilities:
 
 # Example model profiles (illustrative, not exhaustive)
 # These show how to categorize models by capability type.
+# Model examples current as of April 2026.
+# Update periodically — these are illustrative, not exhaustive.
 
 profiles:
   # Fast iteration models
@@ -51,8 +53,8 @@ profiles:
       - Simple implementations
       - Frequent iteration cycles
     examples:
-      - "Flash/Turbo variants"
-      - "Smaller parameter models"
+      - "Gemini 2.5 Flash, Claude Haiku, GPT-4.1 Mini"
+      - "Any fast-response model optimized for throughput"
   
   # Standard balanced models
   standard:
@@ -65,8 +67,8 @@ profiles:
       - Moderate refactoring
       - General coding
     examples:
-      - "Pro/Standard variants"
-      - "Mid-tier models"
+      - "Gemini 2.5 Pro, Claude Sonnet 4.6, GPT-4.1"
+      - "Balanced speed/quality models with large context"
   
   # Deep reasoning models
   reasoning:
@@ -79,8 +81,8 @@ profiles:
       - Complex debugging
       - Security analysis
     examples:
-      - "Thinking/Reasoning variants"
-      - "Advanced reasoning models"
+      - "Gemini 2.5 Pro (thinking mode), Claude Opus 4, o3"
+      - "Models with extended reasoning / chain-of-thought"
 
 # Phase recommendations (suggestions, not requirements)
 phase_recommendations:
