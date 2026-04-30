@@ -8,8 +8,8 @@
 
 [![Version](https://img.shields.io/badge/version-1.5.0-00C853?style=flat-square)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-2196F3?style=flat-square)](LICENSE)
-[![Based on GSD](https://img.shields.io/badge/based%20on-GSD-7B2D8E?style=flat-square)](https://github.com/glittercowboy/get-shit-done)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20Mac-FF6D00?style=flat-square)](#-cross-platform-support)
+[![Based on GSD](https://img.shields.io/badge/based%20on-GSD-7B2D8E?style=flat-square)](https://github.com/gsd-build/get-shit-done)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux-FF6D00?style=flat-square)](#-platform-support)
 [![Model Agnostic](https://img.shields.io/badge/models-any%20LLM-E91E63?style=flat-square)](#-multi-model-support)
 
 <br/>
@@ -20,7 +20,7 @@
 
 <br/>
 
-[Getting Started](#-getting-started) · [How It Works](#-how-it-works) · [Commands](#-commands-29-total) · [Documentation](#-documentation)
+[Getting Started](#-getting-started) · [How It Works](#-how-it-works) · [Commands](#-commands-27-total) · [Documentation](#-documentation)
 
 </div>
 
@@ -81,43 +81,12 @@ GSD fixes that. It's the **context engineering layer** that makes AI coding reli
 
 ## ⚡ Getting Started
 
-<details>
-<summary><b>🪟 PowerShell (Windows)</b></summary>
-
-```powershell
-# Open your project
-cd your-project
-
-# Clone the GSD template
-git clone https://github.com/toonight/get-shit-done-for-antigravity.git gsd-template
-
-# Copy to your project
-Copy-Item -Recurse gsd-template\.agent .\
-Copy-Item -Recurse gsd-template\.agents .\
-Copy-Item -Recurse gsd-template\.gemini .\
-Copy-Item -Recurse gsd-template\.gsd .\
-Copy-Item -Recurse gsd-template\adapters .\
-Copy-Item -Recurse gsd-template\docs .\
-Copy-Item -Recurse gsd-template\scripts .\
-Copy-Item -Force gsd-template\PROJECT_RULES.md .\
-Copy-Item -Force gsd-template\GSD-STYLE.md .\
-Copy-Item -Force gsd-template\model_capabilities.yaml .\
-
-# Clean up
-Remove-Item -Recurse -Force gsd-template
-```
-
-</details>
-
-<details>
-<summary><b>🐧 Bash (Linux / Mac)</b></summary>
-
 ```bash
 # Open your project
 cd your-project
 
 # Clone the GSD template
-git clone https://github.com/toonight/get-shit-done-for-antigravity.git gsd-template
+git clone https://github.com/ppm98dev/Coding-Workflow.git gsd-template
 
 # Copy to your project
 cp -r gsd-template/.agent ./
@@ -134,8 +103,6 @@ cp gsd-template/model_capabilities.yaml ./
 # Clean up
 rm -rf gsd-template
 ```
-
-</details>
 
 Then run `/new-project` and follow the prompts.
 
@@ -271,7 +238,7 @@ No "trust me, it works." Every verification produces evidence:
 
 ---
 
-## 🎮 Commands (29 Total)
+## 🎮 Commands (27 Total)
 
 > [!NOTE]
 > Slash commands are typed directly as chat messages (e.g. send `/plan 1`). They are **not** IDE autocomplete features — if your editor shows "nothing found" when pressing `/`, that's normal. Just type the full command and send it.
@@ -365,16 +332,11 @@ No "trust me, it works." Every verification produces evidence:
 
 ---
 
-## 🌍 Cross-Platform Support
+## 🌍 Platform Support
 
-All workflow files include **dual syntax** — both PowerShell and Bash commands.
+All workflow files use **Bash** commands (macOS/Linux).
 
-| Platform | Instructions |
-|:--------:|:------------:|
-| 🪟 **Windows** | Use PowerShell blocks |
-| 🐧 **Linux / Mac** | Use Bash blocks (may require `jq`) |
-
-> Git commands (`git add`, `git commit`, `git tag`) are cross-platform and work identically everywhere.
+> This fork is optimized for macOS and Linux. Git commands work identically everywhere.
 
 ---
 
@@ -392,9 +354,10 @@ Model-specific enhancements *(optional, never required)*:
 
 ```
 adapters/
-├── CLAUDE.md     # Extended thinking, effort levels
-├── GEMINI.md     # Flash vs Pro selection
-└── GPT_OSS.md    # Function calling, context handling
+├── ANTIGRAVITY.md # Antigravity-native tool mapping
+├── CLAUDE.md      # Extended thinking, effort levels
+├── GEMINI.md      # Flash vs Pro selection
+└── GPT_OSS.md     # Function calling, context handling
 ```
 
 ### Model Selection by Phase
@@ -423,26 +386,19 @@ adapters/
 <details>
 <summary><b>Setup (Optional)</b></summary>
 
-**PowerShell:**
-```powershell
-.\scripts\setup_search.ps1          # Checks for ripgrep/fd
-.\scripts\search_repo.ps1 "pattern" # Search wrapper
-```
-
-**Bash:**
 ```bash
 ./scripts/setup_search.sh           # Checks for ripgrep/fd
 ./scripts/search_repo.sh "pattern"  # Search wrapper
 ```
 
-> **No installation required** — falls back to built-in tools (`Select-String` / `grep`).
+> **No installation required** — falls back to `grep`.
 
 </details>
 
 ### Workflow
 
 1. **Define question** — What are you looking for?
-2. **Search first** — `.\scripts\search_repo.ps1 "keyword"`
+2. **Search first** — `./scripts/search_repo.sh "keyword"`
 3. **Evaluate results** — Which files matter?
 4. **Targeted read** — Only read relevant sections
 
@@ -510,9 +466,9 @@ adapters/
 └── 📄 runbook.md
 
 📂 scripts/                  # Utility scripts
-├── 📄 validate-*.ps1/.sh    # Structure validators
-├── 📄 setup_search.ps1/.sh  # Search tool setup
-└── 📄 search_repo.ps1/.sh   # Search wrapper
+├── 📄 validate-*.sh         # Structure validators
+├── 📄 setup_search.sh       # Search tool setup
+└── 📄 search_repo.sh        # Search wrapper
 
 📄 model_capabilities.yaml   # Optional capability registry
 ```
@@ -523,27 +479,11 @@ adapters/
 
 Run validation scripts to verify GSD structure:
 
-<details>
-<summary><b>🪟 PowerShell</b></summary>
-
-```powershell
-.\scripts\validate-all.ps1        # Run all validators
-.\scripts\validate-workflows.ps1  # Workflows only
-.\scripts\validate-skills.ps1     # Skills only
-```
-
-</details>
-
-<details>
-<summary><b>🐧 Bash</b></summary>
-
 ```bash
 ./scripts/validate-all.sh         # Run all validators
 ./scripts/validate-workflows.sh   # Workflows only
 ./scripts/validate-skills.sh      # Skills only
 ```
-
-</details>
 
 ---
 
@@ -594,7 +534,7 @@ Run validation scripts to verify GSD structure:
 
 <div align="center">
 
-<sub>Adapted from <a href="https://github.com/glittercowboy/get-shit-done">glittercowboy/get-shit-done</a> for Google Antigravity</sub>
+<sub>Adapted from <a href="https://github.com/gsd-build/get-shit-done">gsd-build/get-shit-done</a> for Google Antigravity</sub>
 
 <br/>
 
