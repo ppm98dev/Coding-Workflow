@@ -23,14 +23,14 @@
 - Updated `.gemini/GEMINI.md` — Proper Antigravity entry point with tool mapping
 - Updated `model_capabilities.yaml` — Real model names (Claude Opus 4, Gemini 2.5 Pro, GPT-4.1, etc.)
 
-### Phase 2: Bash-First Rewrite
+### Phase 2: Remove PowerShell — Bash Only
 **Status**: ⬜ Not Started
-**Objective**: Make Bash the primary scripting language. Reorder all dual-syntax examples to show Bash first, PowerShell second.
+**Objective**: Remove all PowerShell content (scripts + code blocks) to reduce context noise by ~1,300 lines (~10% of framework). macOS/Linux only fork.
 **Deliverables:**
-- All 27 workflows updated (Bash examples first)
-- All 11 skills updated (Bash examples first)
-- All scripts verified on macOS
-- Executor SKILL.md rewritten with Bash-primary commands
+- Delete 6 `.ps1` script files
+- Strip PowerShell code blocks from 20 workflows
+- Strip PowerShell code blocks from 5 skills
+- Add "macOS/Linux only" note to README
 
 ### Phase 3: Core Fixes
 **Status**: ⬜ Not Started

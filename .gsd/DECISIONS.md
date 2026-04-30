@@ -50,3 +50,10 @@
 **Context:** Need to verify that v2.0 improvements actually improve workflow quality.
 **Decision:** Use self-validation (dogfooding). Phase 1-2 built with GSD v1.5, Phase 3-4 built with improved v2.0 workflows. Track metrics per phase in JOURNAL.md (debug cycles, verification passes, time spent).
 **Consequence:** Built-in quality signal. No separate test project needed. Add metrics tracking to JOURNAL.md template.
+
+## ADR-008: Remove PowerShell Entirely (Revised Phase 2)
+**Date:** 2026-04-30
+**Status:** Accepted
+**Context:** Original Phase 2 was "reorder Bash/PowerShell blocks" — zero performance impact, purely cosmetic. Discussion revealed that REMOVING PowerShell entirely saves ~1,300 lines (~10% of framework), reducing context window noise.
+**Decision:** Delete all .ps1 scripts and strip all PowerShell code blocks from workflows and skills. This fork becomes macOS/Linux only.
+**Consequence:** ~10% smaller context footprint. Breaks Windows compatibility. Must note in README this is a macOS/Linux fork.
