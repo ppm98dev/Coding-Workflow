@@ -33,7 +33,7 @@
 - Add "macOS/Linux only" note to README
 
 ### Phase 3: Core Fixes
-**Status**: ⬜ Not Started
+**Status**: ✅ Complete
 **Objective**: Fix README accuracy, CHANGELOG formatting, attribution links, and template orphans.
 **Deliverables:**
 - README.md — Accurate command count, fixed mermaid diagrams, Bash-first Getting Started
