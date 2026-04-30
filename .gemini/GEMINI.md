@@ -3,6 +3,7 @@
 > **Get Shit Done**: A spec-driven, context-engineered development methodology.
 > 
 > These rules enforce disciplined, high-quality autonomous development.
+> GSD replaces Antigravity's built-in planning mode — use GSD workflows exclusively.
 
 ---
 
@@ -10,7 +11,7 @@
 
 **All canonical rules are in [PROJECT_RULES.md](../PROJECT_RULES.md).**
 
-This file provides Gemini-specific integration. For the complete methodology, see PROJECT_RULES.md.
+This file provides Antigravity integration. For the complete methodology, see PROJECT_RULES.md.
 
 ---
 
@@ -27,41 +28,50 @@ This file provides Gemini-specific integration. For the complete methodology, se
 
 ```
 Before coding    → Check SPEC.md is FINALIZED
-Before file read → Search first, then targeted read
+Before file read → Search first (grep_search), then targeted read (view_file)
 After each task  → Update STATE.md
 After 3 failures → State dump + fresh session
-Before "Done"    → Empirical proof captured
+Before "Done"    → Empirical proof captured (browser_subagent for UI, run_command for tests)
 ```
 
 ---
 
 ## Workflow Integration
 
-These rules integrate with the GSD workflows:
+These rules integrate with GSD workflows and Antigravity tools:
 
-| Workflow | Rules Enforced |
-|----------|----------------|
-| `/map` | Updates ARCHITECTURE.md, STACK.md |
-| `/plan` | Enforces Planning Lock, creates ROADMAP |
-| `/execute` | Enforces State Persistence after each task |
-| `/verify` | Enforces Empirical Validation |
-| `/pause` | Triggers Context Hygiene state dump |
-| `/resume` | Loads state from STATE.md |
-
----
-
-## Gemini-Specific Tips
-
-For Gemini-specific enhancements, see [adapters/GEMINI.md](../adapters/GEMINI.md).
-
-Key recommendations:
-- **Flash** for quick iterations and simple edits
-- **Pro** for complex planning and analysis
-- Large context is available but **search-first** still applies
+| Workflow | Rules Enforced | Antigravity Tools |
+|----------|----------------|-------------------|
+| `/map` | Updates ARCHITECTURE.md, STACK.md | `grep_search`, `list_dir`, `view_file` |
+| `/plan` | Enforces Planning Lock, creates ROADMAP | `search_web`, `read_url_content` |
+| `/execute` | Enforces State Persistence after each task | `run_command`, `write_to_file`, `replace_file_content` |
+| `/verify` | Enforces Empirical Validation | `browser_subagent` (screenshots + recordings), `run_command` |
+| `/pause` | Triggers Context Hygiene state dump | `view_file` (STATE.md) |
+| `/resume` | Loads state from STATE.md | `view_file` (STATE.md) |
 
 ---
 
-*GSD Methodology adapted for Google Antigravity*
+## Antigravity Integration
+
+For full Antigravity-specific guidance, see [adapters/ANTIGRAVITY.md](../adapters/ANTIGRAVITY.md).
+
+**Top 3 tips:**
+
+1. **Use `browser_subagent` for `/verify`** — Captures screenshots AND WebP recordings automatically. Best evidence for UI verification.
+2. **Search before you read** — `grep_search` first, `view_file` with line ranges second. Saves context budget.
+3. **Persistent terminals for `/execute`** — Use `RunPersistent: true` for build sessions and stateful operations.
+
+---
+
+## Model Selection
+
+For model-specific enhancements:
+- [adapters/GEMINI.md](../adapters/GEMINI.md) — Gemini Flash vs Pro
+- [adapters/CLAUDE.md](../adapters/CLAUDE.md) — Extended thinking, effort levels
+- [adapters/ANTIGRAVITY.md](../adapters/ANTIGRAVITY.md) — Tool mapping and best practices
+
+---
+
+*GSD Methodology for Google Antigravity*
 *Canonical rules: [PROJECT_RULES.md](../PROJECT_RULES.md)*
-*Source: https://github.com/glittercowboy/get-shit-done*
-
+*Source: https://github.com/gsd-build/get-shit-done*
