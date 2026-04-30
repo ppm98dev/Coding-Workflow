@@ -2,23 +2,13 @@
 
 ## Current Position
 - **Milestone**: v2.0 — Antigravity-Native GSD
-- **Phase**: 2 (completed), ready for Phase 3
-- **Task**: All tasks complete
-- **Status**: ✅ Verified
+- **Phase**: 3 (Core Fixes) — planned, ready for `/execute 3`
+- **Task**: Planning complete
+- **Status**: 1 plan created, 1 wave
 
 ## Last Session Summary
-Phase 2 (Remove PowerShell) executed successfully.
-- 2 plans, 4 tasks, 3 atomic commits
-- Deleted 6 .ps1 scripts (419 lines)
-- Stripped PS from 21 workflows + 5 skills
-- **Total: 890 lines removed** (~6.5% of framework)
-- All validators pass: 27 workflows ✅, 11 skills ✅
-
-### Phase 2 Metrics (A/B comparison — ADR-007)
-- **Debug cycles:** 1 (perl regex needed adjustment for unlabeled blocks)
-- **Verification passes:** 6/6 (100%)
-- **Commits:** 3 atomic commits
-- **Duration:** ~15 min
+Phase 3 planned with 1 plan (2 tasks):
+- Plan 3.1: Fix README + attribution + stale claims
 
 ## Next Steps
-1. `/plan 3` — Create execution plans for Phase 3 (Core Fixes)
+1. `/execute 3` — Run the plan
