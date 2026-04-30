@@ -46,16 +46,6 @@ Extract searchable terms:
 
 ### Step 3: Search Before Reading
 
-**PowerShell:**
-```powershell
-# Simple pattern search
-Select-String -Path "src/**/*.ts" -Pattern "login" -Recurse
-
-# With ripgrep (if available)
-rg "login" --type ts
-```
-
-**Bash:**
 ```bash
 # With ripgrep (recommended)
 rg "login" --type ts
@@ -76,12 +66,11 @@ From search results, identify:
 
 Only read what's justified:
 
-```powershell
-# Read specific line range (PowerShell)
-Get-Content "src/auth/login.ts" | Select-Object -Skip 49 -First 30
+```bash
+# Read specific line range
+sed -n '50,80p' src/auth/login.ts
 
-# Read specific function (with view_code_item tool)
-# view_code_item: src/auth/login.ts -> handleLogin
+# Or use view_file tool with StartLine/EndLine
 ```
 
 ---
@@ -173,7 +162,7 @@ This skill supports GSD's context management:
 ```
 1. Define question     → What am I looking for?
 2. Extract keywords    → What terms to search?
-3. Search codebase     → rg/grep/Select-String
+3. Search codebase     → rg/grep
 4. Evaluate results    → Which files matter?
 5. Read targeted       → Specific lines only
 6. Report findings     → Candidates + extracts

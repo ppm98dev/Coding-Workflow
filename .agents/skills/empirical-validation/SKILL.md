@@ -44,7 +44,7 @@ description: Requires proof before marking work complete — no "trust me, it wo
 ## Examples
 
 ### API Endpoint Verification
-```powershell
+```bash
 # Good: Actual test showing response
 curl -X POST http://localhost:3000/api/login -d '{"email":"test@test.com"}' 
 # Output: {"success":true,"token":"..."}
@@ -63,7 +63,7 @@ curl -X POST http://localhost:3000/api/login -d '{"email":"test@test.com"}'
 ```
 
 ### Build Verification
-```powershell
+```bash
 # Good: Show build output
 npm run build
 # Output: Successfully compiled...
