@@ -13,14 +13,6 @@ Define a new milestone with goal, phases, and success criteria.
 
 ## 1. Validate SPEC Exists
 
-**PowerShell:**
-```powershell
-if (-not (Test-Path ".gsd/SPEC.md")) {
-    Write-Error "SPEC.md required. Run /new-project first."
-}
-```
-
-**Bash:**
 ```bash
 if [ ! -f ".gsd/SPEC.md" ]; then
     echo "Error: SPEC.md required. Run /new-project first." >&2
@@ -99,18 +91,6 @@ Ask user to confirm or modify.
 
 If DECISIONS.md or JOURNAL.md contain entries from a previous milestone, reset them to prevent monolithic growth:
 
-**PowerShell:**
-```powershell
-# Only reset if files are non-empty and no archive exists yet
-if ((Test-Path ".gsd/DECISIONS.md") -and (Get-Content ".gsd/DECISIONS.md" | Measure-Object -Line).Lines -gt 5) {
-    Set-Content ".gsd/DECISIONS.md" "# Decisions`n`n---`n"
-}
-if ((Test-Path ".gsd/JOURNAL.md") -and (Get-Content ".gsd/JOURNAL.md" | Measure-Object -Line).Lines -gt 5) {
-    Set-Content ".gsd/JOURNAL.md" "# Journal`n`n---`n"
-}
-```
-
-**Bash:**
 ```bash
 if [ -f ".gsd/DECISIONS.md" ] && [ "$(wc -l < .gsd/DECISIONS.md)" -gt 5 ]; then
     printf '# Decisions\n\n---\n' > .gsd/DECISIONS.md

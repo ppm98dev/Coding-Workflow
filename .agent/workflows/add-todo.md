@@ -31,12 +31,6 @@ Extract:
 
 ## 2. Ensure TODO.md Exists
 
-```powershell
-if (-not (Test-Path ".gsd/TODO.md")) {
-    # Create with header
-}
-```
-
 ---
 
 ## 3. Add Todo Item

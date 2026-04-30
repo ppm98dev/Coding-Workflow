@@ -130,13 +130,6 @@ Append to `.gsd/SPRINT.md`:
 
 ### Archive Sprint
 
-**PowerShell:**
-```powershell
-New-Item -ItemType Directory -Force ".gsd/sprints"
-Move-Item ".gsd/SPRINT.md" ".gsd/sprints/{name}-SPRINT.md"
-```
-
-**Bash:**
 ```bash
 mkdir -p .gsd/sprints
 mv .gsd/SPRINT.md ".gsd/sprints/{name}-SPRINT.md"
