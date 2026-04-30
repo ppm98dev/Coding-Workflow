@@ -67,6 +67,8 @@ For each must-have:
 |------|--------|----------|
 | API/Backend | Run curl or test command | Command output |
 | UI | Use browser tool | Screenshot |
+| UI (Antigravity) | `browser_subagent` | Screenshot + WebP recording |
+| Visual regression | `browser_subagent` | Side-by-side screenshot comparison |
 | Build | Run build command | Success output |
 | Tests | Run test suite | Test results |
 | File exists | Check filesystem | File listing |
@@ -88,6 +90,17 @@ For each must-have, record:
 - **Status:** PASS / FAIL
 - **Evidence:** Command output, screenshot path, etc.
 - **Notes:** Any observations
+
+### 3d. Antigravity Visual Verification (Optional)
+
+When running in Antigravity, use `browser_subagent` for UI verification:
+- Navigate to the target URL and validate visual state
+- Capture screenshots as evidence for VERIFICATION.md
+- All sessions auto-recorded as WebP video artifacts
+- Use for any must-have that involves visual output
+
+**Note:** This is optional. Traditional command-line verification still works.
+Antigravity adapter details: see [adapters/ANTIGRAVITY.md](../../adapters/ANTIGRAVITY.md)
 
 ---
 
@@ -240,6 +253,7 @@ Never accept these as verification:
 | "Tests pass" | Actual test output |
 | "API works" | Curl command + response |
 | "UI renders" | Screenshot |
+| "UI works" (Antigravity) | `browser_subagent` screenshot + recording |
 | "Build succeeds" | Build output |
 | "File created" | `ls` or `dir` output |
 
