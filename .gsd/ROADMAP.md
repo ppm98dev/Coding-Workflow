@@ -16,7 +16,7 @@
 ## Phases
 
 ### Phase 1: Antigravity Integration
-**Status**: ⬜ Not Started
+**Status**: ✅ Complete
 **Objective**: Create a proper Antigravity adapter and update the Gemini entry point so GSD actually works in Antigravity.
 **Deliverables:**
 - `adapters/ANTIGRAVITY.md` — Antigravity-specific tool guidance (browser_subagent, run_command, generate_image, persistent context, knowledge items)
