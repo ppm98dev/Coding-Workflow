@@ -6,7 +6,7 @@
 
 <br/>
 
-[![Version](https://img.shields.io/badge/version-1.5.0-00C853?style=flat-square)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.0.0-00C853?style=flat-square)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-2196F3?style=flat-square)](LICENSE)
 [![Based on GSD](https://img.shields.io/badge/based%20on-GSD-7B2D8E?style=flat-square)](https://github.com/gsd-build/get-shit-done)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux-FF6D00?style=flat-square)](#-platform-support)

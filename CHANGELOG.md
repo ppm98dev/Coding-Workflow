@@ -2,6 +2,31 @@
 
 All notable changes to GSD for Antigravity.
 
+## [2.0.0] - 2026-05-01
+
+### Breaking Changes
+- **macOS/Linux only** — All PowerShell scripts and code blocks removed (ADR-008). Windows users should use v1.5.0.
+- **Platform badge** updated from "Windows | Linux | Mac" to "macOS | Linux"
+
+### Added
+- **Antigravity adapter** (`adapters/ANTIGRAVITY.md`) — Maps all 13 Antigravity tools to GSD workflows
+- **`scripts/install.sh`** — One-command GSD install for any project (`bash install.sh [--force]`)
+- **Real model profiles** in `model_capabilities.yaml` — Gemini 2.5 Pro, Claude Opus 4, GPT-4.1 (April 2026)
+- **`browser_subagent` guidance** in `/verify` and `/execute` workflows for visual verification
+- **Planning Mode integration** in `.gemini/GEMINI.md`
+
+### Changed
+- **Attribution** — `glittercowboy/get-shit-done` → `gsd-build/get-shit-done` across all files
+- **README** — Accurate command count (27, not 29), updated clone URL, Bash-only Getting Started
+- **All 5 skills** converted from PowerShell to Bash (verifier, executor, codebase-mapper, context-fetch, empirical-validation)
+- **21 workflows** stripped of PowerShell blocks (~396 lines removed)
+
+### Removed
+- 6 PowerShell scripts (`validate-*.ps1`, `setup_search.ps1`, `search_repo.ps1`)
+- All `**PowerShell:**` / `**Bash:**` labels from workflows
+- Dual-syntax documentation sections in README
+- `scripts/install.ps1` from roadmap
+
 ## [1.5.0] - 2026-04-01
 
 ### Breaking Changes
