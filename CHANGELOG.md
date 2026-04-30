@@ -135,4 +135,4 @@ All notable changes to GSD for Antigravity.
 - Planning Lock, State Persistence, Context Hygiene, Empirical Validation
 
 ### Attribution
-Adapted from [glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done) for Google Antigravity.
+Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done) for Google Antigravity.

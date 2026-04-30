@@ -47,7 +47,6 @@
 **Objective**: Create a real install script and finalize the v2.0 release.
 **Deliverables:**
 - `scripts/install.sh` — One-command install for macOS/Linux
-- `scripts/install.ps1` — One-command install for Windows
 - VERSION bumped to 2.0.0
 - CHANGELOG updated with v2.0.0 entry
 - Final validation pass (all validators green)

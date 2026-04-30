@@ -6,7 +6,7 @@
 
 GSD (Get Shit Done) is a **meta-prompting framework** — a collection of markdown files that teach AI coding agents how to build software systematically. It is NOT executable software but rather a context engineering layer that sits inside any project and provides structured workflows via slash commands.
 
-Adapted from [glittercowboy/get-shit-done](https://github.com/glittercowboy/get-shit-done) (Claude Code-specific) for Google Antigravity (model-agnostic).
+Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done) (Claude Code-specific) for Google Antigravity (model-agnostic).
 
 ```
 ┌───────────────────────────────────────────────────────────────┐
@@ -113,7 +113,7 @@ Adapted from [glittercowboy/get-shit-done](https://github.com/glittercowboy/get-
 - [ ] **No Antigravity adapter** — Despite being "for Antigravity", no adapter exists for Antigravity-specific tools (browser_subagent, image generation, persistent context)
 - [ ] **PowerShell-first bias** — Scripts and examples show PowerShell first; macOS/Linux users are secondary
 - [ ] **No executable CLI** — Everything is markdown prompts, no actual executable tool
-- [ ] **Stale upstream attribution** — Links to `glittercowboy/get-shit-done` (now `gsd-build/get-shit-done`)
+- [x] **Stale upstream attribution** — ~~Links to `glittercowboy/get-shit-done`~~ Updated to `gsd-build/get-shit-done` (Phase 3)
 - [ ] **README claims 29 commands, only 27 exist** — Count is incorrect
 - [ ] **model_capabilities.yaml** — Uses generic profiles, not actual model names
 - [ ] **Templates orphaned** — Several templates not referenced by any workflow
