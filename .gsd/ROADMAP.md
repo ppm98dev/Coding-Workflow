@@ -24,7 +24,7 @@
 - Updated `model_capabilities.yaml` — Real model names (Claude Opus 4, Gemini 2.5 Pro, GPT-4.1, etc.)
 
 ### Phase 2: Remove PowerShell — Bash Only
-**Status**: ⬜ Not Started
+**Status**: ✅ Complete
 **Objective**: Remove all PowerShell content (scripts + code blocks) to reduce context noise by ~1,300 lines (~10% of framework). macOS/Linux only fork.
 **Deliverables:**
 - Delete 6 `.ps1` script files
