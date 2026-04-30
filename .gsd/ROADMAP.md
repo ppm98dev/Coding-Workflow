@@ -43,7 +43,7 @@
 - `.gitignore` updated for state files
 
 ### Phase 4: Install Automation & Polish
-**Status**: ⬜ Not Started
+**Status**: ✅ Complete
 **Objective**: Create a real install script and finalize the v2.0 release.
 **Deliverables:**
 - `scripts/install.sh` — One-command install for macOS/Linux
