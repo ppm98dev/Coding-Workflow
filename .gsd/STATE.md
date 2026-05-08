@@ -15,8 +15,13 @@
 - Switching means: losing /pause /resume /debug /verify, installing Python, writing Antigravity integration from scratch
 - Improving GSD is less work and gives a better result than either tool alone
 
+**#1 Priority: Production-Ready Code Quality**
+> GSD outputs "it works" code, not production code. This is the biggest gap.
+> The agent writes code that passes tests but has: no error handling, no logging, no input validation, no separation of concerns, no docs, no security defaults.
+> Fix: CONSTITUTION.md defines quality standards → /plan includes quality tasks → /execute follows production patterns → /verify checks quality gates.
+
 **What to steal (4 targeted patches):**
-1. **Constitution** → Add `CONSTITUTION.md` step to `/new-project`, load in `/plan` + `/execute`
+1. **Constitution** → Add `CONSTITUTION.md` step to `/new-project`, load in `/plan` + `/execute` — **include production code quality standards here**
 2. **`[NEEDS CLARIFICATION]` markers** → Force in spec template, reject in plan-checker
 3. **Test-first ordering** → Mandate contracts → tests → source in `/plan` task ordering
 4. **File creation order** → Add to planner skill constraints

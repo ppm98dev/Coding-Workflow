@@ -2,6 +2,27 @@
 
 ## Pending
 
+### 🏗️ v2.1 — Production-Ready Code Quality (NEW, HIGH PRIORITY)
+> GSD currently outputs "it works" code, not production code. This is the #1 gap.
+
+The agent writes code that passes tests but is NOT maintainable:
+- No error handling patterns (try/catch, error boundaries, graceful degradation)
+- No logging/observability (structured logs, correlation IDs, metrics)
+- No input validation (sanitization, type checking, boundary checks)
+- No separation of concerns (business logic mixed with I/O, God functions)
+- No documentation standards (JSDoc/docstrings, README, API docs)
+- No security defaults (env vars for secrets, parameterized queries, CORS)
+- No performance awareness (N+1 queries, unbounded loops, memory leaks)
+
+**Where to enforce this:**
+- [ ] **CONSTITUTION.md** — Define project-wide quality standards (error handling style, logging library, naming conventions, max function length, etc.)
+- [ ] **`/plan` workflow** — Planner must include error handling, logging, and validation tasks for EVERY feature (not just happy path)
+- [ ] **`/execute` workflow** — Executor must follow production patterns: validate inputs → handle errors → log operations → write clean code → add tests
+- [ ] **`/verify` workflow** — Verifier must check: error handling exists, logs are present, no hardcoded secrets, functions are small, code is documented
+- [ ] **New skill: `production-code`** — SKILL.md with references/ for language-specific patterns (Python: logging, typing, pydantic; JS: zod, winston, error boundaries; etc.)
+- [ ] **Spec template update** — Add "Quality Requirements" section to SPEC.md (required error handling strategy, logging level, perf targets)
+
+
 ### v2.1 — Dead Code Prevention (researched)
 - [ ] Add `<remove>` tag to PLAN.md task XML (see `.gsd/phases/5/RESEARCH.md`)
 - [ ] Add Executor Rule 5: "Auto-clean dead code" to `/execute`
@@ -63,6 +84,9 @@ GSD was built for small, solo projects. For anything larger:
 - No spec quality gate → ambiguity cascades into bad plans
 - SPEC.md is one file → doesn't scale to 10+ features
 - No contracts/API specs → integration breaks between components
+- **No code quality enforcement → agent writes "it works" code, not production code**
+- No error handling patterns → silent failures, no observability
+- No architecture guardrails → spaghetti code by Phase 3
 
 **Action:** The v2.1+ roadmap should prioritize closing these gaps, especially: constitution, test-first enforcement, clarification markers, and branch-per-feature.
 
