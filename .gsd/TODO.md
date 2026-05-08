@@ -30,6 +30,42 @@
 - ~~Full preset stacking with priorities~~ — Simple override layer covers it
 - ~~Python CLI tool~~ — GSD's strength is zero dependencies, adding Python betrays the philosophy
 
+### ⚠️ Honest Assessment: Where GSD Falls Short vs Spec-Kit
+
+> GSD works well for small projects. For big builds, it may fail without these fixes.
+
+#### Things Spec-Kit does BETTER than GSD (must fix)
+
+1. **Forced `[NEEDS CLARIFICATION]` markers** — Spec-Kit forces the LLM to mark what it doesn't know instead of guessing. GSD's SPEC.md says "FINALIZED" but nobody checks if the spec is actually complete. The agent will plan around ambiguous requirements and you won't know until Phase 3.
+
+2. **Test-first enforcement** — Spec-Kit Article III: write tests first, confirm they fail, THEN write code. GSD says "verify after execution" but never forces test-first. The agent writes code, then writes tests to match the code — backwards.
+
+3. **Cleaner spec/plan separation** — Spec-Kit: `spec.md` = pure user intent (no tech), `plan.md` = tech choices. GSD: `SPEC.md` mixes "what I want" with architecture hints. The boundary is blurry.
+
+4. **File creation order** — Spec-Kit mandates: contracts → tests → source. Always. GSD's `<task>` blocks have no ordering convention — the agent picks "code first, tests later."
+
+5. **Branch-per-feature** — `/speckit.specify` auto-creates a git branch per feature. GSD works on whatever branch you're on. For multi-feature projects this is cleaner.
+
+6. **Project-specific principles that persist** — The constitution is always-loaded. GSD relies on the agent remembering Phase 1 context in Phase 4. It doesn't. PROJECT_RULES.md is generic, not project-specific.
+
+#### Where GSD still wins
+
+- **Session management** (pause/resume/context health) — Spec-Kit has nothing
+- **Debugging protocol** (3-strike rule) — Spec-Kit has no debugging guidance
+- **Verification with proof** (screenshots, command output) — Spec-Kit trusts the implement step
+- **Wave-based execution** — Spec-Kit is sequential only
+
+#### Scaling Problem
+
+GSD was built for small, solo projects. For anything larger:
+- No branch management → merge conflicts on multi-feature work
+- No test-first discipline → bugs compound across phases
+- No spec quality gate → ambiguity cascades into bad plans
+- SPEC.md is one file → doesn't scale to 10+ features
+- No contracts/API specs → integration breaks between components
+
+**Action:** The v2.1+ roadmap should prioritize closing these gaps, especially: constitution, test-first enforcement, clarification markers, and branch-per-feature.
+
 ### Other
 - [ ] Check if upstream `gsd-build/get-shit-done` has newer features to backport
 - [ ] Consider adding a `/self-test` workflow that validates GSD works on itself
