@@ -66,6 +66,26 @@ GSD was built for small, solo projects. For anything larger:
 
 **Action:** The v2.1+ roadmap should prioritize closing these gaps, especially: constitution, test-first enforcement, clarification markers, and branch-per-feature.
 
+### 🔍 Community Skills to Study/Adopt
+> Sources: https://github.com/VoltAgent/awesome-agent-skills (20.9k ⭐, 1000+ skills) · https://agentskills.io
+
+#### Directly relevant to GSD improvements
+- [ ] **trailofbits/ask-questions-if-underspecified** — Prompts for clarification on ambiguous requirements. This is exactly the `/stress-test` idea. Study their SKILL.md for implementation patterns.
+- [ ] **trailofbits/differential-review** — Security-focused diff review with git history analysis. Could improve our `/verify` with a diff-aware check.
+- [ ] **trailofbits/property-based-testing** — Property-based testing for multiple languages. Could inform test-first enforcement in `/execute`.
+- [ ] **anthropics/webapp-testing** — Test local web apps using Playwright. Could replace GSD's manual browser_subagent verification.
+- [ ] **anthropics/skill-creator** — Guide for creating skills. Study to improve our skill structure.
+- [ ] **cloudflare/web-perf** — Audit Core Web Vitals. Could add perf verification to `/verify`.
+
+#### Best practices from official teams (study their SKILL.md patterns)
+- [ ] **vercel-labs/react-best-practices** — How Vercel structures best-practice skills
+- [ ] **trailofbits/static-analysis** — CodeQL, Semgrep, SARIF integration patterns
+- [ ] **callstackincubator/github** — GitHub workflow patterns (PRs, branching, code review)
+- [ ] **google-labs-code/design-md** — How to create/manage DESIGN.md files (similar to our SPEC.md)
+
+#### Key insight: GSD skills are primitive compared to community
+GSD has 7 skills with basic SKILL.md files. Community skills from Stripe, Cloudflare, Trail of Bits bundle: `scripts/` for executable helpers, `references/` for API docs, `assets/` for templates. Our skills are instruction-only — no scripts, no references, no assets. **Upgrading skill structure is a prerequisite for v2.1.**
+
 ### Other
 - [ ] Check if upstream `gsd-build/get-shit-done` has newer features to backport
 - [ ] Consider adding a `/self-test` workflow that validates GSD works on itself
