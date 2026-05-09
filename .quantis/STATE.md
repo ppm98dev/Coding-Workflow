@@ -21,7 +21,7 @@ Phase 1 + Phase 1.5 executed in one session.
 - /stress-test adversarial workflow (225 lines)
 
 **Phase 1.5 Delivered:**
-- `.gsd/` → `.quantis/` directory rename (68 files)
+- Directory renamed from `gsd` to `quantis` (68 files)
 - GSD → Quantis brand name across all active files
 - `GSD-STYLE.md` → `QUANTIS-STYLE.md`
 - Full README rewrite (456 lines) with Quantis branding + quality governance section
