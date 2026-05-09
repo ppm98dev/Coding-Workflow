@@ -29,6 +29,11 @@ Update the SPEC template to support `[NEEDS CLARIFICATION]` markers, add Quality
        > ⚠️ **Clarification Rule**: When creating this spec, mark ALL ambiguities with
        > `[NEEDS CLARIFICATION: specific question]` inline. Do not guess. If the user
        > didn't specify something, mark it. All markers must be resolved before FINALIZED.
+       >
+       > 📐 **Separation Rule**: This spec defines WHAT to build and WHY.
+       > - ✅ Focus on user goals, business requirements, constraints, success criteria
+       > - ❌ Avoid HOW to implement — no tech stack, APIs, frameworks, code structure
+       > - Technical choices belong in PLAN.md, not here
        ```
 
     2. Add "Quality Requirements" section (after Constraints, before Success Criteria):
