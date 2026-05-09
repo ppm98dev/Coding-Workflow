@@ -114,9 +114,16 @@ if ! grep -q "FINALIZED" ".gsd/SPEC.md"; then
     echo "Error: SPEC.md must be FINALIZED before planning" >&2
     exit 1
 fi
+
+# Check CONSTITUTION.md exists
+if [ ! -f ".gsd/CONSTITUTION.md" ]; then
+    echo "Error: CONSTITUTION.md required. Run /new-project or create one from .gsd/templates/constitution.md" >&2
+    exit 1
+fi
 ```
 
 **If not finalized:** Error — user must complete SPEC.md first.
+**If no constitution:** Error — user must create CONSTITUTION.md first.
 
 ---
 
@@ -193,11 +200,17 @@ Display banner:
 
 ### 6a. Gather Context
 Load:
+- `.gsd/CONSTITUTION.md` — Project quality standards (**REQUIRED**)
 - `.gsd/SPEC.md` — Requirements
 - `.gsd/REQUIREMENTS.md` — Formal requirements tracking (if exists)
 - `.gsd/ROADMAP.md` — Phase description
 - `$PHASE_DIR/RESEARCH.md` — If exists
 - `.gsd/ARCHITECTURE.md` — If exists
+
+> **Constitutional Compliance**: Every plan MUST comply with CONSTITUTION.md.
+> Tasks that would violate constitutional articles must either:
+> - Be restructured to comply, or
+> - Document the violation with justification in the plan
 
 ### 6b. Decompose into Tasks
 For the phase goal:
