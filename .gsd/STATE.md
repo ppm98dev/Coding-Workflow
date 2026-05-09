@@ -2,9 +2,12 @@
 
 ## Current Position
 - **Milestone**: v2.1 — Production Code Quality, Spec Rigor & Scaling
-- **Phase**: Not started
+- **Phase**: 1 — Constitution & Spec Rigor
 - **Next Milestone**: v2.2 — Advanced Scaling (future)
-- **Status**: Milestone planned (2026-05-09T23:11:00+02:00)
+- **Status**: Planning complete, ready for execution (2026-05-09T23:32:00+02:00)
+
+## Next Steps
+1. `/execute 1` — Execute Phase 1 plans
 
 ## Strategic Decision: GSD vs Spec-Kit
 
