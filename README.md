@@ -141,8 +141,7 @@ graph LR
 
 | Step | Command | Output |
 |:----:|---------|--------|
-| **0** | `/new-project` | Constitution Q&A → `CONSTITUTION.md` (quality standards) |
-| **1** | `/new-project` | Deep questioning → `SPEC.md` (finalized) |
+| **1** | `/new-project` | Constitution Q&A → `CONSTITUTION.md` → Deep questioning → `SPEC.md` |
 | **2** | `/stress-test` | Adversarial review → Find gaps, add `[NEEDS CLARIFICATION]` markers |
 | **3** | `/plan N` | Technical discovery → `PLAN.md` with XML tasks |
 | **4** | `/execute N` | Wave-based execution → Atomic commits |
