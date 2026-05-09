@@ -1,26 +1,24 @@
 <div align="center">
 
-<picture>
-  <img src="assets/banner.svg" alt="Get Shit Done for Antigravity" width="100%"/>
-</picture>
-
 <br/>
 
-[![Version](https://img.shields.io/badge/version-2.0.0-00C853?style=flat-square)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.1.0-00C853?style=flat-square)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-2196F3?style=flat-square)](LICENSE)
-[![Based on GSD](https://img.shields.io/badge/based%20on-GSD-7B2D8E?style=flat-square)](https://github.com/gsd-build/get-shit-done)
+[![Evolved from GSD](https://img.shields.io/badge/evolved%20from-GSD-7B2D8E?style=flat-square)](https://github.com/gsd-build/get-shit-done)
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux-FF6D00?style=flat-square)](#-platform-support)
 [![Model Agnostic](https://img.shields.io/badge/models-any%20LLM-E91E63?style=flat-square)](#-multi-model-support)
 
 <br/>
 
-**Stop vibecoding. Start shipping.**
+# ⚛️ Quantis
 
-*Describe your idea → GSD extracts everything the AI needs → Watch it build correctly.*
+**Spec-Driven Development for AI Coding**
+
+*Define quality standards → Specify what to build → Stress-test for gaps → Plan with rigor → Execute atomically → Verify with proof.*
 
 <br/>
 
-[Getting Started](#-getting-started) · [How It Works](#-how-it-works) · [Commands](#-commands-27-total) · [Documentation](#-documentation)
+[Getting Started](#-getting-started) · [How It Works](#-how-it-works) · [Quality Governance](#-quality-governance) · [Commands](#-commands-28-total) · [Documentation](#-documentation)
 
 </div>
 
@@ -30,19 +28,21 @@
 
 > Vibecoding has a bad reputation — and it deserves it.
 
-You describe what you want, AI generates code, and you get **inconsistent garbage** that falls apart at scale.
+You describe what you want, AI generates code, and you get **inconsistent, untested, "it works" code** that falls apart at scale. No error handling. No logging. No tests. No structure.
 
-GSD fixes that. It's the **context engineering layer** that makes AI coding reliable.
+Quantis fixes that. It's the **spec-driven context engineering layer** that makes AI coding reliable and production-grade.
 
 <table>
 <tr>
 <td width="50%">
 
-### ❌ Without GSD
+### ❌ Without Quantis
 ```
 "Add a feature"
-    → Inconsistent code
-    → Bugs everywhere
+    → Vague spec
+    → Guessed requirements
+    → "It works" code
+    → No tests, no logging
     → Debug loop
     → Frustration
 ```
@@ -50,14 +50,15 @@ GSD fixes that. It's the **context engineering layer** that makes AI coding reli
 </td>
 <td width="50%">
 
-### ✅ With GSD
+### ✅ With Quantis
 ```
 "Add a feature"
-    → SPEC
-    → Plan
+    → Constitution (quality standards)
+    → SPEC (forced clarity)
+    → Stress-test (find gaps)
     → Atomic execution
-    → Verification
-    → ✅ Done
+    → Empirical verification
+    → ✅ Production-grade
 ```
 
 </td>
@@ -65,7 +66,7 @@ GSD fixes that. It's the **context engineering layer** that makes AI coding reli
 </table>
 
 > **No enterprise roleplay.** No sprint ceremonies, story points, stakeholder syncs, or Jira workflows.
-> Just an incredibly effective system for building cool stuff consistently.
+> Just an incredibly effective system for building high-quality software consistently.
 
 ---
 
@@ -75,7 +76,7 @@ GSD fixes that. It's the **context engineering layer** that makes AI coding reli
 |---|---|
 | 🧑‍💻 **Solo developers** | Using AI coding assistants and need consistency |
 | 👥 **Small teams** | Who want structure without enterprise overhead |
-| 😤 **Anyone** | Tired of AI generating inconsistent garbage |
+| 😤 **Anyone** | Tired of AI generating untested, unstructured code |
 
 ---
 
@@ -85,23 +86,23 @@ GSD fixes that. It's the **context engineering layer** that makes AI coding reli
 # Open your project
 cd your-project
 
-# Clone the GSD template
-git clone https://github.com/ppm98dev/Coding-Workflow.git gsd-template
+# Clone the Quantis template
+git clone https://github.com/ppm98dev/Coding-Workflow.git quantis-template
 
 # Copy to your project
-cp -r gsd-template/.agent ./
-cp -r gsd-template/.agents ./
-cp -r gsd-template/.gemini ./
-cp -r gsd-template/.quantis ./
-cp -r gsd-template/adapters ./
-cp -r gsd-template/docs ./
-cp -r gsd-template/scripts ./
-cp gsd-template/PROJECT_RULES.md ./
-cp gsd-template/QUANTIS-STYLE.md ./
-cp gsd-template/model_capabilities.yaml ./
+cp -r quantis-template/.agent ./
+cp -r quantis-template/.agents ./
+cp -r quantis-template/.gemini ./
+cp -r quantis-template/.quantis ./
+cp -r quantis-template/adapters ./
+cp -r quantis-template/docs ./
+cp -r quantis-template/scripts ./
+cp quantis-template/PROJECT_RULES.md ./
+cp quantis-template/QUANTIS-STYLE.md ./
+cp quantis-template/model_capabilities.yaml ./
 
 # Clean up
-rm -rf gsd-template
+rm -rf quantis-template
 ```
 
 Then run `/new-project` and follow the prompts.
@@ -115,29 +116,34 @@ Then run `/new-project` and follow the prompts.
 
 ```mermaid
 graph LR
-    A["🆕 /new-project"] --> B["📋 SPEC.md"]
-    B --> C["💬 /discuss-phase"]
-    C --> D["📐 /plan"]
-    D --> E["⚙️ /execute"]
-    E --> F["✅ /verify"]
-    F --> G{"More\nphases?"}
-    G -- Yes --> C
-    G -- No --> H["🏁 /complete-milestone"]
+    A["📜 Constitution"] --> B["🆕 /new-project"]
+    B --> C["📋 SPEC.md"]
+    C --> D["🔥 /stress-test"]
+    D --> E["📐 /plan"]
+    E --> F["⚙️ /execute"]
+    F --> G["✅ /verify"]
+    G --> H{"More\nphases?"}
+    H -- Yes --> I["💬 /discuss-phase"]
+    I --> E
+    H -- No --> J["🏁 /complete-milestone"]
 
-    style A fill:#7B2D8E,color:#fff,stroke:none
-    style B fill:#00C853,color:#fff,stroke:none
-    style C fill:#2196F3,color:#fff,stroke:none
-    style D fill:#FF6D00,color:#fff,stroke:none
-    style E fill:#E91E63,color:#fff,stroke:none
-    style F fill:#00C853,color:#fff,stroke:none
-    style G fill:#FFC107,color:#000,stroke:none
-    style H fill:#7B2D8E,color:#fff,stroke:none
+    style A fill:#FF6D00,color:#fff,stroke:none
+    style B fill:#7B2D8E,color:#fff,stroke:none
+    style C fill:#00C853,color:#fff,stroke:none
+    style D fill:#E91E63,color:#fff,stroke:none
+    style E fill:#FF6D00,color:#fff,stroke:none
+    style F fill:#2196F3,color:#fff,stroke:none
+    style G fill:#00C853,color:#fff,stroke:none
+    style H fill:#FFC107,color:#000,stroke:none
+    style I fill:#2196F3,color:#fff,stroke:none
+    style J fill:#7B2D8E,color:#fff,stroke:none
 ```
 
 | Step | Command | Output |
 |:----:|---------|--------|
+| **0** | `/new-project` | Constitution Q&A → `CONSTITUTION.md` (quality standards) |
 | **1** | `/new-project` | Deep questioning → `SPEC.md` (finalized) |
-| **2** | `/discuss-phase N` | Clarify scope → `DECISIONS.md` |
+| **2** | `/stress-test` | Adversarial review → Find gaps, add `[NEEDS CLARIFICATION]` markers |
 | **3** | `/plan N` | Technical discovery → `PLAN.md` with XML tasks |
 | **4** | `/execute N` | Wave-based execution → Atomic commits |
 | **5** | `/verify N` | Must-haves check → Evidence captured |
@@ -145,22 +151,68 @@ graph LR
 
 ---
 
+## 🛡️ Quality Governance
+
+Quantis goes beyond task management — it enforces **production-grade code quality** through constitutional governance.
+
+### 📜 CONSTITUTION.md — Project Quality Standards
+
+Every project gets a constitution with **10 articles** defining how code must be written:
+
+| Article | Governs |
+|---------|---------|
+| 1. Code Quality | Naming, function length, single responsibility |
+| 2. Error Handling | Fail-fast vs graceful, no empty catches |
+| 3. Logging | Structured vs plaintext, required events |
+| 4. Input Validation | Boundary validation, schema-based |
+| 5. Testing | Test-first, coverage targets, anti-patterns |
+| 6. Security | No hardcoded secrets, parameterized queries |
+| 7. Documentation | Docstrings, API docs, WHY not WHAT |
+| 8. Performance | N+1 queries, unbounded loops, memory |
+| 9. Dependencies | Approval process, version pinning |
+| 10. Architecture | Separation of concerns, dependency direction |
+
+> The constitution is **always loaded** in `/plan` and `/execute`. It's the DNA of your project.
+
+### 🔒 Forced Clarity — `[NEEDS CLARIFICATION]`
+
+Ambiguity kills projects. Quantis forces you to confront it:
+
+```markdown
+## Goals
+1. Real-time notifications [NEEDS CLARIFICATION: push vs polling? frequency?]
+2. User auth via OAuth
+
+## Performance
+- Must be fast [NEEDS CLARIFICATION: what latency? p50? p95? p99?]
+```
+
+- **Plan-checker rejects** specs with unresolved markers
+- **`/stress-test`** adversarially reviews your spec on 7 dimensions
+
+### 📐 Separation Rule
+
+```
+SPEC.md = WHAT to build + WHY  (user intent, no tech details)
+PLAN.md = HOW to build it      (tech stack, architecture, implementation)
+```
+
+---
+
 ## 🧩 Why It Works
 
 ### 📦 Context Engineering
 
-The AI is incredibly powerful **if** you give it the context it needs. Most people don't. GSD handles it for you:
+AI is powerful **if** you give it proper context. Most people don't. Quantis handles it:
 
 | File | Role | Icon |
 |------|------|:----:|
+| `CONSTITUTION.md` | Quality standards, always loaded | 📜 |
 | `SPEC.md` | Project vision, always loaded | 🎯 |
 | `ARCHITECTURE.md` | System understanding | 🏗️ |
 | `ROADMAP.md` | Where you're going, what's done | 🗺️ |
 | `STATE.md` | Decisions, blockers, memory across sessions | 💾 |
 | `PLAN.md` | Atomic tasks with XML structure | 📐 |
-| `SUMMARY.md` | What happened, what changed | 📝 |
-
-> Size limits based on where AI quality degrades. Stay under, get consistent excellence.
 
 ### 🏷️ XML Prompt Formatting
 
@@ -180,54 +232,17 @@ Every plan is structured XML optimized for AI execution:
 </task>
 ```
 
-Precise instructions. No guessing. Verification built in.
-
 ### 🌊 Wave-Based Execution
 
-Plans are grouped into waves based on dependencies:
-
-```mermaid
-graph TD
-    subgraph W1["🌊 Wave 1 — Foundation"]
-        T1["Task A"] & T2["Task B"] & T3["Task C"]
-    end
-    subgraph W2["🌊 Wave 2 — Integration"]
-        T4["Task D"] & T5["Task E"]
-    end
-    subgraph W3["🌊 Wave 3 — Polish"]
-        T6["Task F"]
-    end
-
-    W1 --> W2 --> W3
-
-    style W1 fill:#E3F2FD,stroke:#2196F3,color:#000
-    style W2 fill:#FFF3E0,stroke:#FF6D00,color:#000
-    style W3 fill:#F3E5F5,stroke:#7B2D8E,color:#000
-    style T1 fill:#2196F3,color:#fff,stroke:none
-    style T2 fill:#2196F3,color:#fff,stroke:none
-    style T3 fill:#2196F3,color:#fff,stroke:none
-    style T4 fill:#FF6D00,color:#fff,stroke:none
-    style T5 fill:#FF6D00,color:#fff,stroke:none
-    style T6 fill:#7B2D8E,color:#fff,stroke:none
-```
-
-Each executor gets **fresh context**. Your main session stays fast.
+Plans are grouped into dependency waves. Each executor gets **fresh context**.
 
 ### 🔗 Atomic Git Commits
 
-Each task gets its own commit immediately after completion:
-
-```
-abc123f feat(phase-1): create login endpoint
-def456g feat(phase-1): add password validation
-hij789k feat(phase-1): implement JWT cookie handling
-```
-
-> **Why?** Git bisect finds exact failing task · Each task independently revertable · Clear history for AI in future sessions
+Each task → its own commit. `git bisect` finds exact failing task.
 
 ### 🔬 Empirical Verification
 
-No "trust me, it works." Every verification produces evidence:
+No "trust me, it works." Every verification produces proof:
 
 | Change Type | Evidence Required |
 |:---:|:---:|
@@ -238,10 +253,10 @@ No "trust me, it works." Every verification produces evidence:
 
 ---
 
-## 🎮 Commands (27 Total)
+## 🎮 Commands (28 Total)
 
 > [!NOTE]
-> Slash commands are typed directly as chat messages (e.g. send `/plan 1`). They are **not** IDE autocomplete features — if your editor shows "nothing found" when pressing `/`, that's normal. Just type the full command and send it.
+> Slash commands are typed directly as chat messages (e.g. send `/plan 1`). They are **not** IDE autocomplete features.
 
 ### 🔵 Core Workflow
 
@@ -251,14 +266,15 @@ No "trust me, it works." Every verification produces evidence:
 | `/plan [N]` | 📐 Create `PLAN.md` for phase N |
 | `/execute [N]` | ⚙️ Wave-based execution with atomic commits |
 | `/verify [N]` | ✅ Must-haves validation with proof |
+| `/stress-test` | 🔥 Adversarial spec review — find gaps before planning |
 | `/debug [desc]` | 🐛 Systematic debugging (3-strike rule) |
 
 ### 🟢 Project Setup
 
 | Command | Purpose |
 |---------|---------|
-| `/install` | 📦 Install GSD from GitHub |
-| `/new-project` | 🆕 Deep questioning → `SPEC.md` |
+| `/install` | 📦 Install Quantis from GitHub |
+| `/new-project` | 🆕 Constitution → Deep questioning → `SPEC.md` |
 | `/new-milestone` | 🏁 Create milestone with phases |
 | `/complete-milestone` | 🎉 Archive completed milestone |
 | `/audit-milestone` | 🔍 Review milestone quality |
@@ -279,7 +295,7 @@ No "trust me, it works." Every verification produces evidence:
 
 | Command | Purpose |
 |---------|---------|
-| `/sprint new` | ⚡ Create a time-boxed sprint for quick focused work |
+| `/sprint new` | ⚡ Create a time-boxed sprint |
 | `/sprint status` | 📊 Show sprint progress |
 | `/sprint close` | ✅ Close sprint with retrospective |
 
@@ -299,8 +315,8 @@ No "trust me, it works." Every verification produces evidence:
 |---------|---------|
 | `/help` | ❓ Show all available commands |
 | `/web-search` | 🌐 Search the web for decisions |
-| `/whats-new` | 📢 Show recent GSD changes |
-| `/update` | ⬆️ Update GSD to latest version |
+| `/whats-new` | 📢 Show recent Quantis changes |
+| `/update` | ⬆️ Update Quantis to latest version |
 
 ---
 
@@ -317,7 +333,7 @@ No "trust me, it works." Every verification produces evidence:
 ```
 
 > [!IMPORTANT]
-> GSD forces **planning before coding**. The AI can't write code until `SPEC.md` says `FINALIZED`. This prevents building the wrong thing.
+> Quantis enforces **planning before coding**. The AI can't write code until `SPEC.md` says `FINALIZED` and `CONSTITUTION.md` exists. No shortcuts.
 
 ---
 
@@ -325,107 +341,12 @@ No "trust me, it works." Every verification produces evidence:
 
 | | Rule | Why It Matters |
 |:---:|------|----------------|
+| 📜 | **Constitutional Compliance** | Every plan and execution respects project quality standards |
 | 🔒 | **Planning Lock** | No code until `SPEC.md` is `FINALIZED` — prevents building wrong thing |
+| ⚠️ | **Forced Clarity** | `[NEEDS CLARIFICATION]` markers block planning until resolved |
 | 💾 | **State Persistence** | Update `STATE.md` after every task — memory across sessions |
 | 🧹 | **Context Hygiene** | 3 failures → state dump → fresh session — prevents circular debugging |
 | ✅ | **Empirical Validation** | Proof required — no "it should work" |
-
----
-
-## 🌍 Platform Support
-
-All workflow files use **Bash** commands (macOS/Linux).
-
-> This fork is optimized for macOS and Linux. Git commands work identically everywhere.
-
----
-
-## 🤖 Multi-Model Support
-
-GSD is **model-agnostic** — use any LLM that works in your environment.
-
-### Canonical Rules
-
-All rules live in [PROJECT_RULES.md](PROJECT_RULES.md) — the single source of truth.
-
-### Optional Adapters
-
-Model-specific enhancements *(optional, never required)*:
-
-```
-adapters/
-├── ANTIGRAVITY.md # Antigravity-native tool mapping
-├── CLAUDE.md      # Extended thinking, effort levels
-├── GEMINI.md      # Flash vs Pro selection
-└── GPT_OSS.md     # Function calling, context handling
-```
-
-### Model Selection by Phase
-
-| Phase | Recommended | Why |
-|:-----:|:-----------:|-----|
-| 📋 Planning | Reasoning models | Complex decisions |
-| ⚙️ Implementation | Fast models | Iteration speed |
-| 🐛 Debugging | Reasoning models | Hypothesis testing |
-| 🔍 Review | Long-context models | Full diff analysis |
-
-> See [model-selection-playbook.md](docs/model-selection-playbook.md) for detailed guidance.
-
----
-
-## 🔍 Search-First Mode
-
-> **Principle:** Search before reading files completely.
-
-### Why?
-
-- 🎯 Reduces context pollution
-- ⚡ Faster codebase understanding
-- 🚫 Prevents reading irrelevant code
-
-<details>
-<summary><b>Setup (Optional)</b></summary>
-
-```bash
-./scripts/setup_search.sh           # Checks for ripgrep/fd
-./scripts/search_repo.sh "pattern"  # Search wrapper
-```
-
-> **No installation required** — falls back to `grep`.
-
-</details>
-
-### Workflow
-
-1. **Define question** — What are you looking for?
-2. **Search first** — `./scripts/search_repo.sh "keyword"`
-3. **Evaluate results** — Which files matter?
-4. **Targeted read** — Only read relevant sections
-
----
-
-## 💰 Token Optimization
-
-> **Principle:** Minimize token consumption while maintaining quality.
-
-### Skills Available
-
-| Skill | Purpose |
-|-------|---------|
-| 📊 `token-budget` | Track and manage token usage |
-| 🗜️ `context-compressor` | Compress context for efficiency |
-| 🔍 `context-fetch` | Search-first loading |
-| 🩺 `context-health-monitor` | Detect quality degradation |
-
-### Budget Thresholds
-
-| Usage | Status | Action |
-|:-----:|:------:|--------|
-| 0–50% | 🟢 OK | Proceed normally |
-| 50–70% | 🟡 Warning | Compress, use outlines |
-| 70%+ | 🔴 Critical | State dump required |
-
-> See [token-optimization-guide.md](docs/token-optimization-guide.md) for complete strategies.
 
 ---
 
@@ -433,18 +354,19 @@ adapters/
 
 ```
 📄 PROJECT_RULES.md          # ← Canonical rules (model-agnostic)
-📄 QUANTIS-STYLE.md              # Complete style guide
+📄 QUANTIS-STYLE.md          # Complete style guide
 
 📂 .agent/
-└── 📂 workflows/            # 27 slash commands
+└── 📂 workflows/            # 28 slash commands
 
 📂 .agents/
-└── 📂 skills/               # 11 agent specializations (Agent Skills standard)
+└── 📂 skills/               # 11 agent specializations
 
 📂 .gemini/
 └── 📄 GEMINI.md             # Gemini integration
 
 📂 .quantis/
+├── 📄 CONSTITUTION.md       # ← QUALITY STANDARDS (always loaded)
 ├── 📄 SPEC.md               # ← START HERE (finalize first)
 ├── 📄 ROADMAP.md            # Phases and progress
 ├── 📄 STATE.md              # Session memory
@@ -453,23 +375,12 @@ adapters/
 ├── 📄 DECISIONS.md          # Architecture Decision Records
 ├── 📄 JOURNAL.md            # Session log
 ├── 📄 TODO.md               # Quick capture
-├── 📂 templates/            # Document templates
+├── 📂 templates/            # Document templates (including constitution)
 └── 📂 examples/             # Usage walkthroughs
 
 📂 adapters/                 # Optional model-specific enhancements
-├── 📄 CLAUDE.md
-├── 📄 GEMINI.md
-└── 📄 GPT_OSS.md
-
 📂 docs/                     # Operational documentation
-├── 📄 model-selection-playbook.md
-└── 📄 runbook.md
-
 📂 scripts/                  # Utility scripts
-├── 📄 validate-*.sh         # Structure validators
-├── 📄 setup_search.sh       # Search tool setup
-└── 📄 search_repo.sh        # Search wrapper
-
 📄 model_capabilities.yaml   # Optional capability registry
 ```
 
@@ -477,7 +388,7 @@ adapters/
 
 ## 🧪 Testing
 
-Run validation scripts to verify GSD structure:
+Run validation scripts to verify Quantis structure:
 
 ```bash
 ./scripts/validate-all.sh         # Run all validators
@@ -505,7 +416,13 @@ Run validation scripts to verify GSD structure:
 
 <table>
 <tr>
-<td>🎯</td><td><b>Plan before building</b> — <code>SPEC.md</code> matters more than you think</td>
+<td>📜</td><td><b>Constitution-first</b> — Define quality standards before writing a single line</td>
+</tr>
+<tr>
+<td>🎯</td><td><b>Spec-driven</b> — Specifications generate implementation, not the other way around</td>
+</tr>
+<tr>
+<td>⚠️</td><td><b>Forced clarity</b> — Mark what you don't know instead of guessing</td>
 </tr>
 <tr>
 <td>🧹</td><td><b>Fresh context > polluted context</b> — State dumps prevent hallucinations</td>
@@ -520,13 +437,10 @@ Run validation scripts to verify GSD structure:
 <td>🔍</td><td><b>Search before reading</b> — Don't load files blindly</td>
 </tr>
 <tr>
-<td>💰</td><td><b>Token-efficient</b> — Every token counts</td>
-</tr>
-<tr>
 <td>🤖</td><td><b>Model-agnostic</b> — Works with any capable LLM</td>
 </tr>
 <tr>
-<td>🚫</td><td><b>No enterprise theater</b> — Solo dev + AI workflow only</td>
+<td>🚫</td><td><b>No enterprise theater</b> — Solo dev + AI workflow, no ceremonies</td>
 </tr>
 </table>
 
@@ -534,10 +448,10 @@ Run validation scripts to verify GSD structure:
 
 <div align="center">
 
-<sub>Adapted from <a href="https://github.com/gsd-build/get-shit-done">gsd-build/get-shit-done</a> for Google Antigravity</sub>
+<sub>Evolved from <a href="https://github.com/gsd-build/get-shit-done">gsd-build/get-shit-done</a> — rebuilt with spec-driven governance for production-grade AI coding</sub>
 
 <br/>
 
-[![GitHub](https://img.shields.io/badge/GitHub-toonight-181717?style=flat-square&logo=github)](https://github.com/toonight/get-shit-done-for-antigravity)
+[![GitHub](https://img.shields.io/badge/GitHub-ppm98dev-181717?style=flat-square&logo=github)](https://github.com/ppm98dev/Coding-Workflow)
 
 </div>
