@@ -71,7 +71,7 @@ Create the CONSTITUTION.md template with 10 comprehensive articles and integrate
     Modify /new-project workflow to add constitution creation as Phase 1 (renumber existing phases +1).
 
     New Phase 1: "Create Constitution"
-    - Display banner: "GSD ► CONSTITUTION"
+    - Display banner: "Quantis ► CONSTITUTION"
     - Explain: "Before defining what to build, let's define HOW you want to build it."
     - Walk through each of the 10 articles with focused questions:
       - "What's your error handling strategy? (fail-fast / graceful degradation / hybrid)"

@@ -93,7 +93,7 @@ Addressing {N} gaps from milestone audit.
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► GAP CLOSURE PLANS CREATED ✓
+ Quantis ► GAP CLOSURE PLANS CREATED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Gaps identified: {N}

@@ -25,7 +25,7 @@ Antigravity is Google's **agent-first IDE** that shifts development from manual 
 
 ### Core Agent Tools
 
-| Tool | Purpose | GSD Mapping |
+| Tool | Purpose | Quantis Mapping |
 |------|---------|-------------|
 | `run_command` | Execute shell commands, scripts, build steps | `/execute` task execution |
 | `view_file` | Read file contents (text + binary like images/video) | `/map` codebase analysis |
@@ -43,14 +43,14 @@ Antigravity is Google's **agent-first IDE** that shifts development from manual 
 
 ### Unique Antigravity Features (Not in Other Agents)
 
-| Feature | Detail | Impact on GSD |
+| Feature | Detail | Impact on Quantis |
 |---------|--------|---------------|
 | **Browser Subagent** | Autonomous browser with recording — captures WebP videos | Perfect for `/verify` — visual proof built-in |
 | **Persistent Context** | Knowledge Items (KIs) + Conversation Logs in `~/.gemini/antigravity/brain/` | Replaces STATE.md for cross-session memory |
 | **Planning Mode** | Built-in plan→approve→execute→walkthrough flow | Overlaps with `/plan` → `/execute` → `/verify` |
 | **Artifacts System** | Special markdown docs (implementation_plan, walkthrough, task) | Maps to PLAN.md, SUMMARY.md, VERIFICATION.md |
 | **Image Generation** | Can create UI mockups, diagrams, assets | New capability for `/plan` visualization |
-| **Multi-Workspace** | Multiple project workspaces with corpus mapping | Multi-project GSD support |
+| **Multi-Workspace** | Multiple project workspaces with corpus mapping | Multi-project Quantis support |
 | **Agent Policies** | Terminal/File/Browser access policies | Security layer for `/execute` |
 
 ---
@@ -58,11 +58,11 @@ Antigravity is Google's **agent-first IDE** that shifts development from manual 
 ## Antigravity's Built-in Planning Mode
 
 Antigravity already has a planning mode with three special artifacts:
-1. **`implementation_plan.md`** — Technical design document (≈ GSD's PLAN.md)
-2. **`task.md`** — TODO checklist with `[ ]`, `[/]`, `[x]` notation (≈ GSD's wave tasks)
-3. **`walkthrough.md`** — Post-implementation summary (≈ GSD's SUMMARY.md)
+1. **`implementation_plan.md`** — Technical design document (≈ Quantis's PLAN.md)
+2. **`task.md`** — TODO checklist with `[ ]`, `[/]`, `[x]` notation (≈ Quantis's wave tasks)
+3. **`walkthrough.md`** — Post-implementation summary (≈ Quantis's SUMMARY.md)
 
-**Key insight**: GSD and Antigravity's planning mode are **complementary, not competing**. GSD provides the *methodology* (SPEC→PLAN→EXECUTE→VERIFY), while Antigravity provides the *tooling* (artifacts, browser subagent, persistent context).
+**Key insight**: GSD and Antigravity's planning mode are **complementary, not competing**. Quantis provides the *methodology* (SPEC→PLAN→EXECUTE→VERIFY), while Antigravity provides the *tooling* (artifacts, browser subagent, persistent context).
 
 ---
 
@@ -80,7 +80,7 @@ Antigravity already has a planning mode with three special artifacts:
 ### Progressive Disclosure
 - Agent reads ONLY `name` + `description` from YAML frontmatter initially
 - Full SKILL.md content loaded only when agent determines relevance
-- This keeps context lean — critical for GSD's context management philosophy
+- This keeps context lean — critical for Quantis's context management philosophy
 
 ### Global Skills Path
 ```
@@ -102,28 +102,28 @@ Antigravity already has a planning mode with three special artifacts:
 
 ---
 
-## Key Findings for GSD Adapter
+## Key Findings for Quantis Adapter
 
-### What GSD SHOULD leverage in Antigravity:
+### What Quantis SHOULD leverage in Antigravity:
 
 1. **`browser_subagent` for verification** — Instead of just `curl` output, capture screenshots and recordings as proof
 2. **Persistent Context (KIs)** — STATE.md is great, but KIs provide cross-conversation memory that survives session restarts
-3. **Artifacts system** — GSD's PLAN.md, SUMMARY.md, VERIFICATION.md should be created as Antigravity artifacts for better UI integration
+3. **Artifacts system** — Quantis's PLAN.md, SUMMARY.md, VERIFICATION.md should be created as Antigravity artifacts for better UI integration
 4. **`generate_image` for planning** — Create architecture diagrams and UI mockups during `/plan`
-5. **Agent policies** — Document which policies GSD workflows need (terminal: full, file: full, browser: for /verify)
+5. **Agent policies** — Document which policies Quantis workflows need (terminal: full, file: full, browser: for /verify)
 
-### What GSD SHOULD NOT duplicate:
+### What Quantis SHOULD NOT duplicate:
 
 1. **Planning mode overlap** — Don't fight Antigravity's planning mode; document how they work together
-2. **Context management** — Antigravity already has context hygiene (KIs, progressive disclosure); GSD's token-budget skill should reference these
+2. **Context management** — Antigravity already has context hygiene (KIs, progressive disclosure); Quantis's token-budget skill should reference these
 3. **File operations** — Use Antigravity's native tools (`write_to_file`, `replace_file_content`) instead of shell `echo >` patterns
 
-### What's MISSING from current GSD:
+### What's MISSING from current Quantis:
 
 1. **No `adapters/ANTIGRAVITY.md`** — The #1 gap
 2. **No guidance on browser_subagent** — Most powerful verification tool, completely unused
 3. **No KI integration** — STATE.md works but KIs are better for persistent memory
-4. **No artifact type mapping** — GSD docs should use artifact metadata for Antigravity integration
+4. **No artifact type mapping** — Quantis docs should use artifact metadata for Antigravity integration
 5. **PowerShell examples first** — Wrong order for macOS/Linux users
 
 ---

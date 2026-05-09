@@ -1,12 +1,12 @@
 #!/bin/bash
-# GSD Skill Validation Script
+# Quantis Skill Validation Script
 # Validates all skill directories for required structure
 
 error_count=0
 skills_checked=0
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo " GSD ► VALIDATING SKILLS"
+echo " Quantis ► VALIDATING SKILLS"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 

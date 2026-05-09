@@ -1,11 +1,11 @@
 ---
-description: Update GSD to the latest version from GitHub
+description: Update Quantis to the latest version from GitHub
 ---
 
 # /update Workflow
 
 <objective>
-Update GSD for Antigravity to the latest version from GitHub.
+Update Quantis for Antigravity to the latest version from GitHub.
 </objective>
 
 <process>
@@ -40,7 +40,7 @@ echo "Remote version: $remote_version"
 **If same version:**
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► ALREADY UP TO DATE ✓
+ Quantis ► ALREADY UP TO DATE ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Version: {version}
@@ -57,7 +57,7 @@ Exit after cleanup.
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► UPDATE AVAILABLE
+ Quantis ► UPDATE AVAILABLE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Current: {current-version}
@@ -97,7 +97,7 @@ cp -r .quantis-update-temp/.agents/* .agents/
 cp -r .quantis-update-temp/.quantis/templates/* .quantis/templates/
 
 # Update root files
-cp .quantis-update-temp/GSD-STYLE.md ./
+cp .quantis-update-temp/QUANTIS-STYLE.md ./
 cp .quantis-update-temp/CHANGELOG.md ./
 cp .quantis-update-temp/PROJECT_RULES.md ./
 cp .quantis-update-temp/VERSION ./
@@ -120,7 +120,7 @@ rm -rf .quantis/templates.backup
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► UPDATED ✓
+ Quantis ► UPDATED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Updated to version {remote-version}

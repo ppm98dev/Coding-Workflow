@@ -1,9 +1,9 @@
-# GSD Methodology — Mission Control Rules
+# Quantis Methodology — Mission Control Rules
 
 > **Get Shit Done**: A spec-driven, context-engineered development methodology.
 > 
 > These rules enforce disciplined, high-quality autonomous development.
-> GSD replaces Antigravity's built-in planning mode — use GSD workflows exclusively.
+> Quantis replaces Antigravity's built-in planning mode — use Quantis workflows exclusively.
 
 ---
 
@@ -38,7 +38,7 @@ Before "Done"    → Empirical proof captured (browser_subagent for UI, run_comm
 
 ## Workflow Integration
 
-These rules integrate with GSD workflows and Antigravity tools:
+These rules integrate with Quantis workflows and Antigravity tools:
 
 | Workflow | Rules Enforced | Antigravity Tools |
 |----------|----------------|-------------------|
@@ -72,6 +72,6 @@ For model-specific enhancements:
 
 ---
 
-*GSD Methodology for Google Antigravity*
+*Quantis Methodology for Google Antigravity*
 *Canonical rules: [PROJECT_RULES.md](../PROJECT_RULES.md)*
 *Source: https://github.com/gsd-build/get-shit-done*

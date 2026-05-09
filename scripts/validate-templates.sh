@@ -1,5 +1,5 @@
 #!/bin/bash
-# GSD Template Validation Script
+# Quantis Template Validation Script
 # Validates all template files in .quantis/templates/
 
 error_count=0
@@ -7,7 +7,7 @@ warning_count=0
 templates_checked=0
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo " GSD ► VALIDATING TEMPLATES"
+echo " Quantis ► VALIDATING TEMPLATES"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 

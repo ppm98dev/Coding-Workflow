@@ -1,4 +1,4 @@
-# GSD Quick Reference Card
+# Quantis Quick Reference Card
 
 ## Workflow Lifecycle
 

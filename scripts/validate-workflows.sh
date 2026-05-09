@@ -1,5 +1,5 @@
 #!/bin/bash
-# GSD Workflow Validation Script
+# Quantis Workflow Validation Script
 # Validates all workflow files for required structure
 
 error_count=0
@@ -7,7 +7,7 @@ warning_count=0
 workflows_checked=0
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo " GSD ► VALIDATING WORKFLOWS"
+echo " Quantis ► VALIDATING WORKFLOWS"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 

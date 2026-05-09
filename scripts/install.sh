@@ -1,5 +1,5 @@
 #!/bin/bash
-# install.sh — Install GSD for Antigravity into the current project
+# install.sh — Install Quantis for Antigravity into the current project
 # Usage: bash install.sh [--force]
 
 set -e
@@ -21,10 +21,10 @@ for arg in "$@"; do
     --help|-h)
       echo "Usage: bash install.sh [--force]"
       echo ""
-      echo "Install GSD for Antigravity into the current project."
+      echo "Install Quantis for Antigravity into the current project."
       echo ""
       echo "Options:"
-      echo "  --force    Overwrite existing GSD files"
+      echo "  --force    Overwrite existing Quantis files"
       echo "  --help     Show this help"
       exit 0
       ;;
@@ -33,12 +33,12 @@ done
 
 # Check for existing installation
 if [ -d ".quantis" ] && [ "$FORCE" = false ]; then
-  echo -e "${YELLOW}⚠  GSD already installed in this project.${NC}"
+  echo -e "${YELLOW}⚠  Quantis already installed in this project.${NC}"
   echo "   Use --force to overwrite."
   exit 1
 fi
 
-echo -e "${GREEN}📦 Installing GSD for Antigravity...${NC}"
+echo -e "${GREEN}📦 Installing Quantis for Antigravity...${NC}"
 
 # Clone to temp
 git clone --depth 1 --quiet "$REPO" "$TEMP_DIR" 2>/dev/null || {
@@ -48,7 +48,7 @@ git clone --depth 1 --quiet "$REPO" "$TEMP_DIR" 2>/dev/null || {
 
 # Copy framework files
 DIRS=(".agent" ".agents" ".gemini" ".quantis" "adapters" "docs" "scripts")
-FILES=("PROJECT_RULES.md" "GSD-STYLE.md" "model_capabilities.yaml")
+FILES=("PROJECT_RULES.md" "Quantis-STYLE.md" "model_capabilities.yaml")
 
 for dir in "${DIRS[@]}"; do
   cp -r "$TEMP_DIR/$dir" ./ 2>/dev/null && echo "  ✓ $dir/"
@@ -62,7 +62,7 @@ done
 rm -rf "$TEMP_DIR"
 
 echo ""
-echo -e "${GREEN}✅ GSD installed successfully!${NC}"
+echo -e "${GREEN}✅ Quantis installed successfully!${NC}"
 echo ""
 echo "Next steps:"
 echo "  1. Run /new-project to create your SPEC.md"

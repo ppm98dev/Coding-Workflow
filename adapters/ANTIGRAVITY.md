@@ -9,7 +9,7 @@ This adapter provides Antigravity-specific enhancements for running GSD inside G
 
 ## Antigravity Tool Mapping
 
-GSD workflows map to Antigravity tools as follows:
+Quantis workflows map to Antigravity tools as follows:
 
 | GSD Workflow | Antigravity Tools | Usage |
 |-------------|-------------------|-------|

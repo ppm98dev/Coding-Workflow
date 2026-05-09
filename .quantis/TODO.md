@@ -3,7 +3,7 @@
 ## Pending
 
 ### 🏗️ v2.1 — Production-Ready Code Quality (NEW, HIGH PRIORITY)
-> GSD currently outputs "it works" code, not production code. This is the #1 gap.
+> Quantis currently outputs "it works" code, not production code. This is the #1 gap.
 
 The agent writes code that passes tests but is NOT maintainable:
 - No error handling patterns (try/catch, error boundaries, graceful degradation)
@@ -35,7 +35,7 @@ The agent writes code that passes tests but is NOT maintainable:
 
 - [ ] **Constitution concept** (~30 min) — Add `CONSTITUTION.md` step to `/new-project`. Captures project-level principles (code style, quality rules, architecture constraints, perf targets) separate from requirements. Gets loaded in every `/plan` and `/execute` so the agent never forgets your standards. Spec-Kit puts this in `.specify/memory/constitution.md`. **Patch:** new template + update `/new-project`, `/plan`, `/execute` context loading.
 
-- [ ] **Spec Stress-Test `/stress-test`** (~20 min) — New workflow that reads SPEC.md and pokes holes: "What happens when X fails?", "You said Y but didn't mention Z", edge cases, contradictions, scale concerns. Spec-Kit calls this `/speckit.clarify`. GSD has nothing between "SPEC finalized" and "start planning". **Create:** `.agent/workflows/stress-test.md`
+- [ ] **Spec Stress-Test `/stress-test`** (~20 min) — New workflow that reads SPEC.md and pokes holes: "What happens when X fails?", "You said Y but didn't mention Z", edge cases, contradictions, scale concerns. Spec-Kit calls this `/speckit.clarify`. Quantis has nothing between "SPEC finalized" and "start planning". **Create:** `.agent/workflows/stress-test.md`
 
 #### 🟡 Steal Later (high value, medium effort)
 
@@ -43,31 +43,31 @@ The agent writes code that passes tests but is NOT maintainable:
 
 - [ ] **Override layer (presets-lite)** (~45 min) — A `.quantis/overrides/` directory. If a template exists in overrides, use it instead of default. One line of logic per workflow: `TEMPLATE="${OVERRIDE_DIR}/${name}.md"; [ ! -f "$TEMPLATE" ] && TEMPLATE="${TEMPLATE_DIR}/${name}.md"`. Spec-Kit has full preset stacking with priorities — overkill for us, but the simple override directory gives 80% of the value.
 
-- [ ] **`/checklist`** (~15 min) — Pre-implementation validation command. Reads PLAN.md and checks: all files exist or will be created, actions are specific, verify commands are executable, done criteria are measurable. GSD has this as the `plan-checker` skill but it's not a user-facing command.
+- [ ] **`/checklist`** (~15 min) — Pre-implementation validation command. Reads PLAN.md and checks: all files exist or will be created, actions are specific, verify commands are executable, done criteria are measurable. Quantis has this as the `plan-checker` skill but it's not a user-facing command.
 
 #### 🔵 Skip (not worth it for solo use)
 
 - ~~Extension catalog / community system~~ — Over-engineering for a solo user
 - ~~Full preset stacking with priorities~~ — Simple override layer covers it
-- ~~Python CLI tool~~ — GSD's strength is zero dependencies, adding Python betrays the philosophy
+- ~~Python CLI tool~~ — Quantis's strength is zero dependencies, adding Python betrays the philosophy
 
 ### ⚠️ Honest Assessment: Where GSD Falls Short vs Spec-Kit
 
-> GSD works well for small projects. For big builds, it may fail without these fixes.
+> Quantis works well for small projects. For big builds, it may fail without these fixes.
 
-#### Things Spec-Kit does BETTER than GSD (must fix)
+#### Things Spec-Kit does BETTER than Quantis (must fix)
 
-1. **Forced `[NEEDS CLARIFICATION]` markers** — Spec-Kit forces the LLM to mark what it doesn't know instead of guessing. GSD's SPEC.md says "FINALIZED" but nobody checks if the spec is actually complete. The agent will plan around ambiguous requirements and you won't know until Phase 3.
+1. **Forced `[NEEDS CLARIFICATION]` markers** — Spec-Kit forces the LLM to mark what it doesn't know instead of guessing. Quantis's SPEC.md says "FINALIZED" but nobody checks if the spec is actually complete. The agent will plan around ambiguous requirements and you won't know until Phase 3.
 
-2. **Test-first enforcement** — Spec-Kit Article III: write tests first, confirm they fail, THEN write code. GSD says "verify after execution" but never forces test-first. The agent writes code, then writes tests to match the code — backwards.
+2. **Test-first enforcement** — Spec-Kit Article III: write tests first, confirm they fail, THEN write code. Quantis says "verify after execution" but never forces test-first. The agent writes code, then writes tests to match the code — backwards.
 
 3. **Cleaner spec/plan separation** — Spec-Kit: `spec.md` = pure user intent (no tech), `plan.md` = tech choices. GSD: `SPEC.md` mixes "what I want" with architecture hints. The boundary is blurry.
 
-4. **File creation order** — Spec-Kit mandates: contracts → tests → source. Always. GSD's `<task>` blocks have no ordering convention — the agent picks "code first, tests later."
+4. **File creation order** — Spec-Kit mandates: contracts → tests → source. Always. Quantis's `<task>` blocks have no ordering convention — the agent picks "code first, tests later."
 
-5. **Branch-per-feature** — `/speckit.specify` auto-creates a git branch per feature. GSD works on whatever branch you're on. For multi-feature projects this is cleaner.
+5. **Branch-per-feature** — `/speckit.specify` auto-creates a git branch per feature. Quantis works on whatever branch you're on. For multi-feature projects this is cleaner.
 
-6. **Project-specific principles that persist** — The constitution is always-loaded. GSD relies on the agent remembering Phase 1 context in Phase 4. It doesn't. PROJECT_RULES.md is generic, not project-specific.
+6. **Project-specific principles that persist** — The constitution is always-loaded. Quantis relies on the agent remembering Phase 1 context in Phase 4. It doesn't. PROJECT_RULES.md is generic, not project-specific.
 
 #### Where GSD still wins
 
@@ -78,7 +78,7 @@ The agent writes code that passes tests but is NOT maintainable:
 
 #### Scaling Problem
 
-GSD was built for small, solo projects. For anything larger:
+Quantis was built for small, solo projects. For anything larger:
 - No branch management → merge conflicts on multi-feature work
 - No test-first discipline → bugs compound across phases
 - No spec quality gate → ambiguity cascades into bad plans
@@ -93,11 +93,11 @@ GSD was built for small, solo projects. For anything larger:
 ### 🔍 Community Skills to Study/Adopt
 > Sources: https://github.com/VoltAgent/awesome-agent-skills (20.9k ⭐, 1000+ skills) · https://agentskills.io
 
-#### Directly relevant to GSD improvements
+#### Directly relevant to Quantis improvements
 - [ ] **trailofbits/ask-questions-if-underspecified** — Prompts for clarification on ambiguous requirements. This is exactly the `/stress-test` idea. Study their SKILL.md for implementation patterns.
 - [ ] **trailofbits/differential-review** — Security-focused diff review with git history analysis. Could improve our `/verify` with a diff-aware check.
 - [ ] **trailofbits/property-based-testing** — Property-based testing for multiple languages. Could inform test-first enforcement in `/execute`.
-- [ ] **anthropics/webapp-testing** — Test local web apps using Playwright. Could replace GSD's manual browser_subagent verification.
+- [ ] **anthropics/webapp-testing** — Test local web apps using Playwright. Could replace Quantis's manual browser_subagent verification.
 - [ ] **anthropics/skill-creator** — Guide for creating skills. Study to improve our skill structure.
 - [ ] **cloudflare/web-perf** — Audit Core Web Vitals. Could add perf verification to `/verify`.
 
@@ -107,12 +107,12 @@ GSD was built for small, solo projects. For anything larger:
 - [ ] **callstackincubator/github** — GitHub workflow patterns (PRs, branching, code review)
 - [ ] **google-labs-code/design-md** — How to create/manage DESIGN.md files (similar to our SPEC.md)
 
-#### Key insight: GSD skills are primitive compared to community
-GSD has 7 skills with basic SKILL.md files. Community skills from Stripe, Cloudflare, Trail of Bits bundle: `scripts/` for executable helpers, `references/` for API docs, `assets/` for templates. Our skills are instruction-only — no scripts, no references, no assets. **Upgrading skill structure is a prerequisite for v2.1.**
+#### Key insight: Quantis skills are primitive compared to community
+Quantis has 7 skills with basic SKILL.md files. Community skills from Stripe, Cloudflare, Trail of Bits bundle: `scripts/` for executable helpers, `references/` for API docs, `assets/` for templates. Our skills are instruction-only — no scripts, no references, no assets. **Upgrading skill structure is a prerequisite for v2.1.**
 
 ### Other
 - [ ] Check if upstream `gsd-build/get-shit-done` has newer features to backport
-- [ ] Consider adding a `/self-test` workflow that validates GSD works on itself
+- [ ] Consider adding a `/self-test` workflow that validates Quantis works on itself
 - [ ] Investigate token measurement APIs in Antigravity for context-health-monitor
 - [ ] Explore MCP integration for enhanced tool calling
 

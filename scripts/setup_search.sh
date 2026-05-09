@@ -1,13 +1,13 @@
 #!/bin/bash
-# setup_search.sh - Optional search tool setup for GSD
+# setup_search.sh - Optional search tool setup for Quantis
 #
 # This script checks for and optionally installs search tools.
-# GSD works without these tools (falls back to grep), but they improve performance.
+# Quantis works without these tools (falls back to grep), but they improve performance.
 
 set -e
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo " GSD ► Search Tools Setup"
+echo " Quantis ► Search Tools Setup"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
@@ -90,14 +90,14 @@ if [[ $RG_OK -eq 1 && $FD_OK -eq 1 ]]; then
 else
     echo "⚠️  Some tools are missing (optional)"
     echo ""
-    echo "GSD will work fine with built-in grep, but ripgrep and fd"
+    echo "Quantis will work fine with built-in grep, but ripgrep and fd"
     echo "provide faster searching in large codebases."
     
     suggest_install
     
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo " GSD ► Using grep as fallback (works fine!)"
+    echo " Quantis ► Using grep as fallback (works fine!)"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     exit 0
 fi

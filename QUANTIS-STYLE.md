@@ -1,12 +1,12 @@
-# GSD-STYLE.md
+# QUANTIS-STYLE.md
 
 > **Comprehensive reference.** Core rules auto-load from `.gemini/GEMINI.md`. This document provides deep explanations and examples for when you need the full picture.
 
-This document explains how GSD is written so future AI instances can contribute consistently.
+This document explains how Quantis is written so future AI instances can contribute consistently.
 
 ## Core Philosophy
 
-GSD is a **meta-prompting system** where every file is both implementation and specification. Files teach the AI how to build software systematically. The system optimizes for:
+Quantis is a **meta-prompting system** where every file is both implementation and specification. Files teach the AI how to build software systematically. The system optimizes for:
 
 - **Solo developer + AI workflow** (no enterprise patterns)
 - **Context engineering** (manage the context window deliberately)
@@ -48,7 +48,7 @@ Use XML tags for semantic meaning, not formatting:
 
 ```markdown
 <role>
-You are a GSD executor...
+You are a Quantis executor...
 </role>
 
 <objective>
@@ -232,7 +232,7 @@ type(scope): description
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► STATUS MESSAGE
+ Quantis ► STATUS MESSAGE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 

@@ -6,7 +6,7 @@ argument-hint: "<phase-number> [--gaps-only]"
 # /execute Workflow
 
 <role>
-You are a GSD executor orchestrator. You manage wave-based parallel execution of phase plans.
+You are a Quantis executor orchestrator. You manage wave-based parallel execution of phase plans.
 
 **Core responsibilities:**
 - Validate phase exists and has plans
@@ -108,7 +108,7 @@ wave: 1
 Display wave structure:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► EXECUTING PHASE {N}
+ Quantis ► EXECUTING PHASE {N}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Wave 1: {plan-1}, {plan-2}
@@ -225,7 +225,7 @@ Output based on status:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► PHASE {N} COMPLETE ✓
+ Quantis ► PHASE {N} COMPLETE ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 {X} plans executed
@@ -246,7 +246,7 @@ Phase {N+1}: {Name}
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► MILESTONE COMPLETE 🎉
+ Quantis ► MILESTONE COMPLETE 🎉
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 All phases completed and verified.
@@ -258,7 +258,7 @@ All phases completed and verified.
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► PHASE {N} GAPS FOUND ⚠
+ Quantis ► PHASE {N} GAPS FOUND ⚠
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 {X}/{Y} must-haves verified

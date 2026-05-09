@@ -7,7 +7,7 @@ wave: 1
 # Plan 1.5.1: Physical Rename — Directory + File Structure
 
 ## Objective
-Rename the `.quantis/` directory to `.quantis/` and rename `GSD-STYLE.md`. Then batch-replace all path references (`.quantis/` → `.quantis/`) across every file in the project.
+Rename the `.quantis/` directory to `.quantis/` and rename `QUANTIS-STYLE.md`. Then batch-replace all path references (`.quantis/` → `.quantis/`) across every file in the project.
 
 ## Context
 - .quantis/ROADMAP.md (Phase 1.5 definition)
@@ -19,7 +19,7 @@ Rename the `.quantis/` directory to `.quantis/` and rename `GSD-STYLE.md`. Then 
   <name>Rename directories and files</name>
   <files>
     .quantis/ → .quantis/
-    GSD-STYLE.md → QUANTIS-STYLE.md
+    QUANTIS-STYLE.md → QUANTIS-STYLE.md
   </files>
   <action>
     1. Use `git mv` to rename the directory:
@@ -27,9 +27,9 @@ Rename the `.quantis/` directory to `.quantis/` and rename `GSD-STYLE.md`. Then 
        git mv .quantis .quantis
        ```
 
-    2. Rename GSD-STYLE.md:
+    2. Rename QUANTIS-STYLE.md:
        ```bash
-       git mv GSD-STYLE.md QUANTIS-STYLE.md
+       git mv QUANTIS-STYLE.md QUANTIS-STYLE.md
        ```
 
     3. Verify the moves:
@@ -45,7 +45,7 @@ Rename the `.quantis/` directory to `.quantis/` and rename `GSD-STYLE.md`. Then 
   </verify>
   <done>
     - .quantis/ directory renamed to .quantis/
-    - GSD-STYLE.md renamed to QUANTIS-STYLE.md
+    - QUANTIS-STYLE.md renamed to QUANTIS-STYLE.md
     - Old names no longer exist
     - Git tracks the renames
   </done>
@@ -118,5 +118,5 @@ Rename the `.quantis/` directory to `.quantis/` and rename `GSD-STYLE.md`. Then 
 
 ## Success Criteria
 - [ ] .quantis/ directory no longer exists — renamed to .quantis/
-- [ ] GSD-STYLE.md renamed to QUANTIS-STYLE.md
+- [ ] QUANTIS-STYLE.md renamed to QUANTIS-STYLE.md
 - [ ] Zero remaining .quantis/ path references in project files

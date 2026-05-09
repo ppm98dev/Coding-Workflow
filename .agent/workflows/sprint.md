@@ -91,7 +91,7 @@ Read `.quantis/SPRINT.md` and display:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► SPRINT STATUS
+ Quantis ► SPRINT STATUS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Sprint: {name}
@@ -150,7 +150,7 @@ git commit -m "docs: close sprint {name}"
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► SPRINT CLOSED ✓
+ Quantis ► SPRINT CLOSED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Sprint: {name}

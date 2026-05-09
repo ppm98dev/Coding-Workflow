@@ -74,7 +74,7 @@ git commit -m "docs: insert phase {N} - {name} (renumbered {M} phases)"
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► PHASE INSERTED ✓
+ Quantis ► PHASE INSERTED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Inserted: Phase {N}: {name}

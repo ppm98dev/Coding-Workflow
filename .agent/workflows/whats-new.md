@@ -1,5 +1,5 @@
 ---
-description: Show recent GSD changes and new features
+description: Show recent Quantis changes and new features
 ---
 
 # /whats-new Workflow
@@ -23,7 +23,7 @@ Display the latest version(s) from CHANGELOG.md:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► WHAT'S NEW
+ Quantis ► WHAT'S NEW
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 VERSION 1.2.0 — 2026-01-17
@@ -74,7 +74,7 @@ Full port of GSD methodology to Google Antigravity.
 ### Workflows
 | Command | Relationship |
 |---------|--------------|
-| `/update` | Update GSD to latest version |
+| `/update` | Update Quantis to latest version |
 | `/help` | List all commands |
 
 </related>

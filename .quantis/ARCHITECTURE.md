@@ -4,7 +4,7 @@
 
 ## Overview
 
-GSD (Get Shit Done) is a **meta-prompting framework** — a collection of markdown files that teach AI coding agents how to build software systematically. It is NOT executable software but rather a context engineering layer that sits inside any project and provides structured workflows via slash commands.
+Quantis (formerly GSD) is a **meta-prompting framework** — a collection of markdown files that teach AI coding agents how to build software systematically. It is NOT executable software but rather a context engineering layer that sits inside any project and provides structured workflows via slash commands.
 
 Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-done) (Claude Code-specific) for Google Antigravity (model-agnostic). **macOS/Linux only** (PowerShell removed in v2.0).
 
@@ -42,7 +42,7 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
 │                  SUPPORT LAYER                                │
 │   scripts/ (validation — Bash only, install.sh)               │
 │   docs/ (runbook, model playbook, token guide)                │
-│   PROJECT_RULES.md + GSD-STYLE.md (canonical rules)          │
+│   PROJECT_RULES.md + QUANTIS-STYLE.md (canonical rules)          │
 └───────────────────────────────────────────────────────────────┘
 ```
 
@@ -100,7 +100,7 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
   - `setup_search.sh`, `search_repo.sh`
   - `install.sh` — One-command install for macOS/Linux
 - **Docs** (`docs/`): model-selection-playbook, runbook, token-optimization-guide
-- **Rules:** `PROJECT_RULES.md` (canonical, 260 lines), `GSD-STYLE.md` (conventions, 272 lines)
+- **Rules:** `PROJECT_RULES.md` (canonical, 260 lines), `QUANTIS-STYLE.md` (conventions, 272 lines)
 
 ## Data Flow
 

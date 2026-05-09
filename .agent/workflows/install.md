@@ -1,11 +1,11 @@
 ---
-description: Install GSD into the current project from GitHub
+description: Install Quantis into the current project from GitHub
 ---
 
 # /install Workflow
 
 <objective>
-Install GSD for Antigravity into the current project from GitHub.
+Install Quantis for Antigravity into the current project from GitHub.
 </objective>
 
 <process>
@@ -23,7 +23,7 @@ fi
 **If already installed:**
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► ALREADY INSTALLED
+ Quantis ► ALREADY INSTALLED
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 GSD files already exist in this project.
@@ -65,7 +65,7 @@ cp -r .quantis-install-temp/scripts ./
 
 # Root files
 cp .quantis-install-temp/PROJECT_RULES.md ./
-cp .quantis-install-temp/GSD-STYLE.md ./
+cp .quantis-install-temp/QUANTIS-STYLE.md ./
 cp .quantis-install-temp/model_capabilities.yaml ./
 ```
 
@@ -85,7 +85,7 @@ Check if `.quantis/STATE.md` and other session files should be gitignored:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► ADD TO .gitignore?
+ Quantis ► ADD TO .gitignore?
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Recommended .gitignore additions for session-specific files:
@@ -108,7 +108,7 @@ B) No — Skip
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► INSTALLED ✓
+ Quantis ► INSTALLED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 GSD for Antigravity has been installed.
@@ -122,7 +122,7 @@ Files installed:
 • docs/          (operational documentation)
 • scripts/       (utility scripts)
 • PROJECT_RULES.md
-• GSD-STYLE.md
+• QUANTIS-STYLE.md
 • model_capabilities.yaml
 
 ───────────────────────────────────────────────────────

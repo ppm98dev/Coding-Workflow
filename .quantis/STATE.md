@@ -22,7 +22,7 @@ Phase 1 executed successfully. 4 plans, 9 tasks completed across 2 waves.
 - /stress-test adversarial workflow (225 lines, 7 review dimensions)
 - Stress-test suggestion in /new-project (Phase 5b)
 
-## Strategic Decision: GSD vs Spec-Kit
-**Decision**: Keep GSD as core, steal Spec-Kit methodology.
-**Rationale**: GSD has session persistence, execution loops, and debugging that Spec-Kit lacks. Spec-Kit has formal governance (constitution, forced clarification, test-first) that GSD needs.
+## Strategic Decision: Quantis vs Spec-Kit
+**Decision**: Keep Quantis as core, steal Spec-Kit methodology.
+**Rationale**: GSD has session persistence, execution loops, and debugging that Spec-Kit lacks. Spec-Kit has formal governance (constitution, forced clarification, test-first) that Quantis needs.
 **Reference**: Spec-Kit cloned to `.quantis/references/spec-kit/` for study.

@@ -1,5 +1,5 @@
 #!/bin/bash
-# GSD Master Validation Script
+# Quantis Master Validation Script
 # Runs all validators and reports overall status
 
 total_errors=0
@@ -7,7 +7,7 @@ script_dir="$(dirname "$0")"
 
 echo ""
 echo "╔═══════════════════════════════════════════════════════╗"
-echo "║         GSD ► RUNNING ALL VALIDATORS                  ║"
+echo "║         Quantis ► RUNNING ALL VALIDATORS                  ║"
 echo "╚═══════════════════════════════════════════════════════╝"
 echo ""
 

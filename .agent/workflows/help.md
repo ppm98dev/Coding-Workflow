@@ -1,11 +1,11 @@
 ---
-description: Show all available GSD commands
+description: Show all available Quantis commands
 ---
 
 # /help Workflow
 
 <objective>
-Display all available GSD commands with descriptions and usage hints.
+Display all available Quantis commands with descriptions and usage hints.
 </objective>
 
 <process>
@@ -20,7 +20,7 @@ version=$(cat VERSION 2>/dev/null || echo "unknown")
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► HELP (v{version})
+ Quantis ► HELP (v{version})
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 CORE WORKFLOW
@@ -81,7 +81,7 @@ CORE RULES
 
 ───────────────────────────────────────────────────────
 
-📚 Docs: GSD-STYLE.md, .quantis/examples/
+📚 Docs: QUANTIS-STYLE.md, .quantis/examples/
 
 ───────────────────────────────────────────────────────
 ```

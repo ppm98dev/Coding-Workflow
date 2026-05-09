@@ -47,7 +47,7 @@ Full README rewrite with Quantis branding. Update to reflect Phase 1 features (c
        - Total should now be 28 (27 + stress-test)
 
     6. **File Structure**: Update `.quantis/` → `.quantis/`, add CONSTITUTION.md, add stress-test.md
-       - `GSD-STYLE.md` → `QUANTIS-STYLE.md`
+       - `QUANTIS-STYLE.md` → `QUANTIS-STYLE.md`
 
     7. **Philosophy section**: Add "Spec-driven" and "Constitutional governance" principles
 
@@ -92,7 +92,7 @@ Full README rewrite with Quantis branding. Update to reflect Phase 1 features (c
     1. **install.sh**: Update all references:
        - "GSD" → "Quantis" in echo messages
        - `.quantis` → `.quantis` in paths
-       - `GSD-STYLE.md` → `QUANTIS-STYLE.md` in copy commands
+       - `QUANTIS-STYLE.md` → `QUANTIS-STYLE.md` in copy commands
 
     2. **validate-*.sh**: Update:
        - `.quantis` → `.quantis` in all path checks
@@ -104,7 +104,7 @@ Full README rewrite with Quantis branding. Update to reflect Phase 1 features (c
 
     Use sed for batch processing:
     ```bash
-    find scripts -name "*.sh" -exec sed -i '' 's/\.quantis/\.quantis/g; s/GSD/Quantis/g; s/GSD-STYLE/QUANTIS-STYLE/g' {} +
+    find scripts -name "*.sh" -exec sed -i '' 's/\.quantis/\.quantis/g; s/GSD/Quantis/g; s/QUANTIS-STYLE/QUANTIS-STYLE/g' {} +
     find adapters docs -name "*.md" -exec sed -i '' 's/GSD/Quantis/g' {} +
     ```
   </action>

@@ -6,7 +6,7 @@ argument-hint: "[phase] [--research] [--skip-research] [--gaps]"
 # /plan Workflow
 
 <role>
-You are a GSD planner orchestrator. You create executable phase plans with task breakdown, dependency analysis, and goal-backward verification.
+You are a Quantis planner orchestrator. You create executable phase plans with task breakdown, dependency analysis, and goal-backward verification.
 
 **Core responsibilities:**
 - Parse arguments and validate phase
@@ -179,7 +179,7 @@ test -f "$PHASE_DIR/RESEARCH.md"
 Display banner:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► RESEARCHING PHASE {N}
+ Quantis ► RESEARCHING PHASE {N}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -194,7 +194,7 @@ Create `$PHASE_DIR/RESEARCH.md` with findings.
 Display banner:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► PLANNING PHASE {N}
+ Quantis ► PLANNING PHASE {N}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -326,7 +326,7 @@ git commit -m "docs(phase-$PHASE): create execution plans"
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► PHASE {N} PLANNED ✓
+ Quantis ► PHASE {N} PLANNED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 {X} plans created across {Y} waves

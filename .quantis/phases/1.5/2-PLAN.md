@@ -23,19 +23,19 @@ Replace all "GSD" brand name references with "Quantis" in file contents. This co
 
     **Pattern replacements (in order):**
 
-    1. **Banner patterns** — `GSD ►` → `Quantis ►`:
+    1. **Banner patterns** — `Quantis ►` → `Quantis ►`:
        ```bash
-       find .agent .agents .quantis adapters docs scripts -name "*.md" -exec sed -i '' 's/GSD ►/Quantis ►/g' {} +
+       find .agent .agents .quantis adapters docs scripts -name "*.md" -exec sed -i '' 's/Quantis ►/Quantis ►/g' {} +
        ```
 
-    2. **Role/title references** — "GSD planner", "GSD executor", etc.:
+    2. **Role/title references** — "Quantis planner", "Quantis executor", etc.:
        ```bash
-       find .agent .agents .quantis -name "*.md" -exec sed -i '' 's/GSD planner/Quantis planner/g; s/GSD executor/Quantis executor/g; s/GSD verifier/Quantis verifier/g; s/GSD plan checker/Quantis plan checker/g; s/GSD debugger/Quantis debugger/g' {} +
+       find .agent .agents .quantis -name "*.md" -exec sed -i '' 's/Quantis planner/Quantis planner/g; s/Quantis executor/Quantis executor/g; s/Quantis verifier/Quantis verifier/g; s/Quantis plan checker/Quantis plan checker/g; s/Quantis debugger/Quantis debugger/g' {} +
        ```
 
-    3. **General "GSD" brand references** — "GSD project", "GSD framework", etc.:
+    3. **General "GSD" brand references** — "Quantis project", "Quantis framework", etc.:
        ```bash
-       find . -name "*.md" -not -path "./.git/*" -not -path "./.quantis/references/*" -exec sed -i '' 's/GSD framework/Quantis framework/g; s/GSD project/Quantis project/g; s/GSD commands/Quantis commands/g; s/GSD workflows/Quantis workflows/g; s/GSD system/Quantis system/g' {} +
+       find . -name "*.md" -not -path "./.git/*" -not -path "./.quantis/references/*" -exec sed -i '' 's/Quantis framework/Quantis framework/g; s/Quantis project/Quantis project/g; s/Quantis commands/Quantis commands/g; s/Quantis workflows/Quantis workflows/g; s/Quantis system/Quantis system/g' {} +
        ```
 
     4. **Remaining standalone "GSD"** — catch remaining instances:
@@ -47,7 +47,7 @@ Replace all "GSD" brand name references with "Quantis" in file contents. This co
 
     5. **QUANTIS-STYLE.md content** — update internal references:
        ```bash
-       sed -i '' 's/GSD-STYLE/QUANTIS-STYLE/g; s/GSD/Quantis/g' QUANTIS-STYLE.md
+       sed -i '' 's/QUANTIS-STYLE/QUANTIS-STYLE/g; s/GSD/Quantis/g' QUANTIS-STYLE.md
        ```
 
     6. **PROJECT_RULES.md** — update framework name:
@@ -69,7 +69,7 @@ Replace all "GSD" brand name references with "Quantis" in file contents. This co
   </verify>
   <done>
     - All active files use "Quantis" instead of "GSD"
-    - Banners show "Quantis ►" instead of "GSD ►"
+    - Banners show "Quantis ►" instead of "Quantis ►"
     - Role descriptions say "Quantis planner/executor/etc."
     - Historical archives may retain "GSD" for accuracy
   </done>

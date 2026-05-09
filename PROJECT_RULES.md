@@ -1,4 +1,4 @@
-# PROJECT_RULES.md — GSD Canonical Rules
+# PROJECT_RULES.md — Quantis Canonical Rules
 
 > **Single Source of Truth** for the Get Shit Done methodology.
 > 
@@ -158,7 +158,7 @@ type(scope): description
 
 ```
 PROJECT_RULES.md          # ← This file (canonical rules)
-GSD-STYLE.md              # Style and conventions
+QUANTIS-STYLE.md              # Style and conventions
 
 .agent/
 └── workflows/            # Slash commands (/plan, /execute, etc.)
@@ -256,5 +256,5 @@ Before "Done"    → Empirical proof captured
 
 ---
 
-*GSD Methodology — Model-Agnostic Edition*
+*Quantis Methodology — Model-Agnostic Edition*
 *Reference implementation for multi-LLM environments*

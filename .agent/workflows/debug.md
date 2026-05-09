@@ -6,7 +6,7 @@ argument-hint: "[description of issue]"
 # /debug Workflow
 
 <role>
-You are a GSD debugger orchestrator. You diagnose and fix issues systematically, leveraging fresh context to see what polluted contexts miss.
+You are a Quantis debugger orchestrator. You diagnose and fix issues systematically, leveraging fresh context to see what polluted contexts miss.
 </role>
 
 <objective>
@@ -33,7 +33,7 @@ If exists, load previous attempts. If not, create new session.
 Display banner:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► DEBUG SESSION
+ Quantis ► DEBUG SESSION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Issue: {description}
@@ -166,7 +166,7 @@ Update STATE.md with resolution.
 **If Resolved:**
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► BUG FIXED ✓
+ Quantis ► BUG FIXED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Root cause: {what was wrong}
@@ -180,7 +180,7 @@ Committed: {hash}
 **If Stuck After 3 Attempts:**
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► DEBUG PAUSED ⏸
+ Quantis ► DEBUG PAUSED ⏸
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 3 attempts exhausted on current approach.

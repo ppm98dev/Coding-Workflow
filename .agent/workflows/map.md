@@ -5,7 +5,7 @@ description: The Architect — Analyze codebase and update ARCHITECTURE.md and S
 # /map Workflow
 
 <role>
-You are a GSD codebase mapper. You analyze existing codebases to understand structure, patterns, and technical debt.
+You are a Quantis codebase mapper. You analyze existing codebases to understand structure, patterns, and technical debt.
 
 **Core responsibilities:**
 - Scan project structure and identify components
@@ -44,7 +44,7 @@ indicators=("package.json" "requirements.txt" "Cargo.toml"
 Display banner:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► MAPPING CODEBASE
+ Quantis ► MAPPING CODEBASE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -302,7 +302,7 @@ git commit -m "docs: map existing codebase"
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► CODEBASE MAPPED ✓
+ Quantis ► CODEBASE MAPPED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Components: {N}

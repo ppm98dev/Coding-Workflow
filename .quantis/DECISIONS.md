@@ -38,8 +38,8 @@
 **Rationale:** No breaking changes. Existing projects continue working.
 
 ### D-008: Constitution vs PROJECT_RULES — Separate Concerns
-**Decision:** Constitution is project-specific (per-project, filled during `/new-project`). PROJECT_RULES.md and GSD-STYLE.md stay as framework-level rules.
-**Rationale:** PROJECT_RULES defines GSD framework conventions. Constitution defines project-specific quality standards. Different scopes, no overlap.
+**Decision:** Constitution is project-specific (per-project, filled during `/new-project`). PROJECT_RULES.md and QUANTIS-STYLE.md stay as framework-level rules.
+**Rationale:** PROJECT_RULES defines Quantis framework conventions. Constitution defines project-specific quality standards. Different scopes, no overlap.
 
 ### D-009: Constitution Articles — 10 Articles
 **Decision:** Template includes 10 articles:

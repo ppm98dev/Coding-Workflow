@@ -105,7 +105,7 @@ git commit -m "docs: pause session - {brief reason}"
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► SESSION PAUSED ⏸
+ Quantis ► SESSION PAUSED ⏸
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 State saved to:

@@ -20,7 +20,7 @@ Read `.quantis/STATE.md` completely.
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► RESUMING SESSION
+ Quantis ► RESUMING SESSION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 LAST POSITION

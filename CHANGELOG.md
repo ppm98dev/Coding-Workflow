@@ -9,7 +9,7 @@ All notable changes to GSD for Antigravity.
 - **Platform badge** updated from "Windows | Linux | Mac" to "macOS | Linux"
 
 ### Added
-- **Antigravity adapter** (`adapters/ANTIGRAVITY.md`) — Maps all 13 Antigravity tools to GSD workflows
+- **Antigravity adapter** (`adapters/ANTIGRAVITY.md`) — Maps all 13 Antigravity tools to Quantis workflows
 - **`scripts/install.sh`** — One-command GSD install for any project (`bash install.sh [--force]`)
 - **Real model profiles** in `model_capabilities.yaml` — Gemini 2.5 Pro, Claude Opus 4, GPT-4.1 (April 2026)
 - **`browser_subagent` guidance** in `/verify` and `/execute` workflows for visual verification
@@ -151,7 +151,7 @@ All notable changes to GSD for Antigravity.
 
 **Documentation**
 - README.md with full methodology explanation
-- GSD-STYLE.md comprehensive style guide
+- QUANTIS-STYLE.md comprehensive style guide
 - Templates: PLAN.md, VERIFICATION.md, RESEARCH.md, SUMMARY.md
 - Examples: workflow-example.md, quick-reference.md, cross-platform.md
 

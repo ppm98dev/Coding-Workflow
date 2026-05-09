@@ -97,7 +97,7 @@ cp -r gsd-template/adapters ./
 cp -r gsd-template/docs ./
 cp -r gsd-template/scripts ./
 cp gsd-template/PROJECT_RULES.md ./
-cp gsd-template/GSD-STYLE.md ./
+cp gsd-template/QUANTIS-STYLE.md ./
 cp gsd-template/model_capabilities.yaml ./
 
 # Clean up
@@ -433,7 +433,7 @@ adapters/
 
 ```
 📄 PROJECT_RULES.md          # ← Canonical rules (model-agnostic)
-📄 GSD-STYLE.md              # Complete style guide
+📄 QUANTIS-STYLE.md              # Complete style guide
 
 📂 .agent/
 └── 📂 workflows/            # 27 slash commands
@@ -492,7 +492,7 @@ Run validation scripts to verify GSD structure:
 | Resource | Description |
 |----------|-------------|
 | [PROJECT_RULES.md](PROJECT_RULES.md) | Canonical model-agnostic rules |
-| [GSD-STYLE.md](GSD-STYLE.md) | Complete style and conventions guide |
+| [QUANTIS-STYLE.md](QUANTIS-STYLE.md) | Complete style and conventions guide |
 | [Model Selection Playbook](docs/model-selection-playbook.md) | Model selection guidance |
 | [Runbook](docs/runbook.md) | Operational procedures |
 | [Token Optimization Guide](docs/token-optimization-guide.md) | Token efficiency strategies |

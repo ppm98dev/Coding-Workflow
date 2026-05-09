@@ -64,7 +64,7 @@ This is the most leveraged moment in any project. Deep questioning here means be
 Display banner:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► CONSTITUTION
+ Quantis ► CONSTITUTION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Before defining what to build, let's define your quality standards.
@@ -132,7 +132,7 @@ Exit command.
 Display banner:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► QUESTIONING
+ Quantis ► QUESTIONING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -370,7 +370,7 @@ Create directories:
 
 ```bash
 git add .quantis/
-git commit -m "chore: initialize GSD project
+git commit -m "chore: initialize Quantis project
 
 - SPEC.md with vision and goals
 - ROADMAP.md with {N} phases
@@ -383,7 +383,7 @@ git commit -m "chore: initialize GSD project
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► PROJECT INITIALIZED ✓
+ Quantis ► PROJECT INITIALIZED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Project: {name}

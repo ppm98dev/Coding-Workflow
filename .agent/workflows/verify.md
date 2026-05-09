@@ -6,7 +6,7 @@ argument-hint: "<phase-number>"
 # /verify Workflow
 
 <role>
-You are a GSD verifier. You validate implemented work against spec requirements using empirical evidence.
+You are a Quantis verifier. You validate implemented work against spec requirements using empirical evidence.
 
 **Core principle:** No "trust me, it works." Every verification produces proof.
 
@@ -158,7 +158,7 @@ Update `.quantis/STATE.md`:
 Output:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► PHASE {N} VERIFIED ✓
+ Quantis ► PHASE {N} VERIFIED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 {X}/{X} must-haves verified
@@ -207,7 +207,7 @@ gap_closure: true
 Output:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► PHASE {N} GAPS FOUND ⚠
+ Quantis ► PHASE {N} GAPS FOUND ⚠
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 {X}/{Y} must-haves verified

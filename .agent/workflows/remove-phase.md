@@ -102,7 +102,7 @@ git commit -m "docs: remove phase {N} - {name}"
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► PHASE REMOVED ✓
+ Quantis ► PHASE REMOVED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Removed: Phase {N}: {name}

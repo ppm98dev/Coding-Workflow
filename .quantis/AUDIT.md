@@ -9,13 +9,13 @@
 
 ## What Is It?
 
-GSD is a **meta-prompting / context engineering framework** — NOT executable software. It's a collection of **markdown files** that teach AI coding agents how to build software systematically. You drop it into any project and use slash commands (typed as chat messages) to drive a structured workflow:
+Quantis is a **meta-prompting / context engineering framework** — NOT executable software. It's a collection of **markdown files** that teach AI coding agents how to build software systematically. You drop it into any project and use slash commands (typed as chat messages) to drive a structured workflow:
 
 ```
 /new-project → SPEC.md → /plan → PLAN.md → /execute → /verify → /complete-milestone
 ```
 
-The core thesis: **AI coding fails not because models are bad, but because humans give them terrible context.** GSD solves this with structured specs, wave-based execution, atomic commits, and empirical verification.
+The core thesis: **AI coding fails not because models are bad, but because humans give them terrible context.** Quantis solves this with structured specs, wave-based execution, atomic commits, and empirical verification.
 
 ---
 
@@ -23,7 +23,7 @@ The core thesis: **AI coding fails not because models are bad, but because human
 
 ```
 ├── PROJECT_RULES.md            # Single source of truth (model-agnostic rules)
-├── GSD-STYLE.md                # Writing conventions for the framework itself
+├── QUANTIS-STYLE.md                # Writing conventions for the framework itself
 ├── model_capabilities.yaml     # Optional model capability registry
 ├── VERSION                     # 1.5.0
 │
@@ -78,7 +78,7 @@ The core thesis: **AI coding fails not because models are bad, but because human
 | **Model agnosticism** | Clean adapter pattern, nothing hard-depends on a specific provider |
 | **Cross-platform** | Every script has both PowerShell and Bash versions |
 | **Templates** | 22 templates covering virtually every doc type |
-| **Self-documenting** | GSD-STYLE.md explains how to write GSD files consistently |
+| **Self-documenting** | QUANTIS-STYLE.md explains how to write Quantis files consistently |
 
 ---
 
@@ -111,7 +111,7 @@ The core thesis: **AI coding fails not because models are bad, but because human
 | **Duplicate content** | CHANGELOG has no version headers (just `---` separators), making it hard to parse programmatically |
 | **model_capabilities.yaml** | Uses generic "Flash/Turbo variants" instead of actual model names — not actionable |
 | **No `.gitignore` for state files** | `.quantis/STATE.md`, `JOURNAL.md` etc. would be committed to the template repo, polluting clean starts |
-| **Missing GSD-STYLE.md headers** | Section headers are missing from the rendered content (likely stripped during parsing) |
+| **Missing QUANTIS-STYLE.md headers** | Section headers are missing from the rendered content (likely stripped during parsing) |
 
 ---
 
@@ -122,7 +122,7 @@ The core thesis: **AI coding fails not because models are bad, but because human
 | Task | Priority | Effort |
 |------|----------|--------|
 | Create `adapters/ANTIGRAVITY.md` with Antigravity-specific tool guidance (browser_subagent, run_command, image generation, persistent context) | 🔴 P0 | Medium |
-| Rewrite `.gemini/GEMINI.md` → add Antigravity-native instructions (how to use planning mode, how tools map to GSD phases) | 🔴 P0 | Medium |
+| Rewrite `.gemini/GEMINI.md` → add Antigravity-native instructions (how to use planning mode, how tools map to Quantis phases) | 🔴 P0 | Medium |
 | Add a real `scripts/install.sh` that automates the 10-step copy process | 🔴 P0 | Small |
 | Fix workflow discovery — ensure `.agent/workflows/` files are picked up correctly, or document how to invoke them | 🔴 P0 | Small |
 
@@ -142,7 +142,7 @@ The core thesis: **AI coding fails not because models are bad, but because human
 |------|----------|--------|
 | Create a `gsd` CLI tool (Python or Node) that wraps the methodology — real commands, real state management, not just markdown prompts | 🟢 P2 | Large |
 | Add automated context measurement — actually track token usage, warn at thresholds | 🟢 P2 | Medium |
-| Build a `/migrate` command for bringing existing projects into GSD (scan existing code → generate SPEC.md + ARCHITECTURE.md) | 🟢 P2 | Medium |
+| Build a `/migrate` command for bringing existing projects into Quantis (scan existing code → generate SPEC.md + ARCHITECTURE.md) | 🟢 P2 | Medium |
 | Add CI/GitHub Actions integration — auto-verify on PR, auto-generate SUMMARY.md | 🟢 P2 | Medium |
 | Create visual dashboard (HTML) for project state — phases, progress, verification status | 🟢 P2 | Large |
 
@@ -152,7 +152,7 @@ The core thesis: **AI coding fails not because models are bad, but because human
 |------|----------|--------|
 | Support multi-agent orchestration (Antigravity's subagent pattern) — plan in one context, execute tasks in parallel browser/terminal subagents | 🔵 P3 | Large |
 | Add cost tracking per phase (token costs by model) | 🔵 P3 | Medium |
-| Create "GSD Lite" mode — minimal overhead for small scripts/quick projects | 🔵 P3 | Medium |
+| Create "Quantis Lite" mode — minimal overhead for small scripts/quick projects | 🔵 P3 | Medium |
 
 ---
 

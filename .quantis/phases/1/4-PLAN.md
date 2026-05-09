@@ -50,7 +50,7 @@ Create the `/stress-test` workflow that adversarially reviews SPEC.md to find am
     4. **Generate Report** — Present findings as numbered issues:
        ```
        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        GSD ► STRESS TEST RESULTS
+        Quantis ► STRESS TEST RESULTS
        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
        ISSUES FOUND: {N}

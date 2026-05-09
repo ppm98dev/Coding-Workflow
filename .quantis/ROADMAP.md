@@ -5,7 +5,7 @@
 
 ---
 
-## Milestone: v2.0 — Antigravity-Native GSD ✅ COMPLETE
+## Milestone: v2.0 — Antigravity-Native Quantis ✅ COMPLETE
 
 ### Phase 1: Antigravity Integration ✅
 ### Phase 2: Remove PowerShell — Bash Only ✅
@@ -58,7 +58,7 @@
 **Deliverables:**
 - Rename `.quantis/` directory to `.quantis/`
 - Replace all "GSD" brand references with "Quantis" across 99+ files
-- Rename `GSD-STYLE.md` → `QUANTIS-STYLE.md`
+- Rename `QUANTIS-STYLE.md` → `QUANTIS-STYLE.md`
 - Full README rewrite with Quantis branding + Phase 1 features
 - Update scripts, adapters, docs, and LICENSE
 
@@ -104,7 +104,7 @@
 
 #### Phase 6: Multi-User Foundations
 **Status**: ⬜ Not Started
-**Objective**: Enable team usage of GSD while preserving single-user simplicity.
+**Objective**: Enable team usage of Quantis while preserving single-user simplicity.
 **Deliverables:**
 - Per-user state files: `STATE-{user}.md` so `/pause` and `/resume` don't collide
 - Phase ownership/assignment: `**Assigned**: @user` in ROADMAP.md phases
@@ -123,7 +123,7 @@
 ### Planned Scope
 - [ ] **SPEC.md scaling** — Split monolithic SPEC into feature-level spec files for projects with 10+ features
 - [ ] **Contracts/API specs** — Interface definitions between components to prevent integration breaks
-- [ ] **`/self-test` workflow** — Meta-workflow that validates GSD works on itself
+- [ ] **`/self-test` workflow** — Meta-workflow that validates Quantis works on itself
 - [ ] **Token measurement APIs** — Integrate with Antigravity internals for context-health-monitor accuracy
 - [ ] **MCP integration** — Enhanced tool calling via Model Context Protocol
 - [ ] **Upstream backport check** — Compare against `gsd-build/get-shit-done` for new features to adopt

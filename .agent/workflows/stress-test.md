@@ -42,7 +42,7 @@ test -f ".quantis/CONSTITUTION.md" && echo "Constitution loaded — will check c
 Display banner:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► STRESS TEST
+ Quantis ► STRESS TEST
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Adversarial review of SPEC.md
@@ -127,7 +127,7 @@ Present findings:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- GSD ► STRESS TEST RESULTS
+ Quantis ► STRESS TEST RESULTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ISSUES FOUND: {N}

@@ -1,6 +1,6 @@
 # Cross-Platform Commands Reference
 
-> PowerShell ↔ Bash equivalents for GSD workflows
+> PowerShell ↔ Bash equivalents for Quantis workflows
 
 ## Common Operations
 

@@ -3,7 +3,7 @@
 > **Status**: `FINALIZED`
 
 ## Vision
-Transform GSD-for-Antigravity from a shallow port of the Claude Code-specific GSD framework into a genuinely useful, Antigravity-native coding workflow system. Make it Bash-first (macOS/Linux primary), create a real Antigravity adapter that leverages the platform's unique capabilities (browser subagents, persistent context, image generation), fix all documented issues, and optionally create a real CLI tool.
+Transform Quantis-for-Antigravity from a shallow port of the Claude Code-specific Quantis framework into a genuinely useful, Antigravity-native coding workflow system. Make it Bash-first (macOS/Linux primary), create a real Antigravity adapter that leverages the platform's unique capabilities (browser subagents, persistent context, image generation), fix all documented issues, and optionally create a real CLI tool.
 
 ## Goals
 1. **Antigravity-native integration** — Create a proper adapter and entry point for Antigravity's toolset (browser_subagent, run_command, generate_image, persistent terminals, knowledge items)
@@ -24,7 +24,7 @@ Solo developers using Google Antigravity (or compatible AI coding agents) who wa
 
 ## Constraints
 - Must remain MIT licensed
-- Must stay backward-compatible with original GSD workflows
+- Must stay backward-compatible with original Quantis workflows
 - Must remain model-agnostic (adapters are optional, never required)
 - Must work on macOS (primary platform)
 - No runtime dependencies — stays as a pure markdown framework
