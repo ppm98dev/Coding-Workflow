@@ -3,30 +3,42 @@
 ## Current Position
 - **Milestone**: v2.1 — Production Code Quality, Spec Rigor & Scaling
 - **Phase**: 1.5 — Quantis Rebrand (COMPLETED)
-- **Next Milestone**: v2.2 — Advanced Scaling (future)
-- **Status**: Phase 1.5 verified and complete (2026-05-09T23:53:00+02:00)
-
-## Next Steps
-1. `/plan 2` — Plan Iteration & Validation
+- **Task**: Between phases
+- **Status**: Paused at 2026-05-10T00:02:25+02:00
 
 ## Last Session Summary
-Phase 1 + Phase 1.5 executed in one session.
+Executed Phase 1 (Constitution & Spec Rigor) and Phase 1.5 (Quantis Rebrand) in one session.
 
-**Phase 1 Delivered:**
+### Phase 1 Delivered (9 items):
 - CONSTITUTION.md template (10 articles, 111 lines)
-- Constitution Q&A as first step in /new-project
-- SPEC template updated with 5 new sections
-- Plan-checker Spec Clarity Gate
-- /plan and /execute load CONSTITUTION.md
-- /stress-test adversarial workflow (225 lines)
+- Constitution Q&A as first step in /new-project (Phase 2, 9 questions)
+- SPEC template upgraded with 5 new sections (Clarification Rule, Separation Rule, Quality Requirements, Edge Cases, Assumptions, Unresolved Questions)
+- `[NEEDS CLARIFICATION]` markers — forced in spec, plan-checker rejects
+- Plan-checker Spec Clarity Gate (pre-check before validation)
+- `/plan` hard-fails without CONSTITUTION.md + loads it as context
+- `/execute` loads CONSTITUTION.md during execution
+- `/stress-test` adversarial workflow (225 lines, 7 review dimensions)
+- Stress-test suggestion in /new-project (Phase 5b)
 
-**Phase 1.5 Delivered:**
+### Phase 1.5 Delivered (4 items):
 - Directory renamed from `gsd` to `quantis` (68 files)
-- GSD → Quantis brand name across all active files
+- GSD → Quantis brand name across all active files (134 files)
 - `GSD-STYLE.md` → `QUANTIS-STYLE.md`
-- Full README rewrite (456 lines) with Quantis branding + quality governance section
+- Full README rewrite (600 lines) with Quantis branding + Quality Governance section
 
-## Strategic Decision: Quantis vs Spec-Kit
-**Decision**: Keep Quantis as core, steal Spec-Kit methodology.
-**Rationale**: Quantis has session persistence, execution loops, and debugging that Spec-Kit lacks. Spec-Kit has formal governance (constitution, forced clarification, test-first) that Quantis needs.
-**Reference**: Spec-Kit cloned to `.quantis/references/spec-kit/` for study.
+### Verification
+- Phase 1: 8/8 must-haves PASS
+- Phase 1.5: 8/8 must-haves PASS
+- README audited for completeness — all Phase 1 features documented
+- Mermaid diagram corrected (/new-project produces both outputs)
+
+## In-Progress Work
+None — all work committed and verified.
+
+## Blockers
+None.
+
+## Next Steps
+1. `/plan 2` — Plan Iteration & Validation (add /update-plan and /checklist workflows)
+2. `/plan 3` — Production Code Enforcement (test-first, production patterns)
+3. Consider renaming GitHub repo from `Coding-Workflow` to `Quantis`
