@@ -81,7 +81,7 @@ CORE RULES
 
 ───────────────────────────────────────────────────────
 
-📚 Docs: GSD-STYLE.md, .gsd/examples/
+📚 Docs: GSD-STYLE.md, .quantis/examples/
 
 ───────────────────────────────────────────────────────
 ```

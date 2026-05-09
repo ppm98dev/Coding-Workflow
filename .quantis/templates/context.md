@@ -1,6 +1,6 @@
 # Context Template
 
-Template for `.gsd/phases/{N}/CONTEXT.md` — user's vision for a phase.
+Template for `.quantis/phases/{N}/CONTEXT.md` — user's vision for a phase.
 
 ---
 

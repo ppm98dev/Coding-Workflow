@@ -7,11 +7,11 @@ wave: 1
 # Plan 3.1: Fix README + Attribution + Stale Claims
 
 ## Objective
-Fix all factual errors and stale references across README.md, CHANGELOG.md, and .gsd/ARCHITECTURE.md. All changes are mechanical find-and-replace.
+Fix all factual errors and stale references across README.md, CHANGELOG.md, and .quantis/ARCHITECTURE.md. All changes are mechanical find-and-replace.
 
 ## Context
-- .gsd/ROADMAP.md (Phase 3 scope)
-- .gsd/phases/VERIFICATION.md (known issues list)
+- .quantis/ROADMAP.md (Phase 3 scope)
+- .quantis/phases/VERIFICATION.md (known issues list)
 
 ## Tasks
 
@@ -35,16 +35,16 @@ Fix all factual errors and stale references across README.md, CHANGELOG.md, and 
 
 <task type="auto">
   <name>Fix attribution in CHANGELOG + ARCHITECTURE + Phase 4 roadmap</name>
-  <files>CHANGELOG.md, .gsd/ARCHITECTURE.md, .gsd/ROADMAP.md</files>
+  <files>CHANGELOG.md, .quantis/ARCHITECTURE.md, .quantis/ROADMAP.md</files>
   <action>
     1. CHANGELOG.md: Replace `glittercowboy/get-shit-done` with `gsd-build/get-shit-done`
-    2. .gsd/ARCHITECTURE.md: Replace `glittercowboy/get-shit-done` with `gsd-build/get-shit-done`
-    3. .gsd/ROADMAP.md Phase 4: Remove `scripts/install.ps1` line (we're Bash-only now)
+    2. .quantis/ARCHITECTURE.md: Replace `glittercowboy/get-shit-done` with `gsd-build/get-shit-done`
+    3. .quantis/ROADMAP.md Phase 4: Remove `scripts/install.ps1` line (we're Bash-only now)
   </action>
   <verify>
-    grep -rc "glittercowboy" README.md CHANGELOG.md .gsd/ARCHITECTURE.md | grep -v ":0$" | wc -l | grep -q "0" && echo "PASS" || echo "FAIL"
+    grep -rc "glittercowboy" README.md CHANGELOG.md .quantis/ARCHITECTURE.md | grep -v ":0$" | wc -l | grep -q "0" && echo "PASS" || echo "FAIL"
   </verify>
-  <done>Zero "glittercowboy" references outside .gsd/phases/ and .gsd/AUDIT.md (historical records)</done>
+  <done>Zero "glittercowboy" references outside .quantis/phases/ and .quantis/AUDIT.md (historical records)</done>
 </task>
 
 ## Success Criteria

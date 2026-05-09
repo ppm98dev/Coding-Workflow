@@ -37,7 +37,7 @@
 ### Nice-to-Haves
 - [ ] Dead code prevention (`<remove>` tags)
 - [ ] Smart install `--agent` flag
-- [ ] Override layer `.gsd/overrides/`
+- [ ] Override layer `.quantis/overrides/`
 - [ ] Community skills adoption (Trail of Bits, Vercel, Cloudflare)
 
 ### Phases
@@ -56,7 +56,7 @@
 **Status**: ⬜ Not Started
 **Objective**: Rename GSD → Quantis across the entire framework. Update all references, directory structure, README, and external docs.
 **Deliverables:**
-- Rename `.gsd/` directory to `.quantis/`
+- Rename `.quantis/` directory to `.quantis/`
 - Replace all "GSD" brand references with "Quantis" across 99+ files
 - Rename `GSD-STYLE.md` → `QUANTIS-STYLE.md`
 - Full README rewrite with Quantis branding + Phase 1 features
@@ -99,7 +99,7 @@
 - Branch-per-feature: `/plan` or `/execute` auto-creates git branch per phase/feature
 - Dead code prevention: `<remove>` tag in PLAN.md task XML, Executor Rule 5 "auto-clean dead code", code growth audit in `/verify`
 - Smart install `--agent` flag: `install.sh --agent antigravity` skips irrelevant adapters
-- Override layer: `.gsd/overrides/` directory for template customization
+- Override layer: `.quantis/overrides/` directory for template customization
 - Spec/plan separation cleanup pass
 
 #### Phase 6: Multi-User Foundations

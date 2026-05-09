@@ -1,13 +1,13 @@
 # Decisions
 
-> Previous milestone decisions archived in `.gsd/milestones/v2.0/DECISIONS.md`
+> Previous milestone decisions archived in `.quantis/milestones/v2.0/DECISIONS.md`
 
 ---
 
 ## Phase 1 Decisions (Constitution & Spec Rigor)
 
 **Date:** 2026-05-09
-**Context:** Discussion before planning Phase 1. Studied Spec-Kit repo (cloned to `.gsd/references/spec-kit/`) for implementation patterns.
+**Context:** Discussion before planning Phase 1. Studied Spec-Kit repo (cloned to `.quantis/references/spec-kit/`) for implementation patterns.
 
 ### D-001: Constitution Scope — Comprehensive
 **Decision:** ~150 lines covering 10 articles: Code Quality, Error Handling, Logging, Input Validation, Testing Strategy, Security Defaults, Documentation, Performance, Dependency Policy, Architecture.

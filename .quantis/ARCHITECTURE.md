@@ -24,7 +24,7 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
            ▼                     ▼
 ┌─────────────────────┐ ┌───────────────────────────────────────┐
 │    SKILLS LAYER     │ │          STATE LAYER                   │
-│ .agents/skills/ (11)│ │  .gsd/ (SPEC, ROADMAP, STATE, etc.)   │
+│ .agents/skills/ (11)│ │  .quantis/ (SPEC, ROADMAP, STATE, etc.)   │
 │  planner, executor, │ │  Templates (22), Examples (4)          │
 │  verifier, debugger │ │  Phase directories & artifacts         │
 └─────────────────────┘ └───────────────────────────────────────┘
@@ -76,12 +76,12 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
   - `empirical-validation` (2.5KB) — Proof requirements
 - **Note:** Skills currently have basic SKILL.md only — no scripts/, references/, or assets/ (upgrade planned for v2.1 Phase 4)
 
-### State Layer (`.gsd/`)
+### State Layer (`.quantis/`)
 - **Purpose:** Project state, templates, and examples (populated per-project)
-- **Location:** `.gsd/`
+- **Location:** `.quantis/`
 - **Templates (22):** PLAN, SUMMARY, VERIFICATION, DEBUG, UAT, architecture, spec, roadmap, state, decisions, journal, todo, sprint, milestone, phase-summary, requirements, discovery, context, stack, state_snapshot, token_report, user-setup, project
 - **Examples (4):** workflow-example, quick-reference, cross-platform, multi-wave-workflow
-- **Milestones archive:** `.gsd/milestones/` — completed milestone artifacts
+- **Milestones archive:** `.quantis/milestones/` — completed milestone artifacts
 
 ### Adapter Layer (`adapters/`)
 - **Purpose:** Optional model-specific enhancements (never required)
@@ -106,9 +106,9 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
 
 1. **User invokes** slash command (e.g., `/plan 1`)
 2. **Workflow loads** from `.agent/workflows/plan.md`
-3. **Workflow reads** state from `.gsd/` (SPEC, ROADMAP, STATE)
+3. **Workflow reads** state from `.quantis/` (SPEC, ROADMAP, STATE)
 4. **Workflow invokes** skills from `.agents/skills/` as needed
-5. **Workflow writes** outputs back to `.gsd/` (PLAN.md, STATE.md updates)
+5. **Workflow writes** outputs back to `.quantis/` (PLAN.md, STATE.md updates)
 6. **Workflow commits** changes via git with conventional commit format
 7. **Workflow routes** user to next step
 

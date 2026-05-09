@@ -10,9 +10,9 @@ wave: 1
 Update `model_capabilities.yaml` with real model names as examples while keeping the category-based structure (per ADR-003). This makes the file immediately actionable instead of requiring users to guess which models fit which profile.
 
 ## Context
-- .gsd/SPEC.md
-- .gsd/RESEARCH.md (Model Support section — current models as of April 2026)
-- .gsd/DECISIONS.md (ADR-003: category + examples pattern)
+- .quantis/SPEC.md
+- .quantis/RESEARCH.md (Model Support section — current models as of April 2026)
+- .quantis/DECISIONS.md (ADR-003: category + examples pattern)
 - model_capabilities.yaml (current file)
 
 ## Tasks

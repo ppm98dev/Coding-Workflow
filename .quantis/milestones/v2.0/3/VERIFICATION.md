@@ -25,7 +25,7 @@ verdict: PASS
 
 ### ✅ MH-4: No install.ps1 in Phase 4 roadmap
 **Status:** PASS
-**Evidence:** `grep "install.ps1" .gsd/ROADMAP.md` → not found
+**Evidence:** `grep "install.ps1" .quantis/ROADMAP.md` → not found
 
 ### ✅ MH-5: No PowerShell in README
 **Status:** PASS

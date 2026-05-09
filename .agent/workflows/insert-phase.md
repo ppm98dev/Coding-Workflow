@@ -22,7 +22,7 @@ Extract:
 ## 2. Validate Position
 
 ```bash
-total_phases=$(grep -c "### Phase [0-9]" ".gsd/ROADMAP.md")
+total_phases=$(grep -c "### Phase [0-9]" ".quantis/ROADMAP.md")
 if [ "$position" -lt 1 ] || [ "$position" -gt $((total_phases + 1)) ]; then
     echo "Error: Invalid position. Valid: 1-$((total_phases + 1))" >&2
 fi
@@ -43,7 +43,7 @@ Ask for:
 For phases >= position, increment phase number by 1.
 
 **Also update:**
-- Phase directory names (`.gsd/phases/{N}/`)
+- Phase directory names (`.quantis/phases/{N}/`)
 - References in PLAN.md files
 - Dependencies in ROADMAP.md
 

@@ -1,6 +1,6 @@
 # Roadmap Template
 
-Template for `.gsd/ROADMAP.md` — phase structure and progress tracking.
+Template for `.quantis/ROADMAP.md` — phase structure and progress tracking.
 
 ---
 

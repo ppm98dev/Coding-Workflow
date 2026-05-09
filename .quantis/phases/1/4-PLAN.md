@@ -10,10 +10,10 @@ wave: 2
 Create the `/stress-test` workflow that adversarially reviews SPEC.md to find ambiguity, contradictions, missing failure modes, and gaps. This is the proactive quality gate that catches issues before `/plan`'s mandatory marker rejection.
 
 ## Context
-- .gsd/DECISIONS.md (D-004, D-011)
-- .gsd/references/spec-kit/spec-driven.md (lines 180-204 — forced clarification markers)
+- .quantis/DECISIONS.md (D-004, D-011)
+- .quantis/references/spec-kit/spec-driven.md (lines 180-204 — forced clarification markers)
 - .agent/workflows/new-project.md (needs /stress-test suggestion after SPEC creation)
-- .gsd/templates/spec.md (Unresolved Questions section format)
+- .quantis/templates/spec.md (Unresolved Questions section format)
 
 ## Tasks
 

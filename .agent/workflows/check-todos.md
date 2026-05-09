@@ -15,7 +15,7 @@ Display pending todo items, optionally filtered by priority or status.
 - `--priority high|medium|low` — Filter by priority
 
 **Input:**
-- `.gsd/TODO.md` — Todo items
+- `.quantis/TODO.md` — Todo items
 </context>
 
 <process>

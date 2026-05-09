@@ -30,11 +30,11 @@ Specialized agent behaviors. Each skill:
 - Contains detailed methodology
 - Is referenced by parent workflows
 
-### Templates (`.gsd/templates/*.md`)
+### Templates (`.quantis/templates/*.md`)
 
 Reusable document structures. Copy, don't reference.
 
-### References (`.gsd/examples/*.md`)
+### References (`.quantis/examples/*.md`)
 
 Read-only documentation and examples.
 

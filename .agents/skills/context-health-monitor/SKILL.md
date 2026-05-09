@@ -29,7 +29,7 @@ The agent should self-monitor for these warning signs:
 If debugging the same issue fails 3 times:
 
 1. **STOP** attempting fixes
-2. **Document** in `.gsd/STATE.md`:
+2. **Document** in `.quantis/STATE.md`:
    - What was tried
    - What errors occurred
    - Current hypothesis
@@ -50,7 +50,7 @@ If the same approach is being tried again:
 When uncertain about an approach:
 
 1. **State** the uncertainty clearly
-2. **Document** in `.gsd/DECISIONS.md`:
+2. **Document** in `.quantis/DECISIONS.md`:
    - The uncertain decision
    - Why it's uncertain
    - Alternatives considered
@@ -58,7 +58,7 @@ When uncertain about an approach:
 
 ## State Dump Format
 
-When triggered, write to `.gsd/STATE.md`:
+When triggered, write to `.quantis/STATE.md`:
 
 ```markdown
 ## Context Health: State Dump
@@ -89,7 +89,7 @@ When triggered, write to `.gsd/STATE.md`:
 
 ### Steps
 
-1. **Write** a state snapshot to `.gsd/STATE.md` immediately when a threshold is hit
+1. **Write** a state snapshot to `.quantis/STATE.md` immediately when a threshold is hit
 2. **Include** at minimum: current phase, current task, last action, next step
 3. **Then** inform the user of the situation and recommend `/pause`
 

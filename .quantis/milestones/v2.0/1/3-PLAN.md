@@ -11,8 +11,8 @@ depends_on: [1]
 Modify `execute.md` and `verify.md` workflows to natively reference Antigravity tools (per ADR-004: deep adapter + workflow patches). This makes GSD feel Antigravity-native rather than requiring users to manually cross-reference the adapter.
 
 ## Context
-- .gsd/SPEC.md
-- .gsd/DECISIONS.md (ADR-004: workflow patches, ADR-005: GSD replaces planning mode)
+- .quantis/SPEC.md
+- .quantis/DECISIONS.md (ADR-004: workflow patches, ADR-005: GSD replaces planning mode)
 - adapters/ANTIGRAVITY.md (created in Plan 1.1 — must exist before this plan)
 - .agent/workflows/execute.md (current file)
 - .agent/workflows/verify.md (current file)

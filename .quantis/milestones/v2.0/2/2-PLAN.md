@@ -10,7 +10,7 @@ wave: 1
 Remove all PowerShell code blocks from the 13 workflows that contain them. This is the bulk operation (~774 lines removed across 13 files).
 
 ## Context
-- .gsd/ROADMAP.md (revised Phase 2 scope)
+- .quantis/ROADMAP.md (revised Phase 2 scope)
 - .agent/workflows/ (13 affected files)
 
 ## Tasks

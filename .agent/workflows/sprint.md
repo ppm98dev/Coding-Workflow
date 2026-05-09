@@ -34,7 +34,7 @@ Ask for:
 
 ### Create Sprint File
 
-Create `.gsd/SPRINT.md` using the template from `.gsd/templates/sprint.md`:
+Create `.quantis/SPRINT.md` using the template from `.quantis/templates/sprint.md`:
 
 ```markdown
 # Sprint {N} — {Sprint Name}
@@ -79,7 +79,7 @@ Create `.gsd/SPRINT.md` using the template from `.gsd/templates/sprint.md`:
 ### Commit
 
 ```bash
-git add .gsd/SPRINT.md .gsd/STATE.md
+git add .quantis/SPRINT.md .quantis/STATE.md
 git commit -m "docs: create sprint {name}"
 ```
 
@@ -87,7 +87,7 @@ git commit -m "docs: create sprint {name}"
 
 ## 2b. Action: Status
 
-Read `.gsd/SPRINT.md` and display:
+Read `.quantis/SPRINT.md` and display:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -113,7 +113,7 @@ Check all tasks are done or explicitly deferred.
 
 ### Generate Retrospective
 
-Append to `.gsd/SPRINT.md`:
+Append to `.quantis/SPRINT.md`:
 
 ```markdown
 ## Retrospective ({date})
@@ -131,8 +131,8 @@ Append to `.gsd/SPRINT.md`:
 ### Archive Sprint
 
 ```bash
-mkdir -p .gsd/sprints
-mv .gsd/SPRINT.md ".gsd/sprints/{name}-SPRINT.md"
+mkdir -p .quantis/sprints
+mv .quantis/SPRINT.md ".quantis/sprints/{name}-SPRINT.md"
 ```
 
 ### Update STATE.md
@@ -142,7 +142,7 @@ Restore previous milestone position or mark as idle.
 ### Commit
 
 ```bash
-git add .gsd/sprints/ .gsd/STATE.md
+git add .quantis/sprints/ .quantis/STATE.md
 git commit -m "docs: close sprint {name}"
 ```
 

@@ -14,7 +14,7 @@ Define a new milestone with goal, phases, and success criteria.
 ## 1. Validate SPEC Exists
 
 ```bash
-if [ ! -f ".gsd/SPEC.md" ]; then
+if [ ! -f ".quantis/SPEC.md" ]; then
     echo "Error: SPEC.md required. Run /new-project first." >&2
 fi
 ```
@@ -92,11 +92,11 @@ Ask user to confirm or modify.
 If DECISIONS.md or JOURNAL.md contain entries from a previous milestone, reset them to prevent monolithic growth:
 
 ```bash
-if [ -f ".gsd/DECISIONS.md" ] && [ "$(wc -l < .gsd/DECISIONS.md)" -gt 5 ]; then
-    printf '# Decisions\n\n---\n' > .gsd/DECISIONS.md
+if [ -f ".quantis/DECISIONS.md" ] && [ "$(wc -l < .quantis/DECISIONS.md)" -gt 5 ]; then
+    printf '# Decisions\n\n---\n' > .quantis/DECISIONS.md
 fi
-if [ -f ".gsd/JOURNAL.md" ] && [ "$(wc -l < .gsd/JOURNAL.md)" -gt 5 ]; then
-    printf '# Journal\n\n---\n' > .gsd/JOURNAL.md
+if [ -f ".quantis/JOURNAL.md" ] && [ "$(wc -l < .quantis/JOURNAL.md)" -gt 5 ]; then
+    printf '# Journal\n\n---\n' > .quantis/JOURNAL.md
 fi
 ```
 
@@ -107,7 +107,7 @@ fi
 ## 6. Commit
 
 ```bash
-git add .gsd/ROADMAP.md .gsd/STATE.md
+git add .quantis/ROADMAP.md .quantis/STATE.md
 git commit -m "docs: create milestone {name}"
 ```
 

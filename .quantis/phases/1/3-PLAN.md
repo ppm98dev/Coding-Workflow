@@ -10,10 +10,10 @@ wave: 2
 Make `/plan` and `/execute` workflows load CONSTITUTION.md as required context. `/plan` hard-fails if CONSTITUTION.md doesn't exist (D-006). This ensures every plan and execution respects project quality standards.
 
 ## Context
-- .gsd/DECISIONS.md (D-006, D-008)
+- .quantis/DECISIONS.md (D-006, D-008)
 - .agent/workflows/plan.md
 - .agent/workflows/execute.md
-- .gsd/templates/constitution.md (created in Plan 1.1)
+- .quantis/templates/constitution.md (created in Plan 1.1)
 
 ## Tasks
 
@@ -26,8 +26,8 @@ Make `/plan` and `/execute` workflows load CONSTITUTION.md as required context. 
     1. In Step 1 (Validate Environment), add constitution check AFTER the SPEC finalization check:
        ```bash
        # Check CONSTITUTION.md exists
-       if [ ! -f ".gsd/CONSTITUTION.md" ]; then
-           echo "Error: CONSTITUTION.md required. Run /new-project or create one from .gsd/templates/constitution.md" >&2
+       if [ ! -f ".quantis/CONSTITUTION.md" ]; then
+           echo "Error: CONSTITUTION.md required. Run /new-project or create one from .quantis/templates/constitution.md" >&2
            exit 1
        fi
        ```
@@ -36,12 +36,12 @@ Make `/plan` and `/execute` workflows load CONSTITUTION.md as required context. 
        ```markdown
        ### 6a. Gather Context
        Load:
-       - `.gsd/CONSTITUTION.md` — Project quality standards (REQUIRED)
-       - `.gsd/SPEC.md` — Requirements
-       - `.gsd/REQUIREMENTS.md` — Formal requirements tracking (if exists)
-       - `.gsd/ROADMAP.md` — Phase description
+       - `.quantis/CONSTITUTION.md` — Project quality standards (REQUIRED)
+       - `.quantis/SPEC.md` — Requirements
+       - `.quantis/REQUIREMENTS.md` — Formal requirements tracking (if exists)
+       - `.quantis/ROADMAP.md` — Phase description
        - `$PHASE_DIR/RESEARCH.md` — If exists
-       - `.gsd/ARCHITECTURE.md` — If exists
+       - `.quantis/ARCHITECTURE.md` — If exists
        ```
 
     3. Add a note in the philosophy section or process section:
@@ -77,13 +77,13 @@ Make `/plan` and `/execute` workflows load CONSTITUTION.md as required context. 
 
     1. In Step 1 (Validate Environment), add constitution check:
        ```bash
-       test -f ".gsd/CONSTITUTION.md"
+       test -f ".quantis/CONSTITUTION.md"
        ```
        If not found: Warning (not hard fail — /plan already gates this, but /execute should still check).
 
     2. In Step 6a (Execute Plans in Wave), add instruction to load CONSTITUTION.md as context alongside the PLAN.md:
        ```markdown
-       1. **Load plan context** — Read the PLAN.md file AND `.gsd/CONSTITUTION.md`
+       1. **Load plan context** — Read the PLAN.md file AND `.quantis/CONSTITUTION.md`
        ```
 
     3. Add a note about constitutional compliance during execution:

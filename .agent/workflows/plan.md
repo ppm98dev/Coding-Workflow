@@ -33,8 +33,8 @@ Create executable phase prompts (PLAN.md files) for a roadmap phase with integra
 - `--gaps` — Gap closure mode (reads VERIFICATION.md, skips research)
 
 **Required files:**
-- `.gsd/SPEC.md` — Must be FINALIZED (Planning Lock)
-- `.gsd/ROADMAP.md` — Must have phases defined
+- `.quantis/SPEC.md` — Must be FINALIZED (Planning Lock)
+- `.quantis/ROADMAP.md` — Must have phases defined
 </context>
 
 <philosophy>
@@ -88,7 +88,7 @@ Discovery is MANDATORY unless you can prove current context exists.
 **Level 1.5 — Discovery** (5-15 min)
 - Quick library/option comparison (A vs B)
 - Low-to-medium risk, focused question
-- Action: Create DISCOVERY.md using `.gsd/templates/discovery.md` template
+- Action: Create DISCOVERY.md using `.quantis/templates/discovery.md` template
 
 **Level 2 — Standard Research** (15-30 min)
 - Choosing between 2-3 options
@@ -110,14 +110,14 @@ Discovery is MANDATORY unless you can prove current context exists.
 
 ```bash
 # Check SPEC.md exists and is finalized
-if ! grep -q "FINALIZED" ".gsd/SPEC.md"; then
+if ! grep -q "FINALIZED" ".quantis/SPEC.md"; then
     echo "Error: SPEC.md must be FINALIZED before planning" >&2
     exit 1
 fi
 
 # Check CONSTITUTION.md exists
-if [ ! -f ".gsd/CONSTITUTION.md" ]; then
-    echo "Error: CONSTITUTION.md required. Run /new-project or create one from .gsd/templates/constitution.md" >&2
+if [ ! -f ".quantis/CONSTITUTION.md" ]; then
+    echo "Error: CONSTITUTION.md required. Run /new-project or create one from .quantis/templates/constitution.md" >&2
     exit 1
 fi
 ```
@@ -142,7 +142,7 @@ Extract from $ARGUMENTS:
 ## 3. Validate Phase
 
 ```bash
-grep "Phase $PHASE:" ".gsd/ROADMAP.md"
+grep "Phase $PHASE:" ".quantis/ROADMAP.md"
 ```
 
 **If not found:** Error with available phases.
@@ -153,7 +153,7 @@ grep "Phase $PHASE:" ".gsd/ROADMAP.md"
 ## 4. Ensure Phase Directory
 
 ```bash
-PHASE_DIR=".gsd/phases/$PHASE"
+PHASE_DIR=".quantis/phases/$PHASE"
 mkdir -p "$PHASE_DIR"
 ```
 
@@ -200,12 +200,12 @@ Display banner:
 
 ### 6a. Gather Context
 Load:
-- `.gsd/CONSTITUTION.md` — Project quality standards (**REQUIRED**)
-- `.gsd/SPEC.md` — Requirements
-- `.gsd/REQUIREMENTS.md` — Formal requirements tracking (if exists)
-- `.gsd/ROADMAP.md` — Phase description
+- `.quantis/CONSTITUTION.md` — Project quality standards (**REQUIRED**)
+- `.quantis/SPEC.md` — Requirements
+- `.quantis/REQUIREMENTS.md` — Formal requirements tracking (if exists)
+- `.quantis/ROADMAP.md` — Phase description
 - `$PHASE_DIR/RESEARCH.md` — If exists
-- `.gsd/ARCHITECTURE.md` — If exists
+- `.quantis/ARCHITECTURE.md` — If exists
 
 > **Constitutional Compliance**: Every plan MUST comply with CONSTITUTION.md.
 > Tasks that would violate constitutional articles must either:
@@ -236,8 +236,8 @@ wave: 1
 {What this plan delivers and why}
 
 ## Context
-- .gsd/SPEC.md
-- .gsd/ARCHITECTURE.md
+- .quantis/SPEC.md
+- .quantis/ARCHITECTURE.md
 - {relevant source files}
 
 ## Tasks
@@ -295,7 +295,7 @@ Tests must verify real behavior, not just pass. Reject plans with tests that:
 
 ## 8. Update State
 
-Update `.gsd/STATE.md`:
+Update `.quantis/STATE.md`:
 ```markdown
 ## Current Position
 - **Phase**: {N}
@@ -311,8 +311,8 @@ Update `.gsd/STATE.md`:
 ## 9. Commit Plans
 
 ```bash
-git add .gsd/phases/$PHASE/
-git add .gsd/STATE.md
+git add .quantis/phases/$PHASE/
+git add .quantis/STATE.md
 git commit -m "docs(phase-$PHASE): create execution plans"
 ```
 

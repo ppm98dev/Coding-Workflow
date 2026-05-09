@@ -10,9 +10,9 @@ wave: 1
 Update the SPEC template to support `[NEEDS CLARIFICATION]` markers, add Quality Requirements and Edge Cases sections, and update the plan-checker skill to reject specs with unresolved markers. This ensures no ambiguous spec can reach the planning stage.
 
 ## Context
-- .gsd/DECISIONS.md (D-002, D-003, D-007)
-- .gsd/references/spec-kit/templates/spec-template.md (their [NEEDS CLARIFICATION] pattern)
-- .gsd/templates/spec.md (current template)
+- .quantis/DECISIONS.md (D-002, D-003, D-007)
+- .quantis/references/spec-kit/templates/spec-template.md (their [NEEDS CLARIFICATION] pattern)
+- .quantis/templates/spec.md (current template)
 - .agents/skills/plan-checker/SKILL.md
 - .agent/workflows/new-project.md (Phase 4 — Write SPEC.md section)
 
@@ -20,7 +20,7 @@ Update the SPEC template to support `[NEEDS CLARIFICATION]` markers, add Quality
 
 <task type="auto">
   <name>Update SPEC template with new sections</name>
-  <files>.gsd/templates/spec.md</files>
+  <files>.quantis/templates/spec.md</files>
   <action>
     Add the following to the existing spec template (ADDITIVE — do not remove existing sections):
 
@@ -61,13 +61,13 @@ Update the SPEC template to support `[NEEDS CLARIFICATION]` markers, add Quality
        <!-- This section must be EMPTY before spec can be marked FINALIZED. -->
        ```
 
-    Reference: .gsd/references/spec-kit/templates/spec-template.md lines 93-97 for their marker syntax.
+    Reference: .quantis/references/spec-kit/templates/spec-template.md lines 93-97 for their marker syntax.
   </action>
   <verify>
-    grep -q "NEEDS CLARIFICATION" .gsd/templates/spec.md && \
-    grep -q "Quality Requirements" .gsd/templates/spec.md && \
-    grep -q "Edge Cases" .gsd/templates/spec.md && \
-    grep -q "Unresolved Questions" .gsd/templates/spec.md && \
+    grep -q "NEEDS CLARIFICATION" .quantis/templates/spec.md && \
+    grep -q "Quality Requirements" .quantis/templates/spec.md && \
+    grep -q "Edge Cases" .quantis/templates/spec.md && \
+    grep -q "Unresolved Questions" .quantis/templates/spec.md && \
     echo "PASS: All new sections present"
   </verify>
   <done>
@@ -88,9 +88,9 @@ Update the SPEC template to support `[NEEDS CLARIFICATION]` markers, add Quality
     **New Rule: Spec Clarity Gate**
     Before checking plans, verify SPEC.md has no unresolved clarification markers:
     ```bash
-    if grep -q "\[NEEDS CLARIFICATION" .gsd/SPEC.md; then
+    if grep -q "\[NEEDS CLARIFICATION" .quantis/SPEC.md; then
         echo "FAIL: SPEC.md has unresolved [NEEDS CLARIFICATION] markers"
-        grep -n "\[NEEDS CLARIFICATION" .gsd/SPEC.md
+        grep -n "\[NEEDS CLARIFICATION" .quantis/SPEC.md
         echo "Resolve all markers before planning. Try /stress-test to review."
         exit 1
     fi
@@ -128,7 +128,7 @@ Update the SPEC template to support `[NEEDS CLARIFICATION]` markers, add Quality
 
     Also update the SPEC template used in /new-project to include the new sections
     (Quality Requirements, Edge Cases, Unresolved Questions) — reference the updated 
-    .gsd/templates/spec.md.
+    .quantis/templates/spec.md.
   </action>
   <verify>
     grep -c "NEEDS CLARIFICATION" .agent/workflows/new-project.md | grep -qv "^0$" && \

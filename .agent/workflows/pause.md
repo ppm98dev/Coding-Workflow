@@ -20,7 +20,7 @@ Safely pause work with complete state preservation for session handoff.
 
 ## 1. Capture Current State
 
-Update `.gsd/STATE.md`:
+Update `.quantis/STATE.md`:
 
 ```markdown
 ## Current Position
@@ -67,7 +67,7 @@ Update `.gsd/STATE.md`:
 
 ## 2. Add Journal Entry
 
-Create entry in `.gsd/JOURNAL.md`:
+Create entry in `.quantis/JOURNAL.md`:
 
 ```markdown
 ## Session: {YYYY-MM-DD HH:MM}
@@ -95,7 +95,7 @@ Create entry in `.gsd/JOURNAL.md`:
 ## 3. Commit State
 
 ```bash
-git add .gsd/STATE.md .gsd/JOURNAL.md
+git add .quantis/STATE.md .quantis/JOURNAL.md
 git commit -m "docs: pause session - {brief reason}"
 ```
 
@@ -109,8 +109,8 @@ git commit -m "docs: pause session - {brief reason}"
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 State saved to:
-• .gsd/STATE.md
-• .gsd/JOURNAL.md
+• .quantis/STATE.md
+• .quantis/JOURNAL.md
 
 ───────────────────────────────────────────────────────
 
@@ -151,14 +151,14 @@ A fresh context often immediately sees solutions that a polluted context missed.
 
 | Trigger | Action |
 |---------|--------|
-| Context usage reaches ~50-70% | Write lightweight state snapshot to `.gsd/STATE.md` |
+| Context usage reaches ~50-70% | Write lightweight state snapshot to `.quantis/STATE.md` |
 | 3-strike debugging rule fires | Save state dump BEFORE recommending `/pause` |
-| Extended session detected | Periodic state checkpoints to `.gsd/STATE.md` |
+| Extended session detected | Periodic state checkpoints to `.quantis/STATE.md` |
 
 ### Auto-Save Protocol
 
 1. **Detect** context health warning signals (see context-health-monitor skill)
-2. **Write** current state to `.gsd/STATE.md` immediately
+2. **Write** current state to `.quantis/STATE.md` immediately
 3. **Then** inform the user and recommend `/pause`
 4. If session terminates unexpectedly, state is already saved
 

@@ -11,7 +11,7 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 REPO="https://github.com/ppm98dev/Coding-Workflow.git"
-TEMP_DIR=".gsd-install-tmp"
+TEMP_DIR=".quantis-install-tmp"
 FORCE=false
 
 # Parse args
@@ -32,7 +32,7 @@ for arg in "$@"; do
 done
 
 # Check for existing installation
-if [ -d ".gsd" ] && [ "$FORCE" = false ]; then
+if [ -d ".quantis" ] && [ "$FORCE" = false ]; then
   echo -e "${YELLOW}⚠  GSD already installed in this project.${NC}"
   echo "   Use --force to overwrite."
   exit 1
@@ -47,7 +47,7 @@ git clone --depth 1 --quiet "$REPO" "$TEMP_DIR" 2>/dev/null || {
 }
 
 # Copy framework files
-DIRS=(".agent" ".agents" ".gemini" ".gsd" "adapters" "docs" "scripts")
+DIRS=(".agent" ".agents" ".gemini" ".quantis" "adapters" "docs" "scripts")
 FILES=("PROJECT_RULES.md" "GSD-STYLE.md" "model_capabilities.yaml")
 
 for dir in "${DIRS[@]}"; do

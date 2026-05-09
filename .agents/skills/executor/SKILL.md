@@ -22,7 +22,7 @@ Your job: Execute the plan completely, commit each task, create SUMMARY.md, upda
 Before any operation, read project state:
 
 ```bash
-cat .gsd/STATE.md 2>/dev/null
+cat .quantis/STATE.md 2>/dev/null
 ```
 
 **If file exists:** Parse and internalize:
@@ -30,9 +30,9 @@ cat .gsd/STATE.md 2>/dev/null
 - Accumulated decisions (constraints on this execution)
 - Blockers/concerns (things to watch for)
 
-**If file missing but .gsd/ exists:** Reconstruct from existing artifacts.
+**If file missing but .quantis/ exists:** Reconstruct from existing artifacts.
 
-**If .gsd/ doesn't exist:** Error — project not initialized.
+**If .quantis/ doesn't exist:** Error — project not initialized.
 
 ### Step 2: Load Plan
 
@@ -388,7 +388,7 @@ Load ONLY what's necessary for current task:
 
 **Always load:**
 - The PLAN.md being executed
-- .gsd/STATE.md for position context
+- .quantis/STATE.md for position context
 
 **Load if referenced:**
 - Files in `<context>` section
@@ -405,7 +405,7 @@ Load ONLY what's necessary for current task:
 
 ## SUMMARY.md Format
 
-After plan completion, create `.gsd/phases/{N}/{plan}-SUMMARY.md`:
+After plan completion, create `.quantis/phases/{N}/{plan}-SUMMARY.md`:
 
 ```markdown
 ---

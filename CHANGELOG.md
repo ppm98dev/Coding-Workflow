@@ -97,7 +97,7 @@ All notable changes to GSD for Antigravity.
 ### Added
 - **Template Parity** — 14 templates aligned with original repository
   - `DEBUG.md`, `UAT.md`, `discovery.md`, `requirements.md`, etc.
-- **Examples** — `.gsd/examples/` directory
+- **Examples** — `.quantis/examples/` directory
   - `workflow-example.md` — Full workflow walkthrough
   - `quick-reference.md` — Command cheat sheet
   - `cross-platform.md` — Platform-specific guidance

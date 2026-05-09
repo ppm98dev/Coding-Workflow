@@ -25,7 +25,7 @@ fi
 
 ```bash
 # Clone latest to temp directory
-git clone --depth 1 https://github.com/toonight/get-shit-done-for-antigravity.git .gsd-update-temp
+git clone --depth 1 https://github.com/toonight/get-shit-done-for-antigravity.git .quantis-update-temp
 ```
 
 ---
@@ -33,7 +33,7 @@ git clone --depth 1 https://github.com/toonight/get-shit-done-for-antigravity.gi
 ## 3. Compare Versions
 
 ```bash
-remote_version=$(grep -oP '## \[\K[0-9]+\.[0-9]+\.[0-9]+' .gsd-update-temp/CHANGELOG.md | head -1)
+remote_version=$(grep -oP '## \[\K[0-9]+\.[0-9]+\.[0-9]+' .quantis-update-temp/CHANGELOG.md | head -1)
 echo "Remote version: $remote_version"
 ```
 
@@ -85,22 +85,22 @@ B) No — Cancel
 # Backup current
 cp -r .agent .agent.backup
 cp -r .agents .agents.backup
-cp -r .gsd/templates .gsd/templates.backup
+cp -r .quantis/templates .quantis/templates.backup
 
-# Update workflows (preserve user's .gsd docs)
-cp -r .gsd-update-temp/.agent/* .agent/
+# Update workflows (preserve user's .quantis docs)
+cp -r .quantis-update-temp/.agent/* .agent/
 
 # Update skills (Agent Skills standard)
-cp -r .gsd-update-temp/.agents/* .agents/
+cp -r .quantis-update-temp/.agents/* .agents/
 
 # Update templates only
-cp -r .gsd-update-temp/.gsd/templates/* .gsd/templates/
+cp -r .quantis-update-temp/.quantis/templates/* .quantis/templates/
 
 # Update root files
-cp .gsd-update-temp/GSD-STYLE.md ./
-cp .gsd-update-temp/CHANGELOG.md ./
-cp .gsd-update-temp/PROJECT_RULES.md ./
-cp .gsd-update-temp/VERSION ./
+cp .quantis-update-temp/GSD-STYLE.md ./
+cp .quantis-update-temp/CHANGELOG.md ./
+cp .quantis-update-temp/PROJECT_RULES.md ./
+cp .quantis-update-temp/VERSION ./
 ```
 
 ---
@@ -108,10 +108,10 @@ cp .gsd-update-temp/VERSION ./
 ## 6. Cleanup
 
 ```bash
-rm -rf .gsd-update-temp
+rm -rf .quantis-update-temp
 rm -rf .agent.backup
 rm -rf .agents.backup
-rm -rf .gsd/templates.backup
+rm -rf .quantis/templates.backup
 ```
 
 ---
@@ -136,14 +136,14 @@ Updated to version {remote-version}
 
 <preserved_files>
 These user files are NEVER overwritten:
-- .gsd/SPEC.md
-- .gsd/ROADMAP.md
-- .gsd/STATE.md
-- .gsd/ARCHITECTURE.md
-- .gsd/STACK.md
-- .gsd/DECISIONS.md
-- .gsd/JOURNAL.md
-- .gsd/TODO.md
-- .gsd/phases/*
+- .quantis/SPEC.md
+- .quantis/ROADMAP.md
+- .quantis/STATE.md
+- .quantis/ARCHITECTURE.md
+- .quantis/STACK.md
+- .quantis/DECISIONS.md
+- .quantis/JOURNAL.md
+- .quantis/TODO.md
+- .quantis/phases/*
 - .gemini/GEMINI.md
 </preserved_files>

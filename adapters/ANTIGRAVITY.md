@@ -105,7 +105,7 @@ GSD's methodology (SPEC → PLAN → EXECUTE → VERIFY) **replaces** Antigravit
 
 ### What This Means
 - **Do NOT** create Antigravity artifacts (`implementation_plan.md`, `task.md`, `walkthrough.md`)
-- **Use only** GSD's `.gsd/` files: SPEC.md, PLAN.md, SUMMARY.md, VERIFICATION.md
+- **Use only** GSD's `.quantis/` files: SPEC.md, PLAN.md, SUMMARY.md, VERIFICATION.md
 - **Workflows drive execution** — `/plan`, `/execute`, `/verify` instead of Antigravity's plan→approve→execute flow
 
 ### Why

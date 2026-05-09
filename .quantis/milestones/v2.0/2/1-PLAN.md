@@ -10,8 +10,8 @@ wave: 1
 Remove all 6 PowerShell script files and strip PowerShell code blocks from 5 skills. This is the smaller batch (11 files) and can run in parallel with Plan 2.2.
 
 ## Context
-- .gsd/ROADMAP.md (revised Phase 2 scope)
-- .gsd/DECISIONS.md (ADR-008: Remove PowerShell)
+- .quantis/ROADMAP.md (revised Phase 2 scope)
+- .quantis/DECISIONS.md (ADR-008: Remove PowerShell)
 
 ## Tasks
 

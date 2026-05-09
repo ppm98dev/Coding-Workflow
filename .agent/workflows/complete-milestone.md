@@ -14,7 +14,7 @@ Finalize the current milestone, archive documentation, and prepare for next mile
 
 ```bash
 # Check ROADMAP.md for incomplete phases
-grep -E "Status.*Not Started|Status.*In Progress" ".gsd/ROADMAP.md"
+grep -E "Status.*Not Started|Status.*In Progress" ".quantis/ROADMAP.md"
 ```
 
 **If incomplete phases found:**
@@ -37,7 +37,7 @@ Verify all must-haves from ROADMAP.md:
 
 ## 3. Generate Milestone Summary
 
-Create `.gsd/milestones/{name}-SUMMARY.md`:
+Create `.quantis/milestones/{name}-SUMMARY.md`:
 
 ```markdown
 # Milestone: {name}
@@ -68,14 +68,14 @@ Create `.gsd/milestones/{name}-SUMMARY.md`:
 
 ```bash
 # Create milestone archive
-mkdir -p ".gsd/milestones/{name}"
+mkdir -p ".quantis/milestones/{name}"
 
 # Move phase-specific files
-mv .gsd/phases/* ".gsd/milestones/{name}/"
+mv .quantis/phases/* ".quantis/milestones/{name}/"
 
 # Archive decisions and journal (prevent monolithic growth across milestones)
-[ -f ".gsd/DECISIONS.md" ] && cp ".gsd/DECISIONS.md" ".gsd/milestones/{name}/DECISIONS.md"
-[ -f ".gsd/JOURNAL.md" ] && cp ".gsd/JOURNAL.md" ".gsd/milestones/{name}/JOURNAL.md"
+[ -f ".quantis/DECISIONS.md" ] && cp ".quantis/DECISIONS.md" ".quantis/milestones/{name}/DECISIONS.md"
+[ -f ".quantis/JOURNAL.md" ] && cp ".quantis/JOURNAL.md" ".quantis/milestones/{name}/JOURNAL.md"
 ```
 
 ---
@@ -90,7 +90,7 @@ Update STATE.md to show milestone complete.
 ```markdown
 # Decisions
 
-> Previous milestone decisions archived in `.gsd/milestones/{name}/DECISIONS.md`
+> Previous milestone decisions archived in `.quantis/milestones/{name}/DECISIONS.md`
 
 ---
 ```
@@ -100,7 +100,7 @@ Update STATE.md to show milestone complete.
 ```markdown
 # Journal
 
-> Previous milestone journal archived in `.gsd/milestones/{name}/JOURNAL.md`
+> Previous milestone journal archived in `.quantis/milestones/{name}/JOURNAL.md`
 
 ---
 ```
@@ -109,7 +109,7 @@ Update STATE.md to show milestone complete.
 
 ## 5c. Refresh Architecture
 
-Update `.gsd/ARCHITECTURE.md` to reflect the current state of the codebase after the milestone:
+Update `.quantis/ARCHITECTURE.md` to reflect the current state of the codebase after the milestone:
 
 1. **Scan the project** — identify new components, removed modules, changed dependencies
 2. **Update the architecture diagram** — reflect structural changes from this milestone
@@ -122,13 +122,13 @@ Update `.gsd/ARCHITECTURE.md` to reflect the current state of the codebase after
 
 ## 5d. Update Requirements
 
-If `.gsd/REQUIREMENTS.md` exists, mark completed requirements:
+If `.quantis/REQUIREMENTS.md` exists, mark completed requirements:
 
 1. Read each requirement's status
 2. Cross-reference with milestone deliverables and verification results
 3. Mark satisfied requirements as `Complete`
 4. Mark deferred items as `Deferred` with reason
-5. Archive the requirements snapshot into `.gsd/milestones/{name}/REQUIREMENTS.md`
+5. Archive the requirements snapshot into `.quantis/milestones/{name}/REQUIREMENTS.md`
 
 ---
 

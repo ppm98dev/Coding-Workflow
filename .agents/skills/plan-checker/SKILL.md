@@ -20,9 +20,9 @@ Your job: Find problems BEFORE execution, not during.
 Before checking plans, verify SPEC.md has no unresolved clarification markers:
 
 ```bash
-if grep -q "\[NEEDS CLARIFICATION" .gsd/SPEC.md; then
+if grep -q "\[NEEDS CLARIFICATION" .quantis/SPEC.md; then
     echo "FAIL: SPEC.md has unresolved [NEEDS CLARIFICATION] markers"
-    grep -n "\[NEEDS CLARIFICATION" .gsd/SPEC.md
+    grep -n "\[NEEDS CLARIFICATION" .quantis/SPEC.md
     echo ""
     echo "Resolve all markers before planning. Try /stress-test to review."
     exit 1
@@ -211,9 +211,9 @@ issue:
 ### Step 1: Load Context
 ```
 Read:
-- .gsd/ROADMAP.md (phase goals)
-- .gsd/REQUIREMENTS.md (if exists)
-- .gsd/phases/{N}/*-PLAN.md (all plans)
+- .quantis/ROADMAP.md (phase goals)
+- .quantis/REQUIREMENTS.md (if exists)
+- .quantis/phases/{N}/*-PLAN.md (all plans)
 ```
 
 ### Step 2: Parse Plans

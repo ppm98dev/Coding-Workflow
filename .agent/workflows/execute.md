@@ -31,9 +31,9 @@ Orchestrator stays lean: discover plans, analyze dependencies, group into waves,
 - `--gaps-only` — Execute only gap closure plans (created by `/verify` when issues found)
 
 **Required files:**
-- `.gsd/ROADMAP.md` — Phase definitions
-- `.gsd/STATE.md` — Current position
-- `.gsd/phases/{phase}/` — Phase directory with PLAN.md files
+- `.quantis/ROADMAP.md` — Phase definitions
+- `.quantis/STATE.md` — Current position
+- `.quantis/phases/{phase}/` — Phase directory with PLAN.md files
 </context>
 
 <process>
@@ -41,9 +41,9 @@ Orchestrator stays lean: discover plans, analyze dependencies, group into waves,
 ## 1. Validate Environment
 
 ```bash
-test -f ".gsd/ROADMAP.md"
-test -f ".gsd/STATE.md"
-test -f ".gsd/CONSTITUTION.md" || echo "⚠️ No CONSTITUTION.md found. Quality standards will not be enforced."
+test -f ".quantis/ROADMAP.md"
+test -f ".quantis/STATE.md"
+test -f ".quantis/CONSTITUTION.md" || echo "⚠️ No CONSTITUTION.md found. Quality standards will not be enforced."
 ```
 
 **If ROADMAP/STATE not found:** Error — user should run `/plan` first.
@@ -55,7 +55,7 @@ test -f ".gsd/CONSTITUTION.md" || echo "⚠️ No CONSTITUTION.md found. Quality
 
 ```bash
 # Check phase exists in roadmap
-grep "Phase $PHASE:" ".gsd/ROADMAP.md"
+grep "Phase $PHASE:" ".quantis/ROADMAP.md"
 ```
 
 **If not found:** Error with available phases from ROADMAP.md.
@@ -65,7 +65,7 @@ grep "Phase $PHASE:" ".gsd/ROADMAP.md"
 ## 3. Ensure Phase Directory Exists
 
 ```bash
-PHASE_DIR=".gsd/phases/$PHASE"
+PHASE_DIR=".quantis/phases/$PHASE"
 mkdir -p "$PHASE_DIR"
 ```
 
@@ -126,7 +126,7 @@ For each wave in order:
 ### 6a. Execute Plans in Wave
 For each plan in the current wave:
 
-1. **Load plan context** — Read the PLAN.md file AND `.gsd/CONSTITUTION.md`
+1. **Load plan context** — Read the PLAN.md file AND `.quantis/CONSTITUTION.md`
 2. **Execute tasks** — Follow `<task>` blocks in order
 3. **Verify each task** — Run `<verify>` commands
 4. **Commit per task:**
@@ -208,7 +208,7 @@ Phase {N} executed successfully. {X} plans, {Y} tasks completed.
 ## 9. Commit Phase Completion
 
 ```bash
-git add .gsd/ROADMAP.md .gsd/STATE.md .gsd/REQUIREMENTS.md
+git add .quantis/ROADMAP.md .quantis/STATE.md .quantis/REQUIREMENTS.md
 git commit -m "docs(phase-{N}): complete {phase-name}"
 ```
 
@@ -273,7 +273,7 @@ Gap closure plans created.
 <context_hygiene>
 **After 3 failed debugging attempts:**
 1. Stop current approach
-2. Document to `.gsd/STATE.md` what was tried
+2. Document to `.quantis/STATE.md` what was tried
 3. Recommend `/pause` for fresh session
 </context_hygiene>
 

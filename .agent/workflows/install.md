@@ -15,7 +15,7 @@ Install GSD for Antigravity into the current project from GitHub.
 Look for GSD marker directories:
 
 ```bash
-if [ -d ".agents" ] || [ -d ".agent" ] || [ -d ".gsd" ]; then
+if [ -d ".agents" ] || [ -d ".agent" ] || [ -d ".quantis" ]; then
     echo "GSD files detected in this project."
 fi
 ```
@@ -46,7 +46,7 @@ If user chooses Reinstall, continue to Step 2.
 ## 2. Clone from GitHub
 
 ```bash
-git clone --depth 1 https://github.com/toonight/get-shit-done-for-antigravity.git .gsd-install-temp
+git clone --depth 1 https://github.com/toonight/get-shit-done-for-antigravity.git .quantis-install-temp
 ```
 
 ---
@@ -55,18 +55,18 @@ git clone --depth 1 https://github.com/toonight/get-shit-done-for-antigravity.gi
 
 ```bash
 # Core directories
-cp -r .gsd-install-temp/.agent ./
-cp -r .gsd-install-temp/.agents ./
-cp -r .gsd-install-temp/.gemini ./
-cp -r .gsd-install-temp/.gsd ./
-cp -r .gsd-install-temp/adapters ./
-cp -r .gsd-install-temp/docs ./
-cp -r .gsd-install-temp/scripts ./
+cp -r .quantis-install-temp/.agent ./
+cp -r .quantis-install-temp/.agents ./
+cp -r .quantis-install-temp/.gemini ./
+cp -r .quantis-install-temp/.quantis ./
+cp -r .quantis-install-temp/adapters ./
+cp -r .quantis-install-temp/docs ./
+cp -r .quantis-install-temp/scripts ./
 
 # Root files
-cp .gsd-install-temp/PROJECT_RULES.md ./
-cp .gsd-install-temp/GSD-STYLE.md ./
-cp .gsd-install-temp/model_capabilities.yaml ./
+cp .quantis-install-temp/PROJECT_RULES.md ./
+cp .quantis-install-temp/GSD-STYLE.md ./
+cp .quantis-install-temp/model_capabilities.yaml ./
 ```
 
 ---
@@ -74,14 +74,14 @@ cp .gsd-install-temp/model_capabilities.yaml ./
 ## 4. Cleanup
 
 ```bash
-rm -rf .gsd-install-temp
+rm -rf .quantis-install-temp
 ```
 
 ---
 
 ## 5. Add to .gitignore (Optional)
 
-Check if `.gsd/STATE.md` and other session files should be gitignored:
+Check if `.quantis/STATE.md` and other session files should be gitignored:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -90,9 +90,9 @@ Check if `.gsd/STATE.md` and other session files should be gitignored:
 
 Recommended .gitignore additions for session-specific files:
 
-.gsd/STATE.md
-.gsd/JOURNAL.md
-.gsd/TODO.md
+.quantis/STATE.md
+.quantis/JOURNAL.md
+.quantis/TODO.md
 
 ───────────────────────────────────────────────────────
 
@@ -117,7 +117,7 @@ Files installed:
 • .agent/        (workflows)
 • .agents/       (skills — Agent Skills standard)
 • .gemini/       (Gemini integration)
-• .gsd/          (project state templates)
+• .quantis/          (project state templates)
 • adapters/      (model-specific enhancements)
 • docs/          (operational documentation)
 • scripts/       (utility scripts)

@@ -82,7 +82,7 @@ Replace all "GSD" brand name references with "Quantis" in file contents. This co
     Update the Gemini configuration file to reference "Quantis" and `.quantis/` paths.
 
     ```bash
-    sed -i '' 's/GSD/Quantis/g; s/\.gsd/\.quantis/g' .gemini/GEMINI.md
+    sed -i '' 's/GSD/Quantis/g; s/\.quantis/\.quantis/g' .gemini/GEMINI.md
     ```
   </action>
   <verify>

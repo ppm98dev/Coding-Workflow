@@ -13,8 +13,8 @@ Quick status check — where are we and what's next?
 ## 1. Load Current State
 
 Read:
-- `.gsd/STATE.md` — Current position
-- `.gsd/ROADMAP.md` — Phase statuses
+- `.quantis/STATE.md` — Current position
+- `.quantis/ROADMAP.md` — Phase statuses
 
 ---
 

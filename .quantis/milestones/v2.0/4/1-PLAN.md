@@ -10,7 +10,7 @@ wave: 1
 Create scripts/install.sh for one-command GSD installation into any project, bump version to 2.0.0, and write CHANGELOG entry summarizing the Antigravity-native evolution.
 
 ## Context
-- .gsd/ROADMAP.md (Phase 4 scope)
+- .quantis/ROADMAP.md (Phase 4 scope)
 - .agent/workflows/install.md (existing install workflow — describes what to copy)
 - README.md (Getting Started section — matches install logic)
 
@@ -22,9 +22,9 @@ Create scripts/install.sh for one-command GSD installation into any project, bum
   <action>
     Create a Bash install script that:
     1. Accepts optional --force flag to overwrite existing GSD files
-    2. Checks if GSD is already installed (test -d .gsd)
+    2. Checks if GSD is already installed (test -d .quantis)
     3. Clones ppm98dev/Coding-Workflow to a temp dir
-    4. Copies: .agent/, .agents/, .gemini/, .gsd/, adapters/, docs/, scripts/, PROJECT_RULES.md, GSD-STYLE.md, model_capabilities.yaml
+    4. Copies: .agent/, .agents/, .gemini/, .quantis/, adapters/, docs/, scripts/, PROJECT_RULES.md, GSD-STYLE.md, model_capabilities.yaml
     5. Cleans up temp dir
     6. Prints success message with next steps (/new-project)
     

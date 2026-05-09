@@ -10,17 +10,17 @@ wave: 1
 Create the CONSTITUTION.md template with 10 comprehensive articles and integrate constitution creation as the first step in `/new-project`. This is the foundation — everything else in Phase 1 depends on the constitution existing.
 
 ## Context
-- .gsd/DECISIONS.md (D-001, D-005, D-008, D-009, D-010)
-- .gsd/references/spec-kit/templates/constitution-template.md
-- .gsd/references/spec-kit/spec-driven.md (Articles I-IX, constitutional enforcement)
-- .gsd/templates/spec.md (existing template structure for reference)
+- .quantis/DECISIONS.md (D-001, D-005, D-008, D-009, D-010)
+- .quantis/references/spec-kit/templates/constitution-template.md
+- .quantis/references/spec-kit/spec-driven.md (Articles I-IX, constitutional enforcement)
+- .quantis/templates/spec.md (existing template structure for reference)
 - .agent/workflows/new-project.md
 
 ## Tasks
 
 <task type="auto">
   <name>Create CONSTITUTION.md template</name>
-  <files>.gsd/templates/constitution.md</files>
+  <files>.quantis/templates/constitution.md</files>
   <action>
     Create a comprehensive constitution template with 10 articles. Each article should have:
     - A clear principle name and description
@@ -44,18 +44,18 @@ Create the CONSTITUTION.md template with 10 comprehensive articles and integrate
     - Governance (constitution supersedes project habits, amendment process)
     - Version/ratification metadata
 
-    Reference: .gsd/references/spec-kit/templates/constitution-template.md for structure patterns.
+    Reference: .quantis/references/spec-kit/templates/constitution-template.md for structure patterns.
     DO NOT copy their content — their articles (Library-First, CLI Interface) are project-specific to Specify. Ours are about code quality.
 
     Target: ~150 lines. Each article: ~10-12 lines.
   </action>
   <verify>
-    test -f .gsd/templates/constitution.md && \
-    grep -c "^### Article" .gsd/templates/constitution.md | grep -q "10" && \
+    test -f .quantis/templates/constitution.md && \
+    grep -c "^### Article" .quantis/templates/constitution.md | grep -q "10" && \
     echo "PASS: Template exists with 10 articles"
   </verify>
   <done>
-    - constitution.md template exists in .gsd/templates/
+    - constitution.md template exists in .quantis/templates/
     - Contains exactly 10 numbered articles
     - Each article has principle, rules, and placeholder comments
     - Governance section present
@@ -79,7 +79,7 @@ Create the CONSTITUTION.md template with 10 comprehensive articles and integrate
       - "Testing: what's your minimum coverage target? Test-first mandatory?"
       - etc.
     - For each answer, fill in the corresponding article in the template
-    - Create `.gsd/CONSTITUTION.md` from filled template
+    - Create `.quantis/CONSTITUTION.md` from filled template
     - Decision gate: "Review your constitution? (A) Looks good (B) Edit further"
 
     Renumber existing phases:
@@ -100,7 +100,7 @@ Create the CONSTITUTION.md template with 10 comprehensive articles and integrate
     - /new-project has constitution creation as first interactive step
     - All 10 articles covered with focused questions
     - Sensible defaults offered for each article
-    - Creates .gsd/CONSTITUTION.md
+    - Creates .quantis/CONSTITUTION.md
     - Existing phases renumbered correctly
   </done>
 </task>

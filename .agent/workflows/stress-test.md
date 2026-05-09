@@ -21,10 +21,10 @@ Read SPEC.md and adversarially review it on 7 dimensions. Generate a severity-ra
 
 <context>
 **Required files:**
-- `.gsd/SPEC.md` — The spec to stress-test
+- `.quantis/SPEC.md` — The spec to stress-test
 
 **Optional files:**
-- `.gsd/CONSTITUTION.md` — Check spec against constitutional requirements
+- `.quantis/CONSTITUTION.md` — Check spec against constitutional requirements
 </context>
 
 <process>
@@ -33,10 +33,10 @@ Read SPEC.md and adversarially review it on 7 dimensions. Generate a severity-ra
 
 ```bash
 # Required
-test -f ".gsd/SPEC.md" || { echo "Error: No SPEC.md found" >&2; exit 1; }
+test -f ".quantis/SPEC.md" || { echo "Error: No SPEC.md found" >&2; exit 1; }
 
 # Optional
-test -f ".gsd/CONSTITUTION.md" && echo "Constitution loaded — will check compliance"
+test -f ".quantis/CONSTITUTION.md" && echo "Constitution loaded — will check compliance"
 ```
 
 Display banner:

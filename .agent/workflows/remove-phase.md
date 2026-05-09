@@ -14,7 +14,7 @@ Remove a phase from the roadmap, with safety checks for in-progress or completed
 ## 1. Validate Phase Exists
 
 ```bash
-if ! grep -q "### Phase $N:" ".gsd/ROADMAP.md"; then
+if ! grep -q "### Phase $N:" ".quantis/ROADMAP.md"; then
     echo "Error: Phase $N not found in ROADMAP.md" >&2
 fi
 ```
@@ -24,7 +24,7 @@ fi
 ## 2. Check Phase Status
 
 ```bash
-status=$(grep -A1 "Phase $N:" ".gsd/ROADMAP.md" | grep "Status:" | cut -d: -f2)
+status=$(grep -A1 "Phase $N:" ".quantis/ROADMAP.md" | grep "Status:" | cut -d: -f2)
 ```
 
 **Safety checks:**
@@ -42,7 +42,7 @@ status=$(grep -A1 "Phase $N:" ".gsd/ROADMAP.md" | grep "Status:" | cut -d: -f2)
 Are other phases depending on this one?
 
 ```bash
-grep "Depends on.*Phase $N" ".gsd/ROADMAP.md"
+grep "Depends on.*Phase $N" ".quantis/ROADMAP.md"
 ```
 
 **If dependencies exist:**
@@ -66,7 +66,7 @@ Status: {status}
 
 This will:
 - Remove phase from ROADMAP.md
-- Delete .gsd/phases/{N}/ if exists
+- Delete .quantis/phases/{N}/ if exists
 - Renumber subsequent phases
 
 Type "REMOVE" to confirm:
@@ -77,7 +77,7 @@ Type "REMOVE" to confirm:
 ## 5. Remove Phase
 
 1. Delete from ROADMAP.md
-2. Remove `.gsd/phases/{N}/` directory
+2. Remove `.quantis/phases/{N}/` directory
 3. Renumber subsequent phases (N+1 becomes N, etc.)
 4. Update dependencies
 

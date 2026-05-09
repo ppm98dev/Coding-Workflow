@@ -1,5 +1,5 @@
 # Journal
 
-> Previous milestone journal archived in `.gsd/milestones/v2.0/JOURNAL.md`
+> Previous milestone journal archived in `.quantis/milestones/v2.0/JOURNAL.md`
 
 ---

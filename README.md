@@ -92,7 +92,7 @@ git clone https://github.com/ppm98dev/Coding-Workflow.git gsd-template
 cp -r gsd-template/.agent ./
 cp -r gsd-template/.agents ./
 cp -r gsd-template/.gemini ./
-cp -r gsd-template/.gsd ./
+cp -r gsd-template/.quantis ./
 cp -r gsd-template/adapters ./
 cp -r gsd-template/docs ./
 cp -r gsd-template/scripts ./
@@ -444,7 +444,7 @@ adapters/
 📂 .gemini/
 └── 📄 GEMINI.md             # Gemini integration
 
-📂 .gsd/
+📂 .quantis/
 ├── 📄 SPEC.md               # ← START HERE (finalize first)
 ├── 📄 ROADMAP.md            # Phases and progress
 ├── 📄 STATE.md              # Session memory
@@ -496,8 +496,8 @@ Run validation scripts to verify GSD structure:
 | [Model Selection Playbook](docs/model-selection-playbook.md) | Model selection guidance |
 | [Runbook](docs/runbook.md) | Operational procedures |
 | [Token Optimization Guide](docs/token-optimization-guide.md) | Token efficiency strategies |
-| [Examples](.gsd/examples/) | Usage walkthroughs and quick reference |
-| [Templates](.gsd/templates/) | Document templates for plans, verification |
+| [Examples](.quantis/examples/) | Usage walkthroughs and quick reference |
+| [Templates](.quantis/templates/) | Document templates for plans, verification |
 
 ---
 

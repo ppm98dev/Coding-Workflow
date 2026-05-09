@@ -10,8 +10,8 @@
 
 **SPEC → PLAN → EXECUTE → VERIFY → COMMIT**
 
-1. **SPEC**: Define requirements in `.gsd/SPEC.md` until status is `FINALIZED`
-2. **PLAN**: Decompose into phases in `.gsd/ROADMAP.md`, then detailed plans
+1. **SPEC**: Define requirements in `.quantis/SPEC.md` until status is `FINALIZED`
+2. **PLAN**: Decompose into phases in `.quantis/ROADMAP.md`, then detailed plans
 3. **EXECUTE**: Implement with atomic commits per task
 4. **VERIFY**: Prove completion with empirical evidence
 5. **COMMIT**: One task = one commit, message format: `type(scope): description`
@@ -167,7 +167,7 @@ GSD-STYLE.md              # Style and conventions
 └── skills/               # Agent specializations (Agent Skills standard)
 
 .gemini/                  # Gemini-specific configuration
-.gsd/                     # Project state and artifacts
+.quantis/                     # Project state and artifacts
 ├── SPEC.md               # Requirements (must be FINALIZED)
 ├── ROADMAP.md            # Phases and progress
 ├── STATE.md              # Session memory

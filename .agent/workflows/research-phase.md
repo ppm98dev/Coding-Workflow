@@ -69,7 +69,7 @@ Based on discovery level:
 
 ## 4. Generate RESEARCH.md
 
-Create `.gsd/phases/{N}/RESEARCH.md`:
+Create `.quantis/phases/{N}/RESEARCH.md`:
 
 ```markdown
 ---

@@ -1,6 +1,6 @@
 # Project Template
 
-Template for `.gsd/SPEC.md` (or PROJECT.md) — project specification.
+Template for `.quantis/SPEC.md` (or PROJECT.md) — project specification.
 
 ---
 

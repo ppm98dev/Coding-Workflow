@@ -10,9 +10,9 @@ wave: 1
 Create `adapters/ANTIGRAVITY.md` — a comprehensive guide for using GSD inside Google Antigravity. This is the #1 gap identified in the audit. Must follow the established adapter pattern (see CLAUDE.md for reference) but go deeper with Antigravity-specific tool mappings.
 
 ## Context
-- .gsd/SPEC.md
-- .gsd/RESEARCH.md (Antigravity tool inventory, key findings)
-- .gsd/DECISIONS.md (ADR-004: deep adapter, ADR-005: GSD replaces planning mode)
+- .quantis/SPEC.md
+- .quantis/RESEARCH.md (Antigravity tool inventory, key findings)
+- .quantis/DECISIONS.md (ADR-004: deep adapter, ADR-005: GSD replaces planning mode)
 - adapters/CLAUDE.md (reference for adapter pattern)
 
 ## Tasks
@@ -47,7 +47,7 @@ Create `adapters/ANTIGRAVITY.md` — a comprehensive guide for using GSD inside 
     4. **Planning Mode Relationship** — Per ADR-005:
        - GSD's SPEC→PLAN→EXECUTE→VERIFY replaces Antigravity's planning mode
        - Do NOT create Antigravity artifacts (implementation_plan, task, walkthrough)
-       - Use GSD's .gsd/ files exclusively
+       - Use GSD's .quantis/ files exclusively
 
     5. **Model Selection** — Per ADR-003:
        - Reference model_capabilities.yaml for guidance

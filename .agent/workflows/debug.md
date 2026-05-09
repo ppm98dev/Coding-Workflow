@@ -25,7 +25,7 @@ Systematically diagnose an issue using hypothesis-driven debugging, with persist
 
 Check for existing debug state:
 ```bash
-test -f ".gsd/DEBUG.md"
+test -f ".quantis/DEBUG.md"
 ```
 
 If exists, load previous attempts. If not, create new session.
@@ -43,7 +43,7 @@ Issue: {description}
 
 ## 2. Document Symptom
 
-Create/update `.gsd/DEBUG.md`:
+Create/update `.quantis/DEBUG.md`:
 
 ```markdown
 # Debug Session: {Issue ID}
@@ -184,7 +184,7 @@ Committed: {hash}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 3 attempts exhausted on current approach.
-State saved to .gsd/DEBUG.md
+State saved to .quantis/DEBUG.md
 
 ───────────────────────────────────────────────────────
 

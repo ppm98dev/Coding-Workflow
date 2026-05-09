@@ -16,7 +16,7 @@ Quickly capture an idea, task, or issue without interrupting current work flow.
 - `--priority high|medium|low` — Set priority (default: medium)
 
 **Output:**
-- `.gsd/TODO.md` — Accumulated todo items
+- `.quantis/TODO.md` — Accumulated todo items
 </context>
 
 <process>
@@ -35,7 +35,7 @@ Extract:
 
 ## 3. Add Todo Item
 
-Append to `.gsd/TODO.md`:
+Append to `.quantis/TODO.md`:
 
 ```markdown
 - [ ] {description} `{priority}` — {date}

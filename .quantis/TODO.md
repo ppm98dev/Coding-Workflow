@@ -24,7 +24,7 @@ The agent writes code that passes tests but is NOT maintainable:
 
 
 ### v2.1 — Dead Code Prevention (researched)
-- [ ] Add `<remove>` tag to PLAN.md task XML (see `.gsd/phases/5/RESEARCH.md`)
+- [ ] Add `<remove>` tag to PLAN.md task XML (see `.quantis/phases/5/RESEARCH.md`)
 - [ ] Add Executor Rule 5: "Auto-clean dead code" to `/execute`
 - [ ] Add code growth audit check to `/verify`
 
@@ -41,7 +41,7 @@ The agent writes code that passes tests but is NOT maintainable:
 
 - [ ] **Smart install `--agent` flag** (~1 hour) — `install.sh --agent antigravity` would skip irrelevant adapters (CLAUDE.md, GPT_OSS.md), auto-configure `.gemini/GEMINI.md`. Spec-Kit does `specify init . --integration gemini`. **Patch:** expand `scripts/install.sh` with agent flag + selective copy logic.
 
-- [ ] **Override layer (presets-lite)** (~45 min) — A `.gsd/overrides/` directory. If a template exists in overrides, use it instead of default. One line of logic per workflow: `TEMPLATE="${OVERRIDE_DIR}/${name}.md"; [ ! -f "$TEMPLATE" ] && TEMPLATE="${TEMPLATE_DIR}/${name}.md"`. Spec-Kit has full preset stacking with priorities — overkill for us, but the simple override directory gives 80% of the value.
+- [ ] **Override layer (presets-lite)** (~45 min) — A `.quantis/overrides/` directory. If a template exists in overrides, use it instead of default. One line of logic per workflow: `TEMPLATE="${OVERRIDE_DIR}/${name}.md"; [ ! -f "$TEMPLATE" ] && TEMPLATE="${TEMPLATE_DIR}/${name}.md"`. Spec-Kit has full preset stacking with priorities — overkill for us, but the simple override directory gives 80% of the value.
 
 - [ ] **`/checklist`** (~15 min) — Pre-implementation validation command. Reads PLAN.md and checks: all files exist or will be created, actions are specific, verify commands are executable, done criteria are measurable. GSD has this as the `plan-checker` skill but it's not a user-facing command.
 

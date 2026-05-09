@@ -85,7 +85,7 @@ Listen for:
 
 ## 5. Document Decisions
 
-Update `.gsd/DECISIONS.md`:
+Update `.quantis/DECISIONS.md`:
 
 ```markdown
 ## Phase {N} Decisions

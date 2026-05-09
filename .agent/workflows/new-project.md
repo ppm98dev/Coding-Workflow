@@ -10,12 +10,12 @@ Initialize a new project through unified flow: constitution → questioning → 
 This is the most leveraged moment in any project. Deep questioning here means better plans, better execution, better outcomes. One command takes you from idea to ready-for-planning.
 
 **Creates:**
-- `.gsd/CONSTITUTION.md` — project quality standards (first!)
-- `.gsd/SPEC.md` — project specification
-- `.gsd/ROADMAP.md` — phase structure
-- `.gsd/STATE.md` — project memory
-- `.gsd/ARCHITECTURE.md` — system design (if brownfield)
-- All other .gsd/ documentation files
+- `.quantis/CONSTITUTION.md` — project quality standards (first!)
+- `.quantis/SPEC.md` — project specification
+- `.quantis/ROADMAP.md` — phase structure
+- `.quantis/STATE.md` — project memory
+- `.quantis/ARCHITECTURE.md` — system design (if brownfield)
+- All other .quantis/ documentation files
 
 **After this command:** Run `/plan 1` to start execution.
 </objective>
@@ -29,7 +29,7 @@ This is the most leveraged moment in any project. Deep questioning here means be
 
    
       ```bash
-   if [ -f ".gsd/SPEC.md" ]; then
+   if [ -f ".quantis/SPEC.md" ]; then
        echo "Error: Project already initialized. Use /progress" >&2
        exit 1
    fi
@@ -53,7 +53,7 @@ This is the most leveraged moment in any project. Deep questioning here means be
        -not -path '*/node_modules/*' -not -path '*/.git/*' | head -20)
    
    has_package=$(test -f "package.json" -o -f "requirements.txt" -o -f "Cargo.toml" && echo true || echo false)
-   has_architecture=$(test -f ".gsd/ARCHITECTURE.md" && echo true || echo false)
+   has_architecture=$(test -f ".quantis/ARCHITECTURE.md" && echo true || echo false)
    ```
 
 ---
@@ -85,8 +85,8 @@ Walk through each article with focused questions. Offer sensible defaults — th
 10. **Architecture**: "Layering? (A) Standard (UI/Logic/Data) (B) Clean Architecture (C) Flat — default: A"
 
 **After all questions:**
-- Fill the constitution template (`.gsd/templates/constitution.md`) with answers
-- Create `.gsd/CONSTITUTION.md`
+- Fill the constitution template (`.quantis/templates/constitution.md`) with answers
+- Create `.quantis/CONSTITUTION.md`
 - Display summary
 
 ```
@@ -184,7 +184,7 @@ Loop until "Create SPEC.md" selected.
 
 ## Phase 5: Write SPEC.md
 
-Create `.gsd/SPEC.md` using the template from `.gsd/templates/spec.md`:
+Create `.quantis/SPEC.md` using the template from `.quantis/templates/spec.md`:
 
 ```markdown
 # SPEC.md — Project Specification
@@ -281,7 +281,7 @@ B) Skip research — I know what I want, let's plan
 ```
 
 **If research selected:**
-- Create `.gsd/RESEARCH.md` with findings
+- Create `.quantis/RESEARCH.md` with findings
 - Document technology choices and rationale
 - Return to continue
 
@@ -312,7 +312,7 @@ Generate requirements from SPEC.md:
 
 ## Phase 8: Create Roadmap
 
-Create `.gsd/ROADMAP.md`:
+Create `.quantis/ROADMAP.md`:
 
 ```markdown
 # ROADMAP.md
@@ -355,21 +355,21 @@ Create `.gsd/ROADMAP.md`:
 ## Phase 9: Initialize Remaining Files
 
 Create with templates:
-- `.gsd/STATE.md` — Empty state
-- `.gsd/DECISIONS.md` — Empty ADR log
-- `.gsd/JOURNAL.md` — Empty journal
-- `.gsd/TODO.md` — Empty todo list
+- `.quantis/STATE.md` — Empty state
+- `.quantis/DECISIONS.md` — Empty ADR log
+- `.quantis/JOURNAL.md` — Empty journal
+- `.quantis/TODO.md` — Empty todo list
 
 Create directories:
-- `.gsd/phases/`
-- `.gsd/templates/`
+- `.quantis/phases/`
+- `.quantis/templates/`
 
 ---
 
 ## Phase 10: Initial Commit
 
 ```bash
-git add .gsd/
+git add .quantis/
 git commit -m "chore: initialize GSD project
 
 - SPEC.md with vision and goals
@@ -390,12 +390,12 @@ Project: {name}
 Phases: {N}
 
 Files created:
-• .gsd/CONSTITUTION.md (10 articles)
-• .gsd/SPEC.md (FINALIZED)
-• .gsd/ROADMAP.md ({N} phases)
-• .gsd/STATE.md
-• .gsd/DECISIONS.md
-• .gsd/JOURNAL.md
+• .quantis/CONSTITUTION.md (10 articles)
+• .quantis/SPEC.md (FINALIZED)
+• .quantis/ROADMAP.md ({N} phases)
+• .quantis/STATE.md
+• .quantis/DECISIONS.md
+• .quantis/JOURNAL.md
 
 ───────────────────────────────────────────────────────
 

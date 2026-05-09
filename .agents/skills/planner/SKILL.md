@@ -232,8 +232,8 @@ Output: {What artifacts will be created}
 
 <context>
 Load for context:
-- .gsd/SPEC.md
-- .gsd/ARCHITECTURE.md (if exists)
+- .quantis/SPEC.md
+- .quantis/ARCHITECTURE.md (if exists)
 - {relevant source files}
 </context>
 
@@ -457,15 +457,15 @@ OPTIONS: [choices if applicable]
 ```yaml
 # Bad: Every plan refs previous
 context:
-  - .gsd/phases/1/01-SUMMARY.md  # Plan 2 refs 1
-  - .gsd/phases/1/02-SUMMARY.md  # Plan 3 refs 2
+  - .quantis/phases/1/01-SUMMARY.md  # Plan 2 refs 1
+  - .quantis/phases/1/02-SUMMARY.md  # Plan 3 refs 2
 ```
 
 ### ✅ Minimal Context
 ```yaml
 # Good: Only ref when truly needed
 context:
-  - .gsd/SPEC.md
+  - .quantis/SPEC.md
   - src/types.ts  # Actually needed
 ```
 

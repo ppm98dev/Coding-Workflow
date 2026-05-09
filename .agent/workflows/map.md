@@ -25,8 +25,8 @@ This workflow should be run BEFORE `/plan` on brownfield projects to give the pl
 **No arguments required.** Operates on current project directory.
 
 **Outputs:**
-- `.gsd/ARCHITECTURE.md` — System design documentation
-- `.gsd/STACK.md` — Technology inventory
+- `.quantis/ARCHITECTURE.md` — System design documentation
+- `.quantis/STACK.md` — Technology inventory
 </context>
 
 <process>
@@ -274,7 +274,7 @@ Identify gaps:
 
 ## 8. Update State
 
-Update `.gsd/STATE.md`:
+Update `.quantis/STATE.md`:
 ```markdown
 ## Last Session Summary
 Codebase mapping complete.
@@ -288,7 +288,7 @@ Codebase mapping complete.
 ## 9. Commit Documentation
 
 ```bash
-git add .gsd/ARCHITECTURE.md .gsd/STACK.md .gsd/STATE.md
+git add .quantis/ARCHITECTURE.md .quantis/STACK.md .quantis/STATE.md
 git commit -m "docs: map existing codebase"
 ```
 
@@ -316,8 +316,8 @@ Technical debt: {J} items
 /plan — create execution plans with full context
 
 Files updated:
-• .gsd/ARCHITECTURE.md
-• .gsd/STACK.md
+• .quantis/ARCHITECTURE.md
+• .quantis/STACK.md
 
 ───────────────────────────────────────────────────────
 ```

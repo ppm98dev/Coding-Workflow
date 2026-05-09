@@ -50,7 +50,7 @@ The core thesis: **AI coding fails not because models are bad, but because human
 │   ├── plan-checker/           # Pre-execution validation
 │   └── token-budget/           # Usage tracking
 │
-├── .gsd/                       # Project state (populated per-project)
+├── .quantis/                       # Project state (populated per-project)
 │   ├── templates/              # 22 document templates
 │   └── examples/               # 4 usage walkthroughs
 │
@@ -110,7 +110,7 @@ The core thesis: **AI coding fails not because models are bad, but because human
 |-------|--------|
 | **Duplicate content** | CHANGELOG has no version headers (just `---` separators), making it hard to parse programmatically |
 | **model_capabilities.yaml** | Uses generic "Flash/Turbo variants" instead of actual model names — not actionable |
-| **No `.gitignore` for state files** | `.gsd/STATE.md`, `JOURNAL.md` etc. would be committed to the template repo, polluting clean starts |
+| **No `.gitignore` for state files** | `.quantis/STATE.md`, `JOURNAL.md` etc. would be committed to the template repo, polluting clean starts |
 | **Missing GSD-STYLE.md headers** | Section headers are missing from the rendered content (likely stripped during parsing) |
 
 ---
