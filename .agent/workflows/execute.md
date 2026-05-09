@@ -43,9 +43,11 @@ Orchestrator stays lean: discover plans, analyze dependencies, group into waves,
 ```bash
 test -f ".gsd/ROADMAP.md"
 test -f ".gsd/STATE.md"
+test -f ".gsd/CONSTITUTION.md" || echo "⚠️ No CONSTITUTION.md found. Quality standards will not be enforced."
 ```
 
-**If not found:** Error — user should run `/plan` first.
+**If ROADMAP/STATE not found:** Error — user should run `/plan` first.
+**If CONSTITUTION missing:** Warning — proceed but flag that quality standards are not loaded.
 
 ---
 
@@ -124,7 +126,7 @@ For each wave in order:
 ### 6a. Execute Plans in Wave
 For each plan in the current wave:
 
-1. **Load plan context** — Read only the PLAN.md file
+1. **Load plan context** — Read the PLAN.md file AND `.gsd/CONSTITUTION.md`
 2. **Execute tasks** — Follow `<task>` blocks in order
 3. **Verify each task** — Run `<verify>` commands
 4. **Commit per task:**
@@ -136,6 +138,8 @@ For each plan in the current wave:
    > **Antigravity:** Use `run_command` with `SafeToAutoRun: false` for git commits to ensure user approval on each atomic commit.
 
 5. **Create SUMMARY.md** — Document what was done
+
+> **Constitutional Compliance**: While executing tasks, verify code follows CONSTITUTION.md articles. Error handling, logging, validation, and testing must match constitutional requirements. If a task produces code that violates the constitution, fix it before committing.
 
 > **Antigravity:** Use native tools (`write_to_file`, `replace_file_content`, `multi_replace_file_content`) instead of shell `echo >` or `cat >` for file creation and editing. Use `run_command` with `RunPersistent: true` for stateful operations. See [adapters/ANTIGRAVITY.md](../../adapters/ANTIGRAVITY.md) for details.
 
