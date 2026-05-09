@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > **Current Milestone**: v2.1 — Production Code Quality, Spec Rigor & Scaling
-> **Status**: Not started
+> **Status**: Phase 1 complete
 
 ---
 
@@ -19,18 +19,18 @@
 > **Goal**: Close every gap between "it works" and production-grade. Add spec rigor, code quality enforcement, plan iteration, upgrade skill infrastructure, and lay the groundwork for multi-user.
 
 ### Must-Haves
-- [ ] `CONSTITUTION.md` — project-level quality + architecture standards, always loaded
-- [ ] `[NEEDS CLARIFICATION]` markers — forced in spec, rejected by plan-checker
-- [ ] "Quality Requirements" section in SPEC template
+- [x] `CONSTITUTION.md` — project-level quality + architecture standards, always loaded
+- [x] `[NEEDS CLARIFICATION]` markers — forced in spec, rejected by plan-checker
+- [x] "Quality Requirements" section in SPEC template
 - [ ] Test-first + file creation order (contracts → tests → source)
 - [ ] Production code enforcement in `/execute` + `/verify`
 - [ ] New `production-code` skill with language-specific references
 - [ ] `/update-plan` workflow — review and revise plans before execution
 - [ ] `/checklist` workflow — plan-checker as user-facing command
-- [ ] `/stress-test` workflow — spec quality gate before planning
-- [ ] Cleaner spec/plan separation
+- [x] `/stress-test` workflow — spec quality gate before planning
+- [x] Cleaner spec/plan separation
 - [ ] Branch-per-feature in `/plan` or `/execute`
-- [ ] Architecture guardrails in constitution
+- [x] Architecture guardrails in constitution
 - [ ] Upgraded skill structure (scripts/, references/, assets/)
 - [ ] Multi-user foundations (per-user state, phase ownership, handoff)
 
@@ -42,8 +42,8 @@
 
 ### Phases
 
-#### Phase 1: Constitution & Spec Rigor
-**Status**: ⬜ Not Started
+#### Phase 1: Constitution & Spec Rigor ✅
+**Status**: ✅ Complete
 **Objective**: Establish project-level quality standards and spec quality gates.
 **Deliverables:**
 - `CONSTITUTION.md` template — added to `/new-project`, loaded in `/plan` + `/execute`
