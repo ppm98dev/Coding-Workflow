@@ -184,12 +184,15 @@ Loop until "Create SPEC.md" selected.
 
 ## Phase 5: Write SPEC.md
 
-Create `.gsd/SPEC.md`:
+Create `.gsd/SPEC.md` using the template from `.gsd/templates/spec.md`:
 
 ```markdown
 # SPEC.md — Project Specification
 
 > **Status**: `FINALIZED`
+>
+> ⚠️ **Clarification Rule**: Mark ALL ambiguities with `[NEEDS CLARIFICATION: question]`.
+> 📐 **Separation Rule**: WHAT to build + WHY, not HOW. Tech choices go in PLAN.md.
 
 ## Vision
 {Distilled from questioning — one paragraph max}
@@ -211,10 +214,54 @@ Create `.gsd/SPEC.md`:
 - {Timeline constraints}
 - {Other limitations}
 
+## Quality Requirements
+<!-- Reference CONSTITUTION.md articles when filling these -->
+- **Error Handling**: {from constitution or [NEEDS CLARIFICATION]}
+- **Logging**: {from constitution or [NEEDS CLARIFICATION]}
+- **Performance**: {targets or [NEEDS CLARIFICATION]}
+- **Security**: {requirements or [NEEDS CLARIFICATION]}
+
 ## Success Criteria
 - [ ] {Measurable outcome 1}
 - [ ] {Measurable outcome 2}
+
+## Edge Cases
+- What happens when {boundary condition}?
+- How does the system handle {error scenario}?
+
+## Unresolved Questions
+<!-- Must be EMPTY before FINALIZED -->
 ```
+
+```
+💡 Mark anything you're unsure about with [NEEDS CLARIFICATION: question].
+   These must be resolved before planning can begin.
+   
+   Tip: Run /stress-test to have the spec adversarially reviewed.
+```
+
+---
+
+## Phase 5b: Stress-Test Suggestion
+
+After SPEC.md is created, suggest:
+
+```
+💡 SPEC REVIEW AVAILABLE
+
+Your spec is written. Before we plan, consider stress-testing it:
+
+/stress-test — Adversarial review to find gaps and ambiguity
+
+This is optional but recommended for complex projects.
+Planning will catch unresolved [NEEDS CLARIFICATION] markers either way.
+
+A) Run /stress-test now
+B) Skip — proceed to roadmap
+```
+
+If user selects A: run /stress-test, then return to /new-project flow.
+If user selects B: continue to roadmap creation.
 
 ---
 
