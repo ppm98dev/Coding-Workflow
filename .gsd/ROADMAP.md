@@ -1,52 +1,120 @@
 # ROADMAP.md
 
-> **Current Phase**: Not started
-> **Milestone**: v2.0 — Antigravity-Native GSD
+> **Current Milestone**: v2.1 — Production Code Quality, Spec Rigor & Scaling
+> **Status**: Not started
 
-## Must-Haves (from SPEC)
-- [ ] Antigravity adapter (`adapters/ANTIGRAVITY.md`)
-- [ ] Bash-first scripts and examples
-- [ ] Accurate README
-- [ ] Install automation script
-- [ ] All templates cross-referenced
-- [ ] Real model capabilities
-- [ ] Versioned CHANGELOG
-- [ ] Current attribution links
+---
 
-## Phases
+## Milestone: v2.0 — Antigravity-Native GSD ✅ COMPLETE
 
-### Phase 1: Antigravity Integration
-**Status**: ✅ Complete
-**Objective**: Create a proper Antigravity adapter and update the Gemini entry point so GSD actually works in Antigravity.
+### Phase 1: Antigravity Integration ✅
+### Phase 2: Remove PowerShell — Bash Only ✅
+### Phase 3: Core Fixes ✅
+### Phase 4: Install Automation & Polish ✅
+
+---
+
+## Milestone: v2.1 — Production Code Quality, Spec Rigor & Scaling
+
+> **Goal**: Close every gap between "it works" and production-grade. Add spec rigor, code quality enforcement, plan iteration, upgrade skill infrastructure, and lay the groundwork for multi-user.
+
+### Must-Haves
+- [ ] `CONSTITUTION.md` — project-level quality + architecture standards, always loaded
+- [ ] `[NEEDS CLARIFICATION]` markers — forced in spec, rejected by plan-checker
+- [ ] "Quality Requirements" section in SPEC template
+- [ ] Test-first + file creation order (contracts → tests → source)
+- [ ] Production code enforcement in `/execute` + `/verify`
+- [ ] New `production-code` skill with language-specific references
+- [ ] `/update-plan` workflow — review and revise plans before execution
+- [ ] `/checklist` workflow — plan-checker as user-facing command
+- [ ] `/stress-test` workflow — spec quality gate before planning
+- [ ] Cleaner spec/plan separation
+- [ ] Branch-per-feature in `/plan` or `/execute`
+- [ ] Architecture guardrails in constitution
+- [ ] Upgraded skill structure (scripts/, references/, assets/)
+- [ ] Multi-user foundations (per-user state, phase ownership, handoff)
+
+### Nice-to-Haves
+- [ ] Dead code prevention (`<remove>` tags)
+- [ ] Smart install `--agent` flag
+- [ ] Override layer `.gsd/overrides/`
+- [ ] Community skills adoption (Trail of Bits, Vercel, Cloudflare)
+
+### Phases
+
+#### Phase 1: Constitution & Spec Rigor
+**Status**: ⬜ Not Started
+**Objective**: Establish project-level quality standards and spec quality gates.
 **Deliverables:**
-- `adapters/ANTIGRAVITY.md` — Antigravity-specific tool guidance (browser_subagent, run_command, generate_image, persistent context, knowledge items)
-- Updated `.gemini/GEMINI.md` — Proper Antigravity entry point with tool mapping
-- Updated `model_capabilities.yaml` — Real model names (Claude Opus 4, Gemini 2.5 Pro, GPT-4.1, etc.)
+- `CONSTITUTION.md` template — added to `/new-project`, loaded in `/plan` + `/execute`
+- Architecture guardrails included in constitution (max function length, separation of concerns, dependency rules)
+- `[NEEDS CLARIFICATION]` markers — forced in spec template, plan-checker rejects unresolved markers
+- "Quality Requirements" section added to SPEC template (error handling strategy, logging level, perf targets)
+- `/stress-test` workflow — reads SPEC.md and pokes holes: edge cases, contradictions, missing failure modes
+- Cleaner spec/plan separation — SPEC = pure user intent, PLAN = technical choices
 
-### Phase 2: Remove PowerShell — Bash Only
-**Status**: ✅ Complete
-**Objective**: Remove all PowerShell content (scripts + code blocks) to reduce context noise by ~1,300 lines (~10% of framework). macOS/Linux only fork.
+#### Phase 2: Plan Iteration & Validation
+**Status**: ⬜ Not Started
+**Objective**: Enable plan review and revision before execution.
 **Deliverables:**
-- Delete 6 `.ps1` script files
-- Strip PowerShell code blocks from 20 workflows
-- Strip PowerShell code blocks from 5 skills
-- Add "macOS/Linux only" note to README
+- `/update-plan` workflow — review generated plan, request changes, iterate before committing to execution
+- `/checklist` workflow — user-facing command wrapping plan-checker skill (pre-execution validation: files exist, actions specific, verify commands executable, done criteria measurable)
 
-### Phase 3: Core Fixes
-**Status**: ✅ Complete
-**Objective**: Fix README accuracy, CHANGELOG formatting, attribution links, and template orphans.
+#### Phase 3: Production Code Enforcement
+**Status**: ⬜ Not Started
+**Objective**: Enforce production-grade code quality throughout the pipeline.
 **Deliverables:**
-- README.md — Accurate command count, fixed mermaid diagrams, Bash-first Getting Started
-- CHANGELOG.md — Proper version headers (## [1.5.0], ## [1.4.0], etc.)
-- Attribution links updated to `gsd-build/get-shit-done`
-- All templates cross-referenced in at least one workflow
-- `.gitignore` updated for state files
+- Planner skill updated: mandate contracts → tests → source file ordering
+- `/execute` updated with production patterns: validate inputs → handle errors → log operations → write clean code → add tests
+- `/verify` updated with quality gates: error handling exists, logs present, no hardcoded secrets, functions small, code documented
+- New `production-code` skill with `references/` for language-specific patterns (Python: logging, typing, pydantic; JS: zod, winston, error boundaries)
 
-### Phase 4: Install Automation & Polish
-**Status**: ✅ Complete
-**Objective**: Create a real install script and finalize the v2.0 release.
+#### Phase 4: Skill Infrastructure Upgrade
+**Status**: ⬜ Not Started
+**Objective**: Upgrade skill structure to community standard and adopt best practices.
 **Deliverables:**
-- `scripts/install.sh` — One-command install for macOS/Linux
-- VERSION bumped to 2.0.0
-- CHANGELOG updated with v2.0.0 entry
-- Final validation pass (all validators green)
+- All 7 existing skills upgraded to include `scripts/`, `references/`, `assets/` directories where applicable
+- Study and adopt patterns from community skills:
+  - `trailofbits/ask-questions-if-underspecified` — clarification prompts
+  - `trailofbits/differential-review` — security-focused diff review
+  - `trailofbits/property-based-testing` — property-based testing patterns
+  - `anthropics/webapp-testing` — Playwright-based web app testing
+  - `anthropics/skill-creator` — skill creation best practices
+  - `cloudflare/web-perf` — Core Web Vitals auditing
+- Study best-practice skill structures from: `vercel-labs/react-best-practices`, `trailofbits/static-analysis`, `callstackincubator/github`, `google-labs-code/design-md`
+
+#### Phase 5: Branch Management & Polish
+**Status**: ⬜ Not Started
+**Objective**: Add branch isolation, dead code prevention, and developer experience improvements.
+**Deliverables:**
+- Branch-per-feature: `/plan` or `/execute` auto-creates git branch per phase/feature
+- Dead code prevention: `<remove>` tag in PLAN.md task XML, Executor Rule 5 "auto-clean dead code", code growth audit in `/verify`
+- Smart install `--agent` flag: `install.sh --agent antigravity` skips irrelevant adapters
+- Override layer: `.gsd/overrides/` directory for template customization
+- Spec/plan separation cleanup pass
+
+#### Phase 6: Multi-User Foundations
+**Status**: ⬜ Not Started
+**Objective**: Enable team usage of GSD while preserving single-user simplicity.
+**Deliverables:**
+- Per-user state files: `STATE-{user}.md` so `/pause` and `/resume` don't collide
+- Phase ownership/assignment: `**Assigned**: @user` in ROADMAP.md phases
+- Handoff protocol: like `/pause` but explicitly for passing work to another person
+- Attribution: journal entries, decisions, and commits tagged with author
+- Review gates: spec review before planning, plan review before execution, code review before merge
+- Git conventions for team use: branch naming, PR workflow, merge rules
+
+---
+
+## Milestone: v2.2 — Advanced Scaling (Future)
+
+> **Goal**: Address structural scaling limitations for large, complex projects.
+> **Status**: 🔮 Planned — not started, depends on v2.1 completion.
+
+### Planned Scope
+- [ ] **SPEC.md scaling** — Split monolithic SPEC into feature-level spec files for projects with 10+ features
+- [ ] **Contracts/API specs** — Interface definitions between components to prevent integration breaks
+- [ ] **`/self-test` workflow** — Meta-workflow that validates GSD works on itself
+- [ ] **Token measurement APIs** — Integrate with Antigravity internals for context-health-monitor accuracy
+- [ ] **MCP integration** — Enhanced tool calling via Model Context Protocol
+- [ ] **Upstream backport check** — Compare against `gsd-build/get-shit-done` for new features to adopt

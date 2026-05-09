@@ -1,9 +1,10 @@
 # STATE.md — Session Memory
 
 ## Current Position
-- **Milestone**: v2.0 — Antigravity-Native GSD ✅ COMPLETE
-- **Next Milestone**: v2.1 — Spec Quality & Scaling (not started)
-- **Status**: Paused at 2026-05-09T11:07:58+02:00
+- **Milestone**: v2.1 — Production Code Quality, Spec Rigor & Scaling
+- **Phase**: Not started
+- **Next Milestone**: v2.2 — Advanced Scaling (future)
+- **Status**: Milestone planned (2026-05-09T23:11:00+02:00)
 
 ## Strategic Decision: GSD vs Spec-Kit
 
