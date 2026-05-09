@@ -234,15 +234,50 @@ Every plan is structured XML optimized for AI execution:
 
 ### 🌊 Wave-Based Execution
 
-Plans are grouped into dependency waves. Each executor gets **fresh context**.
+Plans are grouped into waves based on dependencies:
+
+```mermaid
+graph TD
+    subgraph W1["🌊 Wave 1 — Foundation"]
+        T1["Task A"] & T2["Task B"] & T3["Task C"]
+    end
+    subgraph W2["🌊 Wave 2 — Integration"]
+        T4["Task D"] & T5["Task E"]
+    end
+    subgraph W3["🌊 Wave 3 — Polish"]
+        T6["Task F"]
+    end
+
+    W1 --> W2 --> W3
+
+    style W1 fill:#E3F2FD,stroke:#2196F3,color:#000
+    style W2 fill:#FFF3E0,stroke:#FF6D00,color:#000
+    style W3 fill:#F3E5F5,stroke:#7B2D8E,color:#000
+    style T1 fill:#2196F3,color:#fff,stroke:none
+    style T2 fill:#2196F3,color:#fff,stroke:none
+    style T3 fill:#2196F3,color:#fff,stroke:none
+    style T4 fill:#FF6D00,color:#fff,stroke:none
+    style T5 fill:#FF6D00,color:#fff,stroke:none
+    style T6 fill:#7B2D8E,color:#fff,stroke:none
+```
+
+Each executor gets **fresh context**. Your main session stays fast.
 
 ### 🔗 Atomic Git Commits
 
-Each task → its own commit. `git bisect` finds exact failing task.
+Each task gets its own commit immediately after completion:
+
+```
+abc123f feat(phase-1): create login endpoint
+def456g feat(phase-1): add password validation
+hij789k feat(phase-1): implement JWT cookie handling
+```
+
+> **Why?** Git bisect finds exact failing task · Each task independently revertable · Clear history for AI in future sessions
 
 ### 🔬 Empirical Verification
 
-No "trust me, it works." Every verification produces proof:
+No "trust me, it works." Every verification produces evidence:
 
 | Change Type | Evidence Required |
 |:---:|:---:|
@@ -385,6 +420,101 @@ No "trust me, it works." Every verification produces proof:
 ```
 
 ---
+
+## 🌍 Platform Support
+
+All workflow files use **Bash** commands (macOS/Linux).
+
+> This fork is optimized for macOS and Linux. Git commands work identically everywhere.
+
+---
+
+## 🤖 Multi-Model Support
+
+Quantis is **model-agnostic** — use any LLM that works in your environment.
+
+### Canonical Rules
+
+All rules live in [PROJECT_RULES.md](PROJECT_RULES.md) — the single source of truth.
+
+### Optional Adapters
+
+Model-specific enhancements *(optional, never required)*:
+
+```
+adapters/
+├── ANTIGRAVITY.md # Antigravity-native tool mapping
+├── CLAUDE.md      # Extended thinking, effort levels
+├── GEMINI.md      # Flash vs Pro selection
+└── GPT_OSS.md     # Function calling, context handling
+```
+
+### Model Selection by Phase
+
+| Phase | Recommended | Why |
+|:-----:|:-----------:|-----|
+| 📋 Planning | Reasoning models | Complex decisions |
+| ⚙️ Implementation | Fast models | Iteration speed |
+| 🐛 Debugging | Reasoning models | Hypothesis testing |
+| 🔍 Review | Long-context models | Full diff analysis |
+
+> See [model-selection-playbook.md](docs/model-selection-playbook.md) for detailed guidance.
+
+---
+
+## 🔍 Search-First Mode
+
+> **Principle:** Search before reading files completely.
+
+### Why?
+
+- 🎯 Reduces context pollution
+- ⚡ Faster codebase understanding
+- 🚫 Prevents reading irrelevant code
+
+<details>
+<summary><b>Setup (Optional)</b></summary>
+
+```bash
+./scripts/setup_search.sh           # Checks for ripgrep/fd
+./scripts/search_repo.sh "pattern"  # Search wrapper
+```
+
+> **No installation required** — falls back to `grep`.
+
+</details>
+
+### Workflow
+
+1. **Define question** — What are you looking for?
+2. **Search first** — `./scripts/search_repo.sh "keyword"`
+3. **Evaluate results** — Which files matter?
+4. **Targeted read** — Only read relevant sections
+
+---
+
+## 💰 Token Optimization
+
+> **Principle:** Minimize token consumption while maintaining quality.
+
+### Skills Available
+
+| Skill | Purpose |
+|-------|---------|
+| 📊 `token-budget` | Track and manage token usage |
+| 🗜️ `context-compressor` | Compress context for efficiency |
+| 🔍 `context-fetch` | Search-first loading |
+| 🩺 `context-health-monitor` | Detect quality degradation |
+
+### Budget Thresholds
+
+| Usage | Status | Action |
+|:-----:|:------:|--------|
+| 0–50% | 🟢 OK | Proceed normally |
+| 50–70% | 🟡 Warning | Compress, use outlines |
+| 70%+ | 🔴 Critical | State dump required |
+
+> See [token-optimization-guide.md](docs/token-optimization-guide.md) for complete strategies.
 
 ## 🧪 Testing
 
