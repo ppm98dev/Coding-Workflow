@@ -116,9 +116,10 @@ Then run `/new-project` and follow the prompts.
 
 ```mermaid
 graph LR
-    A["📜 Constitution"] --> B["🆕 /new-project"]
-    B --> C["📋 SPEC.md"]
-    C --> D["🔥 /stress-test"]
+    A["🆕 /new-project"] --> B["📜 CONSTITUTION.md"]
+    A --> C["📋 SPEC.md"]
+    B --> D["🔥 /stress-test"]
+    C --> D
     D --> E["📐 /plan"]
     E --> F["⚙️ /execute"]
     F --> G["✅ /verify"]
@@ -127,8 +128,8 @@ graph LR
     I --> E
     H -- No --> J["🏁 /complete-milestone"]
 
-    style A fill:#FF6D00,color:#fff,stroke:none
-    style B fill:#7B2D8E,color:#fff,stroke:none
+    style A fill:#7B2D8E,color:#fff,stroke:none
+    style B fill:#FF6D00,color:#fff,stroke:none
     style C fill:#00C853,color:#fff,stroke:none
     style D fill:#E91E63,color:#fff,stroke:none
     style E fill:#FF6D00,color:#fff,stroke:none
