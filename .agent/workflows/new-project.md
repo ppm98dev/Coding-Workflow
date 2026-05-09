@@ -5,11 +5,12 @@ description: Initialize a new project with deep context gathering
 # /new-project Workflow
 
 <objective>
-Initialize a new project through unified flow: questioning → research (optional) → requirements → roadmap.
+Initialize a new project through unified flow: constitution → questioning → research (optional) → requirements → roadmap.
 
 This is the most leveraged moment in any project. Deep questioning here means better plans, better execution, better outcomes. One command takes you from idea to ready-for-planning.
 
 **Creates:**
+- `.gsd/CONSTITUTION.md` — project quality standards (first!)
 - `.gsd/SPEC.md` — project specification
 - `.gsd/ROADMAP.md` — phase structure
 - `.gsd/STATE.md` — project memory
@@ -57,7 +58,50 @@ This is the most leveraged moment in any project. Deep questioning here means be
 
 ---
 
-## Phase 2: Brownfield Offer
+## Phase 2: Create Constitution
+**Define HOW you want to build before defining WHAT to build.**
+
+Display banner:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ GSD ► CONSTITUTION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Before defining what to build, let's define your quality standards.
+These rules will be enforced in every plan and execution.
+```
+
+Walk through each article with focused questions. Offer sensible defaults — the user can accept with Enter or customize:
+
+1. **Code Quality**: "Max function length? (default: ~20 lines)" / "Naming convention? (default: snake_case for Python, camelCase for JS)"
+2. **Error Handling**: "Strategy? (A) Fail-fast (B) Graceful degradation (C) Hybrid — default: A"
+3. **Logging**: "Format? (A) Structured JSON (B) Plaintext — default: A for APIs, B for scripts" / "Min level in prod? (default: INFO)"
+4. **Input Validation**: "Validation library? (default: framework-appropriate — Pydantic/Zod/etc.)"
+5. **Testing**: "Test-first mandatory? (A) Yes — TDD (B) Tests alongside code (C) Tests after — default: B" / "Coverage target? (default: 80%)"
+6. **Security**: "Auth method? (A) JWT (B) Session (C) OAuth (D) None — default: depends on project type"
+7. **Documentation**: "Docstrings required on? (A) All public functions (B) All functions (C) Critical only — default: A"
+8. **Performance**: "Latency targets? (Enter for 'best effort')" / "Any specific perf constraints?"
+9. **Dependencies**: "Dependency policy? (A) Any allowed (B) Review before adding (C) Minimal — default: B"
+10. **Architecture**: "Layering? (A) Standard (UI/Logic/Data) (B) Clean Architecture (C) Flat — default: A"
+
+**After all questions:**
+- Fill the constitution template (`.gsd/templates/constitution.md`) with answers
+- Create `.gsd/CONSTITUTION.md`
+- Display summary
+
+```
+Constitution created with 10 articles.
+
+Review?
+A) Looks good — proceed
+B) Edit further — let me adjust
+```
+
+If "Edit further" — ask what to change, update, and re-display.
+
+---
+
+## Phase 3: Brownfield Offer
 **If existing code detected and ARCHITECTURE.md doesn't exist:**
 
 ```
@@ -78,12 +122,12 @@ Run `/map` first, then return to `/new-project`
 ```
 Exit command.
 
-**If "Skip mapping":** Continue to Phase 3.
-**If no existing code detected OR codebase already mapped:** Continue to Phase 3.
+**If "Skip mapping":** Continue to Phase 4.
+**If no existing code detected OR codebase already mapped:** Continue to Phase 4.
 
 ---
 
-## Phase 3: Deep Questioning
+## Phase 4: Deep Questioning
 
 Display banner:
 ```
@@ -138,7 +182,7 @@ Loop until "Create SPEC.md" selected.
 
 ---
 
-## Phase 4: Write SPEC.md
+## Phase 5: Write SPEC.md
 
 Create `.gsd/SPEC.md`:
 
@@ -174,7 +218,7 @@ Create `.gsd/SPEC.md`:
 
 ---
 
-## Phase 5: Research Decision
+## Phase 6: Research Decision
 
 If project involves unfamiliar technology or architectural decisions:
 
@@ -196,7 +240,7 @@ B) Skip research — I know what I want, let's plan
 
 ---
 
-## Phase 6: Define Requirements
+## Phase 7: Define Requirements
 
 Generate requirements from SPEC.md:
 
@@ -219,7 +263,7 @@ Generate requirements from SPEC.md:
 
 ---
 
-## Phase 7: Create Roadmap
+## Phase 8: Create Roadmap
 
 Create `.gsd/ROADMAP.md`:
 
@@ -261,7 +305,7 @@ Create `.gsd/ROADMAP.md`:
 
 ---
 
-## Phase 8: Initialize Remaining Files
+## Phase 9: Initialize Remaining Files
 
 Create with templates:
 - `.gsd/STATE.md` — Empty state
@@ -275,7 +319,7 @@ Create directories:
 
 ---
 
-## Phase 9: Initial Commit
+## Phase 10: Initial Commit
 
 ```bash
 git add .gsd/
@@ -288,7 +332,7 @@ git commit -m "chore: initialize GSD project
 
 ---
 
-## Phase 10: Done
+## Phase 11: Done
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -299,6 +343,7 @@ Project: {name}
 Phases: {N}
 
 Files created:
+• .gsd/CONSTITUTION.md (10 articles)
 • .gsd/SPEC.md (FINALIZED)
 • .gsd/ROADMAP.md ({N} phases)
 • .gsd/STATE.md
