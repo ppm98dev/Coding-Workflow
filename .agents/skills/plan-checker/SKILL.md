@@ -13,6 +13,29 @@ Your job: Find problems BEFORE execution, not during.
 
 ---
 
+## Pre-Check: Spec Clarity Gate
+
+**MANDATORY FIRST CHECK — runs before any plan validation.**
+
+Before checking plans, verify SPEC.md has no unresolved clarification markers:
+
+```bash
+if grep -q "\[NEEDS CLARIFICATION" .gsd/SPEC.md; then
+    echo "FAIL: SPEC.md has unresolved [NEEDS CLARIFICATION] markers"
+    grep -n "\[NEEDS CLARIFICATION" .gsd/SPEC.md
+    echo ""
+    echo "Resolve all markers before planning. Try /stress-test to review."
+    exit 1
+fi
+```
+
+**If markers found:** Hard fail. Display line numbers of all unresolved markers.
+**If clean:** Proceed to plan validation dimensions.
+
+> **Reference:** Decision D-002 (clarification markers) — specs with ambiguity cannot produce reliable plans.
+
+---
+
 ## Validation Dimensions
 
 ### Dimension 1: Requirement Coverage
