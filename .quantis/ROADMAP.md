@@ -52,8 +52,8 @@
 - "Quality Requirements" section added to SPEC template (error handling strategy, logging level, perf targets)
 - `/stress-test` workflow — reads SPEC.md and pokes holes: edge cases, contradictions, missing failure modes
 - Cleaner spec/plan separation — SPEC = pure user intent, PLAN = technical choices
-#### Phase 1.5: Quantis Rebrand
-**Status**: ⬜ Not Started
+#### Phase 1.5: Quantis Rebrand ✅
+**Status**: ✅ Complete
 **Objective**: Rename GSD → Quantis across the entire framework. Update all references, directory structure, README, and external docs.
 **Deliverables:**
 - Rename `.quantis/` directory to `.quantis/`
