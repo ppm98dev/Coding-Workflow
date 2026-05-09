@@ -197,6 +197,19 @@ SPEC.md = WHAT to build + WHY  (user intent, no tech details)
 PLAN.md = HOW to build it      (tech stack, architecture, implementation)
 ```
 
+### 📋 Enhanced SPEC Template
+
+Every spec created via `/new-project` includes structured sections that force completeness:
+
+| Section | Purpose |
+|---------|---------|
+| **Quality Requirements** | Error handling, logging, performance, security — tied to CONSTITUTION.md |
+| **Edge Cases** | Boundary conditions, failure scenarios, concurrent access |
+| **Assumptions** | What you're assuming about users, environment, scope |
+| **Unresolved Questions** | Auto-generated summary of all `[NEEDS CLARIFICATION]` markers |
+
+> The spec cannot be marked `FINALIZED` until the Unresolved Questions section is empty.
+
 ---
 
 ## 🧩 Why It Works
