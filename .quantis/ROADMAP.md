@@ -25,8 +25,7 @@
 - [ ] Test-first + file creation order (contracts → tests → source)
 - [ ] Production code enforcement in `/execute` + `/verify`
 - [ ] New `production-code` skill with language-specific references
-- [ ] `/update-plan` workflow — review and revise plans before execution
-- [ ] `/checklist` workflow — plan-checker as user-facing command
+- [ ] `/update-plan` workflow — review and revise plans before execution (optional)
 - [x] `/stress-test` workflow — spec quality gate before planning
 - [x] Cleaner spec/plan separation
 - [ ] Branch-per-feature in `/plan` or `/execute`
@@ -62,12 +61,11 @@
 - Full README rewrite with Quantis branding + Phase 1 features
 - Update scripts, adapters, docs, and LICENSE
 
-#### Phase 2: Plan Iteration & Validation
+#### Phase 2: Plan Iteration
 **Status**: ⬜ Not Started
 **Objective**: Enable plan review and revision before execution.
 **Deliverables:**
-- `/update-plan` workflow — review generated plan, request changes, iterate before committing to execution
-- `/checklist` workflow — user-facing command wrapping plan-checker skill (pre-execution validation: files exist, actions specific, verify commands executable, done criteria measurable)
+- `/update-plan` workflow — review generated plan, discuss concerns, apply revisions, re-validate (optional step between `/plan` and `/execute`)
 
 #### Phase 3: Production Code Enforcement
 **Status**: ⬜ Not Started

@@ -27,6 +27,7 @@ CORE WORKFLOW
 ─────────────
 /map              Analyze codebase → ARCHITECTURE.md
 /plan [N]         Create PLAN.md files for phase N
+/update-plan [N]  Revise plans based on discussion (optional)
 /execute [N]      Wave-based execution with atomic commits
 /verify [N]       Must-haves validation with proof
 /debug [desc]     Systematic debugging (3-strike rule)
