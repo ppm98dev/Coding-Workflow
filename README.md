@@ -121,7 +121,9 @@ graph LR
     B --> D["🔥 /stress-test"]
     C --> D
     D --> E["📐 /plan"]
-    E --> F["⚙️ /execute"]
+    E -. optional .-> E2["🔄 /update-plan"]
+    E2 --> F["⚙️ /execute"]
+    E --> F
     F --> G["✅ /verify"]
     G --> H{"More\nphases?"}
     H -- Yes --> I["💬 /discuss-phase"]
@@ -133,6 +135,7 @@ graph LR
     style C fill:#00C853,color:#fff,stroke:none
     style D fill:#E91E63,color:#fff,stroke:none
     style E fill:#FF6D00,color:#fff,stroke:none
+    style E2 fill:#FF6D00,color:#fff,stroke:#fff,stroke-dasharray:5 5
     style F fill:#2196F3,color:#fff,stroke:none
     style G fill:#00C853,color:#fff,stroke:none
     style H fill:#FFC107,color:#000,stroke:none
@@ -145,8 +148,9 @@ graph LR
 | **1** | `/new-project` | Constitution Q&A → `CONSTITUTION.md` → Deep questioning → `SPEC.md` |
 | **2** | `/stress-test` | Adversarial review → Find gaps, add `[NEEDS CLARIFICATION]` markers |
 | **3** | `/plan N` | Technical discovery → `PLAN.md` with XML tasks |
+| **3b** | `/update-plan N` | *(optional)* Revise plans based on discussion |
 | **4** | `/execute N` | Wave-based execution → Atomic commits |
-| **5** | `/verify N` | Must-haves check → Evidence captured |
+| **5** | `/verify N` | Must-haves validation with proof |
 | **6** | Repeat | Next phase or `/complete-milestone` |
 
 ---
@@ -301,7 +305,7 @@ No "trust me, it works." Every verification produces evidence:
 
 ---
 
-## 🎮 Commands (28 Total)
+## 🎮 Commands (29 Total)
 
 > [!NOTE]
 > Slash commands are typed directly as chat messages (e.g. send `/plan 1`). They are **not** IDE autocomplete features.
@@ -312,6 +316,7 @@ No "trust me, it works." Every verification produces evidence:
 |---------|---------|
 | `/map` | 🏗️ Analyze codebase → `ARCHITECTURE.md` |
 | `/plan [N]` | 📐 Create `PLAN.md` for phase N |
+| `/update-plan [N]` | 🔄 Revise plans based on discussion *(optional)* |
 | `/execute [N]` | ⚙️ Wave-based execution with atomic commits |
 | `/verify [N]` | ✅ Must-haves validation with proof |
 | `/stress-test` | 🔥 Adversarial spec review — find gaps before planning |
@@ -375,6 +380,7 @@ No "trust me, it works." Every verification produces evidence:
 /progress            # ← See where you left off
 /discuss-phase 2     # ← Clarify requirements (optional)
 /plan 2              # ← Plan next phase
+# /update-plan 2     # ← Revise plans if needed (optional)
 /execute 2           # ← Implement with atomic commits
 /verify 2            # ← Prove it works (screenshots, tests)
 /pause               # ← Save state for later
