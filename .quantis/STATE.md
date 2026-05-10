@@ -3,11 +3,11 @@
 ## Current Position
 - **Milestone**: v2.1 — Production Code Quality, Spec Rigor & Scaling
 - **Phase**: 2 — Plan Iteration (COMPLETED)
-- **Task**: All tasks complete
-- **Status**: Verified
+- **Task**: Between phases
+- **Status**: Paused at 2026-05-10T15:30:05+02:00
 
 ## Last Session Summary
-Executed Phase 2 (Plan Iteration) — 2 plans, 4 tasks, 1 wave.
+Resumed from Phase 1.5 completion. Discussed Phase 2 scope, cut `/checklist` (redundant), executed Phase 2, verified 15/15 must-haves.
 
 ### Phase 2 Delivered:
 - `/update-plan` workflow (170 lines, 8 process steps) — optional step between `/plan` and `/execute`
@@ -18,7 +18,7 @@ Executed Phase 2 (Plan Iteration) — 2 plans, 4 tasks, 1 wave.
 - Plan-checker brand fix: GSD → Quantis
 
 ### Verification
-- Phase 2: 10/10 must-haves PASS
+- Phase 2: 15/15 must-haves PASS (independent audit)
 
 ## In-Progress Work
 None — all work committed and verified.
@@ -27,6 +27,6 @@ None — all work committed and verified.
 None.
 
 ## Next Steps
-1. `/plan 3` — Production Code Enforcement (test-first, production patterns)
+1. `/discuss-phase 3` or `/plan 3` — Production Code Enforcement (test-first, production patterns, new production-code skill)
 2. `/plan 4` — Skill Infrastructure Upgrade
 3. Consider renaming GitHub repo `Coding-Workflow` → `Quantis`
