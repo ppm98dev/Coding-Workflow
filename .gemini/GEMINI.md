@@ -1,7 +1,7 @@
 # Quantis Methodology — Mission Control Rules
 
-> **Get Shit Done**: A spec-driven, context-engineered development methodology.
-> 
+> **Quantis**: A spec-driven, context-engineered development methodology.
+>
 > These rules enforce disciplined, high-quality autonomous development.
 > Quantis replaces Antigravity's built-in planning mode — use Quantis workflows exclusively.
 
@@ -40,14 +40,14 @@ Before "Done"    → Empirical proof captured (browser_subagent for UI, run_comm
 
 These rules integrate with Quantis workflows and Antigravity tools:
 
-| Workflow | Rules Enforced | Antigravity Tools |
-|----------|----------------|-------------------|
-| `/map` | Updates ARCHITECTURE.md, STACK.md | `grep_search`, `list_dir`, `view_file` |
-| `/plan` | Enforces Planning Lock, creates ROADMAP | `search_web`, `read_url_content` |
-| `/execute` | Enforces State Persistence after each task | `run_command`, `write_to_file`, `replace_file_content` |
-| `/verify` | Enforces Empirical Validation | `browser_subagent` (screenshots + recordings), `run_command` |
-| `/pause` | Triggers Context Hygiene state dump | `view_file` (STATE.md) |
-| `/resume` | Loads state from STATE.md | `view_file` (STATE.md) |
+| Workflow   | Rules Enforced                             | Antigravity Tools                                            |
+| ---------- | ------------------------------------------ | ------------------------------------------------------------ |
+| `/map`     | Updates ARCHITECTURE.md, STACK.md          | `grep_search`, `list_dir`, `view_file`                       |
+| `/plan`    | Enforces Planning Lock, creates ROADMAP    | `search_web`, `read_url_content`                             |
+| `/execute` | Enforces State Persistence after each task | `run_command`, `write_to_file`, `replace_file_content`       |
+| `/verify`  | Enforces Empirical Validation              | `browser_subagent` (screenshots + recordings), `run_command` |
+| `/pause`   | Triggers Context Hygiene state dump        | `view_file` (STATE.md)                                       |
+| `/resume`  | Loads state from STATE.md                  | `view_file` (STATE.md)                                       |
 
 ---
 
@@ -66,12 +66,13 @@ For full Antigravity-specific guidance, see [adapters/ANTIGRAVITY.md](../adapter
 ## Model Selection
 
 For model-specific enhancements:
+
 - [adapters/GEMINI.md](../adapters/GEMINI.md) — Gemini Flash vs Pro
 - [adapters/CLAUDE.md](../adapters/CLAUDE.md) — Extended thinking, effort levels
 - [adapters/ANTIGRAVITY.md](../adapters/ANTIGRAVITY.md) — Tool mapping and best practices
 
 ---
 
-*Quantis Methodology for Google Antigravity*
-*Canonical rules: [PROJECT_RULES.md](../PROJECT_RULES.md)*
-*Source: https://github.com/gsd-build/get-shit-done*
+_Quantis Methodology for Google Antigravity_
+_Canonical rules: [PROJECT_RULES.md](../PROJECT_RULES.md)_
+_Source: https://github.com/gsd-build/get-shit-done_
