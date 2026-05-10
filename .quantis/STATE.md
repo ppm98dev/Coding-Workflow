@@ -2,35 +2,23 @@
 
 ## Current Position
 - **Milestone**: v2.1 — Production Code Quality, Spec Rigor & Scaling
-- **Phase**: 2 — Plan Iteration
-- **Task**: Planning complete
-- **Status**: Ready for execution
+- **Phase**: 2 — Plan Iteration (COMPLETED)
+- **Task**: All tasks complete
+- **Status**: Verified
 
 ## Last Session Summary
-Executed Phase 1 (Constitution & Spec Rigor) and Phase 1.5 (Quantis Rebrand) in one session.
+Executed Phase 2 (Plan Iteration) — 2 plans, 4 tasks, 1 wave.
 
-### Phase 1 Delivered (9 items):
-- CONSTITUTION.md template (10 articles, 111 lines)
-- Constitution Q&A as first step in /new-project (Phase 2, 9 questions)
-- SPEC template upgraded with 5 new sections (Clarification Rule, Separation Rule, Quality Requirements, Edge Cases, Assumptions, Unresolved Questions)
-- `[NEEDS CLARIFICATION]` markers — forced in spec, plan-checker rejects
-- Plan-checker Spec Clarity Gate (pre-check before validation)
-- `/plan` hard-fails without CONSTITUTION.md + loads it as context
-- `/execute` loads CONSTITUTION.md during execution
-- `/stress-test` adversarial workflow (225 lines, 7 review dimensions)
-- Stress-test suggestion in /new-project (Phase 5b)
-
-### Phase 1.5 Delivered (4 items):
-- Directory renamed from `gsd` to `quantis` (68 files)
-- GSD → Quantis brand name across all active files (134 files)
-- `GSD-STYLE.md` → `QUANTIS-STYLE.md`
-- Full README rewrite (600 lines) with Quantis branding + Quality Governance section
+### Phase 2 Delivered:
+- `/update-plan` workflow (170 lines, 8 process steps) — optional step between `/plan` and `/execute`
+- Phase 2 decisions documented (D-012, D-013, D-014)
+- README updated: 29 commands, Mermaid diagram with optional `/update-plan` path
+- Help workflow updated with new command
+- Roadmap scope revised: removed `/checklist` (redundant)
+- Plan-checker brand fix: GSD → Quantis
 
 ### Verification
-- Phase 1: 8/8 must-haves PASS
-- Phase 1.5: 8/8 must-haves PASS
-- README audited for completeness — all Phase 1 features documented
-- Mermaid diagram corrected (/new-project produces both outputs)
+- Phase 2: 10/10 must-haves PASS
 
 ## In-Progress Work
 None — all work committed and verified.
@@ -39,6 +27,6 @@ None — all work committed and verified.
 None.
 
 ## Next Steps
-1. `/plan 2` — Plan Iteration & Validation (add /update-plan and /checklist workflows)
-2. `/plan 3` — Production Code Enforcement (test-first, production patterns)
-3. Consider renaming GitHub repo from `Coding-Workflow` to `Quantis`
+1. `/plan 3` — Production Code Enforcement (test-first, production patterns)
+2. `/plan 4` — Skill Infrastructure Upgrade
+3. Consider renaming GitHub repo `Coding-Workflow` → `Quantis`
