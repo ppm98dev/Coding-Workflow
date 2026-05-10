@@ -61,3 +61,23 @@
 ### D-011: Stress-Test Trigger — Suggested, Not Forced
 **Decision:** `/new-project` suggests running `/stress-test` after SPEC creation but doesn't force it. `/plan` hard-fails on unresolved `[NEEDS CLARIFICATION]` markers as the actual safety net.
 **Rationale:** Two-layer protection — stress-test catches gaps proactively, plan-checker catches them mandatorily. Forcing stress-test on every project is heavy for simple projects.
+
+---
+
+## Phase 2 Decisions (Plan Iteration)
+
+**Date:** 2026-05-10
+**Context:** Discussion before planning Phase 2. Evaluated scope of `/update-plan` and `/checklist` workflows.
+
+### D-012: Drop /checklist — Redundant
+**Decision:** Remove `/checklist` from Phase 2 scope. The plan-checker already runs automatically inside `/plan` (step 7) and would also run inside `/update-plan`. A standalone `/checklist` command solves no real problem.
+**Rationale:** The plan-checker is already integrated at every point where validation matters. Exposing it as a separate command adds surface area with no benefit.
+
+### D-013: /update-plan — Conversational Revision
+**Decision:** `/update-plan` is a conversational revision workflow: user discusses concerns naturally, then runs `/update-plan N` to apply the discussed changes and re-validate.
+**Rationale:** The natural flow is: `/plan` generates → user reads and has doubts → discuss → `/update-plan` applies changes. This is simpler and more natural than a formal review-with-diff interface.
+
+### D-014: /update-plan — Optional Step
+**Decision:** `/update-plan` is explicitly optional. Users can go directly from `/plan` to `/execute` if satisfied with the generated plans.
+**Rationale:** Most plans don't need revision. Adding a mandatory review step would slow down the workflow for the common case.
+
