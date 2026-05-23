@@ -82,11 +82,17 @@
 **Status**: ⬜ Not Started
 **Objective**: End-to-end validation of the complete Quantis v3.0 workflow.
 **Deliverables:**
+- Create `MANIFEST.md` listing all core skills/workflows (so upgrade knows what to replace)
+- Create `/upgrade` workflow — in-place GSD→v3.0 migration that:
+  - Replaces GSD workflows with v3.0 workflows
+  - Replaces GSD core skills with Superpowers skills
+  - Preserves user-installed skills (anything not in MANIFEST)
+  - Preserves `.quantis/` state (SPEC, ROADMAP, phases, STATE, etc.)
+  - Preserves user's CONSTITUTION.md
+- Update `/install` and `/update` workflows for v3.0
+- Update README with v3.0 architecture, Superpowers credit
 - Test full workflow: brainstorming → writing-plans → SDD → verification
 - Test pause/resume across sessions with new skills
-- Test state persistence during SDD execution
-- Update README with v3.0 architecture, Superpowers credit
-- Update install/update workflows for v3.0
 
 ---
 

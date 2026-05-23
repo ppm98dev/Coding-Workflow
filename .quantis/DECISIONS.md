@@ -83,3 +83,10 @@
 **Decision:** Do not update `install.md` and `update.md` workflows for v3.0 structure in Phase 2. Defer to Phase 3 (Integration Testing & Polish).
 **Rationale:** Install/update workflows need end-to-end testing against the final package structure. Phase 3 is the right place for that validation.
 
+### D-031: In-place upgrade via MANIFEST.md
+**Decision:** Create a `MANIFEST.md` listing all core Quantis skills and workflows. The `/upgrade` workflow uses this to know what to replace vs keep during GSD→v3.0 migration.
+**Rationale:** Users have projects with GSD + user-installed skills from the web. Upgrade must:
+- Replace GSD core skills (planner, executor, verifier, etc.) with Superpowers skills
+- Replace GSD workflows with v3.0 workflows
+- Preserve user-installed skills (anything not in MANIFEST)
+- Preserve `.quantis/` state (SPEC, ROADMAP, phases, STATE, CONSTITUTION, etc.)
