@@ -1,0 +1,79 @@
+---
+description: Add a new phase to the end of the roadmap
+argument-hint: "<phase-name>"
+---
+
+# /add-phase Workflow
+
+<objective>
+Add a new phase to the end of the current roadmap.
+</objective>
+
+<process>
+
+## 1. Validate Roadmap Exists
+
+---
+
+## 2. Determine Next Phase Number
+
+---
+
+## 3. Gather Phase Information
+
+Ask for:
+- **Name** — Phase title
+- **Objective** — What this phase achieves
+- **Depends on** — Previous phases (usually N-1)
+
+---
+
+## 4. Add to ROADMAP.md
+
+Append:
+```markdown
+---
+
+### Phase {N}: {name}
+**Status**: ⬜ Not Started
+**Objective**: {objective}
+**Depends on**: Phase {N-1}
+
+**Tasks**:
+- [ ] TBD (run /plan {N} to create)
+
+**Verification**:
+- TBD
+```
+
+---
+
+## 5. Update STATE.md
+
+Note phase added.
+
+---
+
+## 6. Commit
+
+---
+
+## 7. Offer Next Steps
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Quantis ► PHASE ADDED ✓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Phase {N}: {name}
+
+───────────────────────────────────────────────────────
+
+▶ NEXT
+
+/plan {N} — Create execution plans for this phase
+
+───────────────────────────────────────────────────────
+```
+
+</process>

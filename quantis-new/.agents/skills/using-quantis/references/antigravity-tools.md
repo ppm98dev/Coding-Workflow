@@ -36,9 +36,9 @@ When a skill says to dispatch a named agent type, use `invoke_subagent` with the
 
 | Skill instruction | Antigravity equivalent |
 |-------------------|----------------------|
-| `Task tool (superpowers:implementer)` | `invoke_subagent` with Role="implementer" and the filled prompt template |
-| `Task tool (superpowers:spec-reviewer)` | `invoke_subagent` with Role="spec-reviewer" and the filled prompt template |
-| `Task tool (superpowers:code-quality-reviewer)` | `invoke_subagent` with Role="code-quality-reviewer" and the filled prompt template |
+| `Task tool (implementer)` | `invoke_subagent` with Role="implementer" and the filled prompt template |
+| `Task tool (spec-reviewer)` | `invoke_subagent` with Role="spec-reviewer" and the filled prompt template |
+| `Task tool (code-quality-reviewer)` | `invoke_subagent` with Role="code-quality-reviewer" and the filled prompt template |
 | `Task tool (general-purpose)` with inline prompt | `invoke_subagent` with your inline prompt |
 
 ### Built-in Subagent Types
@@ -89,7 +89,7 @@ When skills reference these Superpowers defaults, use the Quantis convention ins
 |--------------------|--------------------|
 | `.quantis/phases/{N}/SPEC.md` | `.quantis/phases/{N}/SPEC.md` |
 | `.quantis/phases/{N}/YYYY-MM-DD-<feature>-plan.md` | `.quantis/phases/{N}/{M}-PLAN.md` |
-| `docs/superpowers/reviews/` | `.quantis/phases/{N}/REVIEW.md` |
+| `docs/reviews/` (Superpowers legacy) | `.quantis/phases/{N}/REVIEW.md` |
 
 ## State Management
 
