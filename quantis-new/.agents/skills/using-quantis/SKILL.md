@@ -1,0 +1,123 @@
+---
+name: using-quantis
+description: Use when starting any conversation - establishes how to find and use skills, requiring skill reading before ANY response including clarifying questions
+---
+
+<EXTREMELY-IMPORTANT>
+If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST read and follow the skill.
+
+IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
+
+This is not negotiable. This is not optional. You cannot rationalize your way out of this.
+</EXTREMELY-IMPORTANT>
+
+## Instruction Priority
+
+Quantis skills override default system prompt behavior, but **user instructions always take precedence**:
+
+1. **User's explicit instructions** (direct requests, project-specific rules) — highest priority
+2. **Quantis skills** — override default system behavior where they conflict
+3. **Default system prompt** — lowest priority
+
+If the user says "don't use TDD" and a skill says "always use TDD," follow the user's instructions. The user is in control.
+
+## How to Access Skills
+
+**In Antigravity 2.0:** Skills are auto-discovered from `.agents/skills/*/SKILL.md`. The agent loads skill metadata (name and description from YAML frontmatter) at session start with zero context cost. When a task matches a skill's description, read the full SKILL.md via `view_file` to activate it.
+
+**Platform Adaptation:** Skills use Claude Code tool names as reference. See `references/antigravity-tools.md` for the Antigravity 2.0 tool mapping.
+
+# Using Skills
+
+## The Rule
+
+**Read and follow relevant skills BEFORE any response or action.** Even a 1% chance a skill might apply means you should read the skill to check. If a skill turns out to be wrong for the situation, you don't need to follow it.
+
+```
+Flow:
+  User message received
+    → Might any skill apply? (even 1%)
+      → YES: Read SKILL.md via view_file
+        → Announce: "Using [skill] to [purpose]"
+        → Follow skill exactly
+      → DEFINITELY NOT: Respond directly
+```
+
+## Red Flags
+
+These thoughts mean STOP — you're rationalizing:
+
+| Thought | Reality |
+|---------|---------|
+| "This is just a simple question" | Questions are tasks. Check for skills. |
+| "I need more context first" | Skill check comes BEFORE clarifying questions. |
+| "Let me explore the codebase first" | Skills tell you HOW to explore. Check first. |
+| "I can check git/files quickly" | Files lack conversation context. Check for skills. |
+| "Let me gather information first" | Skills tell you HOW to gather information. |
+| "This doesn't need a formal skill" | If a skill exists, use it. |
+| "I remember this skill" | Skills evolve. Read current version. |
+| "This doesn't count as a task" | Action = task. Check for skills. |
+| "The skill is overkill" | Simple things become complex. Use it. |
+| "I'll just do this one thing first" | Check BEFORE doing anything. |
+| "This feels productive" | Undisciplined action wastes time. Skills prevent this. |
+| "I know what that means" | Knowing the concept ≠ using the skill. Read it. |
+
+## Skill Priority
+
+When multiple skills could apply, use this order:
+
+1. **Process skills first** (brainstorming, debugging) — these determine HOW to approach the task
+2. **Implementation skills second** — these guide execution
+
+"Let's build X" → brainstorming first, then implementation skills.
+"Fix this bug" → systematic-debugging first, then domain-specific skills.
+
+## Skill Types
+
+**Rigid** (TDD, debugging, verification): Follow exactly. Don't adapt away discipline.
+
+**Flexible** (patterns, brainstorming): Adapt principles to context.
+
+The skill itself tells you which.
+
+## User Instructions
+
+Instructions say WHAT, not HOW. "Add X" or "Fix Y" doesn't mean skip workflows.
+
+## State Management
+
+Quantis tracks state across sessions. At session start:
+
+1. **Read `.quantis/STATE.md`** — understand current position (milestone, phase, task)
+2. **Check `.quantis/ROADMAP.md`** — understand what's been done and what's next
+3. **Check `.quantis/DECISIONS.md`** — understand decisions already made
+
+After completing significant work:
+1. **Update STATE.md** — current position and progress
+2. **Add to JOURNAL.md** — session summary
+3. **Update ROADMAP.md** — check off deliverables
+
+## Workflow Commands
+
+These slash commands are available for process management:
+
+| Command | Purpose |
+|---------|---------|
+| `/pause` | Dump context for clean session handoff |
+| `/resume` | Restore context from previous session |
+| `/progress` | Show current position in roadmap |
+| `/new-milestone` | Create a new milestone with phases |
+| `/debug` | Systematic debugging with persistent state |
+| `/verify` | Validate work against spec |
+
+## File Conventions
+
+| What | Location |
+|------|----------|
+| Specs | `.quantis/phases/{N}/SPEC.md` |
+| Plans | `.quantis/phases/{N}/{M}-PLAN.md` |
+| State | `.quantis/STATE.md` |
+| Journal | `.quantis/JOURNAL.md` |
+| Decisions | `.quantis/DECISIONS.md` |
+| Roadmap | `.quantis/ROADMAP.md` |
+| Constitution | `CONSTITUTION.md` (project root) |
