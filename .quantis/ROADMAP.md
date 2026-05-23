@@ -43,7 +43,7 @@
 - [ ] SDD skill adapted with `invoke_subagent` / `define_subagent`
 - [ ] State integration: SDD auto-updates STATE.md, JOURNAL.md, ROADMAP.md
 - [ ] Old Quantis skills removed (planner, executor, verifier, etc.)
-- [ ] Replaced workflows removed (discuss-phase, plan, execute, etc.)
+- [ ] Replaced workflows aliased to skills (discuss-phase, plan, execute, etc.)
 - [ ] Kept workflows updated for new skill references
 - [ ] README updated with v3.0 architecture
 
@@ -67,8 +67,8 @@
 - Update file location defaults → `.quantis/phases/{N}/`
 - Remove old Quantis skills (planner, executor, verifier, debugger, etc.)
 
-#### Phase 2: Workflow Reconciliation
-**Status**: ⬜ Not Started
+#### Phase 2: Workflow Reconciliation ✅
+**Status**: ✅ Complete
 **Objective**: Remove superseded workflows, update kept workflows to reference new skills, add state integration hooks.
 **Deliverables:**
 - Remove 6 superseded workflows (discuss-phase, plan, update-plan, execute, stress-test, research-phase)

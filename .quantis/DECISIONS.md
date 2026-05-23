@@ -52,3 +52,34 @@
 **Decision:** Framework stays "Quantis". Bootstrap skill named `using-quantis`. State in `.quantis/`. README credits Superpowers.
 **Rationale:** Quantis is the user-facing brand. Superpowers is the skill engine underneath.
 
+---
+
+## Phase 2 Decisions (Workflow Reconciliation)
+
+**Date:** 2026-05-23
+**Context:** Pre-planning discussion for Phase 2. Clarified scope around `.gemini/`, `adapters/`, and superseded workflow handling.
+
+### D-025: Include .gemini/ + adapters/ in quantis-new as Thin Shims
+**Decision:** Include `.gemini/GEMINI.md` and `adapters/` directory in quantis-new. Rewrite `.gemini/GEMINI.md` as a minimal bootstrap (~20 lines) pointing to the `using-quantis` skill. Slim down adapters to model-specific tips only (remove duplicate tool mapping — now in skills).
+**Rationale:** `.gemini/GEMINI.md` is auto-loaded by Antigravity at session start (mandatory). Adapters keep model-specific guidance (Flash vs Pro, effort levels) that skills don't cover. No content duplication — skills own methodology, adapters own model quirks.
+
+### D-026: Superseded Workflows → Thin Aliases (Not Deleted)
+**Decision:** Keep `/plan`, `/execute`, `/discuss-phase`, `/stress-test`, `/research-phase`, `/update-plan` as 10-line alias workflows. Each reads and invokes the corresponding Superpowers skill (writing-plans, executing-plans, brainstorming). Slash commands still work AND natural language skill auto-trigger also works.
+**Rationale:** Users have muscle memory for `/plan`, `/execute` etc. Deleting would break habit; aliases give best of both worlds. Tiny file size, no maintenance burden.
+
+### D-027: Update using-quantis Bootstrap in Phase 2
+**Decision:** Update `using-quantis/SKILL.md` workflow commands table during Phase 2 (not deferred to Phase 3).
+**Rationale:** The bootstrap skill has a workflow commands table that users reference. It must stay accurate — showing stale commands undermines trust in the skill system.
+
+### D-028: /map → Thin Alias for codebase-mapper Skill
+**Decision:** Convert `/map` workflow to a thin alias that invokes the `codebase-mapper` skill (same pattern as D-026). 7 total alias workflows.
+**Rationale:** The codebase-mapper skill already covers the same analysis work. `/map` adds the ARCHITECTURE.md + STACK.md output convention, which can be folded into the alias instructions.
+
+### D-029: Include Root-Level Files in quantis-new
+**Decision:** Include `PROJECT_RULES.md`, `CONSTITUTION.md`, `QUANTIS-STYLE.md`, and `model_capabilities.yaml` in the quantis-new distributable package. These are part of Phase 2 deliverables.
+**Rationale:** These files define the methodology and are referenced by `.gemini/GEMINI.md`, adapters, and skills. Without them, an install is incomplete.
+
+### D-030: Defer install.md + update.md to Phase 3
+**Decision:** Do not update `install.md` and `update.md` workflows for v3.0 structure in Phase 2. Defer to Phase 3 (Integration Testing & Polish).
+**Rationale:** Install/update workflows need end-to-end testing against the final package structure. Phase 3 is the right place for that validation.
+
