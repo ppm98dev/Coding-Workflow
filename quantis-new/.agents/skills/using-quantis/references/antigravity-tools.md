@@ -87,8 +87,8 @@ When skills reference these Superpowers defaults, use the Quantis convention ins
 
 | Superpowers default | Quantis convention |
 |--------------------|--------------------|
-| `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` | `.quantis/phases/{N}/SPEC.md` |
-| `docs/superpowers/plans/YYYY-MM-DD-<feature>-plan.md` | `.quantis/phases/{N}/{M}-PLAN.md` |
+| `.quantis/phases/{N}/SPEC.md` | `.quantis/phases/{N}/SPEC.md` |
+| `.quantis/phases/{N}/YYYY-MM-DD-<feature>-plan.md` | `.quantis/phases/{N}/{M}-PLAN.md` |
 | `docs/superpowers/reviews/` | `.quantis/phases/{N}/REVIEW.md` |
 
 ## State Management
