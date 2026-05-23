@@ -1,32 +1,34 @@
 # STATE.md — Project Memory
 
 ## Current Position
-- **Milestone**: v2.1 — Production Code Quality, Spec Rigor & Scaling
-- **Phase**: 2 — Plan Iteration (COMPLETED)
-- **Task**: Between phases
-- **Status**: Paused at 2026-05-10T15:30:05+02:00
+- **Milestone**: v3.0 — Superpowers Integration & Antigravity 2.0
+- **Phase**: 1 — Skill Migration (NOT STARTED)
+- **Task**: Pre-planning
+- **Status**: Active (session 2026-05-23)
 
 ## Last Session Summary
-Resumed from Phase 1.5 completion. Discussed Phase 2 scope, cut `/checklist` (redundant), executed Phase 2, verified 15/15 must-haves.
+Closed v2.1 milestone (phases 3-6 superseded by Superpowers adoption). Created v3.0 milestone with 3 phases. Recorded 10 strategic decisions (D-015 through D-024).
 
-### Phase 2 Delivered:
-- `/update-plan` workflow (170 lines, 8 process steps) — optional step between `/plan` and `/execute`
-- Phase 2 decisions documented (D-012, D-013, D-014)
-- README updated: 29 commands, Mermaid diagram with optional `/update-plan` path
-- Help workflow updated with new command
-- Roadmap scope revised: removed `/checklist` (redundant)
-- Plan-checker brand fix: GSD → Quantis
+### v3.0 Strategic Direction:
+- Fork [obra/superpowers](https://github.com/obra/superpowers) v5.1.0 skills into Quantis
+- Adapt for Antigravity 2.0 (`invoke_subagent`, `define_subagent`)
+- Keep Quantis workflow layer (pause/resume, roadmaps, state management)
+- Auto-triggering model from Superpowers (skills fire automatically)
+- Phase-based file locations (`.quantis/phases/{N}/`)
+- State auto-updates during SDD execution
 
-### Verification
-- Phase 2: 15/15 must-haves PASS (independent audit)
+### Key Artifacts:
+- Deep audit: `superpowers_deep_audit.md` (artifact)
+- Decisions: `quantis_v3_decisions.md` (artifact)
+- Superpowers cloned to: `/tmp/superpowers-audit/`
 
 ## In-Progress Work
-None — all work committed and verified.
+None — strategic planning complete, ready for Phase 1 execution.
 
 ## Blockers
 None.
 
 ## Next Steps
-1. `/discuss-phase 3` or `/plan 3` — Production Code Enforcement (test-first, production patterns, new production-code skill)
-2. `/plan 4` — Skill Infrastructure Upgrade
-3. Consider renaming GitHub repo `Coding-Workflow` → `Quantis`
+1. Plan Phase 1 (Skill Migration) — granular task breakdown for importing 13 Superpowers skills
+2. Execute Phase 1 — copy, adapt, remove old skills
+3. Plan Phase 2 (Workflow Reconciliation)

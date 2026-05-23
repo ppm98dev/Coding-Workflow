@@ -1,7 +1,7 @@
 # ROADMAP.md
 
-> **Current Milestone**: v2.1 — Production Code Quality, Spec Rigor & Scaling
-> **Status**: Phase 2 complete
+> **Current Milestone**: v3.0 — Superpowers Integration & Antigravity 2.0
+> **Status**: Phase 1 not started
 
 ---
 
@@ -14,114 +14,91 @@
 
 ---
 
-## Milestone: v2.1 — Production Code Quality, Spec Rigor & Scaling
+## Milestone: v2.1 — Production Code Quality, Spec Rigor & Scaling ⏸ CLOSED
 
-> **Goal**: Close every gap between "it works" and production-grade. Add spec rigor, code quality enforcement, plan iteration, upgrade skill infrastructure, and lay the groundwork for multi-user.
+> **Goal**: Close every gap between "it works" and production-grade.
+> **Status**: ⏸ Closed — Phases 1-2 complete, Phases 3-6 superseded by v3.0 (Superpowers adoption).
+> **Reason**: Deep audit of [obra/superpowers](https://github.com/obra/superpowers) revealed superior code quality skills (TDD, SDD, code review). Phases 3-6 goals are now achieved by adopting Superpowers. See D-015 through D-024.
 
-### Must-Haves
-- [x] `CONSTITUTION.md` — project-level quality + architecture standards, always loaded
-- [x] `[NEEDS CLARIFICATION]` markers — forced in spec, rejected by plan-checker
-- [x] "Quality Requirements" section in SPEC template
-- [ ] Test-first + file creation order (contracts → tests → source)
-- [ ] Production code enforcement in `/execute` + `/verify`
-- [ ] New `production-code` skill with language-specific references
-- [x] `/update-plan` workflow — review and revise plans before execution (optional)
-- [x] `/stress-test` workflow — spec quality gate before planning
-- [x] Cleaner spec/plan separation
-- [ ] Branch-per-feature in `/plan` or `/execute`
-- [x] Architecture guardrails in constitution
-- [ ] Upgraded skill structure (scripts/, references/, assets/)
-- [ ] Multi-user foundations (per-user state, phase ownership, handoff)
-
-### Nice-to-Haves
-- [ ] Dead code prevention (`<remove>` tags)
-- [ ] Smart install `--agent` flag
-- [ ] Override layer `.quantis/overrides/`
-- [ ] Community skills adoption (Trail of Bits, Vercel, Cloudflare)
-
-### Phases
-
-#### Phase 1: Constitution & Spec Rigor ✅
-**Status**: ✅ Complete
-**Objective**: Establish project-level quality standards and spec quality gates.
-**Deliverables:**
-- `CONSTITUTION.md` template — added to `/new-project`, loaded in `/plan` + `/execute`
-- Architecture guardrails included in constitution (max function length, separation of concerns, dependency rules)
-- `[NEEDS CLARIFICATION]` markers — forced in spec template, plan-checker rejects unresolved markers
-- "Quality Requirements" section added to SPEC template (error handling strategy, logging level, perf targets)
-- `/stress-test` workflow — reads SPEC.md and pokes holes: edge cases, contradictions, missing failure modes
-- Cleaner spec/plan separation — SPEC = pure user intent, PLAN = technical choices
-#### Phase 1.5: Quantis Rebrand ✅
-**Status**: ✅ Complete
-**Objective**: Rename GSD → Quantis across the entire framework. Update all references, directory structure, README, and external docs.
-**Deliverables:**
-- Rename `.quantis/` directory to `.quantis/`
-- Replace all "GSD" brand references with "Quantis" across 99+ files
-- Rename `QUANTIS-STYLE.md` → `QUANTIS-STYLE.md`
-- Full README rewrite with Quantis branding + Phase 1 features
-- Update scripts, adapters, docs, and LICENSE
-
-#### Phase 2: Plan Iteration ✅
-**Status**: ✅ Complete
-**Objective**: Enable plan review and revision before execution.
-**Deliverables:**
-- `/update-plan` workflow — review generated plan, discuss concerns, apply revisions, re-validate (optional step between `/plan` and `/execute`)
-
-#### Phase 3: Production Code Enforcement
-**Status**: ⬜ Not Started
-**Objective**: Enforce production-grade code quality throughout the pipeline.
-**Deliverables:**
-- Planner skill updated: mandate contracts → tests → source file ordering
-- `/execute` updated with production patterns: validate inputs → handle errors → log operations → write clean code → add tests
-- `/verify` updated with quality gates: error handling exists, logs present, no hardcoded secrets, functions small, code documented
-- New `production-code` skill with `references/` for language-specific patterns (Python: logging, typing, pydantic; JS: zod, winston, error boundaries)
-
-#### Phase 4: Skill Infrastructure Upgrade
-**Status**: ⬜ Not Started
-**Objective**: Upgrade skill structure to community standard and adopt best practices.
-**Deliverables:**
-- All 7 existing skills upgraded to include `scripts/`, `references/`, `assets/` directories where applicable
-- Study and adopt patterns from community skills:
-  - `trailofbits/ask-questions-if-underspecified` — clarification prompts
-  - `trailofbits/differential-review` — security-focused diff review
-  - `trailofbits/property-based-testing` — property-based testing patterns
-  - `anthropics/webapp-testing` — Playwright-based web app testing
-  - `anthropics/skill-creator` — skill creation best practices
-  - `cloudflare/web-perf` — Core Web Vitals auditing
-- Study best-practice skill structures from: `vercel-labs/react-best-practices`, `trailofbits/static-analysis`, `callstackincubator/github`, `google-labs-code/design-md`
-
-#### Phase 5: Branch Management & Polish
-**Status**: ⬜ Not Started
-**Objective**: Add branch isolation, dead code prevention, and developer experience improvements.
-**Deliverables:**
-- Branch-per-feature: `/plan` or `/execute` auto-creates git branch per phase/feature
-- Dead code prevention: `<remove>` tag in PLAN.md task XML, Executor Rule 5 "auto-clean dead code", code growth audit in `/verify`
-- Smart install `--agent` flag: `install.sh --agent antigravity` skips irrelevant adapters
-- Override layer: `.quantis/overrides/` directory for template customization
-- Spec/plan separation cleanup pass
-
-#### Phase 6: Multi-User Foundations
-**Status**: ⬜ Not Started
-**Objective**: Enable team usage of Quantis while preserving single-user simplicity.
-**Deliverables:**
-- Per-user state files: `STATE-{user}.md` so `/pause` and `/resume` don't collide
-- Phase ownership/assignment: `**Assigned**: @user` in ROADMAP.md phases
-- Handoff protocol: like `/pause` but explicitly for passing work to another person
-- Attribution: journal entries, decisions, and commits tagged with author
-- Review gates: spec review before planning, plan review before execution, code review before merge
-- Git conventions for team use: branch naming, PR workflow, merge rules
+### Phase 1: Constitution & Spec Rigor ✅
+### Phase 1.5: Quantis Rebrand ✅
+### Phase 2: Plan Iteration ✅
+### Phase 3: Production Code Enforcement ⏸ SUPERSEDED by Superpowers TDD + SDD skills
+### Phase 4: Skill Infrastructure Upgrade ⏸ SUPERSEDED by Superpowers skill adoption
+### Phase 5: Branch Management & Polish ⏸ SUPERSEDED by Superpowers git worktrees skill
+### Phase 6: Multi-User Foundations ⏸ DEFERRED to future milestone
 
 ---
 
-## Milestone: v2.2 — Advanced Scaling (Future)
+## Milestone: v3.0 — Superpowers Integration & Antigravity 2.0
 
-> **Goal**: Address structural scaling limitations for large, complex projects.
-> **Status**: 🔮 Planned — not started, depends on v2.1 completion.
+> **Goal**: Fork Superpowers' battle-tested code quality skills into Quantis, adapt for Antigravity 2.0's native subagent system, and keep Quantis' unique process management layer on top.
+> **Status**: Phase 1 not started
+
+### Must-Haves
+- [ ] Superpowers skills imported into `.agents/skills/` (13 skills)
+- [ ] All skills adapted for Antigravity 2.0 tool names
+- [ ] `using-quantis` bootstrap skill (replaces `using-superpowers`)
+- [ ] `antigravity-tools.md` tool mapping reference
+- [ ] SDD skill adapted with `invoke_subagent` / `define_subagent`
+- [ ] State integration: SDD auto-updates STATE.md, JOURNAL.md, ROADMAP.md
+- [ ] Old Quantis skills removed (planner, executor, verifier, etc.)
+- [ ] Replaced workflows removed (discuss-phase, plan, execute, etc.)
+- [ ] Kept workflows updated for new skill references
+- [ ] README updated with v3.0 architecture
+
+### Nice-to-Haves
+- [ ] Pre-defined subagent types via `define_subagent` at session start
+- [ ] Visual brainstorming companion adapted for `browser_subagent`
+- [ ] Parallel agent dispatch adapted for Antigravity
+- [ ] Skill creation meta-skill (`writing-skills`) adapted
+
+### Phases
+
+#### Phase 1: Skill Migration
+**Status**: ⬜ Not Started
+**Objective**: Import all 13 Superpowers skills into `.agents/skills/`, adapt tool references for Antigravity 2.0.
+**Deliverables:**
+- Copy all Superpowers skills to `.agents/skills/`
+- Create `using-quantis` bootstrap skill
+- Create `antigravity-tools.md` reference file
+- Adapt all `Task` tool references → `invoke_subagent`
+- Adapt all `Read/Write/Edit/Bash` references → Antigravity equivalents
+- Update file location defaults → `.quantis/phases/{N}/`
+- Remove old Quantis skills (planner, executor, verifier, debugger, etc.)
+
+#### Phase 2: Workflow Reconciliation
+**Status**: ⬜ Not Started
+**Objective**: Remove superseded workflows, update kept workflows to reference new skills, add state integration hooks.
+**Deliverables:**
+- Remove 6 superseded workflows (discuss-phase, plan, update-plan, execute, stress-test, research-phase)
+- Update `/debug` to invoke `systematic-debugging` skill
+- Update `/verify` to invoke `verification-before-completion` skill
+- Update `/new-project` to reference `brainstorming` skill for design phase
+- Add state-update hooks to SDD skill (STATE.md, JOURNAL.md, ROADMAP.md)
+- Update `/help` with new command listing
+
+#### Phase 3: Integration Testing & Polish
+**Status**: ⬜ Not Started
+**Objective**: End-to-end validation of the complete Quantis v3.0 workflow.
+**Deliverables:**
+- Test full workflow: brainstorming → writing-plans → SDD → verification
+- Test pause/resume across sessions with new skills
+- Test state persistence during SDD execution
+- Update README with v3.0 architecture, Superpowers credit
+- Update install/update workflows for v3.0
+
+---
+
+## Milestone: v3.1 — Advanced Features (Future)
+
+> **Goal**: Address deferred work and advanced capabilities.
+> **Status**: 🔮 Planned — depends on v3.0 completion.
 
 ### Planned Scope
-- [ ] **SPEC.md scaling** — Split monolithic SPEC into feature-level spec files for projects with 10+ features
-- [ ] **Contracts/API specs** — Interface definitions between components to prevent integration breaks
-- [ ] **`/self-test` workflow** — Meta-workflow that validates Quantis works on itself
-- [ ] **Token measurement APIs** — Integrate with Antigravity internals for context-health-monitor accuracy
-- [ ] **MCP integration** — Enhanced tool calling via Model Context Protocol
-- [ ] **Upstream backport check** — Compare against `gsd-build/get-shit-done` for new features to adopt
+- [ ] Multi-user foundations (deferred from v2.1 Phase 6)
+- [ ] SPEC.md scaling for large projects
+- [ ] MCP integration for enhanced tool calling
+- [ ] Parallel subagent dispatch for independent tasks
+- [ ] Community skill adoption framework
+
