@@ -68,3 +68,29 @@ After all tasks complete and verified:
 - **using-git-worktrees** - Ensures isolated workspace (creates one or verifies existing)
 - **writing-plans** - Creates the plan this skill executes
 - **finishing-a-development-branch** - Complete development after all tasks
+
+## Quantis State Integration
+
+After completing each task, update Quantis state files:
+
+1. **STATE.md** — Update current position:
+   ```markdown
+   - **Phase**: {N}
+   - **Task**: {current task name}
+   - **Status**: In progress / Complete
+   ```
+
+2. **JOURNAL.md** — Append session entry after completing all tasks:
+   ```markdown
+   ## Session: {date}
+   ### Accomplished
+   - ✅ {task 1 name}
+   - ✅ {task 2 name}
+   ```
+
+3. **ROADMAP.md** — Check off deliverables as they're completed:
+   ```markdown
+   - [x] {deliverable that was just completed}
+   ```
+
+This ensures session persistence across `/pause` and `/resume` cycles.

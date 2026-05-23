@@ -99,16 +99,24 @@ After completing significant work:
 
 ## Workflow Commands
 
-These slash commands are available for process management:
+These slash commands are available. Some invoke Superpowers skills for enhanced quality:
 
-| Command | Purpose |
-|---------|---------|
-| `/pause` | Dump context for clean session handoff |
-| `/resume` | Restore context from previous session |
-| `/progress` | Show current position in roadmap |
-| `/new-milestone` | Create a new milestone with phases |
-| `/debug` | Systematic debugging with persistent state |
-| `/verify` | Validate work against spec |
+| Command | Purpose | Skill Used |
+|---------|---------|------------|
+| `/plan {N}` | Create phase execution plans | writing-plans |
+| `/execute {N}` | Execute phase plans | executing-plans |
+| `/map` | Analyze codebase structure | codebase-mapper |
+| `/discuss-phase {N}` | Brainstorm before planning | brainstorming |
+| `/stress-test` | Adversarial spec/plan review | brainstorming (critique) |
+| `/research-phase {N}` | Deep technical research | brainstorming (research) |
+| `/update-plan {N}` | Revise plans | writing-plans (revision) |
+| `/debug` | Systematic debugging | systematic-debugging |
+| `/verify {N}` | Validate work against spec | verification-before-completion |
+| `/new-project` | Initialize project | brainstorming |
+| `/pause` | Dump context for session handoff | — |
+| `/resume` | Restore context from previous | — |
+| `/progress` | Show roadmap position | — |
+| `/help` | Show all commands | — |
 
 ## File Conventions
 
