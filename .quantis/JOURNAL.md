@@ -1,60 +1,45 @@
 # Journal
 
-> Previous milestone journal archived in `.quantis/milestones/v2.0/JOURNAL.md`
+> Previous milestone journal archived in `.quantis/milestones/v2.1/JOURNAL.md`
 
 ---
 
-## Session: 2026-05-09 23:30 → 2026-05-10 00:02
+## Session: 2026-05-23 16:00–18:39
 
 ### Objective
-Execute Phase 1 (Constitution & Spec Rigor) and Phase 1.5 (Quantis Rebrand) of v2.1 milestone.
+Close v2.1 milestone, plan and execute v3.0 Phase 1 (Skill Migration — fork Superpowers into quantis-new/)
 
 ### Accomplished
-- **Phase 1**: 4 plans, 9 tasks, 2 waves — all executed and verified (8/8 must-haves PASS)
-- **Phase 1.5**: 3 plans, 5 tasks, 3 waves — full rebrand from GSD to Quantis
-- README rewritten (600 lines) with Quality Governance section
-- README audited for completeness — all Phase 1 features documented
-- Mermaid diagram corrected
-- 14 atomic commits total
+- ✅ Deep audit of obra/superpowers v5.1.0 (13 skills, 46 files)
+- ✅ 10 strategic decisions (D-015 to D-024) for v3.0 architecture
+- ✅ Closed v2.1 milestone — archived phases 1/1.5/2 to milestones/v2.1/
+- ✅ Created v3.0 milestone with 3 phases in ROADMAP.md
+- ✅ Planned Phase 1 — 3 plans, 2 waves
+- ✅ Executed Phase 1:
+  - Plan 1.1: Cloned 14 Superpowers skills + 4 Quantis context skills → 18 total
+  - Plan 1.2: Created using-quantis bootstrap + antigravity-tools.md reference
+  - Plan 1.3: Adapted all skills (invoke_subagent, define_subagent, state hooks, file locations)
+- ✅ Added tests/ (4 suites) and docs/ (testing guide + real specs/plans) from Superpowers
+- ✅ Removed platform-specific test dirs (claude-code, codex, opencode)
+- ✅ Verified 11/11 must-haves PASS
 
 ### Verification
-- [x] Phase 1: 8/8 must-haves verified with empirical evidence
-- [x] Phase 1.5: 8/8 must-haves verified with empirical evidence
-- [x] README covers all Phase 1 features
-- [x] Zero .gsd/ path references remaining
-- [x] All banners show "Quantis ►"
+- [x] 18 skills in quantis-new/.agents/skills/
+- [x] Zero superpowers: prefixes remaining (except URL citations)
+- [x] Zero docs/superpowers/ file paths remaining
+- [x] SDD has invoke_subagent + define_subagent + state integration
+- [x] using-quantis bootstrap with auto-triggering + state management
+- [x] antigravity-tools.md with full tool mapping
+- [x] tests/ and docs/ copied and cleaned
+- [ ] Phase 2 (Workflow Reconciliation) — NOT STARTED
+- [ ] Phase 3 (Integration Testing) — NOT STARTED
 
 ### Paused Because
-End of session — all planned work complete.
+Session complete — user requested fresh context for Phase 2.
 
 ### Handoff Notes
-- Phase 2 (Plan Iteration & Validation) is next — `/plan 2`
-- Consider renaming GitHub repo `Coding-Workflow` → `Quantis`
-
----
-
-## Session: 2026-05-10 15:14 → 15:30
-
-### Objective
-Discuss and execute Phase 2 (Plan Iteration).
-
-### Accomplished
-- Discussed Phase 2 scope: cut `/checklist` (redundant), kept `/update-plan` as sole deliverable
-- Documented decisions D-012, D-013, D-014
-- Created `/update-plan` workflow (170 lines, 8 steps, plan-checker re-validation, marked optional)
-- Updated README (29 commands, Mermaid diagram, How It Works, Core Workflow, Typical Session)
-- Updated `/help` with new command
-- Revised roadmap scope (removed `/checklist`)
-- Fixed plan-checker stale brand (GSD → Quantis)
-- 7 atomic commits
-
-### Verification
-- [x] Phase 2: 15/15 must-haves verified with empirical evidence (independent audit)
-
-### Paused Because
-End of session — all Phase 2 work complete.
-
-### Handoff Notes
-- Phase 3 (Production Code Enforcement) is next — `/discuss-phase 3` or `/plan 3`
-- Phase 3 is the heaviest phase in v2.1: test-first ordering, production patterns in /execute + /verify, new production-code skill
-
+- quantis-new/ is the side folder where v3.0 is being built
+- Phase 2 needs to copy in the 18 kept Quantis workflows from .agent/workflows/ into quantis-new/
+- 6 workflows should be REMOVED (replaced by Superpowers skills): discuss-phase, plan, update-plan, execute, stress-test, research-phase
+- /debug and /verify need to be updated to invoke the new skills
+- Superpowers source at /tmp/superpowers-audit/ may be gone after reboot — re-clone if needed
