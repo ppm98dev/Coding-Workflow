@@ -43,3 +43,32 @@ Session complete — user requested fresh context for Phase 2.
 - 6 workflows should be REMOVED (replaced by Superpowers skills): discuss-phase, plan, update-plan, execute, stress-test, research-phase
 - /debug and /verify need to be updated to invoke the new skills
 - Superpowers source at /tmp/superpowers-audit/ may be gone after reboot — re-clone if needed
+
+## Session: 2026-05-23 18:53–19:25
+
+### Objective
+Execute Phase 2 (Workflow Reconciliation) — wire Quantis workflows to Superpowers skills.
+
+### Accomplished
+- ✅ Planned Phase 2 (3 plans across 2 waves)
+- ✅ Copied 29 workflows to quantis-new
+- ✅ Created 7 skill-powered workflow aliases
+- ✅ Added bootstrap files (.gemini, adapters, root files, 25 templates)
+- ✅ Rewired /debug, /verify, /new-project to reference skills
+- ✅ Updated /help with v3.0 skill categories
+- ✅ Added state hooks to executing-plans and SDD skills
+- ✅ Cleaned all stale superpowers path references
+- ✅ Gap closure: thickened 7 aliases with Quantis process management (planning lock, waves, discovery levels, 7-dimension framework)
+- ✅ All committed and merged to main
+
+### Verification
+- [x] 7/7 aliases reference correct skills
+- [x] Zero stale old skill paths
+- [x] Zero non-attribution superpowers references
+- [x] All key Quantis features preserved (planning lock, waves, gap closure, discovery levels, 7 dimensions)
+
+### Key Decision
+- D-031: In-place upgrade via MANIFEST.md for GSD→v3.0 migration
+
+### Handoff Notes
+Phase 3 scope updated with upgrade migration workflow. Next: `/plan 3`.

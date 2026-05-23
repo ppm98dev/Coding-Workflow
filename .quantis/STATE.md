@@ -1,63 +1,53 @@
-# STATE.md — Project Memory
+# Quantis State
 
 ## Current Position
 - **Milestone**: v3.0 — Superpowers Integration & Antigravity 2.0
 - **Phase**: 2 — Workflow Reconciliation (COMPLETE ✅)
-- **Task**: All Phase 2 tasks complete
-- **Status**: Active (completed 2026-05-23 19:04)
+- **Task**: All Phase 2 tasks complete + gap closure done
+- **Status**: Paused at 2026-05-23T19:25
 
 ## Last Session Summary
-Executed full v2.1→v3.0 milestone transition and completed Phase 1 (Skill Migration).
+Executed Phase 2 (Workflow Reconciliation) — wired all Quantis workflows to use Superpowers skills.
 
-### Session Accomplishments:
-1. **Closed v2.1 milestone** — archived phases 1/1.5/2 to `.quantis/milestones/v2.1/`, wrote SUMMARY.md
-2. **Created v3.0 milestone** — 3 phases in ROADMAP.md, 10 strategic decisions (D-015 to D-024)
-3. **Planned Phase 1** — 3 plans across 2 waves
-4. **Executed Phase 1** — all 3 plans, verified 11/11 must-haves PASS
-5. **Added tests/ and docs/** from Superpowers (user correctly pushed back on my initial superficial copy)
-6. **Cleaned platform-specific tests** — removed claude-code/, codex/, opencode/ test dirs
+### Wave 1: Copied workflows, created aliases, added bootstrap files
+- 29 workflows copied to `quantis-new/.agent/workflows/`
+- 7 thin aliases created (plan, execute, map, discuss-phase, stress-test, research-phase, update-plan)
+- `.gemini/GEMINI.md`, `adapters/`, root files, templates, CONSTITUTION.md
 
-### Phase 1 Delivered:
-- `quantis-new/.agents/skills/` — 18 skills (13 Superpowers adapted + using-quantis + 4 Quantis context skills)
-- `quantis-new/.agents/skills/using-quantis/SKILL.md` — bootstrap with auto-triggering, state management, file conventions
-- `quantis-new/.agents/skills/using-quantis/references/antigravity-tools.md` — full Antigravity 2.0 tool mapping
-- `quantis-new/tests/` — 4 platform-agnostic test suites (skill-triggering, explicit-skill-requests, subagent-driven-dev, brainstorm-server)
-- `quantis-new/docs/` — testing methodology + 5 real specs + 7 real plans from Superpowers
-- SDD adapted: `invoke_subagent` + `define_subagent` + state integration hooks
-- All `superpowers:` prefixes removed, file locations → `.quantis/phases/{N}/`
+### Wave 2: Rewired skill-enhanced workflows + cleanup
+- `/debug` → systematic-debugging, `/verify` → verification-before-completion, `/new-project` → brainstorming
+- Updated `/help` with 3 categories (skill-powered, skill-enhanced, process-only)
+- Updated `using-quantis` bootstrap table
+- Added state hooks to `executing-plans` and `SDD` skills
+- Cleaned all stale `superpowers` path references in skills
 
-## In-Progress Work
-None — Phase 1 complete and verified.
+### Gap Closure: Thickened 7 aliases
+- Identified that 20-line thin aliases lost Quantis process management (planning lock, waves, discovery levels, etc.)
+- Thickened all 7 on branch `fix/thicken-workflow-aliases`:
+  - plan.md: 22→131 lines (planning lock, research, checker)
+  - execute.md: 23→134 lines (wave orchestration, gap closure)
+  - stress-test.md: 23→111 lines (7-dimension framework)
+  - discuss-phase.md: 23→68, research-phase.md: 22→96, update-plan.md: 23→83, map.md: 19→60
+- Merged to main
 
-## Blockers
-None.
+### Key insight
+Superpowers skills are complete methodologies — they don't need Quantis process management to work. The Quantis orchestration (planning lock, waves, state tracking, banners) is nice-to-have process discipline on top.
 
-## Context Dump
+## Skill Changes in Phase 2
+Only path renames (`superpowers→quantis`) and appended state hooks. Zero methodology changes to Superpowers skills.
 
-### Key Artifacts (in conversation artifacts dir):
-- `superpowers_deep_audit.md` — comprehensive audit of Superpowers v5.1.0
-- `quantis_v3_decisions.md` — 10 strategic decisions
-- `superpowers_vs_quantis_roadmap.md` — mapping analysis
+## Decisions Made This Session
+- D-031: In-place upgrade via MANIFEST.md — upgrade script uses manifest to know what's core vs user-installed
 
-### Superpowers Source:
-- `/tmp/superpowers-audit/` — full clone of obra/superpowers (MAY BE GONE after reboot — can re-clone from https://github.com/obra/superpowers)
-
-### Files of Interest:
-- `quantis-new/.agents/skills/` — all 18 adapted skills
-- `quantis-new/tests/` — platform-agnostic test suites
-- `quantis-new/docs/` — real specs/plans as examples
-- `.quantis/ROADMAP.md` — v3.0 phases 2+3 still to do
-- `.quantis/DECISIONS.md` — D-015 through D-024
-
-### What Was NOT Copied from Superpowers (confirmed with user):
-- Platform plugin configs (.claude-plugin/, .codex-plugin/, .cursor-plugin/, .opencode/)
-- Hooks (session-start — Antigravity has own bootstrap)
-- Scripts (bump-version, codex-sync — build tooling)
-- CLAUDE.md/AGENTS.md/GEMINI.md (replaced by using-quantis)
-- README, LICENSE, CODE_OF_CONDUCT, RELEASE-NOTES (community/branding)
-- Platform-specific tests (claude-code/, codex/, opencode/)
+## Uncommitted Changes
+None — everything committed and merged to main.
 
 ## Next Steps
-1. `/verify 2` — Verify Phase 2 deliverables (optional — just ran comprehensive checks)
-2. `/plan 3` — Integration Testing & Polish
-3. `/execute 3` — Final phase of v3.0
+1. `/plan 3` — Phase 3: Integration Testing & Polish
+   - Create `MANIFEST.md` listing core skills/workflows
+   - Create `/upgrade` workflow for in-place GSD→v3.0 migration
+   - Update `/install` and `/update` workflows
+   - Update README with v3.0 architecture
+   - End-to-end testing
+2. `/execute 3` — Final phase
+3. Tag v3.0 release
