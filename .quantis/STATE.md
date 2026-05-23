@@ -2,33 +2,32 @@
 
 ## Current Position
 - **Milestone**: v3.0 — Superpowers Integration & Antigravity 2.0
-- **Phase**: 1 — Skill Migration (PLANNED)
-- **Task**: Planning complete
+- **Phase**: 1 — Skill Migration (COMPLETE ✅)
+- **Task**: All tasks complete
 - **Status**: Active (session 2026-05-23)
 
 ## Last Session Summary
-Closed v2.1 milestone (phases 3-6 superseded by Superpowers adoption). Created v3.0 milestone with 3 phases. Recorded 10 strategic decisions (D-015 through D-024).
+Executed Phase 1 (Skill Migration) — 3 plans, 8 tasks, all verified.
 
-### v3.0 Strategic Direction:
-- Fork [obra/superpowers](https://github.com/obra/superpowers) v5.1.0 skills into Quantis
-- Adapt for Antigravity 2.0 (`invoke_subagent`, `define_subagent`)
-- Keep Quantis workflow layer (pause/resume, roadmaps, state management)
-- Auto-triggering model from Superpowers (skills fire automatically)
-- Phase-based file locations (`.quantis/phases/{N}/`)
-- State auto-updates during SDD execution
+### Phase 1 Delivered:
+- `quantis-new/.agents/skills/` with 18 skills (14 Superpowers + 4 Quantis)
+- `using-quantis` bootstrap skill (auto-triggering, state management, file conventions)
+- `antigravity-tools.md` reference (complete tool mapping for Antigravity 2.0)
+- SDD adapted: `invoke_subagent` + `define_subagent` + state integration hooks
+- All `superpowers:` prefixes removed, file locations updated to `.quantis/phases/{N}/`
 
 ### Key Artifacts:
 - Deep audit: `superpowers_deep_audit.md` (artifact)
 - Decisions: `quantis_v3_decisions.md` (artifact)
-- Superpowers cloned to: `/tmp/superpowers-audit/`
+- Superpowers source: `/tmp/superpowers-audit/`
 
 ## In-Progress Work
-None — strategic planning complete, ready for Phase 1 execution.
+None — Phase 1 complete and verified.
 
 ## Blockers
 None.
 
 ## Next Steps
-1. Plan Phase 1 (Skill Migration) — granular task breakdown for importing 13 Superpowers skills
-2. Execute Phase 1 — copy, adapt, remove old skills
-3. Plan Phase 2 (Workflow Reconciliation)
+1. `/plan 2` — Workflow Reconciliation (copy in kept workflows, remove superseded ones, wire up debug/verify)
+2. `/execute 2` — Build the workflow layer in quantis-new/
+3. `/plan 3` — Integration Testing & Polish
