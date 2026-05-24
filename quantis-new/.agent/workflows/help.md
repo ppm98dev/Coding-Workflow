@@ -69,6 +69,7 @@ UTILITIES
 /whats-new        Show recent Quantis changes
 /install          Install Quantis into a project
 /update           Update Quantis to latest version
+/upgrade          Migrate from GSD/v2.x to v3.0
 
 ───────────────────────────────────────────────────────
 
