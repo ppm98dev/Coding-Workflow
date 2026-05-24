@@ -198,4 +198,4 @@ Works with:
 
 ---
 
-*Part of GSD v1.6 Token Optimization. See docs/token-optimization-guide.md for examples.*
+*Part of Quantis v3.0 Token Optimization. See PROJECT_RULES.md for efficiency rules.*

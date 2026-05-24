@@ -76,4 +76,4 @@ For simple tracking:
 
 ---
 
-*Part of GSD v1.6 Token Optimization.*
+*Part of Quantis v3.0 Token Optimization.*

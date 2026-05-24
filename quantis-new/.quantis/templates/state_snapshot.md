@@ -129,4 +129,4 @@ STATE.md is current state; snapshots are historical records.
 
 ---
 
-*Part of GSD methodology. See PROJECT_RULES.md for wave execution rules.*
+*Part of Quantis methodology. See PROJECT_RULES.md for wave execution rules.*

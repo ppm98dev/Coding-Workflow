@@ -1,6 +1,6 @@
 # Model Capabilities Registry
 #
-# This file is OPTIONAL. GSD works without it.
+# This file is OPTIONAL. Quantis works without it.
 # If present, it provides guidance for model selection.
 #
 # Usage: Reference this file when choosing models by capability.

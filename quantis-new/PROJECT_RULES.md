@@ -1,6 +1,6 @@
 # PROJECT_RULES.md — Quantis Canonical Rules
 
-> **Single Source of Truth** for the Get Shit Done methodology.
+> **Single Source of Truth** for the Quantis methodology.
 > 
 > Model-agnostic. All adapters and extensions reference this file.
 
@@ -176,7 +176,6 @@ QUANTIS-STYLE.md              # Style and conventions
 
 adapters/                 # Optional model-specific enhancements
 docs/                     # Operational documentation
-scripts/                  # Utility scripts
 ```
 
 ---

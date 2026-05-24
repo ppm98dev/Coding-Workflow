@@ -419,7 +419,7 @@ Files created:
 <questioning_philosophy>
 ## Why Deep Questioning Matters
 
-The original GSD emphasizes that `/new-project` is the most leveraged moment. 
+The Quantis methodology emphasizes that `/new-project` is the most leveraged moment. 
 Every minute spent understanding what to build saves hours of building the wrong thing.
 
 **Signs questioning is done:**

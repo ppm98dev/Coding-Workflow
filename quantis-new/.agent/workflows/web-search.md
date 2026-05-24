@@ -96,7 +96,7 @@ Based on findings:
 </process>
 
 <integration>
-## Integration with GSD
+## Integration with Quantis
 
 **During /research-phase:**
 Use `/web-search` to gather information for RESEARCH.md.
