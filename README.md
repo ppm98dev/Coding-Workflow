@@ -51,20 +51,59 @@ Slash commands for project orchestration. Skills handle methodology; workflows h
 
 > **Ecosystem Discovery:** `/plan` automatically detects custom skills (from [skills.sh](https://www.skills.sh)) and active MCP servers, injecting them into the planning context so your agent leverages your full toolkit.
 
+**Core Lifecycle**
+
 | Command | Purpose |
 |---------|---------|
 | `/new-project` | Initialize with deep questioning → SPEC.md |
-| `/plan [N]` | Create phase execution plans |
-| `/execute [N]` | Wave-based plan execution |
-| `/verify [N]` | Empirical validation of work |
-| `/debug` | Systematic debugging with state tracking |
-| `/pause` / `/resume` | Session state management |
-| `/progress` | See current position in roadmap |
-| `/map` | Analyze codebase → ARCHITECTURE.md |
-| `/discuss-phase` | Clarify scope before planning |
-| `/stress-test` | Adversarial spec review |
-| `/install` / `/update` / `/upgrade` | Package management |
-| `/help` | Full command listing |
+| `/plan [N]` | Decompose requirements into executable phase plans |
+| `/execute [N]` | Execute a phase with focused context |
+| `/verify [N]` | Validate work against spec with empirical evidence |
+| `/debug` | Systematic debugging with persistent state |
+| `/complete-milestone` | Archive milestone and prepare for next |
+
+**Planning & Research**
+
+| Command | Purpose |
+|---------|---------|
+| `/discuss-phase` | Clarify scope and approach before planning |
+| `/research-phase` | Deep technical research for a phase |
+| `/stress-test` | Adversarial spec review — find ambiguity and gaps |
+| `/update-plan` | Revise plans based on discussion |
+| `/plan-milestone-gaps` | Create plans to address gaps found in audit |
+| `/list-phase-assumptions` | List assumptions made during planning |
+
+**Roadmap Management**
+
+| Command | Purpose |
+|---------|---------|
+| `/new-milestone` | Create a new milestone with phases |
+| `/add-phase` | Add a phase to the end of the roadmap |
+| `/insert-phase` | Insert a phase between existing phases |
+| `/remove-phase` | Remove a phase (with safety checks) |
+| `/audit-milestone` | Audit a milestone for quality and completeness |
+
+**Session & State**
+
+| Command | Purpose |
+|---------|---------|
+| `/pause` | Dump state for clean session handoff |
+| `/resume` | Restore context from previous session |
+| `/progress` | Show current position in roadmap |
+| `/map` | Analyze codebase → ARCHITECTURE.md + STACK.md |
+| `/sprint` | Time-boxed sprint for quick focused work |
+| `/add-todo` / `/check-todos` | Task capture and review |
+
+**Package Management**
+
+| Command | Purpose |
+|---------|---------|
+| `/install` | Install Quantis from GitHub |
+| `/update` | Update to latest version |
+| `/upgrade` | Migrate from GSD v2.x → Quantis |
+| `/whats-new` | Show recent changes and features |
+| `/web-search` | Search the web to inform decisions |
+| `/help` | Show all available commands |
 
 ### State (`.quantis/`) — Persistent Memory
 
