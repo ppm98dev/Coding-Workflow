@@ -1,7 +1,7 @@
 # ROADMAP.md
 
-> **Current Milestone**: v3.0 — Superpowers Integration & Antigravity 2.0
-> **Status**: All phases complete ✅
+> **Current Milestone**: v3.1 — Hierarchical Subphase Folders
+> **Status**: In progress 🚀
 
 ---
 
@@ -96,10 +96,37 @@
 
 ---
 
-## Milestone: v3.1 — Advanced Features (Future)
+## Milestone: v3.1 — Hierarchical Subphase Folders
+
+> **Goal**: Migrate the entire Quantis codebase to support hierarchical subphase folders (e.g. `.quantis/phases/1.1-description/`) for maximum isolation and clarity in the file tree.
+> **Status**: 🚀 Active
+
+### Must-Haves
+- [ ] Workflows resolution adapted (plan, execute, verify, debug, research-phase, update-plan, etc.)
+- [ ] Skills definition updated (using-quantis, writing-plans, brainstorming, SDD)
+- [ ] Plan naming standard implemented (`N.M-PLAN.md` with numbered H1 headers)
+- [ ] Automatic directory normalizer/lookup helper in workflows
+
+### Phases
+
+#### Phase 1.1: Hierarchical Subphase Folder Architecture
+**Status**: 🚀 Active
+**Objective**: Update all workflows and skills to read and write from/to `.quantis/phases/{N}.{M}-{slug}/` folders.
+**Deliverables:**
+- Update `writing-plans/SKILL.md` to output plans in `.quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md` and enforce `# Phase {N}.{M}: {Description} - Implementation Plan` header
+- Update `brainstorming/SKILL.md` to output specs to `.quantis/phases/{N}.{M}-{slug}/SPEC.md`
+- Update `.agent/workflows/plan.md` to resolve folders dynamically and output to the new layout
+- Update `.agent/workflows/execute.md` and `/verify.md` to locate phase folders by `{N}.{M}` prefix
+- Update `/debug.md`, `/research-phase.md`, `/remove-phase.md`, `/insert-phase.md`, `/complete-milestone.md` to resolve directories using prefix globbing
+- Update `using-quantis/SKILL.md` and reference guides
+- Verify all commands using dogfooding for Phase 1.1
+
+---
+
+## Milestone: v3.2 — Advanced Features (Future)
 
 > **Goal**: Address deferred work and advanced capabilities.
-> **Status**: 🔮 Planned — depends on v3.0 completion.
+> **Status**: 🔮 Planned
 
 ### Planned Scope
 - [ ] Multi-user foundations (deferred from v2.1 Phase 6)
@@ -107,4 +134,5 @@
 - [ ] MCP integration for enhanced tool calling
 - [ ] Parallel subagent dispatch for independent tasks
 - [ ] Community skill adoption framework
+
 

@@ -3,38 +3,20 @@
 > **Status**: `FINALIZED`
 
 ## Vision
-Transform Quantis-for-Antigravity from a shallow port of the Claude Code-specific Quantis framework into a genuinely useful, Antigravity-native coding workflow system. Make it Bash-first (macOS/Linux primary), create a real Antigravity adapter that leverages the platform's unique capabilities (browser subagents, persistent context, image generation), fix all documented issues, and optionally create a real CLI tool.
+Transform Quantis' phase directory layout from a simple, numeric folder structure (e.g. `.quantis/phases/3/`) into a highly descriptive, isolated hierarchical subphase structure (e.g. `.quantis/phases/3.1-skill-migration/`). Update all Quantis core skills and workflows to support this clean, self-documenting format.
 
 ## Goals
-1. **Antigravity-native integration** — Create a proper adapter and entry point for Antigravity's toolset (browser_subagent, run_command, generate_image, persistent terminals, knowledge items)
-2. **Bash-first rewrite** — Make macOS/Linux the primary platform, PowerShell secondary
-3. **Fix core issues** — Accurate README, proper CHANGELOG versioning, updated attribution, actionable model_capabilities.yaml
-4. **Add real install automation** — Shell script that handles the entire setup, not 10+ manual `cp` commands
-5. **Improve workflow quality** — Fix orphaned templates, add missing cross-references, ensure all 27 workflows are discoverable
+1. **Hierarchical Phase Folders** — Transition from `.quantis/phases/{N}/` to `.quantis/phases/{N}.{M}-{slug}/` for all phases.
+2. **Automatic Directory Resolution** — Update workflows and skills to dynamically find the correct phase directory by checking for a prefix matching the phase number (e.g., matching `4.1` to `4.1-description`).
+3. **Plan and Document Standard** — Update plan filenames and header definitions to use the new hierarchical number and descriptive title (e.g., `# Phase 4.1: [Description] - Implementation Plan`).
+4. **Tool and Workflow Compatibility** — Ensure `/plan`, `/execute`, `/verify`, `/debug`, `/research-phase`, `/remove-phase`, `/insert-phase`, `/add-phase`, `/complete-milestone`, `/upgrade`, and `/update` all work flawlessly with the new folder structures.
 
 ## Non-Goals (Out of Scope)
-- Building a full CLI tool (Phase 3 from audit — deferred to future milestone)
-- CI/GitHub Actions integration (future work)
-- Visual dashboard (future work)
-- Multi-agent orchestration (future work)
-- Cost tracking per phase (future work)
-
-## Users
-Solo developers using Google Antigravity (or compatible AI coding agents) who want structured, reliable AI-assisted development instead of "vibecoding."
-
-## Constraints
-- Must remain MIT licensed
-- Must stay backward-compatible with original Quantis workflows
-- Must remain model-agnostic (adapters are optional, never required)
-- Must work on macOS (primary platform)
-- No runtime dependencies — stays as a pure markdown framework
+- Migrating existing/historical `.quantis/phases/` folders from completed milestones (e.g. v2.0, v3.0) — these will remain in their archive format in `milestones/`.
 
 ## Success Criteria
-- [ ] Antigravity adapter exists and covers all major Antigravity tools
-- [ ] All scripts run on macOS without modification (Bash-first)
-- [ ] README accurately reflects actual command count and features
-- [ ] Install script works end-to-end in a single command
-- [ ] All 22 templates are referenced by at least one workflow
-- [ ] model_capabilities.yaml references real, current models
-- [ ] CHANGELOG has proper version headers
-- [ ] Attribution links are current and correct
+- [ ] Running `/plan 1.1` successfully creates `.quantis/phases/1.1-hierarchical-folders/1.1-PLAN.md` with numbered H1 headers.
+- [ ] `/execute 1.1` and `/verify 1.1` successfully resolve `1.1-hierarchical-folders` and read/write plan and verification results to it.
+- [ ] All 10 workflow files that touch phase directories are updated to use dynamic glob-based resolution of phase paths.
+- [ ] All 5 core skills (`using-quantis`, `writing-plans`, `brainstorming`, `subagent-driven-development`, `requesting-code-review`) are updated.
+- [ ] The entire codebase is free of hardcoded `.quantis/phases/{N}/` assumptions for active work.
