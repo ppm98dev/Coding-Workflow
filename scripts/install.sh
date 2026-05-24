@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Style definitions
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${CYAN}             Quantis ► INSTALLER                     ${NC}"
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+
+# Check for git
+if ! command -v git &> /dev/null; then
+    echo -e "${RED}Error: git is required to install Quantis.${NC}"
+    exit 1
+fi
+
+# Temp directory
+TEMP_DIR=".quantis-install-temp-$(date +%s)"
+
+echo -e "📥 Cloning Quantis from GitHub..."
+if ! git clone --depth 1 https://github.com/ppm98dev/Coding-Workflow.git "$TEMP_DIR" &>/dev/null; then
+    echo -e "${RED}Error: Failed to clone Quantis repository.${NC}"
+    rm -rf "$TEMP_DIR"
+    exit 1
+fi
+
+echo -e "⚙️ Copying core files..."
+# Create target folders if they don't exist
+mkdir -p .agent/workflows .agents/skills .gemini .quantis adapters docs scripts
+
+# Copy structures
+cp -r "$TEMP_DIR/.agent/" ./
+cp -r "$TEMP_DIR/.agents/" ./
+cp -r "$TEMP_DIR/.gemini/" ./
+cp -r "$TEMP_DIR/.quantis/" ./
+cp -r "$TEMP_DIR/adapters/" ./
+cp -r "$TEMP_DIR/docs/" ./
+cp -r "$TEMP_DIR/scripts/" ./
+
+# Copy root files
+cp "$TEMP_DIR/CONSTITUTION.md" ./
+cp "$TEMP_DIR/MANIFEST.md" ./
+cp "$TEMP_DIR/PROJECT_RULES.md" ./
+cp "$TEMP_DIR/QUANTIS-STYLE.md" ./
+cp "$TEMP_DIR/README.md" ./
+cp "$TEMP_DIR/CHANGELOG.md" ./
+cp "$TEMP_DIR/VERSION" ./
+cp "$TEMP_DIR/model_capabilities.yaml" ./
+
+# Cleanup
+rm -rf "$TEMP_DIR"
+
+echo -e "🧹 Installation clean up complete."
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${GREEN}             Quantis ► INSTALLED SUCCESSFULLY ✓       ${NC}"
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e ""
+echo -e "Next steps:"
+echo -e "  1. Open your AI agent in this project."
+echo -e "  2. Run ${BLUE}/new-project${NC} in the chat to initialize your project spec."
+echo -e ""
+echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"

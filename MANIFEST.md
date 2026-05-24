@@ -97,6 +97,9 @@
 - README.opencode.md
 - windows/polyglot-hooks.md
 
+### Scripts (`scripts/`)
+- install.sh
+
 ## Core Root Files
 - CHANGELOG.md
 - CONSTITUTION.md

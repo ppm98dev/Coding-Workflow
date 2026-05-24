@@ -10,12 +10,10 @@ Quantis turns AI-assisted coding from "vibecoding" into a structured, repeatable
 
 ### 1. Install
 
+Run this single-line command in your target project directory to download and set up Quantis dynamically:
+
 ```bash
-# In your project directory:
-git clone --depth 1 https://github.com/ppm98dev/Coding-Workflow.git .quantis-tmp && \
-  cp -r .quantis-tmp/.agent .quantis-tmp/.agents .quantis-tmp/.gemini .quantis-tmp/.quantis .quantis-tmp/adapters .quantis-tmp/docs . && \
-  cp .quantis-tmp/CONSTITUTION.md .quantis-tmp/MANIFEST.md .quantis-tmp/PROJECT_RULES.md .quantis-tmp/QUANTIS-STYLE.md .quantis-tmp/CHANGELOG.md .quantis-tmp/VERSION .quantis-tmp/model_capabilities.yaml . && \
-  rm -rf .quantis-tmp
+curl -sSL https://raw.githubusercontent.com/ppm98dev/Coding-Workflow/main/scripts/install.sh | bash
 ```
 
 ### 2. Initialize
