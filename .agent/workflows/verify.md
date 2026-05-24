@@ -30,7 +30,7 @@ The verifier checks the CODEBASE, not SUMMARY claims.
 **Required files:**
 - `.quantis/SPEC.md` — Original requirements
 - `.quantis/ROADMAP.md` — Phase definition with must-haves
-- `.quantis/phases/{phase}/*-SUMMARY.md` — What was implemented
+- `.quantis/phases/{phase}.{subphase}-{slug}/*-SUMMARY.md` — What was implemented
 
 **Skill reference:** `.agents/skills/verification-before-completion/SKILL.md`
 
@@ -40,10 +40,19 @@ The verifier checks the CODEBASE, not SUMMARY claims.
 
 ## 1. Load Verification Context
 
+```bash
+# Dynamically find the phase directory by prefix
+PHASE_DIR=$(find .quantis/phases -maxdepth 1 -name "${PHASE}-*" | head -n 1)
+if [ -z "$PHASE_DIR" ]; then
+    echo "Error: phase directory starting with ${PHASE}- not found"
+    exit 1
+fi
+```
+
 Read:
 - Phase definition from `.quantis/ROADMAP.md`
 - Original requirements from `.quantis/SPEC.md`
-- All SUMMARY.md files from `.quantis/phases/{phase}/`
+- All SUMMARY.md files from `"$PHASE_DIR/"`
 
 ---
 
@@ -109,7 +118,7 @@ Antigravity adapter details: see [adapters/ANTIGRAVITY.md](../../adapters/ANTIGR
 
 ## 4. Create Verification Report
 
-Write `.quantis/phases/{phase}/VERIFICATION.md`:
+Write `"$PHASE_DIR/VERIFICATION.md"`:
 
 ```markdown
 ---
@@ -181,7 +190,7 @@ All requirements satisfied.
 
 **Create gap closure plans:**
 
-For each failed must-have, create a fix plan in `.quantis/phases/{phase}/`:
+For each failed must-have, create a fix plan in `"$PHASE_DIR/"`:
 
 ```markdown
 ---
@@ -232,8 +241,8 @@ Gap closure plans created.
 ## 6. Commit Verification
 
 ```bash
-git add .quantis/phases/{phase}/VERIFICATION.md
-git commit -m "docs(phase-{N}): verification report"
+git add "$PHASE_DIR/VERIFICATION.md"
+git commit -m "docs(phase-$PHASE): verification report"
 ```
 
 </process>

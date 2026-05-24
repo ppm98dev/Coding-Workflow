@@ -55,11 +55,18 @@ test -f ".quantis/CONSTITUTION.md" || echo "⚠️ No CONSTITUTION.md"
 ## 2. Parse Arguments
 Extract phase number (or auto-detect next unplanned phase from ROADMAP.md) and flags.
 
+```bash
+# Resolve dynamic phase directory slug from ROADMAP.md
+PHASE_TITLE=$(grep -i "Phase $PHASE" .quantis/ROADMAP.md | head -n 1 | sed -E 's/.*Phase [0-9.]+:? (.*)/\1/' | tr -d '\r')
+PHASE_SLUG=$(echo "$PHASE_TITLE" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+|-+$//g')
+PHASE_DIR=".quantis/phases/${PHASE}-${PHASE_SLUG}"
+```
+
 ## 3. Handle Research
 
 **If `--gaps` or `--skip-research`:** Skip to step 4.
 
-**Check existing:** `test -f ".quantis/phases/$PHASE/RESEARCH.md"`
+**Check existing:** `test -f "$PHASE_DIR/RESEARCH.md"`
 
 **If research needed (new phase or `--research` forced):**
 - Assess discovery level:
@@ -68,7 +75,7 @@ Extract phase number (or auto-detect next unplanned phase from ROADMAP.md) and f
   - **L1.5 (discovery)** — Quick A-vs-B comparison → DISCOVERY.md
   - **L2 (standard)** — 2-3 options, new integration → RESEARCH.md
   - **L3 (deep dive)** — Architectural decision, novel problem → full RESEARCH.md
-- Create RESEARCH.md with findings
+- Create RESEARCH.md inside `$PHASE_DIR/`
 
 ## 4. Delegate to Skill
 
@@ -81,7 +88,7 @@ Provide the skill with:
 - RESEARCH.md findings (if exists)
 - ARCHITECTURE.md (if exists)
 
-Output plans to `.quantis/phases/{N}/` using `{N}-PLAN.md` naming.
+Output plans to `.quantis/phases/{N}.{M}-{slug}/` using `{N}.{M}-PLAN.md` naming.
 
 ## 5. Plan Checker (max 3 iterations)
 For each plan, verify:
@@ -96,7 +103,7 @@ For each plan, verify:
 ## 6. Update State + Commit
 Update `.quantis/STATE.md` with planning complete status.
 ```bash
-git add .quantis/phases/$PHASE/ .quantis/STATE.md
+git add "$PHASE_DIR/" .quantis/STATE.md
 git commit -m "docs(phase-$PHASE): create execution plans"
 ```
 

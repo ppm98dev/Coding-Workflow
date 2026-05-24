@@ -20,7 +20,7 @@ You are a Quantis executor orchestrator. You manage wave-based execution of phas
 **Required files:**
 - `.quantis/ROADMAP.md` — Phase definitions
 - `.quantis/STATE.md` — Current position
-- `.quantis/phases/{phase}/` — Phase directory with PLAN.md files
+- `.quantis/phases/{phase}.{subphase}-{slug}/` — Phase directory with PLAN.md files
 </context>
 
 <process>
@@ -35,8 +35,14 @@ Validate phase exists in ROADMAP.md.
 
 ## 2. Discover Plans
 ```bash
-ls ".quantis/phases/$PHASE"/*-PLAN.md 2>/dev/null
-ls ".quantis/phases/$PHASE"/*-SUMMARY.md 2>/dev/null
+# Dynamically find the phase directory by prefix
+PHASE_DIR=$(find .quantis/phases -maxdepth 1 -name "${PHASE}-*" | head -n 1)
+if [ -z "$PHASE_DIR" ]; then
+    echo "Error: phase directory starting with ${PHASE}- not found"
+    exit 1
+fi
+ls "$PHASE_DIR"/*-PLAN.md 2>/dev/null
+ls "$PHASE_DIR"/*-SUMMARY.md 2>/dev/null
 ```
 Build list of **incomplete plans** (PLAN without matching SUMMARY).
 If `--gaps-only`: filter to plans with `gap_closure: true` in frontmatter.
@@ -65,8 +71,8 @@ For each wave in order, for each plan in the wave:
 2. **Read and follow `.agents/skills/executing-plans/SKILL.md`** for execution methodology
    - When subagents are available, prefer `.agents/skills/subagent-driven-development/SKILL.md`
 3. Follow `<task>` blocks in order, run `<verify>` commands
-4. Commit per task: `git commit -m "feat(phase-{N}): {task-name}"`
-5. After all tasks in plan: create `{N}-SUMMARY.md` documenting what was done
+4. Commit per task: `git commit -m "feat(phase-$PHASE): {task-name}"`
+5. After all tasks in plan: create `$PHASE-SUMMARY.md` inside `$PHASE_DIR/` documenting what was done
 
 **Verify wave complete** before proceeding to next wave.
 
@@ -88,8 +94,8 @@ After all waves:
 **REQUIREMENTS.md** (if exists): Cross-reference completed tasks with requirement IDs
 
 ```bash
-git add .quantis/ROADMAP.md .quantis/STATE.md
-git commit -m "docs(phase-{N}): complete {phase-name}"
+git add .quantis/ROADMAP.md .quantis/STATE.md "$PHASE_DIR/"
+git commit -m "docs(phase-$PHASE): complete phase"
 ```
 
 </process>
