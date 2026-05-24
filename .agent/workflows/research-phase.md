@@ -36,7 +36,18 @@ Use web search, documentation reading, and analysis to investigate.
 
 ## 3. Create RESEARCH.md
 
-Output to `.quantis/phases/{N}/RESEARCH.md`:
+```bash
+# Dynamically find the phase directory by prefix
+PHASE_DIR=$(find .quantis/phases -maxdepth 1 -name "${PHASE}-*" | head -n 1)
+if [ -z "$PHASE_DIR" ]; then
+    PHASE_TITLE=$(grep -i "Phase $PHASE" .quantis/ROADMAP.md | head -n 1 | sed -E 's/.*Phase [0-9.]+:? (.*)/\1/' | tr -d '\r')
+    PHASE_SLUG=$(echo "$PHASE_TITLE" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+|-+$//g')
+    PHASE_DIR=".quantis/phases/${PHASE}-${PHASE_SLUG}"
+    mkdir -p "$PHASE_DIR"
+fi
+```
+
+Output to `"$PHASE_DIR/RESEARCH.md"`:
 
 ```markdown
 # Phase {N} Research
@@ -70,7 +81,7 @@ Output to `.quantis/phases/{N}/RESEARCH.md`:
 
 ## 4. Commit + Next Steps
 ```bash
-git add .quantis/phases/$PHASE/RESEARCH.md
+git add "$PHASE_DIR/RESEARCH.md"
 git commit -m "docs(phase-$PHASE): research complete"
 ```
 

@@ -43,7 +43,7 @@ Ask for:
 For phases >= position, increment phase number by 1.
 
 **Also update:**
-- Phase directory names (`.quantis/phases/{N}/`)
+- Phase directory names (`.quantis/phases/{N}.{M}-{slug}/`)
 - References in PLAN.md files
 - Dependencies in ROADMAP.md
 

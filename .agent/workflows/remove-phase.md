@@ -66,7 +66,7 @@ Status: {status}
 
 This will:
 - Remove phase from ROADMAP.md
-- Delete .quantis/phases/{N}/ if exists
+- Delete matched folder in `.quantis/phases/` starting with prefix `{N}-` if exists
 - Renumber subsequent phases
 
 Type "REMOVE" to confirm:
@@ -77,7 +77,13 @@ Type "REMOVE" to confirm:
 ## 5. Remove Phase
 
 1. Delete from ROADMAP.md
-2. Remove `.quantis/phases/{N}/` directory
+2. Find and remove matching subphase directory:
+   ```bash
+   PHASE_DIR=$(find .quantis/phases -maxdepth 1 -name "${N}-*" | head -n 1)
+   if [ -n "$PHASE_DIR" ]; then
+       rm -rf "$PHASE_DIR"
+   fi
+   ```
 3. Renumber subsequent phases (N+1 becomes N, etc.)
 4. Update dependencies
 
