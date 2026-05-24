@@ -77,9 +77,13 @@ PHASE_DIR=".quantis/phases/${PHASE}-${PHASE_SLUG}"
   - **L3 (deep dive)** — Architectural decision, novel problem → full RESEARCH.md
 - Create RESEARCH.md inside `$PHASE_DIR/`
 
-## 3.5 Discover Custom Skills
+## 3.5 Discover Ecosystem Assets
 
 ```bash
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo " Quantis ► ECOSYSTEM DISCOVERY"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
 # Discover custom skills installed by the user (excluding built-in manifest skills)
 echo "💡 DISCOVERED CUSTOM SKILLS (from skills.sh):"
 CUSTOM_SKILLS_FOUND=0
@@ -98,11 +102,9 @@ done
 if [ "$CUSTOM_SKILLS_FOUND" -eq 0 ]; then
     echo "  - None installed (visit https://www.skills.sh to install custom skills)"
 fi
-```
 
-## 3.6 Discover Connected MCP Servers
+echo ""
 
-```bash
 # Discover connected MCP servers
 echo "🔌 CONNECTED MCP SERVERS:"
 MCP_DIR="$HOME/.gemini/antigravity-ide/mcp"
@@ -120,6 +122,12 @@ fi
 if [ "$MCP_FOUND" -eq 0 ]; then
     echo "  - None connected"
 fi
+
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "💡 INSTRUCTION FOR PLANNING: Review the discovered"
+echo "skills and MCP tools above. Leverage them inside your"
+echo "tasks instead of writing custom code from scratch."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 ```
 
 ## 4. Delegate to Skill
