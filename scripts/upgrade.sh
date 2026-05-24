@@ -121,7 +121,6 @@ cp "$TEMP_DIR/QUANTIS-STYLE.md" ./
 cp "$TEMP_DIR/CHANGELOG.md" ./
 cp "$TEMP_DIR/VERSION" ./
 cp "$TEMP_DIR/MANIFEST.md" ./
-cp "$TEMP_DIR/README.md" ./
 cp "$TEMP_DIR/model_capabilities.yaml" ./
 
 # Copy scripts
