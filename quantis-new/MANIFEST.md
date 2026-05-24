@@ -5,7 +5,7 @@
 
 ## Core Directories
 
-### Workflows (`.agent/workflows/` — 29 files)
+### Workflows (`.agent/workflows/` — 30 files)
 - add-phase.md
 - add-todo.md
 - audit-milestone.md
