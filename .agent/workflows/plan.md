@@ -100,6 +100,28 @@ if [ "$CUSTOM_SKILLS_FOUND" -eq 0 ]; then
 fi
 ```
 
+## 3.6 Discover Connected MCP Servers
+
+```bash
+# Discover connected MCP servers
+echo "🔌 CONNECTED MCP SERVERS:"
+MCP_DIR="$HOME/.gemini/antigravity-ide/mcp"
+MCP_FOUND=0
+if [ -d "$MCP_DIR" ]; then
+    for server in $(ls "$MCP_DIR" 2>/dev/null); do
+        if [ -d "$MCP_DIR/$server" ]; then
+            # List tools by parsing the .json schemas
+            TOOLS=$(ls "$MCP_DIR/$server" 2>/dev/null | grep "\.json$" | sed 's/\.json//g' | tr '\n' ' ' | sed 's/ $//')
+            echo "  - $server: tools -> [ $TOOLS ]"
+            MCP_FOUND=$((MCP_FOUND + 1))
+        fi
+    done
+fi
+if [ "$MCP_FOUND" -eq 0 ]; then
+    echo "  - None connected"
+fi
+```
+
 ## 4. Delegate to Skill
 
 **Read and follow `.agents/skills/writing-plans/SKILL.md` exactly.**
