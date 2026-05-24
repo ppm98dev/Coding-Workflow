@@ -8,18 +8,27 @@ Quantis turns AI-assisted coding from "vibecoding" into a structured, repeatable
 
 ## Quick Start
 
+### 1. Install
+
 ```bash
-# In your project directory, tell your agent:
-/install
+# In your project directory:
+git clone --depth 1 https://github.com/ppm98dev/Coding-Workflow.git .quantis-tmp && \
+  cp -r .quantis-tmp/.agent .quantis-tmp/.agents .quantis-tmp/.gemini .quantis-tmp/.quantis .quantis-tmp/adapters .quantis-tmp/docs . && \
+  cp .quantis-tmp/CONSTITUTION.md .quantis-tmp/MANIFEST.md .quantis-tmp/PROJECT_RULES.md .quantis-tmp/QUANTIS-STYLE.md .quantis-tmp/CHANGELOG.md .quantis-tmp/VERSION .quantis-tmp/model_capabilities.yaml . && \
+  rm -rf .quantis-tmp
 ```
 
-Then initialize:
+### 2. Initialize
+
+Tell your AI agent:
 ```
 /new-project    → Deep questioning to create SPEC.md
 /plan 1         → Create execution plans for Phase 1
 /execute 1      → Implement Phase 1
 /verify 1       → Prove it works with evidence
 ```
+
+> **Already installed?** Use `/install` to reinstall, `/update` for incremental updates, or `/upgrade` to migrate from GSD v2.x.
 
 ## Architecture
 
@@ -98,12 +107,16 @@ Skills are platform-agnostic. Adapters handle tool name mapping per platform.
 .gemini/              Platform bootstrap
 .quantis/             Project state + 25 templates
 adapters/             Platform-specific guidance
-docs/                 Reference documentation
+docs/                 Platform-specific guides (OpenCode, Windows)
 
+CHANGELOG.md          Release history
 CONSTITUTION.md       Project quality standards
+LICENSE               MIT license
 MANIFEST.md           Core file listing (for safe updates)
+model_capabilities.yaml  Model capability matrix
 PROJECT_RULES.md      Canonical methodology rules
 QUANTIS-STYLE.md      Style and conventions
+VERSION               Current version number
 ```
 
 ## Credits
