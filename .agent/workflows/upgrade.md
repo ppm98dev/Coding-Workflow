@@ -110,7 +110,7 @@ SKILLS TO UPDATE (Quantis context skills):
   ↻ using-quantis
 
 WORKFLOWS:
-  ↻ All 29 workflows replaced with v3.0 versions
+  ↻ All 30 workflows replaced with v3.0 versions
   + /upgrade (this workflow)
 
 ───────────────────────────────────────────────────────
@@ -165,7 +165,7 @@ done
 ### 5b. Install v3.0 Core Skills
 
 ```bash
-SOURCE=".quantis-upgrade-temp/quantis-new"
+SOURCE=".quantis-upgrade-temp"
 
 # Install all skills listed in MANIFEST.md
 for skill_dir in $(ls "$SOURCE/.agents/skills/"); do
@@ -272,7 +272,7 @@ Migration complete!
 
 • Old skills removed: {count}
 • New skills installed: 18
-• Workflows updated: 29 (+ /upgrade)
+• Workflows updated: 30
 • Templates updated: 25
 • User state preserved ✓
 
