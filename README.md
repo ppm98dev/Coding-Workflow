@@ -49,6 +49,8 @@ Auto-triggered skills that fire based on task context. Powered by [obra/superpow
 
 Slash commands for project orchestration. Skills handle methodology; workflows handle process.
 
+> **Ecosystem Discovery:** `/plan` automatically detects custom skills (from [skills.sh](https://www.skills.sh)) and active MCP servers, injecting them into the planning context so your agent leverages your full toolkit.
+
 | Command | Purpose |
 |---------|---------|
 | `/new-project` | Initialize with deep questioning → SPEC.md |
@@ -105,7 +107,8 @@ Skills are platform-agnostic. Adapters handle tool name mapping per platform.
 .gemini/              Platform bootstrap
 .quantis/             Project state + 25 templates
 adapters/             Platform-specific guidance
-docs/                 Platform-specific guides (OpenCode, Windows)
+docs/                 Runbook, model playbook, token guide
+scripts/              Validation scripts + one-liner installer
 
 CHANGELOG.md          Release history
 CONSTITUTION.md       Project quality standards
