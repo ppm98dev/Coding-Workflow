@@ -191,12 +191,11 @@ cp -r "$SOURCE/.quantis/templates/"* .quantis/templates/
 echo "Updated templates"
 ```
 
-### 5e. Update Bootstrap and Adapters
+### 5e. Update Bootstrap
 
 ```bash
 cp "$SOURCE/.gemini/GEMINI.md" .gemini/GEMINI.md
-cp -r "$SOURCE/adapters/"* adapters/ 2>/dev/null || mkdir -p adapters && cp -r "$SOURCE/adapters/"* adapters/
-echo "Updated bootstrap and adapters"
+echo "Updated bootstrap"
 ```
 
 ### 5f. Update Root Files
@@ -205,18 +204,8 @@ echo "Updated bootstrap and adapters"
 # These are methodology files, safe to replace
 cp "$SOURCE/PROJECT_RULES.md" ./
 cp "$SOURCE/QUANTIS-STYLE.md" ./
-cp "$SOURCE/CHANGELOG.md" ./
 cp "$SOURCE/VERSION" ./
-cp "$SOURCE/MANIFEST.md" ./
-cp "$SOURCE/README.md" ./
 cp "$SOURCE/model_capabilities.yaml" ./
-
-# Copy docs
-cp -r "$SOURCE/docs/"* docs/ 2>/dev/null || true
-
-# Copy scripts
-mkdir -p scripts
-cp -r "$SOURCE/scripts/"* scripts/ 2>/dev/null || true
 
 echo "Updated root files"
 ```

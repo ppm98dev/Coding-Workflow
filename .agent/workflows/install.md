@@ -59,9 +59,6 @@ git clone --depth 1 https://github.com/ppm98dev/Coding-Workflow.git .quantis-ins
 cp -r .quantis-install-temp/.agent ./
 cp -r .quantis-install-temp/.agents ./
 cp -r .quantis-install-temp/.gemini ./
-cp -r .quantis-install-temp/adapters ./
-cp -r .quantis-install-temp/docs ./
-cp -r .quantis-install-temp/scripts ./
 
 # Copy only .quantis templates (NOT the source repo's own dev state)
 mkdir -p .quantis/templates
@@ -69,11 +66,8 @@ cp -r .quantis-install-temp/.quantis/templates/ .quantis/
 
 # Root files
 cp .quantis-install-temp/CONSTITUTION.md ./
-cp .quantis-install-temp/MANIFEST.md ./
 cp .quantis-install-temp/PROJECT_RULES.md ./
 cp .quantis-install-temp/QUANTIS-STYLE.md ./
-cp .quantis-install-temp/README.md ./
-cp .quantis-install-temp/CHANGELOG.md ./
 cp .quantis-install-temp/VERSION ./
 cp .quantis-install-temp/model_capabilities.yaml ./
 ```
@@ -127,14 +121,9 @@ Files installed:
 • .agents/       (18 skills — Agent Skills standard)
 • .gemini/       (Antigravity bootstrap)
 • .quantis/      (project state templates)
-• adapters/      (platform-specific guidance)
-• docs/          (reference documentation)
-• scripts/       (validation & install scripts)
 • CONSTITUTION.md
-• MANIFEST.md
 • PROJECT_RULES.md
 • QUANTIS-STYLE.md
-• CHANGELOG.md
 • VERSION
 • model_capabilities.yaml
 

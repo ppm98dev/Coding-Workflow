@@ -30,14 +30,12 @@ fi
 
 echo -e "⚙️ Copying core files..."
 # Create target folders if they don't exist
-mkdir -p .agent/workflows .agents/skills .gemini .quantis adapters scripts
+mkdir -p .agent/workflows .agents/skills .gemini .quantis
 
 # Copy structures
 cp -r "$TEMP_DIR/.agent/" ./
 cp -r "$TEMP_DIR/.agents/" ./
 cp -r "$TEMP_DIR/.gemini/" ./
-cp -r "$TEMP_DIR/adapters/" ./
-cp -r "$TEMP_DIR/scripts/" ./
 
 # Copy only .quantis templates (NOT the source repo's own dev state)
 mkdir -p .quantis/templates
@@ -45,10 +43,8 @@ cp -r "$TEMP_DIR/.quantis/templates/" .quantis/
 
 # Copy root files
 cp "$TEMP_DIR/CONSTITUTION.md" ./
-cp "$TEMP_DIR/MANIFEST.md" ./
 cp "$TEMP_DIR/PROJECT_RULES.md" ./
 cp "$TEMP_DIR/QUANTIS-STYLE.md" ./
-cp "$TEMP_DIR/CHANGELOG.md" ./
 cp "$TEMP_DIR/VERSION" ./
 cp "$TEMP_DIR/model_capabilities.yaml" ./
 

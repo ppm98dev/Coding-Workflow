@@ -77,7 +77,7 @@ if [ -d ".gsd" ]; then
 fi
 
 # Create target folders if they don't exist
-mkdir -p .agent/workflows .agents/skills .gemini .quantis/templates adapters scripts
+mkdir -p .agent/workflows .agents/skills .gemini .quantis/templates
 
 # Step 2: Remove Old GSD Core Skills
 echo -e "🧹 Removing old GSD core skills..."
@@ -109,22 +109,16 @@ echo -e "⚙️ Updating .quantis templates..."
 rm -rf .quantis/templates
 cp -r "$TEMP_DIR/.quantis/templates" .quantis/
 
-# Step 6: Update Bootstrap and Adapters
-echo -e "⚙️ Updating bootstrap and adapters..."
+# Step 6: Update Bootstrap
+echo -e "⚙️ Updating bootstrap..."
 cp "$TEMP_DIR/.gemini/GEMINI.md" .gemini/GEMINI.md 2>/dev/null || true
-cp -r "$TEMP_DIR/adapters" ./ 2>/dev/null || true
 
 # Step 7: Update Root Files
 echo -e "⚙️ Copying core configuration files..."
 cp "$TEMP_DIR/PROJECT_RULES.md" ./
 cp "$TEMP_DIR/QUANTIS-STYLE.md" ./
-cp "$TEMP_DIR/CHANGELOG.md" ./
 cp "$TEMP_DIR/VERSION" ./
-cp "$TEMP_DIR/MANIFEST.md" ./
 cp "$TEMP_DIR/model_capabilities.yaml" ./
-
-# Copy scripts
-cp -r "$TEMP_DIR/scripts" ./ 2>/dev/null || true
 
 # Clean up obsolete GSD style file if exists
 if [ -f "GSD-STYLE.md" ]; then

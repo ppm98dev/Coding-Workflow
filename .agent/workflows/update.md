@@ -111,26 +111,14 @@ cp -r "$SOURCE/.quantis/templates/"* .quantis/templates/
 # --- Bootstrap ---
 cp "$SOURCE/.gemini/GEMINI.md" .gemini/GEMINI.md
 
-# --- Adapters ---
-cp -r "$SOURCE/adapters/"* adapters/
-
-# --- Docs ---
-cp -r "$SOURCE/docs/"* docs/ 2>/dev/null || true
-
-# --- Scripts ---
-cp -r "$SOURCE/scripts/"* scripts/ 2>/dev/null || true
-
 # --- Core Root Files ---
 cp "$SOURCE/PROJECT_RULES.md" ./
 cp "$SOURCE/QUANTIS-STYLE.md" ./
-cp "$SOURCE/CHANGELOG.md" ./
 cp "$SOURCE/VERSION" ./
-cp "$SOURCE/MANIFEST.md" ./
 cp "$SOURCE/model_capabilities.yaml" ./
 ```
 
 > **Note:** CONSTITUTION.md is NOT overwritten — it's a user file that may have been customized.
-> README.md is updated since it's project documentation, not user state.
 
 ---
 
@@ -154,8 +142,8 @@ Updated to version {remote-version}
 Updated:
 • Workflows (30)
 • Core skills (18 from MANIFEST)
-• Templates, adapters, docs
-• Root files (PROJECT_RULES, CHANGELOG, VERSION, etc.)
+• Templates
+• Root files (PROJECT_RULES, VERSION, model_capabilities.yaml)
 
 Preserved:
 • Your .quantis/ state (SPEC, ROADMAP, STATE, etc.)
