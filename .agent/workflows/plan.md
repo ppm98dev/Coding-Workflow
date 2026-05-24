@@ -77,6 +77,29 @@ PHASE_DIR=".quantis/phases/${PHASE}-${PHASE_SLUG}"
   - **L3 (deep dive)** — Architectural decision, novel problem → full RESEARCH.md
 - Create RESEARCH.md inside `$PHASE_DIR/`
 
+## 3.5 Discover Custom Skills
+
+```bash
+# Discover custom skills installed by the user (excluding built-in manifest skills)
+echo "💡 DISCOVERED CUSTOM SKILLS (from skills.sh):"
+CUSTOM_SKILLS_FOUND=0
+for skill_dir in $(ls .agents/skills/ 2>/dev/null); do
+    # Cross-reference with MANIFEST.md to exclude core skills
+    if ! grep -q "^- $skill_dir$" MANIFEST.md; then
+        # Found a custom skill! Read the description from its SKILL.md frontmatter
+        SKILL_FILE=".agents/skills/$skill_dir/SKILL.md"
+        if [ -f "$SKILL_FILE" ]; then
+            DESC=$(grep -A5 "^description:" "$SKILL_FILE" 2>/dev/null | head -n 1 | sed -E 's/description:? (.*)/\1/' | tr -d '"' | tr -d "'")
+            echo "  - $skill_dir: ${DESC:-No description provided}"
+            CUSTOM_SKILLS_FOUND=$((CUSTOM_SKILLS_FOUND + 1))
+        fi
+    fi
+done
+if [ "$CUSTOM_SKILLS_FOUND" -eq 0 ]; then
+    echo "  - None installed (visit https://www.skills.sh to install custom skills)"
+fi
+```
+
 ## 4. Delegate to Skill
 
 **Read and follow `.agents/skills/writing-plans/SKILL.md` exactly.**
