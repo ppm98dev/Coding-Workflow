@@ -214,6 +214,10 @@ cp "$SOURCE/model_capabilities.yaml" ./
 # Copy docs
 cp -r "$SOURCE/docs/"* docs/ 2>/dev/null || true
 
+# Copy scripts
+mkdir -p scripts
+cp -r "$SOURCE/scripts/"* scripts/ 2>/dev/null || true
+
 echo "Updated root files"
 ```
 

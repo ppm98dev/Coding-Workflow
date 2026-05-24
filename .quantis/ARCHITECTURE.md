@@ -98,10 +98,10 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
 - **model_capabilities.yaml** — Real model names (Claude Opus 4, Gemini 2.5 Pro, GPT-4.1)
 
 ### Support Layer
-- **Scripts** (`scripts/`): 6 Bash scripts (PowerShell removed in v2.0)
+- **Scripts** (`scripts/`): 7 Bash scripts
   - `validate-all.sh`, `validate-workflows.sh`, `validate-skills.sh`, `validate-templates.sh`
   - `setup_search.sh`, `search_repo.sh`
-  - `install.sh` — One-command install for macOS/Linux
+  - `install.sh` — One-command cURL install for macOS/Linux
 - **Docs** (`docs/`): model-selection-playbook, runbook, token-optimization-guide
 - **Rules:** `PROJECT_RULES.md` (canonical, 260 lines), `QUANTIS-STYLE.md` (conventions, 272 lines)
 

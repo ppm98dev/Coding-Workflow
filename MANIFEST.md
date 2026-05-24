@@ -1,4 +1,4 @@
-# Quantis v3.0 Manifest
+# Quantis v3.2 Manifest
 
 > Core files managed by Quantis. Used by `/install`, `/update`, and `/upgrade`
 > to determine what to replace vs preserve.

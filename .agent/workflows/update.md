@@ -117,6 +117,9 @@ cp -r "$SOURCE/adapters/"* adapters/
 # --- Docs ---
 cp -r "$SOURCE/docs/"* docs/ 2>/dev/null || true
 
+# --- Scripts ---
+cp -r "$SOURCE/scripts/"* scripts/ 2>/dev/null || true
+
 # --- Core Root Files ---
 cp "$SOURCE/PROJECT_RULES.md" ./
 cp "$SOURCE/QUANTIS-STYLE.md" ./

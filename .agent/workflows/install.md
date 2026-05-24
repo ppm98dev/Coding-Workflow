@@ -62,6 +62,7 @@ cp -r .quantis-install-temp/.gemini ./
 cp -r .quantis-install-temp/.quantis ./
 cp -r .quantis-install-temp/adapters ./
 cp -r .quantis-install-temp/docs ./
+cp -r .quantis-install-temp/scripts ./
 
 # Root files
 cp .quantis-install-temp/CONSTITUTION.md ./
@@ -116,7 +117,7 @@ B) No — Skip
  Quantis ► INSTALLED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Quantis v3.0 has been installed.
+Quantis v3.2 has been installed.
 
 Files installed:
 • .agent/        (30 workflows)
@@ -125,6 +126,7 @@ Files installed:
 • .quantis/      (project state templates)
 • adapters/      (platform-specific guidance)
 • docs/          (reference documentation)
+• scripts/       (validation & install scripts)
 • CONSTITUTION.md
 • MANIFEST.md
 • PROJECT_RULES.md
