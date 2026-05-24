@@ -90,3 +90,34 @@
 - Replace GSD workflows with v3.0 workflows
 - Preserve user-installed skills (anything not in MANIFEST)
 - Preserve `.quantis/` state (SPEC, ROADMAP, phases, STATE, CONSTITUTION, etc.)
+
+---
+
+## Phase 3 Decisions (Integration Testing & Polish)
+
+**Date:** 2026-05-24
+**Context:** Pre-planning discussion for Phase 3. Clarified scope, approach, and testing strategy.
+
+### D-032: Update `/install` + `/update` to Quantis branding & correct repo
+**Decision:** Sweep all "GSD" references in install.md and update.md. Update repo URL (currently `get-shit-done-for-antigravity`). Ensure `/update` becomes MANIFEST-aware (same pattern as `/upgrade`) so it doesn't overwrite user-installed skills.
+**Rationale:** `/update` currently does blanket `cp -r .agents/*` which would clobber user skills. MANIFEST-aware update respects user customizations.
+
+### D-033: `/upgrade` as standalone one-time migration workflow
+**Decision:** Create a separate `/upgrade` workflow for GSD→v3.0 migration. Keep `/update` for v3.0→v3.x incremental updates. `/upgrade` is a one-time tool.
+**Rationale:** Migration logic (renaming old skills, restructuring) is fundamentally different from incremental updates. Mixing them adds complexity for no future benefit.
+
+### D-034: README — Full rewrite for v3.0
+**Decision:** Rewrite README.md from scratch for v3.0 architecture. Cover Superpowers-powered skill system, skill categories, quick start, credits.
+**Rationale:** The v2.x README (19KB) reflects a different architecture. A clean rewrite is faster and more accurate than patching.
+
+### D-035: Include `CONSTITUTION.md` in install, remove `scripts/` reference
+**Decision:** Add `CONSTITUTION.md` to install workflow. Remove `scripts/` from install (doesn't exist in v3.0). Ensure `docs/` content is current.
+**Rationale:** CONSTITUTION.md is referenced by .gemini/GEMINI.md and skills. scripts/ doesn't exist in quantis-new — referencing it causes install errors.
+
+### D-036: Systematic GSD reference sweep
+**Decision:** Do a grep-based sweep of all files in quantis-new/ for stale "GSD", "get-shit-done", "Get Shit Done" references. Replace with Quantis branding throughout.
+**Rationale:** Leftover GSD references in banners, messages, and comments undermine the Quantis brand consistency.
+
+### D-037: No separate test suite — verify during execution
+**Decision:** Delete `tests/` (Claude Code test harnesses, incompatible with Antigravity). No persistent test script. Verification happens inline during Phase 3 execution (GSD sweep, cross-reference checks, install file list validation). Real-world testing = using Quantis v3.0 on the next project.
+**Rationale:** Quantis is markdown instruction files, not executable code. The Superpowers tests used `claude -p --plugin-dir` (Claude Code CLI) which doesn't exist in Antigravity. A persistent test script adds maintenance overhead with no CI/CD to run it.
