@@ -77,7 +77,7 @@ if [ -d ".gsd" ]; then
 fi
 
 # Create target folders if they don't exist
-mkdir -p .agent/workflows .agents/skills .gemini .quantis/templates adapters docs scripts
+mkdir -p .agent/workflows .agents/skills .gemini .quantis/templates adapters scripts
 
 # Step 2: Remove Old GSD Core Skills
 echo -e "🧹 Removing old GSD core skills..."
@@ -124,8 +124,7 @@ cp "$TEMP_DIR/MANIFEST.md" ./
 cp "$TEMP_DIR/README.md" ./
 cp "$TEMP_DIR/model_capabilities.yaml" ./
 
-# Copy docs and scripts
-cp -r "$TEMP_DIR/docs" ./ 2>/dev/null || true
+# Copy scripts
 cp -r "$TEMP_DIR/scripts" ./ 2>/dev/null || true
 
 # Clean up obsolete GSD style file if exists
