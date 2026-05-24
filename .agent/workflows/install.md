@@ -59,10 +59,13 @@ git clone --depth 1 https://github.com/ppm98dev/Coding-Workflow.git .quantis-ins
 cp -r .quantis-install-temp/.agent ./
 cp -r .quantis-install-temp/.agents ./
 cp -r .quantis-install-temp/.gemini ./
-cp -r .quantis-install-temp/.quantis ./
 cp -r .quantis-install-temp/adapters ./
 cp -r .quantis-install-temp/docs ./
 cp -r .quantis-install-temp/scripts ./
+
+# Copy only .quantis templates (NOT the source repo's own dev state)
+mkdir -p .quantis/templates
+cp -r .quantis-install-temp/.quantis/templates/ .quantis/
 
 # Root files
 cp .quantis-install-temp/CONSTITUTION.md ./

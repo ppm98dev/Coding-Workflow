@@ -36,10 +36,13 @@ mkdir -p .agent/workflows .agents/skills .gemini .quantis adapters docs scripts
 cp -r "$TEMP_DIR/.agent/" ./
 cp -r "$TEMP_DIR/.agents/" ./
 cp -r "$TEMP_DIR/.gemini/" ./
-cp -r "$TEMP_DIR/.quantis/" ./
 cp -r "$TEMP_DIR/adapters/" ./
 cp -r "$TEMP_DIR/docs/" ./
 cp -r "$TEMP_DIR/scripts/" ./
+
+# Copy only .quantis templates (NOT the source repo's own dev state)
+mkdir -p .quantis/templates
+cp -r "$TEMP_DIR/.quantis/templates/" .quantis/
 
 # Copy root files
 cp "$TEMP_DIR/CONSTITUTION.md" ./
