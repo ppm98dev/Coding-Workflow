@@ -1,606 +1,117 @@
-<div align="center">
+# Quantis
 
-<br/>
+> Spec-driven development methodology for AI coding agents.
 
-[![Version](https://img.shields.io/badge/version-2.1.0-00C853?style=flat-square)](CHANGELOG.md)
-[![License](https://img.shields.io/badge/license-MIT-2196F3?style=flat-square)](LICENSE)
-[![Evolved from GSD](https://img.shields.io/badge/evolved%20from-GSD-7B2D8E?style=flat-square)](https://github.com/gsd-build/get-shit-done)
-[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux-FF6D00?style=flat-square)](#-platform-support)
-[![Model Agnostic](https://img.shields.io/badge/models-any%20LLM-E91E63?style=flat-square)](#-multi-model-support)
+Quantis turns AI-assisted coding from "vibecoding" into a structured, repeatable process. It gives your AI agent persistent memory across sessions, battle-tested code quality skills, and project management workflows.
 
-<br/>
+**Core workflow:** Spec → Plan → Execute → Verify → Commit
 
-# ⚛️ Quantis
-
-**Spec-Driven Development for AI Coding**
-
-*Define quality standards → Specify what to build → Stress-test for gaps → Plan with rigor → Execute atomically → Verify with proof.*
-
-<br/>
-
-[Getting Started](#-getting-started) · [How It Works](#-how-it-works) · [Quality Governance](#-quality-governance) · [Commands](#-commands-28-total) · [Documentation](#-documentation)
-
-</div>
-
----
-
-## 🧠 The Problem
-
-> Vibecoding has a bad reputation — and it deserves it.
-
-You describe what you want, AI generates code, and you get **inconsistent, untested, "it works" code** that falls apart at scale. No error handling. No logging. No tests. No structure.
-
-Quantis fixes that. It's the **spec-driven context engineering layer** that makes AI coding reliable and production-grade.
-
-<table>
-<tr>
-<td width="50%">
-
-### ❌ Without Quantis
-```
-"Add a feature"
-    → Vague spec
-    → Guessed requirements
-    → "It works" code
-    → No tests, no logging
-    → Debug loop
-    → Frustration
-```
-
-</td>
-<td width="50%">
-
-### ✅ With Quantis
-```
-"Add a feature"
-    → Constitution (quality standards)
-    → SPEC (forced clarity)
-    → Stress-test (find gaps)
-    → Atomic execution
-    → Empirical verification
-    → ✅ Production-grade
-```
-
-</td>
-</tr>
-</table>
-
-> **No enterprise roleplay.** No sprint ceremonies, story points, stakeholder syncs, or Jira workflows.
-> Just an incredibly effective system for building high-quality software consistently.
-
----
-
-## 👤 Who This Is For
-
-| | |
-|---|---|
-| 🧑‍💻 **Solo developers** | Using AI coding assistants and need consistency |
-| 👥 **Small teams** | Who want structure without enterprise overhead |
-| 😤 **Anyone** | Tired of AI generating untested, unstructured code |
-
----
-
-## ⚡ Getting Started
+## Quick Start
 
 ```bash
-# Open your project
-cd your-project
-
-# Clone the Quantis template
-git clone https://github.com/ppm98dev/Coding-Workflow.git quantis-template
-
-# Copy to your project
-cp -r quantis-template/.agent ./
-cp -r quantis-template/.agents ./
-cp -r quantis-template/.gemini ./
-cp -r quantis-template/.quantis ./
-cp -r quantis-template/adapters ./
-cp -r quantis-template/docs ./
-cp -r quantis-template/scripts ./
-cp quantis-template/PROJECT_RULES.md ./
-cp quantis-template/QUANTIS-STYLE.md ./
-cp quantis-template/model_capabilities.yaml ./
-
-# Clean up
-rm -rf quantis-template
+# In your project directory, tell your agent:
+/install
 ```
 
-Then run `/new-project` and follow the prompts.
-
-> [!TIP]
-> You can also use `/install` from a clean project to automate the installation above.
-
----
-
-## 🔄 How It Works
-
-```mermaid
-graph LR
-    A["🆕 /new-project"] --> B["📜 CONSTITUTION.md"]
-    A --> C["📋 SPEC.md"]
-    B --> D["🔥 /stress-test"]
-    C --> D
-    D --> E["📐 /plan"]
-    E -. optional .-> E2["🔄 /update-plan"]
-    E2 --> F["⚙️ /execute"]
-    E --> F
-    F --> G["✅ /verify"]
-    G --> H{"More\nphases?"}
-    H -- Yes --> I["💬 /discuss-phase"]
-    I --> E
-    H -- No --> J["🏁 /complete-milestone"]
-
-    style A fill:#7B2D8E,color:#fff,stroke:none
-    style B fill:#FF6D00,color:#fff,stroke:none
-    style C fill:#00C853,color:#fff,stroke:none
-    style D fill:#E91E63,color:#fff,stroke:none
-    style E fill:#FF6D00,color:#fff,stroke:none
-    style E2 fill:#FF6D00,color:#fff,stroke:#fff,stroke-dasharray:5 5
-    style F fill:#2196F3,color:#fff,stroke:none
-    style G fill:#00C853,color:#fff,stroke:none
-    style H fill:#FFC107,color:#000,stroke:none
-    style I fill:#2196F3,color:#fff,stroke:none
-    style J fill:#7B2D8E,color:#fff,stroke:none
+Then initialize:
+```
+/new-project    → Deep questioning to create SPEC.md
+/plan 1         → Create execution plans for Phase 1
+/execute 1      → Implement Phase 1
+/verify 1       → Prove it works with evidence
 ```
 
-| Step | Command | Output |
-|:----:|---------|--------|
-| **1** | `/new-project` | Constitution Q&A → `CONSTITUTION.md` → Deep questioning → `SPEC.md` |
-| **2** | `/stress-test` | Adversarial review → Find gaps, add `[NEEDS CLARIFICATION]` markers |
-| **3** | `/plan N` | Technical discovery → `PLAN.md` with XML tasks |
-| **3b** | `/update-plan N` | *(optional)* Revise plans based on discussion |
-| **4** | `/execute N` | Wave-based execution → Atomic commits |
-| **5** | `/verify N` | Must-haves validation with proof |
-| **6** | Repeat | Next phase or `/complete-milestone` |
+## Architecture
 
----
+Quantis has three layers:
 
-## 🛡️ Quality Governance
+### Skills (18) — The Methodology Engine
 
-Quantis goes beyond task management — it enforces **production-grade code quality** through constitutional governance.
+Auto-triggered skills that fire based on task context. Powered by [obra/superpowers](https://github.com/obra/superpowers) v5.1.0.
 
-### 📜 CONSTITUTION.md — Project Quality Standards
+| Category | Skills | Purpose |
+|----------|--------|---------|
+| **Code Quality** | subagent-driven-development, test-driven-development, receiving-code-review, requesting-code-review | Build code right |
+| **Planning** | brainstorming, writing-plans, executing-plans | Think before building |
+| **Debugging** | systematic-debugging, verification-before-completion | Fix and prove |
+| **Context** | codebase-mapper, context-compressor, context-health-monitor, token-budget | Stay efficient |
+| **Git** | using-git-worktrees, finishing-a-development-branch | Clean version control |
+| **Meta** | writing-skills, dispatching-parallel-agents, using-quantis | Extend the system |
 
-Every project gets a constitution with **10 articles** defining how code must be written:
+### Workflows (30) — Project Management
 
-| Article | Governs |
-|---------|---------|
-| 1. Code Quality | Naming, function length, single responsibility |
-| 2. Error Handling | Fail-fast vs graceful, no empty catches |
-| 3. Logging | Structured vs plaintext, required events |
-| 4. Input Validation | Boundary validation, schema-based |
-| 5. Testing | Test-first, coverage targets, anti-patterns |
-| 6. Security | No hardcoded secrets, parameterized queries |
-| 7. Documentation | Docstrings, API docs, WHY not WHAT |
-| 8. Performance | N+1 queries, unbounded loops, memory |
-| 9. Dependencies | Approval process, version pinning |
-| 10. Architecture | Separation of concerns, dependency direction |
-
-> The constitution is **always loaded** in `/plan` and `/execute`. It's the DNA of your project.
-
-### 🔒 Forced Clarity — `[NEEDS CLARIFICATION]`
-
-Ambiguity kills projects. Quantis forces you to confront it:
-
-```markdown
-## Goals
-1. Real-time notifications [NEEDS CLARIFICATION: push vs polling? frequency?]
-2. User auth via OAuth
-
-## Performance
-- Must be fast [NEEDS CLARIFICATION: what latency? p50? p95? p99?]
-```
-
-- **Plan-checker rejects** specs with unresolved markers
-- **`/stress-test`** adversarially reviews your spec on 7 dimensions
-
-### 📐 Separation Rule
-
-```
-SPEC.md = WHAT to build + WHY  (user intent, no tech details)
-PLAN.md = HOW to build it      (tech stack, architecture, implementation)
-```
-
-### 📋 Enhanced SPEC Template
-
-Every spec created via `/new-project` includes structured sections that force completeness:
-
-| Section | Purpose |
-|---------|---------|
-| **Quality Requirements** | Error handling, logging, performance, security — tied to CONSTITUTION.md |
-| **Edge Cases** | Boundary conditions, failure scenarios, concurrent access |
-| **Assumptions** | What you're assuming about users, environment, scope |
-| **Unresolved Questions** | Auto-generated summary of all `[NEEDS CLARIFICATION]` markers |
-
-> The spec cannot be marked `FINALIZED` until the Unresolved Questions section is empty.
-
----
-
-## 🧩 Why It Works
-
-### 📦 Context Engineering
-
-AI is powerful **if** you give it proper context. Most people don't. Quantis handles it:
-
-| File | Role | Icon |
-|------|------|:----:|
-| `CONSTITUTION.md` | Quality standards, always loaded | 📜 |
-| `SPEC.md` | Project vision, always loaded | 🎯 |
-| `ARCHITECTURE.md` | System understanding | 🏗️ |
-| `ROADMAP.md` | Where you're going, what's done | 🗺️ |
-| `STATE.md` | Decisions, blockers, memory across sessions | 💾 |
-| `PLAN.md` | Atomic tasks with XML structure | 📐 |
-
-### 🏷️ XML Prompt Formatting
-
-Every plan is structured XML optimized for AI execution:
-
-```xml
-<task type="auto">
-  <name>Create login endpoint</name>
-  <files>src/app/api/auth/login/route.ts</files>
-  <action>
-    Use jose for JWT (not jsonwebtoken - CommonJS issues).
-    Validate credentials against users table.
-    Return httpOnly cookie on success.
-  </action>
-  <verify>curl -X POST localhost:3000/api/auth/login returns 200 + Set-Cookie</verify>
-  <done>Valid credentials return cookie, invalid return 401</done>
-</task>
-```
-
-### 🌊 Wave-Based Execution
-
-Plans are grouped into waves based on dependencies:
-
-```mermaid
-graph TD
-    subgraph W1["🌊 Wave 1 — Foundation"]
-        T1["Task A"] & T2["Task B"] & T3["Task C"]
-    end
-    subgraph W2["🌊 Wave 2 — Integration"]
-        T4["Task D"] & T5["Task E"]
-    end
-    subgraph W3["🌊 Wave 3 — Polish"]
-        T6["Task F"]
-    end
-
-    W1 --> W2 --> W3
-
-    style W1 fill:#E3F2FD,stroke:#2196F3,color:#000
-    style W2 fill:#FFF3E0,stroke:#FF6D00,color:#000
-    style W3 fill:#F3E5F5,stroke:#7B2D8E,color:#000
-    style T1 fill:#2196F3,color:#fff,stroke:none
-    style T2 fill:#2196F3,color:#fff,stroke:none
-    style T3 fill:#2196F3,color:#fff,stroke:none
-    style T4 fill:#FF6D00,color:#fff,stroke:none
-    style T5 fill:#FF6D00,color:#fff,stroke:none
-    style T6 fill:#7B2D8E,color:#fff,stroke:none
-```
-
-Each executor gets **fresh context**. Your main session stays fast.
-
-### 🔗 Atomic Git Commits
-
-Each task gets its own commit immediately after completion:
-
-```
-abc123f feat(phase-1): create login endpoint
-def456g feat(phase-1): add password validation
-hij789k feat(phase-1): implement JWT cookie handling
-```
-
-> **Why?** Git bisect finds exact failing task · Each task independently revertable · Clear history for AI in future sessions
-
-### 🔬 Empirical Verification
-
-No "trust me, it works." Every verification produces evidence:
-
-| Change Type | Evidence Required |
-|:---:|:---:|
-| 🌐 API endpoint | `curl` output |
-| 🖥️ UI change | Screenshot |
-| 🏗️ Build | Command output |
-| 🧪 Tests | Test results |
-
----
-
-## 🎮 Commands (29 Total)
-
-> [!NOTE]
-> Slash commands are typed directly as chat messages (e.g. send `/plan 1`). They are **not** IDE autocomplete features.
-
-### 🔵 Core Workflow
+Slash commands for project orchestration. Skills handle methodology; workflows handle process.
 
 | Command | Purpose |
 |---------|---------|
-| `/map` | 🏗️ Analyze codebase → `ARCHITECTURE.md` |
-| `/plan [N]` | 📐 Create `PLAN.md` for phase N |
-| `/update-plan [N]` | 🔄 Revise plans based on discussion *(optional)* |
-| `/execute [N]` | ⚙️ Wave-based execution with atomic commits |
-| `/verify [N]` | ✅ Must-haves validation with proof |
-| `/stress-test` | 🔥 Adversarial spec review — find gaps before planning |
-| `/debug [desc]` | 🐛 Systematic debugging (3-strike rule) |
+| `/new-project` | Initialize with deep questioning → SPEC.md |
+| `/plan [N]` | Create phase execution plans |
+| `/execute [N]` | Wave-based plan execution |
+| `/verify [N]` | Empirical validation of work |
+| `/debug` | Systematic debugging with state tracking |
+| `/pause` / `/resume` | Session state management |
+| `/progress` | See current position in roadmap |
+| `/map` | Analyze codebase → ARCHITECTURE.md |
+| `/discuss-phase` | Clarify scope before planning |
+| `/stress-test` | Adversarial spec review |
+| `/install` / `/update` / `/upgrade` | Package management |
+| `/help` | Full command listing |
 
-### 🟢 Project Setup
+### State (`.quantis/`) — Persistent Memory
 
-| Command | Purpose |
-|---------|---------|
-| `/install` | 📦 Install Quantis from GitHub |
-| `/new-project` | 🆕 Constitution → Deep questioning → `SPEC.md` |
-| `/new-milestone` | 🏁 Create milestone with phases |
-| `/complete-milestone` | 🎉 Archive completed milestone |
-| `/audit-milestone` | 🔍 Review milestone quality |
+Project state that survives across sessions:
 
-### 🟠 Phase Management
+| File | Purpose |
+|------|---------|
+| `SPEC.md` | Requirements (must be FINALIZED before coding) |
+| `ROADMAP.md` | Phases, milestones, progress tracking |
+| `STATE.md` | Current position, session handoffs |
+| `JOURNAL.md` | Session logs, decisions, handoff notes |
+| `DECISIONS.md` | Architectural and design decisions |
+| `phases/` | Phase plans, summaries, research |
 
-| Command | Purpose |
-|---------|---------|
-| `/add-phase` | ➕ Add phase to end of roadmap |
-| `/insert-phase` | 📌 Insert phase (renumbers) |
-| `/remove-phase` | ➖ Remove phase (safety checks) |
-| `/discuss-phase` | 💬 Clarify scope before planning |
-| `/research-phase` | 🔬 Deep technical research |
-| `/list-phase-assumptions` | 📋 Surface planning assumptions |
-| `/plan-milestone-gaps` | 🔧 Create gap closure plans |
+## Core Rules
 
-### 🟡 Sprint
+| Rule | What It Means |
+|------|--------------|
+| 🔒 **Planning Lock** | No code until SPEC.md is FINALIZED |
+| 💾 **State Persistence** | Update STATE.md after every task |
+| 🧹 **Context Hygiene** | 3 failures → state dump → fresh session |
+| ✅ **Empirical Validation** | Proof required, not "trust me, it works" |
 
-| Command | Purpose |
-|---------|---------|
-| `/sprint new` | ⚡ Create a time-boxed sprint |
-| `/sprint status` | 📊 Show sprint progress |
-| `/sprint close` | ✅ Close sprint with retrospective |
+## Platform Support
 
-### 🟣 Navigation & State
+| Platform | Status | Notes |
+|----------|--------|-------|
+| **Google Antigravity** | Primary | Native skill auto-discovery, subagent support |
+| Gemini CLI | Adapter | Via `.gemini/GEMINI.md` + adapters |
+| Claude | Adapter | Via `adapters/CLAUDE.md` |
+| GPT / OSS | Adapter | Via `adapters/GPT_OSS.md` |
 
-| Command | Purpose |
-|---------|---------|
-| `/progress` | 📊 Show current position |
-| `/pause` | ⏸️ Save state for session handoff |
-| `/resume` | ▶️ Restore from last session |
-| `/add-todo` | 📝 Quick capture idea |
-| `/check-todos` | 📋 List pending items |
+Skills are platform-agnostic. Adapters handle tool name mapping per platform.
 
-### 🔴 Utilities
-
-| Command | Purpose |
-|---------|---------|
-| `/help` | ❓ Show all available commands |
-| `/web-search` | 🌐 Search the web for decisions |
-| `/whats-new` | 📢 Show recent Quantis changes |
-| `/update` | ⬆️ Update Quantis to latest version |
-
----
-
-## 💡 Typical Session
-
-```bash
-/resume              # ← Load context from last session
-/progress            # ← See where you left off
-/discuss-phase 2     # ← Clarify requirements (optional)
-/plan 2              # ← Plan next phase
-# /update-plan 2     # ← Revise plans if needed (optional)
-/execute 2           # ← Implement with atomic commits
-/verify 2            # ← Prove it works (screenshots, tests)
-/pause               # ← Save state for later
-```
-
-> [!IMPORTANT]
-> Quantis enforces **planning before coding**. The AI can't write code until `SPEC.md` says `FINALIZED` and `CONSTITUTION.md` exists. No shortcuts.
-
----
-
-## 🔒 Core Rules
-
-| | Rule | Why It Matters |
-|:---:|------|----------------|
-| 📜 | **Constitutional Compliance** | Every plan and execution respects project quality standards |
-| 🔒 | **Planning Lock** | No code until `SPEC.md` is `FINALIZED` — prevents building wrong thing |
-| ⚠️ | **Forced Clarity** | `[NEEDS CLARIFICATION]` markers block planning until resolved |
-| 💾 | **State Persistence** | Update `STATE.md` after every task — memory across sessions |
-| 🧹 | **Context Hygiene** | 3 failures → state dump → fresh session — prevents circular debugging |
-| ✅ | **Empirical Validation** | Proof required — no "it should work" |
-
----
-
-## 📁 File Structure
+## File Structure
 
 ```
-📄 PROJECT_RULES.md          # ← Canonical rules (model-agnostic)
-📄 QUANTIS-STYLE.md          # Complete style guide
+.agent/workflows/     30 slash command workflows
+.agents/skills/       18 auto-triggered skills
+.gemini/              Platform bootstrap
+.quantis/             Project state + 25 templates
+adapters/             Platform-specific guidance
+docs/                 Reference documentation
 
-📂 .agent/
-└── 📂 workflows/            # 28 slash commands
-
-📂 .agents/
-└── 📂 skills/               # 11 agent specializations
-
-📂 .gemini/
-└── 📄 GEMINI.md             # Gemini integration
-
-📂 .quantis/
-├── 📄 CONSTITUTION.md       # ← QUALITY STANDARDS (always loaded)
-├── 📄 SPEC.md               # ← START HERE (finalize first)
-├── 📄 ROADMAP.md            # Phases and progress
-├── 📄 STATE.md              # Session memory
-├── 📄 ARCHITECTURE.md       # System design (/map output)
-├── 📄 STACK.md              # Tech inventory
-├── 📄 DECISIONS.md          # Architecture Decision Records
-├── 📄 JOURNAL.md            # Session log
-├── 📄 TODO.md               # Quick capture
-├── 📂 templates/            # Document templates (including constitution)
-└── 📂 examples/             # Usage walkthroughs
-
-📂 adapters/                 # Optional model-specific enhancements
-📂 docs/                     # Operational documentation
-📂 scripts/                  # Utility scripts
-📄 model_capabilities.yaml   # Optional capability registry
+CONSTITUTION.md       Project quality standards
+MANIFEST.md           Core file listing (for safe updates)
+PROJECT_RULES.md      Canonical methodology rules
+QUANTIS-STYLE.md      Style and conventions
 ```
 
----
+## Credits
 
-## 🌍 Platform Support
+- **Skills engine:** [obra/superpowers](https://github.com/obra/superpowers) v5.1.0 — Battle-tested code quality skills (TDD, SDD, code review, debugging)
+- **Methodology & orchestration:** Quantis — Project management, state persistence, workflow layer
+- **Platform:** [Google Antigravity](https://blog.google/technology/google-deepmind/antigravity/) — AI coding IDE
 
-All workflow files use **Bash** commands (macOS/Linux).
+## License
 
-> This fork is optimized for macOS and Linux. Git commands work identically everywhere.
-
----
-
-## 🤖 Multi-Model Support
-
-Quantis is **model-agnostic** — use any LLM that works in your environment.
-
-### Canonical Rules
-
-All rules live in [PROJECT_RULES.md](PROJECT_RULES.md) — the single source of truth.
-
-### Optional Adapters
-
-Model-specific enhancements *(optional, never required)*:
-
-```
-adapters/
-├── ANTIGRAVITY.md # Antigravity-native tool mapping
-├── CLAUDE.md      # Extended thinking, effort levels
-├── GEMINI.md      # Flash vs Pro selection
-└── GPT_OSS.md     # Function calling, context handling
-```
-
-### Model Selection by Phase
-
-| Phase | Recommended | Why |
-|:-----:|:-----------:|-----|
-| 📋 Planning | Reasoning models | Complex decisions |
-| ⚙️ Implementation | Fast models | Iteration speed |
-| 🐛 Debugging | Reasoning models | Hypothesis testing |
-| 🔍 Review | Long-context models | Full diff analysis |
-
-> See [model-selection-playbook.md](docs/model-selection-playbook.md) for detailed guidance.
-
----
-
-## 🔍 Search-First Mode
-
-> **Principle:** Search before reading files completely.
-
-### Why?
-
-- 🎯 Reduces context pollution
-- ⚡ Faster codebase understanding
-- 🚫 Prevents reading irrelevant code
-
-<details>
-<summary><b>Setup (Optional)</b></summary>
-
-```bash
-./scripts/setup_search.sh           # Checks for ripgrep/fd
-./scripts/search_repo.sh "pattern"  # Search wrapper
-```
-
-> **No installation required** — falls back to `grep`.
-
-</details>
-
-### Workflow
-
-1. **Define question** — What are you looking for?
-2. **Search first** — `./scripts/search_repo.sh "keyword"`
-3. **Evaluate results** — Which files matter?
-4. **Targeted read** — Only read relevant sections
-
----
-
-## 💰 Token Optimization
-
-> **Principle:** Minimize token consumption while maintaining quality.
-
-### Skills Available
-
-| Skill | Purpose |
-|-------|---------|
-| 📊 `token-budget` | Track and manage token usage |
-| 🗜️ `context-compressor` | Compress context for efficiency |
-| 🔍 `context-fetch` | Search-first loading |
-| 🩺 `context-health-monitor` | Detect quality degradation |
-
-### Budget Thresholds
-
-| Usage | Status | Action |
-|:-----:|:------:|--------|
-| 0–50% | 🟢 OK | Proceed normally |
-| 50–70% | 🟡 Warning | Compress, use outlines |
-| 70%+ | 🔴 Critical | State dump required |
-
-> See [token-optimization-guide.md](docs/token-optimization-guide.md) for complete strategies.
-
-## 🧪 Testing
-
-Run validation scripts to verify Quantis structure:
-
-```bash
-./scripts/validate-all.sh         # Run all validators
-./scripts/validate-workflows.sh   # Workflows only
-./scripts/validate-skills.sh      # Skills only
-```
-
----
-
-## 📚 Documentation
-
-| Resource | Description |
-|----------|-------------|
-| [PROJECT_RULES.md](PROJECT_RULES.md) | Canonical model-agnostic rules |
-| [QUANTIS-STYLE.md](QUANTIS-STYLE.md) | Complete style and conventions guide |
-| [Model Selection Playbook](docs/model-selection-playbook.md) | Model selection guidance |
-| [Runbook](docs/runbook.md) | Operational procedures |
-| [Token Optimization Guide](docs/token-optimization-guide.md) | Token efficiency strategies |
-| [Examples](.quantis/examples/) | Usage walkthroughs and quick reference |
-| [Templates](.quantis/templates/) | Document templates for plans, verification |
-
----
-
-## 🧠 Philosophy
-
-<table>
-<tr>
-<td>📜</td><td><b>Constitution-first</b> — Define quality standards before writing a single line</td>
-</tr>
-<tr>
-<td>🎯</td><td><b>Spec-driven</b> — Specifications generate implementation, not the other way around</td>
-</tr>
-<tr>
-<td>⚠️</td><td><b>Forced clarity</b> — Mark what you don't know instead of guessing</td>
-</tr>
-<tr>
-<td>🧹</td><td><b>Fresh context > polluted context</b> — State dumps prevent hallucinations</td>
-</tr>
-<tr>
-<td>🔬</td><td><b>Proof over trust</b> — Screenshots and command outputs, not "looks right"</td>
-</tr>
-<tr>
-<td>⚛️</td><td><b>Aggressive atomicity</b> — 2–3 tasks per plan, atomic commits</td>
-</tr>
-<tr>
-<td>🔍</td><td><b>Search before reading</b> — Don't load files blindly</td>
-</tr>
-<tr>
-<td>🤖</td><td><b>Model-agnostic</b> — Works with any capable LLM</td>
-</tr>
-<tr>
-<td>🚫</td><td><b>No enterprise theater</b> — Solo dev + AI workflow, no ceremonies</td>
-</tr>
-</table>
-
----
-
-<div align="center">
-
-<sub>Evolved from <a href="https://github.com/gsd-build/get-shit-done">gsd-build/get-shit-done</a> — rebuilt with spec-driven governance for production-grade AI coding</sub>
-
-<br/>
-
-[![GitHub](https://img.shields.io/badge/GitHub-ppm98dev-181717?style=flat-square&logo=github)](https://github.com/ppm98dev/Coding-Workflow)
-
-</div>
+MIT

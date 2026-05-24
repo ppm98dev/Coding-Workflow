@@ -3,32 +3,19 @@ description: The Engineer — Execute a specific phase with focused context
 argument-hint: "<phase-number> [--gaps-only]"
 ---
 
-# /execute Workflow
+# /execute → executing-plans skill
+
+> **Skill-powered workflow.** Execution methodology is powered by `executing-plans` (or `subagent-driven-development` when subagents are available). This workflow adds Quantis orchestration (wave management, verification, state tracking).
 
 <role>
-You are a Quantis executor orchestrator. You manage wave-based parallel execution of phase plans.
-
-**Core responsibilities:**
-- Validate phase exists and has plans
-- Discover and group plans by execution wave
-- Spawn focused execution for each plan
-- Verify phase goal after all plans complete
-- Update roadmap and state on completion
+You are a Quantis executor orchestrator. You manage wave-based execution of phase plans, then verify against the phase goal.
 </role>
 
-<objective>
-Execute all plans in a phase using wave-based parallel execution.
-
-Orchestrator stays lean: discover plans, analyze dependencies, group into waves, execute sequentially within waves, verify against phase goal.
-
-**Context budget:** ~15% orchestrator, fresh context per plan execution.
-</objective>
-
 <context>
-**Phase:** $ARGUMENTS (required - phase number to execute)
+**Phase:** $ARGUMENTS (required — phase number to execute)
 
 **Flags:**
-- `--gaps-only` — Execute only gap closure plans (created by `/verify` when issues found)
+- `--gaps-only` — Execute only gap closure plans (created by `/verify`)
 
 **Required files:**
 - `.quantis/ROADMAP.md` — Phase definitions
@@ -39,73 +26,26 @@ Orchestrator stays lean: discover plans, analyze dependencies, group into waves,
 <process>
 
 ## 1. Validate Environment
-
 ```bash
-test -f ".quantis/ROADMAP.md"
-test -f ".quantis/STATE.md"
-test -f ".quantis/CONSTITUTION.md" || echo "⚠️ No CONSTITUTION.md found. Quality standards will not be enforced."
+test -f ".quantis/ROADMAP.md" || echo "Error: run /plan first"
+test -f ".quantis/STATE.md" || echo "Error: run /plan first"
+test -f ".quantis/CONSTITUTION.md" || echo "⚠️ No CONSTITUTION.md — quality standards not enforced"
 ```
+Validate phase exists in ROADMAP.md.
 
-**If ROADMAP/STATE not found:** Error — user should run `/plan` first.
-**If CONSTITUTION missing:** Warning — proceed but flag that quality standards are not loaded.
-
----
-
-## 2. Validate Phase Exists
-
+## 2. Discover Plans
 ```bash
-# Check phase exists in roadmap
-grep "Phase $PHASE:" ".quantis/ROADMAP.md"
+ls ".quantis/phases/$PHASE"/*-PLAN.md 2>/dev/null
+ls ".quantis/phases/$PHASE"/*-SUMMARY.md 2>/dev/null
 ```
+Build list of **incomplete plans** (PLAN without matching SUMMARY).
+If `--gaps-only`: filter to plans with `gap_closure: true` in frontmatter.
+If no incomplete plans: phase already complete, skip to step 6.
 
-**If not found:** Error with available phases from ROADMAP.md.
+## 3. Group by Wave
+Read `wave` field from each plan's YAML frontmatter. Group plans by wave number. Lower waves first.
 
----
-
-## 3. Ensure Phase Directory Exists
-
-```bash
-PHASE_DIR=".quantis/phases/$PHASE"
-mkdir -p "$PHASE_DIR"
-```
-
----
-
-## 4. Discover Plans
-
-```bash
-ls "$PHASE_DIR"/*-PLAN.md 2>/dev/null
-```
-
-**Check for existing summaries** (completed plans):
-
-```bash
-ls "$PHASE_DIR"/*-SUMMARY.md 2>/dev/null
-```
-
-**Build list of incomplete plans** (PLAN without matching SUMMARY).
-
-**If `--gaps-only`:** Filter to only plans with `gap_closure: true` in frontmatter.
-
-**If no incomplete plans found:** Phase already complete, skip to step 8.
-
----
-
-## 5. Group Plans by Wave
-
-Read `wave` field from each plan's frontmatter:
-
-```yaml
----
-phase: 1
-plan: 2
-wave: 1
----
-```
-
-**Group plans by wave number.** Lower waves execute first.
-
-Display wave structure:
+Display:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Quantis ► EXECUTING PHASE {N}
@@ -117,158 +57,42 @@ Wave 2: {plan-3}
 {X} plans across {Y} waves
 ```
 
----
+## 4. Execute Waves
 
-## 6. Execute Waves
+For each wave in order, for each plan in the wave:
 
-For each wave in order:
+1. Load plan context (PLAN.md + CONSTITUTION.md)
+2. **Read and follow `.agents/skills/executing-plans/SKILL.md`** for execution methodology
+   - When subagents are available, prefer `.agents/skills/subagent-driven-development/SKILL.md`
+3. Follow `<task>` blocks in order, run `<verify>` commands
+4. Commit per task: `git commit -m "feat(phase-{N}): {task-name}"`
+5. After all tasks in plan: create `{N}-SUMMARY.md` documenting what was done
 
-### 6a. Execute Plans in Wave
-For each plan in the current wave:
+**Verify wave complete** before proceeding to next wave.
 
-1. **Load plan context** — Read the PLAN.md file AND `.quantis/CONSTITUTION.md`
-2. **Execute tasks** — Follow `<task>` blocks in order
-3. **Verify each task** — Run `<verify>` commands
-4. **Commit per task:**
-   ```bash
-   git add -A
-   git commit -m "feat(phase-{N}): {task-name}"
-   ```
+## 5. Verify Phase Goal
 
-   > **Antigravity:** Use `run_command` with `SafeToAutoRun: false` for git commits to ensure user approval on each atomic commit.
-
-5. **Create SUMMARY.md** — Document what was done
-
-> **Constitutional Compliance**: While executing tasks, verify code follows CONSTITUTION.md articles. Error handling, logging, validation, and testing must match constitutional requirements. If a task produces code that violates the constitution, fix it before committing.
-
-> **Antigravity:** Use native tools (`write_to_file`, `replace_file_content`, `multi_replace_file_content`) instead of shell `echo >` or `cat >` for file creation and editing. Use `run_command` with `RunPersistent: true` for stateful operations. See [adapters/ANTIGRAVITY.md](../../adapters/ANTIGRAVITY.md) for details.
-
-### 6b. Verify Wave Complete
-Check all plans in wave have SUMMARY.md files.
-
-### 6c. Proceed to Next Wave
-Only after current wave fully completes.
-
----
-
-## 7. Verify Phase Goal
-
-After all waves complete:
-
-1. **Read phase goal** from ROADMAP.md
-2. **Check must-haves** against actual codebase (not SUMMARY claims)
-3. **Run verification commands** specified in phase
-
-**Create VERIFICATION.md:**
-```markdown
-## Phase {N} Verification
-
-### Must-Haves
-- [x] Must-have 1 — VERIFIED (evidence: ...)
-- [ ] Must-have 2 — FAILED (reason: ...)
-
-### Verdict: PASS / FAIL
-```
+After all waves:
+1. Read phase goal from ROADMAP.md
+2. Check must-haves against **actual codebase** (not SUMMARY claims)
+3. Run verification commands if specified
 
 **Route by verdict:**
-- `PASS` → Continue to step 8
-- `FAIL` → Create gap closure plans, offer `/execute {N} --gaps-only`
+- **PASS** → Step 6
+- **FAIL** → Create gap closure plans, offer `/execute {N} --gaps-only`
 
----
+## 6. Update State
 
-## 8. Update Roadmap and State
-
-**Update ROADMAP.md:**
-```markdown
-### Phase {N}: {Name}
-**Status**: ✅ Complete
-```
-
-**Update STATE.md:**
-```markdown
-## Current Position
-- **Phase**: {N} (completed)
-- **Task**: All tasks complete
-- **Status**: Verified
-
-## Last Session Summary
-Phase {N} executed successfully. {X} plans, {Y} tasks completed.
-
-## Next Steps
-1. Proceed to Phase {N+1}
-```
-
-**Update REQUIREMENTS.md** (if exists):
-- Cross-reference completed tasks with requirement IDs
-- Mark requirements satisfied by this phase as `In Progress` or `Complete`
-- Update the traceability matrix with plan references
-
----
-
-## 9. Commit Phase Completion
+**ROADMAP.md:** Mark phase `✅ Complete`
+**STATE.md:** Update position, last session summary, next steps
+**REQUIREMENTS.md** (if exists): Cross-reference completed tasks with requirement IDs
 
 ```bash
-git add .quantis/ROADMAP.md .quantis/STATE.md .quantis/REQUIREMENTS.md
+git add .quantis/ROADMAP.md .quantis/STATE.md
 git commit -m "docs(phase-{N}): complete {phase-name}"
 ```
 
----
-
-## 10. Offer Next Steps
-
 </process>
-
-<offer_next>
-Output based on status:
-
-**Route A: Phase complete, more phases remain**
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Quantis ► PHASE {N} COMPLETE ✓
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-{X} plans executed
-Goal verified ✓
-
-───────────────────────────────────────────────────────
-
-▶ Next Up
-Phase {N+1}: {Name}
-
-/plan {N+1}  — create execution plans
-/execute {N+1} — execute directly (if plans exist)
-
-───────────────────────────────────────────────────────
-```
-
-**Route B: All phases complete**
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Quantis ► MILESTONE COMPLETE 🎉
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-All phases completed and verified.
-
-───────────────────────────────────────────────────────
-```
-
-**Route C: Gaps found**
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Quantis ► PHASE {N} GAPS FOUND ⚠
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-{X}/{Y} must-haves verified
-Gap closure plans created.
-
-/execute {N} --gaps-only — execute fix plans
-
-───────────────────────────────────────────────────────
-```
-</offer_next>
 
 <context_hygiene>
 **After 3 failed debugging attempts:**
@@ -277,22 +101,34 @@ Gap closure plans created.
 3. Recommend `/pause` for fresh session
 </context_hygiene>
 
+<offer_next>
+
+**Phase complete, more phases:**
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Quantis ► PHASE {N} COMPLETE ✓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+▶ /plan {N+1} or /execute {N+1}
+```
+
+**All phases complete:**
+```
+ Quantis ► MILESTONE COMPLETE 🎉
+```
+
+**Gaps found:**
+```
+ Quantis ► PHASE {N} GAPS FOUND ⚠
+▶ /execute {N} --gaps-only
+```
+</offer_next>
+
 <related>
-## Related
-
-### Workflows
-| Command | Relationship |
-|---------|--------------|
-| `/plan` | Creates PLAN.md files that /execute runs |
-| `/verify` | Validates work after /execute completes |
-| `/debug` | Use when tasks fail verification |
-| `/pause` | Use after 3 debugging failures |
-| `adapters/ANTIGRAVITY.md` | Antigravity-specific tool guidance |
-
 ### Skills
 | Skill | Purpose |
 |-------|---------|
-| `executor` | Detailed execution protocol |
+| `executing-plans` | Execution methodology (delegated) |
+| `subagent-driven-development` | SDD execution with review (preferred when subagents available) |
+| `verification-before-completion` | Must-have verification methodology |
 | `context-health-monitor` | 3-strike rule enforcement |
-| `empirical-validation` | Verification requirements |
 </related>

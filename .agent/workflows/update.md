@@ -6,6 +6,7 @@ description: Update Quantis to the latest version from GitHub
 
 <objective>
 Update Quantis for Antigravity to the latest version from GitHub.
+Uses MANIFEST.md to only replace core files — preserves user-installed skills and state.
 </objective>
 
 <process>
@@ -13,9 +14,11 @@ Update Quantis for Antigravity to the latest version from GitHub.
 ## 1. Check Current Version
 
 ```bash
-if [ -f "CHANGELOG.md" ]; then
-    version=$(grep -oP '## \[\K[0-9]+\.[0-9]+\.[0-9]+' CHANGELOG.md | head -1)
+if [ -f "VERSION" ]; then
+    version=$(cat VERSION)
     echo "Current version: $version"
+else
+    echo "No VERSION file found. Current version unknown."
 fi
 ```
 
@@ -25,7 +28,7 @@ fi
 
 ```bash
 # Clone latest to temp directory
-git clone --depth 1 https://github.com/toonight/get-shit-done-for-antigravity.git .quantis-update-temp
+git clone --depth 1 https://github.com/ppm98dev/Coding-Workflow.git .quantis-update-temp
 ```
 
 ---
@@ -33,7 +36,7 @@ git clone --depth 1 https://github.com/toonight/get-shit-done-for-antigravity.gi
 ## 3. Compare Versions
 
 ```bash
-remote_version=$(grep -oP '## \[\K[0-9]+\.[0-9]+\.[0-9]+' .quantis-update-temp/CHANGELOG.md | head -1)
+remote_version=$(cat .quantis-update-temp/quantis-new/VERSION 2>/dev/null || echo "unknown")
 echo "Remote version: $remote_version"
 ```
 
@@ -69,7 +72,7 @@ Changes:
 ───────────────────────────────────────────────────────
 
 Update now?
-A) Yes — Apply updates
+A) Yes — Apply updates (MANIFEST-aware, preserves your skills)
 B) No — Cancel
 
 ───────────────────────────────────────────────────────
@@ -77,31 +80,54 @@ B) No — Cancel
 
 ---
 
-## 5. Apply Updates
+## 5. Apply Updates (MANIFEST-aware)
 
 **If user confirms:**
 
+Read MANIFEST.md from the remote copy to determine what to update.
+Only replace files and directories listed in the **Core** sections.
+Never touch files listed in **User Files**.
+
 ```bash
-# Backup current
-cp -r .agent .agent.backup
-cp -r .agents .agents.backup
-cp -r .quantis/templates .quantis/templates.backup
+SOURCE=".quantis-update-temp/quantis-new"
 
-# Update workflows (preserve user's .quantis docs)
-cp -r .quantis-update-temp/.agent/* .agent/
+# --- Core Workflows ---
+# Replace all workflows listed in MANIFEST.md
+cp -r "$SOURCE/.agent/workflows/"* .agent/workflows/
 
-# Update skills (Agent Skills standard)
-cp -r .quantis-update-temp/.agents/* .agents/
+# --- Core Skills (MANIFEST-aware) ---
+# Only replace skills listed in MANIFEST.md
+# This preserves any user-installed skills not in the manifest
+for skill_dir in $(ls "$SOURCE/.agents/skills/"); do
+    if grep -q "^- $skill_dir$" "$SOURCE/MANIFEST.md"; then
+        rm -rf ".agents/skills/$skill_dir"
+        cp -r "$SOURCE/.agents/skills/$skill_dir" ".agents/skills/"
+    fi
+done
 
-# Update templates only
-cp -r .quantis-update-temp/.quantis/templates/* .quantis/templates/
+# --- Templates ---
+cp -r "$SOURCE/.quantis/templates/"* .quantis/templates/
 
-# Update root files
-cp .quantis-update-temp/QUANTIS-STYLE.md ./
-cp .quantis-update-temp/CHANGELOG.md ./
-cp .quantis-update-temp/PROJECT_RULES.md ./
-cp .quantis-update-temp/VERSION ./
+# --- Bootstrap ---
+cp "$SOURCE/.gemini/GEMINI.md" .gemini/GEMINI.md
+
+# --- Adapters ---
+cp -r "$SOURCE/adapters/"* adapters/
+
+# --- Docs ---
+cp -r "$SOURCE/docs/"* docs/ 2>/dev/null || true
+
+# --- Core Root Files ---
+cp "$SOURCE/PROJECT_RULES.md" ./
+cp "$SOURCE/QUANTIS-STYLE.md" ./
+cp "$SOURCE/CHANGELOG.md" ./
+cp "$SOURCE/VERSION" ./
+cp "$SOURCE/MANIFEST.md" ./
+cp "$SOURCE/model_capabilities.yaml" ./
 ```
+
+> **Note:** CONSTITUTION.md is NOT overwritten — it's a user file that may have been customized.
+> README.md is updated since it's project documentation, not user state.
 
 ---
 
@@ -109,9 +135,6 @@ cp .quantis-update-temp/VERSION ./
 
 ```bash
 rm -rf .quantis-update-temp
-rm -rf .agent.backup
-rm -rf .agents.backup
-rm -rf .quantis/templates.backup
 ```
 
 ---
@@ -124,6 +147,17 @@ rm -rf .quantis/templates.backup
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Updated to version {remote-version}
+
+Updated:
+• Workflows (29)
+• Core skills (18 from MANIFEST)
+• Templates, adapters, docs
+• Root files (PROJECT_RULES, CHANGELOG, VERSION, etc.)
+
+Preserved:
+• Your .quantis/ state (SPEC, ROADMAP, STATE, etc.)
+• Your CONSTITUTION.md
+• Any user-installed skills not in MANIFEST
 
 ───────────────────────────────────────────────────────
 
@@ -145,5 +179,5 @@ These user files are NEVER overwritten:
 - .quantis/JOURNAL.md
 - .quantis/TODO.md
 - .quantis/phases/*
-- .gemini/GEMINI.md
+- CONSTITUTION.md
 </preserved_files>

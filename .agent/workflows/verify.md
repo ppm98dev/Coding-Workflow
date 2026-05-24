@@ -31,7 +31,10 @@ The verifier checks the CODEBASE, not SUMMARY claims.
 - `.quantis/SPEC.md` — Original requirements
 - `.quantis/ROADMAP.md` — Phase definition with must-haves
 - `.quantis/phases/{phase}/*-SUMMARY.md` — What was implemented
-</context>
+
+**Skill reference:** `.agents/skills/verification-before-completion/SKILL.md`
+
+> Before starting verification, read and follow the `verification-before-completion` skill for the full methodology.
 
 <process>
 
@@ -272,6 +275,6 @@ Never accept these as verification:
 ### Skills
 | Skill | Purpose |
 |-------|---------|
-| `verifier` | Detailed verification methodology |
-| `empirical-validation` | Evidence requirements |
+| `verification-before-completion` | Detailed verification methodology |
+| `context-health-monitor` | Context budget monitoring |
 </related>

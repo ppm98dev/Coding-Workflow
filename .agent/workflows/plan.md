@@ -3,33 +3,20 @@ description: The Strategist — Decompose requirements into executable phases in
 argument-hint: "[phase] [--research] [--skip-research] [--gaps]"
 ---
 
-# /plan Workflow
+# /plan → writing-plans skill
+
+> **Skill-powered workflow.** Planning methodology is powered by `writing-plans`. This workflow adds Quantis orchestration (validation, research, state tracking).
 
 <role>
-You are a Quantis planner orchestrator. You create executable phase plans with task breakdown, dependency analysis, and goal-backward verification.
-
-**Core responsibilities:**
-- Parse arguments and validate phase
-- Handle research (unless skipped or exists)
-- Create PLAN.md files with XML task structure
-- Verify plans with checker logic
-- Iterate until plans pass (max 3 iterations)
+You are a Quantis planner orchestrator. You validate the environment, handle research, then delegate planning methodology to the `writing-plans` skill.
 </role>
-
-<objective>
-Create executable phase prompts (PLAN.md files) for a roadmap phase with integrated research and verification.
-
-**Default flow:** Research (if needed) → Plan → Verify → Done
-
-**Why subagents:** Research and planning burn context fast. Verification uses fresh context. User sees the flow between agents in main context.
-</objective>
 
 <context>
 **Phase number:** $ARGUMENTS (optional — auto-detects next unplanned phase if not provided)
 
 **Flags:**
 - `--research` — Force re-research even if RESEARCH.md exists
-- `--skip-research` — Skip research entirely, go straight to planning
+- `--skip-research` — Skip research entirely
 - `--gaps` — Gap closure mode (reads VERIFICATION.md, skips research)
 
 **Required files:**
@@ -39,291 +26,91 @@ Create executable phase prompts (PLAN.md files) for a roadmap phase with integra
 
 <philosophy>
 
-## Solo Developer + Claude Workflow
-You are planning for ONE person (the user) and ONE implementer (Claude).
-- No teams, stakeholders, ceremonies, coordination overhead
-- User is the visionary/product owner
-- Claude is the builder
-
 ## Plans Are Prompts
-PLAN.md is NOT a document that gets transformed into a prompt.
-PLAN.md IS the prompt. It contains:
-- Objective (what and why)
-- Context (@file references)
-- Tasks (with verification criteria)
-- Success criteria (measurable)
+PLAN.md IS the prompt. It contains objective, context, tasks, and success criteria.
 
 ## Quality Degradation Curve
+| Context Usage | Quality |
+|---------------|---------|
+| 0-30% | PEAK — thorough |
+| 30-50% | GOOD — solid |
+| 50-70% | DEGRADING |
+| 70%+ | POOR — rushed |
 
-| Context Usage | Quality | State |
-|---------------|---------|-------|
-| 0-30% | PEAK | Thorough, comprehensive |
-| 30-50% | GOOD | Confident, solid work |
-| 50-70% | DEGRADING | Efficiency mode begins |
-| 70%+ | POOR | Rushed, minimal |
-
-**The rule:** Plans should complete within ~50% context. More plans, smaller scope.
+Plans should complete within ~50% context. More plans, smaller scope.
 
 ## Aggressive Atomicity
 Each plan: **2-3 tasks max**. No exceptions.
 
 </philosophy>
 
-<discovery_levels>
-
-## Discovery Protocol
-
-Discovery is MANDATORY unless you can prove current context exists.
-
-**Level 0 — Skip** (pure internal work)
-- ALL work follows established codebase patterns
-- No new external dependencies
-- Pure internal refactoring or feature extension
-
-**Level 1 — Quick Verification** (2-5 min)
-- Single known library, confirming syntax/version
-- Low-risk decision (easily changed later)
-- Action: Quick web search, no RESEARCH.md needed
-
-**Level 1.5 — Discovery** (5-15 min)
-- Quick library/option comparison (A vs B)
-- Low-to-medium risk, focused question
-- Action: Create DISCOVERY.md using `.quantis/templates/discovery.md` template
-
-**Level 2 — Standard Research** (15-30 min)
-- Choosing between 2-3 options
-- New external integration (API, service)
-- Medium-risk decision
-- Action: Create RESEARCH.md with findings
-
-**Level 3 — Deep Dive** (1+ hour)
-- Architectural decision with long-term impact
-- Novel problem without clear patterns
-- High-risk, hard to change later
-- Action: Full research with RESEARCH.md
-
-</discovery_levels>
-
 <process>
 
-## 1. Validate Environment (Planning Lock)
-
+## 1. Planning Lock
 ```bash
-# Check SPEC.md exists and is finalized
-if ! grep -q "FINALIZED" ".quantis/SPEC.md"; then
-    echo "Error: SPEC.md must be FINALIZED before planning" >&2
-    exit 1
-fi
-
-# Check CONSTITUTION.md exists
-if [ ! -f ".quantis/CONSTITUTION.md" ]; then
-    echo "Error: CONSTITUTION.md required. Run /new-project or create one from .quantis/templates/constitution.md" >&2
-    exit 1
-fi
+grep -q "FINALIZED" ".quantis/SPEC.md" || echo "Error: SPEC.md must be FINALIZED"
+test -f ".quantis/CONSTITUTION.md" || echo "⚠️ No CONSTITUTION.md"
 ```
 
-**If not finalized:** Error — user must complete SPEC.md first.
-**If no constitution:** Error — user must create CONSTITUTION.md first.
+## 2. Parse Arguments
+Extract phase number (or auto-detect next unplanned phase from ROADMAP.md) and flags.
 
----
+## 3. Handle Research
 
-## 2. Parse and Normalize Arguments
+**If `--gaps` or `--skip-research`:** Skip to step 4.
 
-Extract from $ARGUMENTS:
-- Phase number (integer)
-- `--research` flag
-- `--skip-research` flag
-- `--gaps` flag
+**Check existing:** `test -f ".quantis/phases/$PHASE/RESEARCH.md"`
 
-**If no phase number:** Detect next unplanned phase from ROADMAP.md.
+**If research needed (new phase or `--research` forced):**
+- Assess discovery level:
+  - **L0 (skip)** — Pure internal work, established patterns
+  - **L1 (quick)** — Single known library, confirming syntax
+  - **L1.5 (discovery)** — Quick A-vs-B comparison → DISCOVERY.md
+  - **L2 (standard)** — 2-3 options, new integration → RESEARCH.md
+  - **L3 (deep dive)** — Architectural decision, novel problem → full RESEARCH.md
+- Create RESEARCH.md with findings
 
----
+## 4. Delegate to Skill
 
-## 3. Validate Phase
+**Read and follow `.agents/skills/writing-plans/SKILL.md` exactly.**
 
-```bash
-grep "Phase $PHASE:" ".quantis/ROADMAP.md"
-```
+Provide the skill with:
+- Phase number and objectives from ROADMAP.md
+- SPEC.md requirements
+- CONSTITUTION.md quality standards
+- RESEARCH.md findings (if exists)
+- ARCHITECTURE.md (if exists)
 
-**If not found:** Error with available phases.
-**If found:** Extract phase name and description.
+Output plans to `.quantis/phases/{N}/` using `{N}-PLAN.md` naming.
 
----
-
-## 4. Ensure Phase Directory
-
-```bash
-PHASE_DIR=".quantis/phases/$PHASE"
-mkdir -p "$PHASE_DIR"
-```
-
----
-
-## 5. Handle Research
-
-**If `--gaps` flag:** Skip research (gap closure uses VERIFICATION.md).
-
-**If `--skip-research` flag:** Skip to step 6.
-
-**Check for existing research:**
-```bash
-test -f "$PHASE_DIR/RESEARCH.md"
-```
-
-**If RESEARCH.md exists AND `--research` flag NOT set:**
-- Display: `Using existing research: $PHASE_DIR/RESEARCH.md`
-- Skip to step 6
-
-**If research needed:**
-
-Display banner:
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Quantis ► RESEARCHING PHASE {N}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-Perform research based on discovery level (see `<discovery_levels>`).
-
-Create `$PHASE_DIR/RESEARCH.md` with findings.
-
----
-
-## 6. Create Plans
-
-Display banner:
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Quantis ► PLANNING PHASE {N}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-### 6a. Gather Context
-Load:
-- `.quantis/CONSTITUTION.md` — Project quality standards (**REQUIRED**)
-- `.quantis/SPEC.md` — Requirements
-- `.quantis/REQUIREMENTS.md` — Formal requirements tracking (if exists)
-- `.quantis/ROADMAP.md` — Phase description
-- `$PHASE_DIR/RESEARCH.md` — If exists
-- `.quantis/ARCHITECTURE.md` — If exists
-
-> **Constitutional Compliance**: Every plan MUST comply with CONSTITUTION.md.
-> Tasks that would violate constitutional articles must either:
-> - Be restructured to comply, or
-> - Document the violation with justification in the plan
-
-### 6b. Decompose into Tasks
-For the phase goal:
-1. Identify all deliverables
-2. Break into atomic tasks (2-3 per plan)
-3. Determine dependencies between tasks
-4. Assign execution waves
-
-### 6c. Write PLAN.md Files
-
-Create `$PHASE_DIR/{N}-PLAN.md`:
-
-```markdown
----
-phase: {N}
-plan: 1
-wave: 1
----
-
-# Plan {N}.1: {Plan Name}
-
-## Objective
-{What this plan delivers and why}
-
-## Context
-- .quantis/SPEC.md
-- .quantis/ARCHITECTURE.md
-- {relevant source files}
-
-## Tasks
-
-<task type="auto">
-  <name>{Task name}</name>
-  <files>{exact file paths}</files>
-  <action>
-    {Specific implementation instructions}
-    - What to do
-    - What to avoid and WHY
-  </action>
-  <verify>{Command to prove task complete}</verify>
-  <done>{Measurable acceptance criteria}</done>
-</task>
-
-<task type="auto">
-  ...
-</task>
-
-## Success Criteria
-- [ ] {Measurable outcome 1}
-- [ ] {Measurable outcome 2}
-```
-
----
-
-## 7. Verify Plans (Checker Logic)
-
+## 5. Plan Checker (max 3 iterations)
 For each plan, verify:
-- [ ] All files specified exist or will be created
-- [ ] Actions are specific (no "implement X")
-- [ ] Verify commands are executable
-- [ ] Done criteria are measurable
-- [ ] Context references exist
-- [ ] Tests are meaningful (see Test Quality Rules below)
+- [ ] All referenced files exist or will be created
+- [ ] Actions are specific (no vague "implement X")
+- [ ] `<verify>` commands are executable
+- [ ] `<done>` criteria are measurable
+- [ ] Tests verify real behavior (no tautological asserts, no mock-everything)
 
-**If issues found:** Fix and re-verify (max 3 iterations).
+**If issues found:** Fix and re-verify. Max 3 iterations.
 
-### Test Quality Rules
-
-Tests must verify real behavior, not just pass. Reject plans with tests that:
-
-| Anti-pattern | Example | Fix |
-|-------------|---------|-----|
-| **Mock everything** | Mocking the DB then asserting the mock was called | Use real DB or integration test |
-| **Tautological assert** | `assert mock.called` with no behavior check | Assert actual output or side effect |
-| **Always-pass test** | `assert True` or `assert response is not None` | Assert specific expected values |
-| **Testing the framework** | Asserting that Express returns 200 on a stub | Test your logic, not the framework |
-| **No negative cases** | Only testing the happy path | Include at least one failure/edge case |
-
-**Rule:** Every `<verify>` command must test the *actual behavior* of the code, not just that it runs without errors. If a test would still pass with the implementation deleted, it is not a valid test.
-
----
-
-## 8. Update State
-
-Update `.quantis/STATE.md`:
-```markdown
-## Current Position
-- **Phase**: {N}
-- **Task**: Planning complete
-- **Status**: Ready for execution
-
-## Next Steps
-1. /execute {N}
-```
-
----
-
-## 9. Commit Plans
-
+## 6. Update State + Commit
+Update `.quantis/STATE.md` with planning complete status.
 ```bash
-git add .quantis/phases/$PHASE/
-git add .quantis/STATE.md
+git add .quantis/phases/$PHASE/ .quantis/STATE.md
 git commit -m "docs(phase-$PHASE): create execution plans"
 ```
 
----
-
-## 10. Offer Next Steps
-
 </process>
 
-<offer_next>
+<task_types>
+| Type | Use For |
+|------|---------|
+| `auto` | Everything the agent can do independently |
+| `checkpoint:human-verify` | Visual/functional verification needing user |
+| `checkpoint:decision` | Implementation choices needing user input |
+</task_types>
 
+<offer_next>
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Quantis ► PHASE {N} PLANNED ✓
@@ -331,47 +118,14 @@ git commit -m "docs(phase-$PHASE): create execution plans"
 
 {X} plans created across {Y} waves
 
-Plans:
-• {N}.1: {Name} (wave 1)
-• {N}.2: {Name} (wave 1)
-• {N}.3: {Name} (wave 2)
-
-───────────────────────────────────────────────────────
-
-▶ Next Up
-
-/execute {N} — run all plans
-
-───────────────────────────────────────────────────────
+▶ Next: /execute {N}
 ```
-
 </offer_next>
 
-<task_types>
-
-| Type | Use For | Autonomy |
-|------|---------|----------|
-| `auto` | Everything Claude can do independently | Fully autonomous |
-| `checkpoint:human-verify` | Visual/functional verification | Pauses for user |
-| `checkpoint:decision` | Implementation choices | Pauses for user |
-
-**Automation-first rule:** If Claude CAN do it, Claude MUST do it. Checkpoints are for verification AFTER automation.
-
-</task_types>
-
 <related>
-## Related
-
-### Workflows
-| Command | Relationship |
-|---------|--------------|
-| `/map` | Run before /plan to get codebase context |
-| `/execute` | Runs PLAN.md files created by /plan |
-| `/verify` | Validates executed plans |
-
 ### Skills
 | Skill | Purpose |
 |-------|---------|
-| `planner` | Detailed planning methodology |
-| `plan-checker` | Validates plans before execution |
+| `writing-plans` | Planning methodology (delegated) |
+| `brainstorming` | Use for research phase |
 </related>

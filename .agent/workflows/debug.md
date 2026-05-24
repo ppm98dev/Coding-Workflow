@@ -16,7 +16,9 @@ Systematically diagnose an issue using hypothesis-driven debugging, with persist
 <context>
 **Issue:** $ARGUMENTS (description of the problem to debug)
 
-**Skill reference:** `.agents/skills/debugger/SKILL.md`
+**Skill reference:** `.agents/skills/systematic-debugging/SKILL.md`
+
+> Before starting, read and follow the `systematic-debugging` skill for the full methodology.
 </context>
 
 <process>
@@ -211,6 +213,6 @@ Options:
 ### Skills
 | Skill | Purpose |
 |-------|---------|
-| `debugger` | Detailed debugging methodology |
+| `systematic-debugging` | Detailed debugging methodology |
 | `context-health-monitor` | 3-strike rule |
 </related>

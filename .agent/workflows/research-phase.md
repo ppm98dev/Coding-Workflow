@@ -1,155 +1,96 @@
 ---
 description: Deep technical research for a phase
-argument-hint: "<phase-number> [--level 1|2|3]"
+argument-hint: "<phase-number>"
 ---
 
-# /research-phase Workflow
+# /research-phase → brainstorming skill (research mode)
 
-<objective>
-Conduct technical research to inform planning decisions for a phase.
-</objective>
+> **Skill-powered workflow.** Research methodology is powered by `brainstorming`. This workflow adds the Quantis discovery level framework and structured RESEARCH.md output.
 
-<discovery_levels>
-## Discovery Levels
+<context>
+**Phase:** $ARGUMENTS (optional — defaults to next unplanned phase)
 
-| Level | Time | Use When |
-|-------|------|----------|
-| 0 | 0 min | Already know, just doing it |
-| 1 | 2-5 min | Single library, confirming syntax |
-| 2 | 15-30 min | Choosing between options, new integration |
-| 3 | 1+ hour | Architectural decision, novel problem |
-
-**Default:** Level 2 unless specified.
-</discovery_levels>
+**Required files:**
+- `.quantis/ROADMAP.md` — Phase objectives to focus research
+- `.quantis/DECISIONS.md` — Existing decisions to build on
+</context>
 
 <process>
 
-## 1. Load Phase Context
+## 1. Assess Discovery Level
 
-Read:
-- Phase objective from ROADMAP.md
-- Relevant ARCHITECTURE.md sections
-- STACK.md for current technologies
+Determine how deep to go:
 
----
+| Level | When | Output | Time |
+|-------|------|--------|------|
+| **L0 — Skip** | Pure internal work, established patterns | Nothing | 0 |
+| **L1 — Quick** | Single known library, confirming syntax | Notes in plan | 2-5 min |
+| **L1.5 — Discovery** | Quick A-vs-B comparison | DISCOVERY.md | 5-15 min |
+| **L2 — Standard** | 2-3 options, new integration | RESEARCH.md | 15-30 min |
+| **L3 — Deep Dive** | Architectural decision, novel problem | Full RESEARCH.md | 1+ hour |
 
-## 2. Identify Research Questions
+## 2. Research
+**Read and follow `.agents/skills/brainstorming/SKILL.md`** in research/explore mode.
 
-What needs to be understood before planning?
+Use web search, documentation reading, and analysis to investigate.
 
-```markdown
-## Research Questions
+## 3. Create RESEARCH.md
 
-1. {Technical question 1}
-2. {Technical question 2}
-3. {Integration question}
-```
-
----
-
-## 3. Conduct Research
-
-Based on discovery level:
-
-**Level 1:** Quick verification
-- Check official docs
-- Confirm API/syntax
-
-**Level 2:** Comparison research
-- Compare 2-3 options
-- Evaluate trade-offs
-- Make recommendation
-
-**Level 3:** Deep dive
-- Prototype if needed
-- Research edge cases
-- Document unknowns
-
----
-
-## 4. Generate RESEARCH.md
-
-Create `.quantis/phases/{N}/RESEARCH.md`:
+Output to `.quantis/phases/{N}/RESEARCH.md`:
 
 ```markdown
----
-phase: {N}
-level: {1|2|3}
-researched_at: {date}
----
-
 # Phase {N} Research
 
 ## Questions Investigated
-1. {question}
-2. {question}
+1. {question 1}
+2. {question 2}
 
 ## Findings
-
 ### {Topic 1}
-{What was learned}
-
-**Sources:**
-- {URL}
-
-**Recommendation:** {what to do}
-
-### {Topic 2}
-...
+{what was learned, with sources}
 
 ## Decisions Made
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| {decision} | {choice} | {why} |
+- {decision and rationale}
 
 ## Patterns to Follow
-- {pattern 1}
-- {pattern 2}
+- {pattern from research}
 
 ## Anti-Patterns to Avoid
-- {anti-pattern}: {why}
+- {what NOT to do and why}
 
 ## Dependencies Identified
-| Package | Version | Purpose |
-|---------|---------|---------|
-| {pkg} | {ver} | {why} |
+- {external dep with version}
 
 ## Risks
-- {risk}: {mitigation}
+- {risk and mitigation}
 
 ## Ready for Planning
-- [x] Questions answered
-- [x] Approach selected
-- [x] Dependencies identified
+{summary of what's known, what's decided}
 ```
 
----
+## 4. Commit + Next Steps
+```bash
+git add .quantis/phases/$PHASE/RESEARCH.md
+git commit -m "docs(phase-$PHASE): research complete"
+```
 
-## 5. Commit Research
+</process>
 
----
-
-## 6. Offer Next Steps
-
+<offer_next>
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Quantis ► RESEARCH COMPLETE ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Discovery level: L{N}
+{X} questions investigated, {Y} decisions made
 
-Phase {N}: {name}
-Level: {level}
-
-Key findings:
-• {finding 1}
-• {finding 2}
-
-───────────────────────────────────────────────────────
-
-▶ NEXT
-
-/plan {N} — Create plans informed by research
-
-───────────────────────────────────────────────────────
+▶ /plan {N} — create execution plans
 ```
+</offer_next>
 
-</process>
+<related>
+### Skills
+| Skill | Purpose |
+|-------|---------|
+| `brainstorming` | Research methodology (delegated) |
+</related>

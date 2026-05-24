@@ -23,43 +23,53 @@ version=$(cat VERSION 2>/dev/null || echo "unknown")
  Quantis ► HELP (v{version})
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-CORE WORKFLOW
-─────────────
-/map              Analyze codebase → ARCHITECTURE.md
-/plan [N]         Create PLAN.md files for phase N
-/update-plan [N]  Revise plans based on discussion (optional)
-/execute [N]      Wave-based execution with atomic commits
-/verify [N]       Must-haves validation with proof
-/debug [desc]     Systematic debugging (3-strike rule)
+SKILL-POWERED COMMANDS (slash command → skill)
+──────────────────────────────────────────────
+/map              Analyze codebase             → codebase-mapper
+/plan [N]         Create phase plans           → writing-plans
+/update-plan [N]  Revise plans                 → writing-plans (revision)
+/execute [N]      Wave-based execution         → executing-plans
+/discuss-phase    Clarify scope                → brainstorming
+/stress-test      Adversarial spec review      → brainstorming (critique)
+/research-phase   Deep technical research      → brainstorming (research)
 
-PROJECT SETUP
-─────────────
-/new-project      Deep questioning → SPEC.md
+SKILL-ENHANCED COMMANDS (workflow + skill)
+──────────────────────────────────────────
+/debug [desc]     Systematic debugging         + systematic-debugging
+/verify [N]       Must-haves validation        + verification-before-completion
+/new-project      Deep questioning → SPEC.md   + brainstorming
+
+PROJECT MANAGEMENT
+──────────────────
 /new-milestone    Create milestone with phases
 /complete-milestone   Archive completed milestone
 /audit-milestone  Review milestone quality
+/plan-milestone-gaps  Create gap closure plans
 
 PHASE MANAGEMENT
 ────────────────
 /add-phase        Add phase to end of roadmap
 /insert-phase     Insert phase (renumbers subsequent)
 /remove-phase     Remove phase (with safety checks)
-/discuss-phase    Clarify scope before planning
-/research-phase   Deep technical research
 /list-phase-assumptions   Surface planning assumptions
-/plan-milestone-gaps      Create gap closure plans
 
 NAVIGATION & STATE
 ──────────────────
 /progress         Show current position in roadmap
 /pause            Save state for session handoff
 /resume           Restore from last session
+/sprint           Time-boxed focused work session
 /add-todo         Quick capture idea
 /check-todos      List pending items
 
 UTILITIES
 ─────────
 /help             Show this help
+/web-search       Search web for information
+/whats-new        Show recent Quantis changes
+/install          Install Quantis into a project
+/update           Update Quantis to latest version
+/upgrade          Migrate from GSD/v2.x to v3.0
 
 ───────────────────────────────────────────────────────
 
@@ -82,7 +92,8 @@ CORE RULES
 
 ───────────────────────────────────────────────────────
 
-📚 Docs: QUANTIS-STYLE.md, .quantis/examples/
+📚 Docs: QUANTIS-STYLE.md, adapters/
+🔧 Skills: .agents/skills/ (18 skills, auto-triggered)
 
 ───────────────────────────────────────────────────────
 ```

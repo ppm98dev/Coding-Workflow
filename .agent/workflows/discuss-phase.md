@@ -3,121 +3,66 @@ description: Discuss a phase before planning (clarify scope and approach)
 argument-hint: "<phase-number>"
 ---
 
-# /discuss-phase Workflow
+# /discuss-phase → brainstorming skill
 
-<objective>
-Interactive discussion about a phase to clarify scope, approach, and concerns before creating plans.
-</objective>
+> **Skill-powered workflow.** Ideation methodology is powered by `brainstorming`. This workflow adds Quantis phase context and decision documentation.
 
 <context>
-Run BEFORE `/plan` when:
-- Phase scope is unclear
-- Multiple implementation approaches exist
-- Trade-offs need user input
-- Dependencies are complex
+**Phase:** $ARGUMENTS (optional — defaults to next unplanned phase)
+
+**Required files:**
+- `.quantis/ROADMAP.md` — Phase objectives and deliverables
+- `.quantis/DECISIONS.md` — Decisions already made
+- `.quantis/SPEC.md` — Requirements for reference
 </context>
 
 <process>
 
 ## 1. Load Phase Context
-
-Read from ROADMAP.md:
+Read phase definition from ROADMAP.md. Extract:
 - Phase objective
-- Dependencies
-- Current status
+- Deliverables
+- Dependencies on prior phases
+- Known constraints
 
----
+## 2. Brainstorm
+**Read and follow `.agents/skills/brainstorming/SKILL.md`** in discuss/explore mode.
 
-## 2. Analyze Requirements
+Present structured discussion points:
+- **Scope**: What's in, what's out?
+- **Concerns**: What could go wrong?
+- **Dependencies**: What must exist before this works?
+- **Risks**: What's the biggest unknown?
+- **Alternatives**: Is there a simpler way?
 
-From phase objective, extract:
-- What needs to be built
-- What constraints exist
-- What decisions need to be made
-
----
-
-## 3. Present Discussion Points
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Quantis ► DISCUSS PHASE {N}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Phase: {name}
-Objective: {objective}
-
-───────────────────────────────────────────────────────
-
-TOPICS TO DISCUSS
-
-1. SCOPE CLARIFICATION
-   - {question about scope}
-   - {question about boundaries}
-
-2. IMPLEMENTATION APPROACH
-   Option A: {approach}
-   Option B: {approach}
-   Which do you prefer and why?
-
-3. DEPENDENCIES
-   - Requires: {what from previous phases}
-   - Missing: {any gaps in earlier work}
-
-4. CONCERNS
-   - {potential issue}
-   - {risk to flag}
-
-───────────────────────────────────────────────────────
-```
-
----
-
-## 4. Gather User Input
-
-Listen for:
-- Scope decisions
-- Approach preferences
-- Constraints not in spec
-- Priority clarifications
-
----
-
-## 5. Document Decisions
-
-Update `.quantis/DECISIONS.md`:
-
+## 3. Document Decisions
+Record outcomes in `.quantis/DECISIONS.md` using format:
 ```markdown
-## Phase {N} Decisions
-
-**Date:** {date}
-
-### Scope
-- {decision about scope}
-
-### Approach
-- Chose: {approach}
-- Reason: {rationale}
-
-### Constraints
-- {constraint identified}
+### D-{NNN}: {Decision Title}
+**Decision:** {what was decided}
+**Rationale:** {why}
 ```
 
----
-
-## 6. Offer Next Steps
-
-```
-───────────────────────────────────────────────────────
-
-✓ Discussion documented in DECISIONS.md
-
-▶ NEXT
-
-/plan {N} — Create execution plans with this context
-/research-phase {N} — Deep dive on technical options
-
-───────────────────────────────────────────────────────
-```
+## 4. Update State + Next Steps
+Update STATE.md. Suggest `/plan {N}` or `/stress-test`.
 
 </process>
+
+<offer_next>
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Quantis ► DISCUSSION COMPLETE ✓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{X} decisions documented
+
+▶ /plan {N} — create execution plans
+▶ /stress-test — adversarial review (optional)
+```
+</offer_next>
+
+<related>
+### Skills
+| Skill | Purpose |
+|-------|---------|
+| `brainstorming` | Ideation methodology (delegated) |
+</related>

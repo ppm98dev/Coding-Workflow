@@ -2,24 +2,9 @@
 
 > **Everything in this file is optional.**
 > For canonical rules, see [PROJECT_RULES.md](../PROJECT_RULES.md).
+> For tool mapping, see `.agents/skills/using-quantis/references/antigravity-tools.md`.
 
-This adapter provides Antigravity-specific enhancements for running GSD inside Google Antigravity IDE.
-
----
-
-## Antigravity Tool Mapping
-
-Quantis workflows map to Antigravity tools as follows:
-
-| GSD Workflow | Antigravity Tools | Usage |
-|-------------|-------------------|-------|
-| `/map` | `grep_search`, `list_dir`, `view_file` | Scan structure, analyze dependencies, read key files |
-| `/plan` | `search_web`, `read_url_content`, `generate_image` | Research options, read docs, create architecture diagrams |
-| `/execute` | `run_command`, `write_to_file`, `replace_file_content`, `multi_replace_file_content` | Build features, run scripts, create/edit files |
-| `/execute` (interactive) | `send_command_input`, `command_status` | REPLs, long-running processes, background tasks |
-| `/verify` | `browser_subagent`, `run_command` | Visual proof via screenshots/recordings, test output |
-| `/web-search` | `search_web`, `read_url_content` | Research, API docs, error diagnosis |
-| `/debug` | `grep_search`, `run_command`, `view_file` | Search for patterns, run diagnostics, inspect state |
+This adapter provides Antigravity-specific enhancements for running Quantis inside Google Antigravity IDE.
 
 ---
 
@@ -44,14 +29,6 @@ browser_subagent:
 - Screenshots captured as evidence for VERIFICATION.md
 - Recording names should be descriptive: `login_flow_test`, `api_response_check`
 
-### Evidence Pattern
-After browser_subagent completes, reference the recording in your verification:
-```markdown
-### ✅ Dashboard renders correctly
-**Status:** PASS
-**Evidence:** Browser recording `dashboard_verification.webp`
-```
-
 ---
 
 ## File Operations
@@ -70,58 +47,31 @@ Use Antigravity's native file tools instead of shell commands:
 
 ## Context Optimization
 
-Antigravity-specific strategies for keeping context lean:
-
 ### Search-First Discipline
 1. **Always** use `grep_search` before `view_file`
 2. Search for specific patterns, functions, or variable names
 3. Only `view_file` with targeted line ranges after search narrows the scope
-4. This aligns with GSD's context-fetch skill — search first, read second
 
 ### Progressive Skill Disclosure
 Antigravity loads skills on-demand based on YAML frontmatter:
 - Keep `description` fields in SKILL.md sharp and specific
 - Agent reads only name + description initially
 - Full content loads only when the skill is relevant
-- This keeps context budgets healthy during long sessions
-
-### Persistent Terminals
-Use `RunPersistent: true` in `run_command` for stateful operations:
-- Environment variables persist across calls
-- Useful for build sessions, test runners, database connections
-- Share terminal state with `RequestedTerminalID`
 
 ### Background Commands
 Long-running processes (dev servers, watchers) should use:
 - Low `WaitMsBeforeAsync` to send to background immediately
-- `command_status` to check output periodically
-- `send_command_input` for interactive input
+- `manage_task` to check output periodically
 
 ---
 
 ## Planning Mode Relationship
 
-GSD's methodology (SPEC → PLAN → EXECUTE → VERIFY) **replaces** Antigravity's built-in planning mode.
+Quantis' methodology (SPEC → PLAN → EXECUTE → VERIFY) **replaces** Antigravity's built-in planning mode.
 
-### What This Means
 - **Do NOT** create Antigravity artifacts (`implementation_plan.md`, `task.md`, `walkthrough.md`)
-- **Use only** GSD's `.quantis/` files: SPEC.md, PLAN.md, SUMMARY.md, VERIFICATION.md
-- **Workflows drive execution** — `/plan`, `/execute`, `/verify` instead of Antigravity's plan→approve→execute flow
-
-### Why
-GSD provides a more structured methodology with wave-based execution, atomic commits, and empirical verification. Using both systems creates confusion about which artifacts are authoritative.
-
----
-
-## Model Selection
-
-Reference `model_capabilities.yaml` for detailed guidance. Quick recommendations:
-
-| GSD Phase | Recommended Profile | Reason |
-|-----------|-------------------|--------|
-| `/plan`, `/debug` | Reasoning (deep thinking) | Complex decisions need depth |
-| `/execute` | Fast coder | Frequent iteration needs speed |
-| `/verify`, `/map` | Standard (balanced) | Large context for full analysis |
+- **Use only** Quantis files: `.quantis/` directory for all state
+- **Workflows drive execution** — `/plan`, `/execute`, `/verify`
 
 ---
 
@@ -129,33 +79,41 @@ Reference `model_capabilities.yaml` for detailed guidance. Quick recommendations
 
 When committing during `/execute`:
 
-```
-run_command:
-  CommandLine: 'git add -A && git commit -m "feat(phase-N): task name"'
-  SafeToAutoRun: false    # User approves each atomic commit
+```bash
+git add -A && git commit -m "feat(phase-N): task name"
 ```
 
-- Set `SafeToAutoRun: false` for commits — ensures user reviews each one
-- Set `SafeToAutoRun: true` for read-only operations (grep, ls, test runs)
-- This aligns with GSD's one-task-one-commit atomicity rule
+- User approves each atomic commit
+- This aligns with Quantis' one-task-one-commit atomicity rule
+
+---
+
+## Model Selection
+
+Reference `model_capabilities.yaml` for detailed guidance:
+
+| Quantis Phase | Recommended Profile | Reason |
+|-----------|-------------------|--------|
+| `/plan`, `/debug` | Reasoning (deep thinking) | Complex decisions need depth |
+| `/execute` | Fast coder | Frequent iteration needs speed |
+| `/verify`, `/map` | Standard (balanced) | Large context for full analysis |
 
 ---
 
 ## Anti-Patterns
 
-❌ **Using Antigravity planning mode AND GSD simultaneously** — Pick one system. GSD replaces planning mode.
+❌ **Using Antigravity planning mode AND Quantis simultaneously** — Pick one system.
 
-❌ **Ignoring browser_subagent for UI verification** — It captures screenshots AND recordings automatically. Use it.
+❌ **Ignoring browser_subagent for UI verification** — It captures screenshots AND recordings automatically.
 
-❌ **Loading entire files when grep_search would suffice** — Search first, then read targeted ranges. Saves context.
+❌ **Loading entire files when grep_search would suffice** — Search first, then read targeted ranges.
 
-❌ **Using shell echo/cat for file creation** — Use `write_to_file`. It handles encoding, creates parent dirs, and won't silently truncate.
+❌ **Using shell echo/cat for file creation** — Use `write_to_file`.
 
-❌ **Running git commands with SafeToAutoRun: true** — Commits should always require user approval.
-
-❌ **Skipping recordings during verification** — WebP recordings are free proof. Name them descriptively.
+❌ **Skipping recordings during verification** — WebP recordings are free proof.
 
 ---
 
 *See PROJECT_RULES.md for canonical requirements.*
 *See adapters/GEMINI.md for Gemini model-specific tips.*
+*Based on [obra/superpowers](https://github.com/obra/superpowers)*
