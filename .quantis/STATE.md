@@ -3,32 +3,26 @@
 ## Current Position
 - **Milestone**: v3.0 — Superpowers Integration & Antigravity 2.0 (COMPLETE ✅)
 - **Phase**: All phases complete and verified
-- **Status**: Active (resumed 2026-05-24T15:44)
+- **Status**: Paused at 2026-05-24T15:55
 
 ## Last Session Summary
-Completed the entire v3.0 milestone and dogfooded:
+Fixed install bootstrap issues and pushed to GitHub:
 
-### Phase 3 Execution (Plans 3.1 → 3.3)
-- **Plan 3.1**: Created MANIFEST.md (30 workflows, 18 skills, 25 templates, 4 adapters, 8 root files). GSD/superpowers reference sweep across 12+ files. Deleted docs/superpowers/, docs/testing.md, docs/plans/.
-- **Plan 3.2**: Rewrote /install (v3.0 file list), /update (MANIFEST-aware), created /upgrade (GSD→v3.0 migration). Added /upgrade to /help.
-- **Plan 3.3**: Wrote README.md (~117 lines), CHANGELOG.md, VERSION (3.0.0). Rewrote /whats-new. Final cross-reference validation (all pass).
+### Fix Install Bootstrap (executed + verified)
+- **install.md**: Removed 14 dead `quantis-new/` paths, fixed count 29→30
+- **update.md**: Removed 2 dead `quantis-new/` paths, fixed count 29→30
+- **upgrade.md**: Removed 1 dead `quantis-new/` path, fixed 2 stale counts
+- **README.md**: Added manual install steps (solves bootstrap chicken-and-egg), completed file tree with all root files
+- Verified 5/5 must-haves with empirical evidence
+- Pushed 6 commits + tags (v2.0, v3.0.0) to GitHub
 
-### Milestone Completion
-- Verified 10/10 must-haves with empirical evidence
-- Created milestone summary + archive in .quantis/milestones/v3.0/
-- Reset DECISIONS.md + JOURNAL.md for next milestone
-- Tagged v3.0.0
+## In-Progress Work
+None — all work committed and pushed.
 
-### Dogfood Migration
-- Promoted quantis-new/ contents to repo root
-- Deleted old v2 directories (scripts/, assets/, old .agent/, .agents/, .gemini/)
-- Merged .quantis/ (kept state + milestones, replaced templates)
-- Deleted quantis-new/ (now redundant)
-- Verified: 30/30 workflows, 18/18 skills, 25/25 templates, 8/8 root files
-- Merged dogfood/promote-quantis-new → main
-- Re-tagged v3.0.0 on final commit
+## Blockers
+None
 
 ## Next Steps
-1. Push to GitHub: `git push origin main --tags`
-2. `/new-milestone` — Start next milestone (nice-to-haves? new features?)
-3. Test dogfooding: use Quantis commands to develop Quantis itself
+1. `/new-milestone` — Start next milestone (nice-to-haves? new features?)
+2. Test dogfooding: use Quantis commands to develop Quantis itself
+3. Consider publishing: npm package, GitHub releases, or documentation site

@@ -4,6 +4,35 @@
 
 ---
 
+## Session: 2026-05-24 15:44–15:55
+
+### Objective
+Resume session, audit README correctness, fix install bootstrap issues.
+
+### Accomplished
+- Resumed from v3.0 completion state
+- Audited README.md — found bootstrap problem + dead paths + stale counts
+- Created implementation plan (5 tasks, 19 steps)
+- Executed all 5 tasks via SDD
+- Verified 5/5 must-haves with empirical evidence
+- Pushed all commits + tags to GitHub
+
+### Verification
+- [x] Zero `quantis-new/` references in active workflows
+- [x] All workflow counts corrected (29 → 30)
+- [x] README has manual install steps (bootstrap solved)
+- [x] README file tree lists all root files
+- [x] All install/update/upgrade paths point to repo root
+- [x] Full repo sweep — only historical references remain
+
+### Paused Because
+Session complete — all work done and pushed.
+
+### Handoff Notes
+Quantis v3.0 is live on GitHub with correct install instructions. Next session can start with `/new-milestone` or use Quantis normally.
+
+---
+
 ## Session: 2026-05-24 13:18–15:42
 
 ### Objective
