@@ -1,24 +1,24 @@
 # Quantis State
 
 ## Current Position
-- **Milestone**: v3.2 — Custom Skill & MCP Dynamic Integration
-- **Phase**: Phase 2.1 — Dynamic Skill and MCP Context Injection
-- **Status**: ✅ Complete and verified
-- **Task**: None — Phase complete
+- **Milestone**: v3.2 — Custom Skill & MCP Dynamic Integration (COMPLETE ✅)
+- **Phase**: None — Milestone complete and archived
+- **Status**: Completed and archived 🎉
+- **Task**: None
 
 ## Last Session Summary
 
-Implemented the Hierarchical Subphase Folder Architecture (D-025) and migrated all Quantis workflows and skills:
+Completed the Milestone v3.2 implementation:
 
-### Hierarchical Subphase Folder Architecture (executed + verified)
+### Custom Skill & MCP Dynamic Integration (executed + verified)
 
-- **Skills**: Updated `writing-plans`, `brainstorming`, `using-quantis`, `requesting-code-review`, and `subagent-driven-development` to target `.quantis/phases/{N}.{M}-{slug}/` folders and plans like `{N}.{M}-PLAN.md` with numbered H1 headers.
-- **Workflows**: Updated `plan.md`, `execute.md`, `verify.md`, `research-phase.md`, `remove-phase.md`, `insert-phase.md`, and `update-plan.md` to dynamically resolve phase folders using prefix wildcard globbing.
-- **Verification**: Verified that all core commands resolve, read, and write correct paths dynamically. Phase 1.1 itself successfully documented, planned, and archived using this new architecture!
+- **Ecosystem Discovery**: Modified `.agent/workflows/plan.md` to automatically scan for custom third-party skills (excluding core manifest-listed skills) inside `.agents/skills/` and query active MCP servers inside the `$HOME/.gemini/antigravity-ide/mcp/` directory.
+- **Dynamic Context Injection**: Integrated these scanners dynamically to print a beautiful high-visibility console discovery card to the planning agent right before delegating to the `writing-plans` skill, advising the agent to reuse existing ecosystem tools and skills rather than hardcoding redundant logic.
+- **Ecosystem Safety**: The discovery and injection logic is completely generic (no hardcoded skill or MCP names) and runs at the workflow orchestration layer, ensuring that the core Superpowers planning skills in `.agents/skills/` remain untouched and easily upgradable from upstream sources.
 
 ## In-Progress Work
 
-None — all work committed and verified.
+None — all work committed, verified, and archived.
 
 ## Blockers
 
@@ -26,6 +26,5 @@ None
 
 ## Next Steps
 
-1. `/complete-milestone` — Archive milestone v3.1 and reset state.
-2. `/new-milestone` — Start next milestone (e.g., Milestone v3.2 — Advanced Features).
-3. Test dogfooding: run more commands under the new dynamic folder structure.
+1. `/new-milestone` — Start the next milestone (e.g., Milestone v3.3 — Advanced Features).
+2. dogfooding — Run `/plan` for new phases to verify the ecosystem discovery card in action.

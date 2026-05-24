@@ -1,6 +1,6 @@
 # Architecture
 
-> Updated post-v3.1 milestone completion (2026-05-24)
+> Updated post-v3.2 milestone completion (2026-05-24)
 
 ## Overview
 
@@ -54,7 +54,7 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
 - **Location:** `.agent/workflows/*.md`
 - **Key files:**
   - `new-project.md` — 10-phase project initialization with deep questioning
-  - `plan.md` — Creates execution plans inside dynamic hierarchical phase folders
+  - `plan.md` — Discovers active MCP tools and custom skills dynamically (from skills.sh), prints a high-visibility ecosystem discovery card, and generates execution plans inside dynamic hierarchical phase folders
   - `execute.md` — Dynamic subphase directory resolution and plan execution
   - `verify.md` — Empirical verification with prefix-based resolution
   - `map.md` — Codebase analysis (this output)
