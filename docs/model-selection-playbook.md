@@ -111,9 +111,9 @@
 
 ---
 
-## GSD Model-Agnostic Principle
+## Quantis Model-Agnostic Principle
 
-GSD works with any capable LLM. The methodology compensates for model differences through:
+Quantis works with any capable LLM. The methodology compensates for model differences through:
 
 1. **Structured plans** — Reduce ambiguity
 2. **Explicit verification** — Catch errors regardless of model

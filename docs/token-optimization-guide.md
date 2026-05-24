@@ -21,7 +21,7 @@
 
 ```
 ┌─────────────────────────────────────┐
-│ 1. Search-First (context-fetch)    │ ← Find before loading
+│ 1. Search-First (codebase-mapper)   │ ← Find before loading
 ├─────────────────────────────────────┤
 │ 2. Budget Tracking (token-budget)  │ ← Know your limits
 ├─────────────────────────────────────┤
@@ -176,9 +176,9 @@ GOOD:
 
 ---
 
-## Integration with GSD
+## Integration with Quantis
 
-| GSD Workflow | Token Optimization |
+| Quantis Workflow | Token Optimization |
 |--------------|-------------------|
 | `/map` | Generate outline, not full read |
 | `/plan` | Budget estimate per task |

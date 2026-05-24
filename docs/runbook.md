@@ -1,4 +1,4 @@
-# GSD Runbook
+# Quantis Runbook
 
 > Operational procedures for debugging, validation, and recovery.
 
