@@ -8,17 +8,44 @@ This adapter provides Antigravity-specific enhancements for running Quantis insi
 
 ---
 
-## Browser Subagent for Verification
+## Subagent Support (Antigravity 2.0)
 
-The `browser_subagent` is Antigravity's most powerful verification tool. Use it during `/verify` for any must-have involving visual output.
+Antigravity 2.0 provides **full subagent dispatch** — the equivalent of Claude Code's `Task` tool. This is the foundation for subagent-driven development (SDD).
 
-### When to Use
+### Core Subagent APIs
+
+| Tool | Purpose |
+|------|---------|
+| `define_subagent` | Register named subagent types with role and system prompt |
+| `invoke_subagent` | Dispatch a subagent with a filled prompt template |
+| `manage_subagents` | List active subagents or kill a specific one |
+| `send_message` | Send inter-agent messages |
+| `browser_subagent` | Specialized subagent for browser automation (see below) |
+
+### Session Setup for SDD
+
+At the start of any session using subagent-driven development, define the three core types:
+
+```
+define_subagent("implementer", description="Implements code tasks with TDD", system_prompt=<implementer-prompt.md contents>)
+define_subagent("spec-reviewer", description="Reviews implementation against spec", system_prompt=<spec-reviewer-prompt.md contents>)
+define_subagent("code-quality-reviewer", description="Reviews code quality", system_prompt=<code-quality-reviewer-prompt.md contents>)
+```
+
+Then dispatch with `invoke_subagent` using the appropriate Role and filled prompt template.
+
+> **Full tool mapping:** See `.agents/skills/using-quantis/references/antigravity-tools.md` for the complete Claude → Antigravity tool translation table.
+
+### Browser Subagent
+
+The `browser_subagent` is Antigravity's specialized verification tool. Use it during `/verify` for any must-have involving visual output.
+
+**When to Use:**
 - **UI verification** — Navigate to pages, validate layout, check interactions
 - **Visual regression** — Capture screenshots before/after changes
 - **End-to-end flows** — Click through user journeys, verify state transitions
 - **API testing via browser** — Hit endpoints, inspect responses in DevTools
 
-### How It Works
 ```
 browser_subagent:
   Task: "Navigate to localhost:3000, verify the dashboard loads"
