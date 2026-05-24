@@ -30,3 +30,28 @@ Milestone v3.2 is fully completed, verified, and archived. The codebase audit, r
 
 ### Handoff Notes
 Ready to plan and initiate Milestone v3.3. Stale local/remote branch `dogfood/promote-quantis-new` can be safely deleted.
+
+---
+
+## Session: 2026-05-24 20:32
+
+### Objective
+Create a remote-bootstrap upgrade script (`upgrade.sh`) to migrate GSD v2.x repos to Quantis v3.0 remotely, and fix target-workspace file pollution bugs where framework internal guides and readmes were being copied to target project repos.
+
+### Accomplished
+- Created `scripts/upgrade.sh` allowing a simple curl-based remote upgrade.
+- Cleaned up `install.sh` and `upgrade.sh` along with all three installation/update/upgrade workflows (`/install`, `/update`, `/upgrade`) to completely exclude framework developer-specific folders (`docs/windows`, `docs/README.opencode.md`, `README.md`, `CHANGELOG.md`, `MANIFEST.md`).
+- Restored `adapters/` folder copying as requested by the user.
+- Implemented selective copying of `docs/` and `scripts/` folders (copying only core playbooks and validation/search utilities) to mirror GSD's exact workspace layout while protecting project folders.
+- Ran the master validator suite on all files, confirming 0 errors, and pushed the updates to the master branch.
+
+### Verification
+- [x] Verified `scripts/upgrade.sh` correctly executes and rebrands paths.
+- [x] Verified `scripts/install.sh` and workflows do not copy metadata/development files.
+- [x] Verified that validation tests pass with zero failures.
+
+### Paused Because
+Session completed successfully; upgrade path is live and fully tested.
+
+### Handoff Notes
+Ready to upgrade GSD v2.x client repositories using the newly published remote upgrade command.
