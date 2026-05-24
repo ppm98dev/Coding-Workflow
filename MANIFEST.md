@@ -96,6 +96,12 @@
 ### Documentation (`docs/`)
 - README.opencode.md
 - windows/polyglot-hooks.md
+- model-selection-playbook.md
+- runbook.md
+- token-optimization-guide.md
+
+### Assets (`assets/`)
+- banner.svg
 
 ### Scripts (`scripts/`)
 - install.sh
