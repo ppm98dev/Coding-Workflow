@@ -77,7 +77,7 @@ Project state that survives across sessions:
 | `STATE.md` | Current position, session handoffs |
 | `JOURNAL.md` | Session logs, decisions, handoff notes |
 | `DECISIONS.md` | Architectural and design decisions |
-| `phases/` | Phase plans, summaries, research |
+| `phases/` | Isolated, descriptive subphase folders (e.g. `1.1-user-auth/`) containing specs, plans, and reports |
 
 ## Core Rules
 
