@@ -56,22 +56,22 @@ git clone --depth 1 https://github.com/ppm98dev/Coding-Workflow.git .quantis-ins
 
 ```bash
 # Core directories
-cp -r .quantis-install-temp/quantis-new/.agent ./
-cp -r .quantis-install-temp/quantis-new/.agents ./
-cp -r .quantis-install-temp/quantis-new/.gemini ./
-cp -r .quantis-install-temp/quantis-new/.quantis ./
-cp -r .quantis-install-temp/quantis-new/adapters ./
-cp -r .quantis-install-temp/quantis-new/docs ./
+cp -r .quantis-install-temp/.agent ./
+cp -r .quantis-install-temp/.agents ./
+cp -r .quantis-install-temp/.gemini ./
+cp -r .quantis-install-temp/.quantis ./
+cp -r .quantis-install-temp/adapters ./
+cp -r .quantis-install-temp/docs ./
 
 # Root files
-cp .quantis-install-temp/quantis-new/CONSTITUTION.md ./
-cp .quantis-install-temp/quantis-new/MANIFEST.md ./
-cp .quantis-install-temp/quantis-new/PROJECT_RULES.md ./
-cp .quantis-install-temp/quantis-new/QUANTIS-STYLE.md ./
-cp .quantis-install-temp/quantis-new/README.md ./
-cp .quantis-install-temp/quantis-new/CHANGELOG.md ./
-cp .quantis-install-temp/quantis-new/VERSION ./
-cp .quantis-install-temp/quantis-new/model_capabilities.yaml ./
+cp .quantis-install-temp/CONSTITUTION.md ./
+cp .quantis-install-temp/MANIFEST.md ./
+cp .quantis-install-temp/PROJECT_RULES.md ./
+cp .quantis-install-temp/QUANTIS-STYLE.md ./
+cp .quantis-install-temp/README.md ./
+cp .quantis-install-temp/CHANGELOG.md ./
+cp .quantis-install-temp/VERSION ./
+cp .quantis-install-temp/model_capabilities.yaml ./
 ```
 
 ---
@@ -119,7 +119,7 @@ B) No — Skip
 Quantis v3.0 has been installed.
 
 Files installed:
-• .agent/        (29 workflows)
+• .agent/        (30 workflows)
 • .agents/       (18 skills — Agent Skills standard)
 • .gemini/       (Antigravity bootstrap)
 • .quantis/      (project state templates)
