@@ -36,7 +36,7 @@ git clone --depth 1 https://github.com/ppm98dev/Coding-Workflow.git .quantis-upd
 ## 3. Compare Versions
 
 ```bash
-remote_version=$(cat .quantis-update-temp/quantis-new/VERSION 2>/dev/null || echo "unknown")
+remote_version=$(cat .quantis-update-temp/VERSION 2>/dev/null || echo "unknown")
 echo "Remote version: $remote_version"
 ```
 
@@ -89,7 +89,7 @@ Only replace files and directories listed in the **Core** sections.
 Never touch files listed in **User Files**.
 
 ```bash
-SOURCE=".quantis-update-temp/quantis-new"
+SOURCE=".quantis-update-temp"
 
 # --- Core Workflows ---
 # Replace all workflows listed in MANIFEST.md
@@ -149,7 +149,7 @@ rm -rf .quantis-update-temp
 Updated to version {remote-version}
 
 Updated:
-• Workflows (29)
+• Workflows (30)
 • Core skills (18 from MANIFEST)
 • Templates, adapters, docs
 • Root files (PROJECT_RULES, CHANGELOG, VERSION, etc.)
