@@ -1,7 +1,7 @@
 # ROADMAP.md
 
-> **Current Milestone**: v3.1 — Hierarchical Subphase Folders
-> **Status**: Complete ✅
+> **Current Milestone**: v3.2 — Custom Skill & MCP Dynamic Integration
+> **Status**: In progress 🚀
 
 ---
 
@@ -123,7 +123,30 @@
 
 ---
 
-## Milestone: v3.2 — Advanced Features (Future)
+## Milestone: v3.2 — Custom Skill & MCP Dynamic Integration
+
+> **Goal**: Implement dynamic custom skill and MCP discovery and context injection inside the Quantis planning workflows to leverage third-party ecosystem tools (e.g. from skills.sh and active MCP servers) without breaking core skill upgradability.
+> **Status**: 🚀 Active
+
+### Must-Haves
+- [ ] Automated scan of `.agents/skills/` excluding core manifest skills inside `/plan`
+- [ ] Active MCP server/tool discovery and parsing inside `/plan`
+- [ ] Injection block in planning context containing available custom skills and active MCP definitions
+
+### Phases
+
+#### Phase 2.1: Dynamic Skill and MCP Context Injection
+**Status**: 🚀 Active
+**Objective**: Update the `.agent/workflows/plan.md` workflow to automatically discover, summarize, and inject custom skills and active MCP servers into the planning context.
+**Deliverables:**
+- Update `.agent/workflows/plan.md` with Bash code that scans `.agents/skills/` for custom skills (cross-referencing `MANIFEST.md` to exclude core skills)
+- Add Bash code in `.agent/workflows/plan.md` to detect active MCP tools and servers
+- Design a beautiful printout inside the planning workflow that lists these ecosystem tools right before delegating to `writing-plans`
+- Dogfood and verify `/plan` successfully displays custom skills and MCP suggestions
+
+---
+
+## Milestone: v3.3 — Advanced Features (Future)
 
 > **Goal**: Address deferred work and advanced capabilities.
 > **Status**: 🔮 Planned
@@ -131,7 +154,6 @@
 ### Planned Scope
 - [ ] Multi-user foundations (deferred from v2.1 Phase 6)
 - [ ] SPEC.md scaling for large projects
-- [ ] MCP integration for enhanced tool calling
 - [ ] Parallel subagent dispatch for independent tasks
 - [ ] Community skill adoption framework
 
