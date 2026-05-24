@@ -4,6 +4,31 @@
 
 ---
 
+## Session: 2026-05-24 15:57–16:04
+
+### Objective
+Discuss, plan, and execute the Hierarchical Subphase Folders architecture (D-025) to replace simple numeric phase folders with descriptive, isolated directories (e.g. `.quantis/phases/1.1-hierarchical-folders/`).
+
+### Accomplished
+- Discussed and approved the folder-level design (`.quantis/phases/{N}.{M}-{slug}/` folders and plans like `{N}.{M}-PLAN.md` with numbered H1 headers).
+- Created finalized SPEC.md and 1.1-PLAN.md inside the new `.quantis/phases/1.1-hierarchical-folders/` folder.
+- Executed Task 1: Updated core markdown skills (`writing-plans`, `brainstorming`, `using-quantis`, `requesting-code-review`, `subagent-driven-development`).
+- Executed Task 2: Migrated core workflows (`plan.md`, `execute.md`, `verify.md`) to dynamically resolve directories using wildcard glob matching.
+- Executed Task 3: Migrated supporting workflows (`research-phase.md`, `remove-phase.md`, `insert-phase.md`, `update-plan.md`).
+- Verified all commands end-to-end and saved the phase summary directly inside the dynamic directory.
+
+### Verification
+- [x] Phase folder and plan files successfully reside in `.quantis/phases/1.1-hierarchical-folders/`
+- [x] All workflows resolve matching prefixes dynamically
+- [x] No hardcoded `.quantis/phases/{N}/` assumptions left in active code
+- [x] Zero files in Git show uncommitted changes; all commits are clean and documented
+
+### Paused Because
+Milestone v3.1 complete! All goals successfully achieved.
+
+### Handoff Notes
+Quantis v3.1 is now live and fully migrated to Hierarchical Subphase Folders! You can use `/complete-milestone` to archive it and prepare for next milestone.
+
 ## Session: 2026-05-24 15:44–15:55
 
 ### Objective

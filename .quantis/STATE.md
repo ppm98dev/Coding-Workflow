@@ -1,28 +1,25 @@
 # Quantis State
 
 ## Current Position
-- **Milestone**: v3.1 — Hierarchical Subphase Folders
-- **Phase**: Phase 1.1 — Hierarchical Subphase Folder Architecture
-- **Status**: Planned (ready for /execute 1.1)
+- **Milestone**: v3.1 — Hierarchical Subphase Folders (COMPLETE ✅)
+- **Phase**: All phases complete and verified
+- **Status**: Paused at 2026-05-24T16:04
 
 ## Last Session Summary
-Fixed install bootstrap issues and pushed to GitHub:
+Implemented the Hierarchical Subphase Folder Architecture (D-025) and migrated all Quantis workflows and skills:
 
-### Fix Install Bootstrap (executed + verified)
-- **install.md**: Removed 14 dead `quantis-new/` paths, fixed count 29→30
-- **update.md**: Removed 2 dead `quantis-new/` paths, fixed count 29→30
-- **upgrade.md**: Removed 1 dead `quantis-new/` path, fixed 2 stale counts
-- **README.md**: Added manual install steps (solves bootstrap chicken-and-egg), completed file tree with all root files
-- Verified 5/5 must-haves with empirical evidence
-- Pushed 6 commits + tags (v2.0, v3.0.0) to GitHub
+### Hierarchical Subphase Folder Architecture (executed + verified)
+- **Skills**: Updated `writing-plans`, `brainstorming`, `using-quantis`, `requesting-code-review`, and `subagent-driven-development` to target `.quantis/phases/{N}.{M}-{slug}/` folders and plans like `{N}.{M}-PLAN.md` with numbered H1 headers.
+- **Workflows**: Updated `plan.md`, `execute.md`, `verify.md`, `research-phase.md`, `remove-phase.md`, `insert-phase.md`, and `update-plan.md` to dynamically resolve phase folders using prefix wildcard globbing.
+- **Verification**: Verified that all core commands resolve, read, and write correct paths dynamically. Phase 1.1 itself successfully documented, planned, and archived using this new architecture!
 
 ## In-Progress Work
-None — all work committed and pushed.
+None — all work committed and verified.
 
 ## Blockers
 None
 
 ## Next Steps
-1. `/new-milestone` — Start next milestone (nice-to-haves? new features?)
-2. Test dogfooding: use Quantis commands to develop Quantis itself
-3. Consider publishing: npm package, GitHub releases, or documentation site
+1. `/complete-milestone` — Archive milestone v3.1 and reset state.
+2. `/new-milestone` — Start next milestone (e.g., Milestone v3.2 — Advanced Features).
+3. Test dogfooding: run more commands under the new dynamic folder structure.

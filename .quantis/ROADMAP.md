@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > **Current Milestone**: v3.1 — Hierarchical Subphase Folders
-> **Status**: In progress 🚀
+> **Status**: Complete ✅
 
 ---
 
@@ -99,18 +99,18 @@
 ## Milestone: v3.1 — Hierarchical Subphase Folders
 
 > **Goal**: Migrate the entire Quantis codebase to support hierarchical subphase folders (e.g. `.quantis/phases/1.1-description/`) for maximum isolation and clarity in the file tree.
-> **Status**: 🚀 Active
+> **Status**: ✅ Complete
 
 ### Must-Haves
-- [ ] Workflows resolution adapted (plan, execute, verify, debug, research-phase, update-plan, etc.)
-- [ ] Skills definition updated (using-quantis, writing-plans, brainstorming, SDD)
-- [ ] Plan naming standard implemented (`N.M-PLAN.md` with numbered H1 headers)
-- [ ] Automatic directory normalizer/lookup helper in workflows
+- [x] Workflows resolution adapted (plan, execute, verify, debug, research-phase, update-plan, etc.)
+- [x] Skills definition updated (using-quantis, writing-plans, brainstorming, SDD)
+- [x] Plan naming standard implemented (`N.M-PLAN.md` with numbered H1 headers)
+- [x] Automatic directory normalizer/lookup helper in workflows
 
 ### Phases
 
-#### Phase 1.1: Hierarchical Subphase Folder Architecture
-**Status**: 🚀 Active
+#### Phase 1.1: Hierarchical Subphase Folder Architecture ✅
+**Status**: ✅ Complete
 **Objective**: Update all workflows and skills to read and write from/to `.quantis/phases/{N}.{M}-{slug}/` folders.
 **Deliverables:**
 - Update `writing-plans/SKILL.md` to output plans in `.quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md` and enforce `# Phase {N}.{M}: {Description} - Implementation Plan` header
