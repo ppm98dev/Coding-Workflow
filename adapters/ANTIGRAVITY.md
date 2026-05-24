@@ -56,6 +56,16 @@ browser_subagent:
 - Screenshots captured as evidence for VERIFICATION.md
 - Recording names should be descriptive: `login_flow_test`, `api_response_check`
 
+### Evidence Pattern
+
+After `browser_subagent` completes, reference the recording in your verification:
+
+```markdown
+### ✅ Dashboard renders correctly
+**Status:** PASS
+**Evidence:** Browser recording `dashboard_verification.webp`
+```
+
 ---
 
 ## File Operations
