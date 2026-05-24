@@ -100,9 +100,6 @@
 - runbook.md
 - token-optimization-guide.md
 
-### Assets (`assets/`)
-- banner.svg
-
 ### Scripts (`scripts/`)
 - install.sh
 - search_repo.sh

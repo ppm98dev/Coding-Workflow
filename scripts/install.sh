@@ -30,7 +30,7 @@ fi
 
 echo -e "⚙️ Copying core files..."
 # Create target folders if they don't exist
-mkdir -p .agent/workflows .agents/skills .gemini .quantis adapters docs scripts assets
+mkdir -p .agent/workflows .agents/skills .gemini .quantis adapters docs scripts
 
 # Copy structures
 cp -r "$TEMP_DIR/.agent/" ./
@@ -40,7 +40,6 @@ cp -r "$TEMP_DIR/.quantis/" ./
 cp -r "$TEMP_DIR/adapters/" ./
 cp -r "$TEMP_DIR/docs/" ./
 cp -r "$TEMP_DIR/scripts/" ./
-cp -r "$TEMP_DIR/assets/" ./
 
 # Copy root files
 cp "$TEMP_DIR/CONSTITUTION.md" ./
