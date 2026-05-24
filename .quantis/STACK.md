@@ -38,9 +38,8 @@
 
 | Type | Count | Purpose |
 |------|-------|---------|
-| `.md` | 80 | Workflows, skills, templates, docs, examples |
-| `.sh` | 6 | Bash validation/search scripts |
-| `.ps1` | 6 | PowerShell validation/search scripts |
+| `.md` | 194 | Workflows, skills, templates, docs, examples, archives |
+| `.sh` | 4 | Bash validation/setup scripts |
 | `.yaml` | 1 | Model capabilities registry |
 | `.svg` | 1 | Banner asset |
 | `.gitignore` | 1 | Git ignore rules |
