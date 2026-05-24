@@ -101,18 +101,18 @@ done
 
 # Step 4: Replace Workflows
 echo -e "⚙️ Replacing workflows with Quantis workflows..."
-rm -rf .agent/workflows/*
-cp -r "$TEMP_DIR/.agent/workflows/"* .agent/workflows/
+rm -rf .agent/workflows
+cp -r "$TEMP_DIR/.agent/workflows" .agent/
 
 # Step 5: Update Templates
 echo -e "⚙️ Updating .quantis templates..."
-mkdir -p .quantis/templates
-cp -r "$TEMP_DIR/.quantis/templates/"* .quantis/templates/
+rm -rf .quantis/templates
+cp -r "$TEMP_DIR/.quantis/templates" .quantis/
 
 # Step 6: Update Bootstrap and Adapters
 echo -e "⚙️ Updating bootstrap and adapters..."
 cp "$TEMP_DIR/.gemini/GEMINI.md" .gemini/GEMINI.md 2>/dev/null || true
-cp -r "$TEMP_DIR/adapters/"* adapters/ 2>/dev/null || true
+cp -r "$TEMP_DIR/adapters" ./ 2>/dev/null || true
 
 # Step 7: Update Root Files
 echo -e "⚙️ Copying core configuration files..."
@@ -125,8 +125,8 @@ cp "$TEMP_DIR/README.md" ./
 cp "$TEMP_DIR/model_capabilities.yaml" ./
 
 # Copy docs and scripts
-cp -r "$TEMP_DIR/docs/"* docs/ 2>/dev/null || true
-cp -r "$TEMP_DIR/scripts/"* scripts/ 2>/dev/null || true
+cp -r "$TEMP_DIR/docs" ./ 2>/dev/null || true
+cp -r "$TEMP_DIR/scripts" ./ 2>/dev/null || true
 
 # Clean up obsolete GSD style file if exists
 if [ -f "GSD-STYLE.md" ]; then
