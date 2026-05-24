@@ -99,6 +99,12 @@
 
 ### Scripts (`scripts/`)
 - install.sh
+- search_repo.sh
+- setup_search.sh
+- validate-all.sh
+- validate-skills.sh
+- validate-templates.sh
+- validate-workflows.sh
 
 ## Core Root Files
 - CHANGELOG.md
