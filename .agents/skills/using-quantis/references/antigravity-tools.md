@@ -81,15 +81,15 @@ These tools are available in Antigravity but have no Claude Code equivalent:
 
 ## File Location Override
 
-Quantis uses `.quantis/phases/{N}/` for specs and plans instead of Superpowers' default locations.
+Quantis uses `.quantis/phases/{N}.{M}-{slug}/` for specs and plans instead of Superpowers' default locations.
 
 When skills reference these Superpowers defaults, use the Quantis convention instead:
 
 | Superpowers default | Quantis convention |
 |--------------------|--------------------|
-| `.quantis/phases/{N}/SPEC.md` | `.quantis/phases/{N}/SPEC.md` |
-| `.quantis/phases/{N}/YYYY-MM-DD-<feature>-plan.md` | `.quantis/phases/{N}/{M}-PLAN.md` |
-| `docs/reviews/` (Superpowers legacy) | `.quantis/phases/{N}/REVIEW.md` |
+| `.quantis/phases/{N}/SPEC.md` | `.quantis/phases/{N}.{M}-{slug}/SPEC.md` |
+| `.quantis/phases/{N}/YYYY-MM-DD-<feature>-plan.md` | `.quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md` |
+| `docs/reviews/` (Superpowers legacy) | `.quantis/phases/{N}.{M}-{slug}/REVIEW.md` |
 
 ## State Management
 

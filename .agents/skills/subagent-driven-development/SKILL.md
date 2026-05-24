@@ -142,7 +142,7 @@ Implementer subagents report one of four statuses. Handle each appropriately:
 ```
 You: I'm using Subagent-Driven Development to execute this plan.
 
-[Read plan file once: .quantis/phases/{N}/{M}-PLAN.md]
+[Read plan file once: .quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md]
 [Extract all 5 tasks with full text and context]
 
 Task 1: Hook installation script

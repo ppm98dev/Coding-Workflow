@@ -15,7 +15,7 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** If working in an isolated worktree, it should have been created via the `using-git-worktrees` skill at execution time.
 
-**Save plans to:** `.quantis/phases/{N}/{M}-PLAN.md`
+**Save plans to:** `.quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md`
 - (User preferences for plan location override this default)
 
 ## Scope Check
@@ -47,7 +47,7 @@ This structure informs the task decomposition. Each task should produce self-con
 **Every plan MUST start with this header:**
 
 ```markdown
-# [Feature Name] Implementation Plan
+# Phase {N}.{M}: {Description} - Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use subagent-driven-development (recommended) or executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -135,7 +135,7 @@ If you find issues, fix them inline. No need to re-review — just fix and move 
 
 After saving the plan, offer execution choice:
 
-**"Plan complete and saved to `.quantis/phases/{N}/{M}-PLAN.md`. Two execution options:**
+**"Plan complete and saved to `.quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md`. Two execution options:**
 
 **1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
 

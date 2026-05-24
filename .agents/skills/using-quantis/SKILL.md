@@ -122,8 +122,8 @@ These slash commands are available. Some invoke Superpowers skills for enhanced 
 
 | What | Location |
 |------|----------|
-| Specs | `.quantis/phases/{N}/SPEC.md` |
-| Plans | `.quantis/phases/{N}/{M}-PLAN.md` |
+| Specs | `.quantis/phases/{N}.{M}-{slug}/SPEC.md` |
+| Plans | `.quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md` |
 | State | `.quantis/STATE.md` |
 | Journal | `.quantis/JOURNAL.md` |
 | Decisions | `.quantis/DECISIONS.md` |
