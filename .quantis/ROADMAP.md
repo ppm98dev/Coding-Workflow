@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > **Current Milestone**: v3.0 — Superpowers Integration & Antigravity 2.0
-> **Status**: Phase 1 not started
+> **Status**: All phases complete ✅
 
 ---
 
@@ -33,19 +33,19 @@
 ## Milestone: v3.0 — Superpowers Integration & Antigravity 2.0
 
 > **Goal**: Fork Superpowers' battle-tested code quality skills into Quantis, adapt for Antigravity 2.0's native subagent system, and keep Quantis' unique process management layer on top.
-> **Status**: Phase 1 not started
+> **Status**: All phases complete ✅
 
 ### Must-Haves
-- [ ] Superpowers skills imported into `.agents/skills/` (13 skills)
-- [ ] All skills adapted for Antigravity 2.0 tool names
-- [ ] `using-quantis` bootstrap skill (replaces `using-superpowers`)
-- [ ] `antigravity-tools.md` tool mapping reference
-- [ ] SDD skill adapted with `invoke_subagent` / `define_subagent`
-- [ ] State integration: SDD auto-updates STATE.md, JOURNAL.md, ROADMAP.md
-- [ ] Old Quantis skills removed (planner, executor, verifier, etc.)
-- [ ] Replaced workflows aliased to skills (discuss-phase, plan, execute, etc.)
-- [ ] Kept workflows updated for new skill references
-- [ ] README updated with v3.0 architecture
+- [x] Superpowers skills imported into `.agents/skills/` (18 skills)
+- [x] All skills adapted for Antigravity 2.0 tool names
+- [x] `using-quantis` bootstrap skill (replaces `using-superpowers`)
+- [x] `antigravity-tools.md` tool mapping reference
+- [x] SDD skill adapted with `invoke_subagent` / `define_subagent`
+- [x] State integration: SDD auto-updates STATE.md, JOURNAL.md, ROADMAP.md
+- [x] Old Quantis skills removed (planner, executor, verifier, etc.)
+- [x] Replaced workflows aliased to skills (discuss-phase, plan, execute, etc.)
+- [x] Kept workflows updated for new skill references
+- [x] README updated with v3.0 architecture
 
 ### Nice-to-Haves
 - [ ] Pre-defined subagent types via `define_subagent` at session start
@@ -78,8 +78,8 @@
 - Add state-update hooks to SDD skill (STATE.md, JOURNAL.md, ROADMAP.md)
 - Update `/help` with new command listing
 
-#### Phase 3: Integration Testing & Polish
-**Status**: ⬜ Not Started
+#### Phase 3: Integration Testing & Polish ✅
+**Status**: ✅ Complete
 **Objective**: End-to-end validation of the complete Quantis v3.0 workflow.
 **Deliverables:**
 - Create `MANIFEST.md` listing all core skills/workflows (so upgrade knows what to replace)
