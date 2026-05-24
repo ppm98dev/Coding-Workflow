@@ -77,7 +77,7 @@ if [ -d ".gsd" ]; then
 fi
 
 # Create target folders if they don't exist
-mkdir -p .agent/workflows .agents/skills .gemini .quantis/templates adapters
+mkdir -p .agent/workflows .agents/skills .gemini .quantis/templates adapters docs scripts
 
 # Step 2: Remove Old GSD Core Skills
 echo -e "🧹 Removing old GSD core skills..."
@@ -113,6 +113,19 @@ cp -r "$TEMP_DIR/.quantis/templates" .quantis/
 echo -e "⚙️ Updating bootstrap and adapters..."
 cp "$TEMP_DIR/.gemini/GEMINI.md" .gemini/GEMINI.md 2>/dev/null || true
 cp -r "$TEMP_DIR/adapters" ./ 2>/dev/null || true
+
+# Step 6.5: Update Core Docs and Scripts
+echo -e "⚙️ Updating core docs and scripts..."
+cp "$TEMP_DIR/docs/model-selection-playbook.md" docs/ 2>/dev/null || true
+cp "$TEMP_DIR/docs/runbook.md" docs/ 2>/dev/null || true
+cp "$TEMP_DIR/docs/token-optimization-guide.md" docs/ 2>/dev/null || true
+
+cp "$TEMP_DIR/scripts/search_repo.sh" scripts/ 2>/dev/null || true
+cp "$TEMP_DIR/scripts/setup_search.sh" scripts/ 2>/dev/null || true
+cp "$TEMP_DIR/scripts/validate-all.sh" scripts/ 2>/dev/null || true
+cp "$TEMP_DIR/scripts/validate-skills.sh" scripts/ 2>/dev/null || true
+cp "$TEMP_DIR/scripts/validate-workflows.sh" scripts/ 2>/dev/null || true
+cp "$TEMP_DIR/scripts/validate-templates.sh" scripts/ 2>/dev/null || true
 
 # Step 7: Update Root Files
 echo -e "⚙️ Copying core configuration files..."

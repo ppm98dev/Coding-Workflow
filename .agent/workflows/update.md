@@ -112,6 +112,16 @@ cp -r "$SOURCE/.quantis/templates/"* .quantis/templates/
 cp "$SOURCE/.gemini/GEMINI.md" .gemini/GEMINI.md
 cp -r "$SOURCE/adapters" ./ 2>/dev/null || true
 
+# --- Core Docs and Scripts ---
+mkdir -p docs scripts
+cp "$SOURCE/docs/model-selection-playbook.md" docs/
+cp "$SOURCE/docs/runbook.md" docs/
+cp "$SOURCE/docs/token-optimization-guide.md" docs/
+cp "$SOURCE/scripts/search_repo.sh" scripts/
+cp "$SOURCE/scripts/setup_search.sh" scripts/
+cp "$SOURCE/scripts/validate-all.sh" scripts/
+cp "$SOURCE/scripts/validate-skills.sh" scripts/
+
 # --- Core Root Files ---
 cp "$SOURCE/PROJECT_RULES.md" ./
 cp "$SOURCE/QUANTIS-STYLE.md" ./
@@ -144,6 +154,7 @@ Updated:
 • Workflows (30)
 • Core skills (18 from MANIFEST)
 • Templates, Adapters
+• Core Docs and Scripts
 • Root files (PROJECT_RULES, VERSION, model_capabilities.yaml)
 
 Preserved:

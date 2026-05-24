@@ -30,13 +30,26 @@ fi
 
 echo -e "⚙️ Copying core files..."
 # Create target folders if they don't exist
-mkdir -p .agent/workflows .agents/skills .gemini .quantis adapters
+mkdir -p .agent/workflows .agents/skills .gemini .quantis adapters docs scripts
 
 # Copy structures
 cp -r "$TEMP_DIR/.agent/" ./
 cp -r "$TEMP_DIR/.agents/" ./
 cp -r "$TEMP_DIR/.gemini/" ./
 cp -r "$TEMP_DIR/adapters/" ./
+
+# Copy specific docs to prevent framework pollution
+cp "$TEMP_DIR/docs/model-selection-playbook.md" docs/ 2>/dev/null || true
+cp "$TEMP_DIR/docs/runbook.md" docs/ 2>/dev/null || true
+cp "$TEMP_DIR/docs/token-optimization-guide.md" docs/ 2>/dev/null || true
+
+# Copy specific scripts to prevent framework pollution
+cp "$TEMP_DIR/scripts/search_repo.sh" scripts/ 2>/dev/null || true
+cp "$TEMP_DIR/scripts/setup_search.sh" scripts/ 2>/dev/null || true
+cp "$TEMP_DIR/scripts/validate-all.sh" scripts/ 2>/dev/null || true
+cp "$TEMP_DIR/scripts/validate-skills.sh" scripts/ 2>/dev/null || true
+cp "$TEMP_DIR/scripts/validate-workflows.sh" scripts/ 2>/dev/null || true
+cp "$TEMP_DIR/scripts/validate-templates.sh" scripts/ 2>/dev/null || true
 
 # Copy only .quantis templates (NOT the source repo's own dev state)
 mkdir -p .quantis/templates
