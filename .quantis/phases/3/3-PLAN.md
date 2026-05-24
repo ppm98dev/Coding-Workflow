@@ -4,10 +4,10 @@ plan: 3
 wave: 2
 ---
 
-# Plan 3.3: README Rewrite + Final Polish
+# Plan 3.3: README, Versioning & Final Polish
 
 ## Objective
-Write the v3.0 README from scratch and do a final cross-reference validation pass across the entire package.
+Write the v3.0 README from scratch, create CHANGELOG.md + VERSION (needed by /update, /whats-new, /help), update stale workflow content, and do a final cross-reference validation pass across the entire package.
 
 ## Context
 - .quantis/DECISIONS.md (D-034)
@@ -78,6 +78,82 @@ Write the v3.0 README from scratch and do a final cross-reference validation pas
 </task>
 
 <task type="auto">
+  <name>Create CHANGELOG.md, VERSION, and update /whats-new + /help</name>
+  <files>
+    quantis-new/CHANGELOG.md
+    quantis-new/VERSION
+    quantis-new/.agent/workflows/whats-new.md
+    quantis-new/.agent/workflows/help.md
+  </files>
+  <action>
+    **1. Create VERSION file:**
+    ```
+    3.0.0
+    ```
+    Single line, no trailing content. This is read by `/help` (`cat VERSION`).
+
+    **2. Create CHANGELOG.md:**
+    ```markdown
+    # Changelog
+
+    ## [3.0.0] — 2026-05-24
+
+    ### 🎉 Major Release: Superpowers Integration
+
+    Complete methodology overhaul powered by [obra/superpowers](https://github.com/obra/superpowers) v5.1.0.
+
+    #### Added
+    - 18 skills (13 from Superpowers + 5 Quantis context skills)
+    - Subagent-driven development (SDD) for Antigravity 2.0
+    - TDD, code review, systematic debugging skills
+    - Brainstorming skill (replaces /discuss-phase, /stress-test, /research-phase)
+    - Writing-plans skill (replaces /plan methodology)
+    - Executing-plans skill (replaces /execute methodology)
+    - /upgrade workflow for GSD→v3.0 migration
+    - MANIFEST.md for safe updates
+    - Platform adapters (Antigravity, Gemini CLI, Claude, GPT/OSS)
+
+    #### Changed
+    - Skills auto-trigger based on task context (no explicit invocation needed)
+    - /update is now MANIFEST-aware (preserves user-installed skills)
+    - /install updated for v3.0 package structure
+    - Skill-powered slash commands preserved as aliases (/plan, /execute, etc.)
+
+    #### Removed
+    - Old core skills (planner, executor, verifier, debugger, context-fetch, empirical-validation)
+    - tests/ directory (Claude Code-specific, incompatible with Antigravity)
+    ```
+    This is read by `/update` for version detection and `/whats-new` for display.
+
+    **3. Update /whats-new workflow:**
+    - Replace the hardcoded v1.0/1.1/1.2 example content with v3.0 content from the new CHANGELOG.md
+    - Remove any "GSD" references in the example display
+    - Keep the workflow structure (read CHANGELOG.md, display latest)
+
+    **4. Update /help workflow:**
+    - Add `/upgrade` to the UTILITIES section:
+      ```
+      /upgrade         Migrate from GSD/v2.x to v3.0
+      ```
+    - Verify VERSION file is referenced correctly (`cat VERSION`)
+
+    **5. Add CHANGELOG.md and VERSION to MANIFEST.md** (core root files section).
+  </action>
+  <verify>
+    test -f quantis-new/CHANGELOG.md && echo "CHANGELOG exists"
+    test -f quantis-new/VERSION && cat quantis-new/VERSION
+    # Must show "3.0.0"
+    
+    grep "upgrade" quantis-new/.agent/workflows/help.md
+    # Must show /upgrade in utilities
+    
+    grep -c "GSD" quantis-new/.agent/workflows/whats-new.md
+    # Must be 0
+  </verify>
+  <done>CHANGELOG.md exists with v3.0 entry. VERSION contains "3.0.0". /whats-new shows v3.0 content (no GSD). /help lists /upgrade. Both files added to MANIFEST.md.</done>
+</task>
+
+<task type="auto">
   <name>Final cross-reference validation</name>
   <files>quantis-new/ (all files)</files>
   <action>
@@ -107,13 +183,24 @@ Write the v3.0 README from scratch and do a final cross-reference validation pas
     **4. MANIFEST accuracy:**
     Compare MANIFEST.md listings against actual files. Flag any mismatch.
     
-    **5. Final grep sweep:**
+    **5. docs/ cleanup verification:**
+    Confirm Plan 3.1 cleaned docs/ correctly:
+    - docs/superpowers/ — DELETED ✓?
+    - docs/testing.md — DELETED ✓?
+    - docs/plans/ — DELETED ✓?
+    - docs/README.opencode.md — KEPT (multi-platform reference, superpowers refs cleaned) ✓?
+    - docs/windows/ — KEPT (polyglot hooks, still useful) ✓?
+    
+    **6. Final grep sweep:**
     ```bash
     # No stale references should remain
     grep -rl "GSD\|get-shit-done\|Get Shit Done" quantis-new/ | grep -v ".git/"
     grep -rl "superpowers" quantis-new/ | grep -v ".git/" | grep -v "obra/superpowers"
     grep -rl "/tmp/superpowers" quantis-new/ | grep -v ".git/"
     ```
+    
+    **7. CHANGELOG.md + VERSION in package:**
+    Verify both exist and are listed in MANIFEST.md.
     
     Fix any issues found.
   </action>
@@ -127,7 +214,12 @@ Write the v3.0 README from scratch and do a final cross-reference validation pas
 
 ## Success Criteria
 - [ ] README.md exists, under 250 lines, credits Superpowers
+- [ ] CHANGELOG.md exists with v3.0 entry
+- [ ] VERSION file contains "3.0.0"
+- [ ] /whats-new shows v3.0 content, zero GSD references
+- [ ] /help lists /upgrade command
 - [ ] All 9 workflow→skill cross-references resolve
 - [ ] All GEMINI.md file references resolve
-- [ ] MANIFEST.md matches actual package contents
+- [ ] MANIFEST.md matches actual package contents (including CHANGELOG.md + VERSION)
+- [ ] docs/ contains only user-relevant files (no superpowers internal docs)
 - [ ] Zero stale GSD/superpowers references in final sweep
