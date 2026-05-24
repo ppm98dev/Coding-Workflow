@@ -108,8 +108,9 @@ done
 # --- Templates ---
 cp -r "$SOURCE/.quantis/templates/"* .quantis/templates/
 
-# --- Bootstrap ---
+# --- Bootstrap and Adapters ---
 cp "$SOURCE/.gemini/GEMINI.md" .gemini/GEMINI.md
+cp -r "$SOURCE/adapters" ./ 2>/dev/null || true
 
 # --- Core Root Files ---
 cp "$SOURCE/PROJECT_RULES.md" ./
@@ -142,7 +143,7 @@ Updated to version {remote-version}
 Updated:
 • Workflows (30)
 • Core skills (18 from MANIFEST)
-• Templates
+• Templates, Adapters
 • Root files (PROJECT_RULES, VERSION, model_capabilities.yaml)
 
 Preserved:

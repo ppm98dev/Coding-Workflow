@@ -191,11 +191,12 @@ cp -r "$SOURCE/.quantis/templates/"* .quantis/templates/
 echo "Updated templates"
 ```
 
-### 5e. Update Bootstrap
+### 5e. Update Bootstrap and Adapters
 
 ```bash
 cp "$SOURCE/.gemini/GEMINI.md" .gemini/GEMINI.md
-echo "Updated bootstrap"
+cp -r "$SOURCE/adapters" ./ 2>/dev/null || true
+echo "Updated bootstrap and adapters"
 ```
 
 ### 5f. Update Root Files
