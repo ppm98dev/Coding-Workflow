@@ -1,6 +1,6 @@
 # ROADMAP.md
 
-> **Current Milestone**: v3.2 — Custom Skill & MCP Dynamic Integration
+> **Current Milestone**: v3.3 — Workflow Reliability & Advanced Features
 > **Status**: In progress 🚀
 
 ---
