@@ -4,6 +4,35 @@
 
 ---
 
+## Session: 2026-06-01 00:00
+
+### Objective
+Discuss, spec, plan, and stress-test Phase 3.1 — fixing 4 intermittent workflow reliability bugs.
+
+### Accomplished
+- Resumed from v3.2 completion
+- Discussed all 4 issues with user, confirmed root causes in workflow files
+- Added Phase 3.1 to ROADMAP.md under v3.3 milestone
+- Wrote and finalized SPEC.md for Phase 3.1
+- Created 2 execution plans (Plan A: discuss-phase + verify, Plan B: execute + pause)
+- Ran adversarial stress-test — found 5 findings (1 critical, 1 high, 2 medium, 1 low)
+- Identified that 2 issues are partially baked into skills (brainstorming step 9, writing-plans execution menu)
+
+### Verification
+- [x] SPEC.md written and committed
+- [x] Plans created and committed
+- [x] Stress-test completed with findings documented
+- [ ] Plans not yet updated with stress-test fixes
+- [ ] Scope decision pending (workflows-only vs also touch writing-plans skill)
+
+### Paused Because
+Late night — user needs to think about the scope decision (whether to also fix writing-plans skill) with fresh eyes.
+
+### Handoff Notes
+The critical question: should we expand scope to touch `writing-plans/SKILL.md` to remove the execution method menu (lines 136-153)? Without this, the "Subagent vs Inline?" menu still appears after `/plan`. With it, we get clean separation of concerns (skill writes plans, workflow handles execution). Decision needed before applying stress-test fixes and executing.
+
+---
+
 ## Session: 2026-05-24 16:50
 
 ### Objective
