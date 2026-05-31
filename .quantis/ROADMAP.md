@@ -8,8 +8,11 @@
 ## Milestone: v2.0 — Antigravity-Native Quantis ✅ COMPLETE
 
 ### Phase 1: Antigravity Integration ✅
+
 ### Phase 2: Remove PowerShell — Bash Only ✅
+
 ### Phase 3: Core Fixes ✅
+
 ### Phase 4: Install Automation & Polish ✅
 
 ---
@@ -21,11 +24,17 @@
 > **Reason**: Deep audit of [obra/superpowers](https://github.com/obra/superpowers) revealed superior code quality skills (TDD, SDD, code review). Phases 3-6 goals are now achieved by adopting Superpowers. See D-015 through D-024.
 
 ### Phase 1: Constitution & Spec Rigor ✅
+
 ### Phase 1.5: Quantis Rebrand ✅
+
 ### Phase 2: Plan Iteration ✅
+
 ### Phase 3: Production Code Enforcement ⏸ SUPERSEDED by Superpowers TDD + SDD skills
+
 ### Phase 4: Skill Infrastructure Upgrade ⏸ SUPERSEDED by Superpowers skill adoption
+
 ### Phase 5: Branch Management & Polish ⏸ SUPERSEDED by Superpowers git worktrees skill
+
 ### Phase 6: Multi-User Foundations ⏸ DEFERRED to future milestone
 
 ---
@@ -36,6 +45,7 @@
 > **Status**: All phases complete ✅
 
 ### Must-Haves
+
 - [x] Superpowers skills imported into `.agents/skills/` (18 skills)
 - [x] All skills adapted for Antigravity 2.0 tool names
 - [x] `using-quantis` bootstrap skill (replaces `using-superpowers`)
@@ -48,6 +58,7 @@
 - [x] README updated with v3.0 architecture
 
 ### Nice-to-Haves
+
 - [ ] Pre-defined subagent types via `define_subagent` at session start
 - [ ] Visual brainstorming companion adapted for `browser_subagent`
 - [ ] Parallel agent dispatch adapted for Antigravity
@@ -56,9 +67,11 @@
 ### Phases
 
 #### Phase 1: Skill Migration ✅
+
 **Status**: ✅ Complete
 **Objective**: Import all 13 Superpowers skills into `.agents/skills/`, adapt tool references for Antigravity 2.0.
 **Deliverables:**
+
 - Copy all Superpowers skills to `.agents/skills/`
 - Create `using-quantis` bootstrap skill
 - Create `antigravity-tools.md` reference file
@@ -68,9 +81,11 @@
 - Remove old Quantis skills (planner, executor, verifier, debugger, etc.)
 
 #### Phase 2: Workflow Reconciliation ✅
+
 **Status**: ✅ Complete
 **Objective**: Remove superseded workflows, update kept workflows to reference new skills, add state integration hooks.
 **Deliverables:**
+
 - Remove 6 superseded workflows (discuss-phase, plan, update-plan, execute, stress-test, research-phase)
 - Update `/debug` to invoke `systematic-debugging` skill
 - Update `/verify` to invoke `verification-before-completion` skill
@@ -79,9 +94,11 @@
 - Update `/help` with new command listing
 
 #### Phase 3: Integration Testing & Polish ✅
+
 **Status**: ✅ Complete
 **Objective**: End-to-end validation of the complete Quantis v3.0 workflow.
 **Deliverables:**
+
 - Create `MANIFEST.md` listing all core skills/workflows (so upgrade knows what to replace)
 - Create `/upgrade` workflow — in-place GSD→v3.0 migration that:
   - Replaces GSD workflows with v3.0 workflows
@@ -102,6 +119,7 @@
 > **Status**: ✅ Complete
 
 ### Must-Haves
+
 - [x] Workflows resolution adapted (plan, execute, verify, debug, research-phase, update-plan, etc.)
 - [x] Skills definition updated (using-quantis, writing-plans, brainstorming, SDD)
 - [x] Plan naming standard implemented (`N.M-PLAN.md` with numbered H1 headers)
@@ -110,9 +128,11 @@
 ### Phases
 
 #### Phase 1.1: Hierarchical Subphase Folder Architecture ✅
+
 **Status**: ✅ Complete
 **Objective**: Update all workflows and skills to read and write from/to `.quantis/phases/{N}.{M}-{slug}/` folders.
 **Deliverables:**
+
 - Update `writing-plans/SKILL.md` to output plans in `.quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md` and enforce `# Phase {N}.{M}: {Description} - Implementation Plan` header
 - Update `brainstorming/SKILL.md` to output specs to `.quantis/phases/{N}.{M}-{slug}/SPEC.md`
 - Update `.agent/workflows/plan.md` to resolve folders dynamically and output to the new layout
@@ -129,6 +149,7 @@
 > **Status**: ✅ Complete
 
 ### Must-Haves
+
 - [x] Automated scan of `.agents/skills/` excluding core manifest skills inside `/plan`
 - [x] Active MCP server/tool discovery and parsing inside `/plan`
 - [x] Injection block in planning context containing available custom skills and active MCP definitions
@@ -136,9 +157,11 @@
 ### Phases
 
 #### Phase 2.1: Dynamic Skill and MCP Context Injection ✅
+
 **Status**: ✅ Complete
 **Objective**: Update the `.agent/workflows/plan.md` workflow to automatically discover, summarize, and inject custom skills and active MCP servers into the planning context.
 **Deliverables:**
+
 - Update `.agent/workflows/plan.md` with Bash code that scans `.agents/skills/` for custom skills (cross-referencing `MANIFEST.md` to exclude core skills)
 - Add Bash code in `.agent/workflows/plan.md` to detect active MCP tools and servers
 - Design a beautiful printout inside the planning workflow that lists these ecosystem tools right before delegating to `writing-plans`
@@ -146,15 +169,27 @@
 
 ---
 
-## Milestone: v3.3 — Advanced Features (Future)
+## Milestone: v3.3 — Workflow Reliability & Advanced Features
 
-> **Goal**: Address deferred work and advanced capabilities.
-> **Status**: 🔮 Planned
+> **Goal**: Fix intermittent workflow reliability issues, then address deferred work and advanced capabilities.
+> **Status**: In progress 🚀
 
-### Planned Scope
+### Phases
+
+#### Phase 3.1: Workflow Reliability Fixes ⬜
+
+**Status**: ⬜ Not Started
+**Objective**: Fix 4 intermittent workflow reliability issues across discuss-phase, execute, verify, and pause workflows.
+**Deliverables:**
+
+- [ ] `discuss-phase.md` — Enforce full brainstorming checklist (always produce SPEC.md)
+- [ ] `execute.md` — Deterministically use SDD on Antigravity (no user menu)
+- [ ] `verify.md` — Explicitly load verification-before-completion skill in process steps
+- [ ] `pause.md` — Add roadmap sync check before pausing
+
+### Future Scope
+
 - [ ] Multi-user foundations (deferred from v2.1 Phase 6)
 - [ ] SPEC.md scaling for large projects
 - [ ] Parallel subagent dispatch for independent tasks
 - [ ] Community skill adoption framework
-
-

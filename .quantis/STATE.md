@@ -1,9 +1,9 @@
 # Quantis State
 
 ## Current Position
-- **Milestone**: v3.2 — Custom Skill & MCP Dynamic Integration (COMPLETE ✅)
-- **Phase**: Remote Bootstrap Upgrade & Installer Cleanup (COMPLETE ✅)
-- **Status**: Completed and paused at 2026-05-24T20:32:00+02:00
+- **Milestone**: v3.3 — Workflow Reliability & Advanced Features
+- **Phase**: 3.1 — Workflow Reliability Fixes
+- **Status**: Active — Discussion complete, SPEC finalized (2026-06-01T00:00:00+02:00)
 
 ## Last Session Summary
 Designed, implemented, validated, and deployed a remote-bootstrap upgrading mechanism alongside strict target-workspace hygiene rules to prevent framework-specific file clutter:
