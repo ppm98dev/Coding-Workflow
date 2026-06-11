@@ -132,7 +132,7 @@ Project state that survives across sessions:
 | Platform | Command Prefix | Subagents | Browser |
 |----------|---------------|:---------:|:-------:|
 | **Antigravity IDE** | `/command` | ❌ inline | ✅ `browser_subagent` |
-| **Antigravity CLI** (`agy`) | `/_wf-command` | ✅ `invoke_subagent` | ❌ |
+| **Antigravity CLI** (`agy`) | `/wf-command` | ✅ `invoke_subagent` | ❌ |
 | **Standalone** (Antigravity 2.0) | `/command` | ✅ `invoke_subagent` | ✅ `/browser` |
 
 All workflows and skills live in `.agents/skills/`. No platform-specific setup needed after install.
@@ -141,17 +141,17 @@ All workflows and skills live in `.agents/skills/`. No platform-specific setup n
 
 ```bash
 agy                           # Start Antigravity CLI
-/_wf-new-project              # Initialize with deep questioning
-/_wf-plan 1                   # Create Phase 1 plans
-/_wf-execute 1                # Execute (uses real subagents!)
-/_wf-verify 1                 # Verify implementation
+/wf-new-project              # Initialize with deep questioning
+/wf-plan 1                   # Create Phase 1 plans
+/wf-execute 1                # Execute (uses real subagents!)
+/wf-verify 1                 # Verify implementation
 ```
 
 ## File Structure
 
 ```
 .agents/
-├── skills/       30 workflow commands (_wf-*) + 18 auto-triggered skills
+├── skills/       30 workflow commands (wf-*) + 18 auto-triggered skills
 └── rules/        PROJECT_RULES.md, CONSTITUTION.md, QUANTIS-STYLE.md
 .gemini/              Platform bootstrap
 .quantis/             Project state + 25 templates

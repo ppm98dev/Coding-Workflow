@@ -99,8 +99,8 @@ for skill_dir in $(ls "$TEMP_DIR/.agents/skills/"); do
     echo -e "  ${GREEN}+${NC} Installed: $skill_dir"
 done
 
-# Step 4: Replace Workflows (now in .agents/skills/_wf-*/)
-echo -e "⚙️ Workflows are now part of .agents/skills/_wf-* (unified structure)"
+# Step 4: Replace Workflows (now in .agents/skills/wf-*/)
+echo -e "⚙️ Workflows are now part of .agents/skills/wf-* (unified structure)"
 
 # Step 5: Update Templates
 echo -e "⚙️ Updating .quantis templates..."
@@ -172,7 +172,7 @@ echo -e ""
 echo -e "Summary:"
 echo -e "  • Old GSD core skills removed: $removed_count"
 echo -e "  • New Quantis skills installed: $(ls .agents/skills/ | wc -w | xargs)"
-echo -e "  • Workflows updated: $(ls -d .agents/skills/_wf-* 2>/dev/null | wc -l | xargs)"
+echo -e "  • Workflows updated: $(ls -d .agents/skills/wf-* 2>/dev/null | wc -l | xargs)"
 echo -e "  • Templates updated: $(ls .quantis/templates/ | wc -w | xargs)"
 echo -e "  • User state preserved: .quantis/*"
 echo -e ""

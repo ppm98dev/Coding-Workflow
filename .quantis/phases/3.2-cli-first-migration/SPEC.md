@@ -14,7 +14,7 @@ Quantis was built for Antigravity IDE. The file structure assumes two discovery 
 - `.agent/workflows/*.md` — IDE discovers these as slash commands
 - `.agents/skills/*/SKILL.md` — All platforms discover these as slash commands
 
-The CLI (`agy`) cannot read `.agent/workflows/` at all. A hack was introduced (30 `_wf-*` symlink directories in `.agents/skills/`) to bridge this gap. This creates:
+The CLI (`agy`) cannot read `.agent/workflows/` at all. A hack was introduced (30 `wf-*` symlink directories in `.agents/skills/`) to bridge this gap. This creates:
 
 1. **Two sources of truth** — real files in `.agent/`, symlinks in `.agents/skills/`
 2. **Fragile symlinks** — break on Windows, some git configs, shallow clones
@@ -45,15 +45,15 @@ The CLI (`agy`) cannot read `.agent/workflows/` at all. A hack was introduced (3
 
 ### D-002: Single Folder — `.agents/skills/` Only
 
-**Decision**: Move all workflows from `.agent/workflows/` into `.agents/skills/_wf-*/SKILL.md` as **real files** (not symlinks). Delete `.agent/` entirely.
+**Decision**: Move all workflows from `.agent/workflows/` into `.agents/skills/wf-*/SKILL.md` as **real files** (not symlinks). Delete `.agent/` entirely.
 
-**Rationale**: `.agents/skills/` is universal. One folder, one discovery mechanism, all platforms. The `_wf-` prefix provides taxonomy (workflows vs skills) without needing separate directories.
+**Rationale**: `.agents/skills/` is universal. One folder, one discovery mechanism, all platforms. The `wf-` prefix provides taxonomy (workflows vs skills) without needing separate directories.
 
-### D-003: `_wf-` Prefix as Taxonomy
+### D-003: `wf-` Prefix as Taxonomy
 
-**Decision**: Keep the `_wf-` prefix on workflow skill directories to distinguish them from methodology skills.
+**Decision**: Keep the `wf-` prefix on workflow skill directories to distinguish them from methodology skills.
 
-**Rationale**: Users type `/_wf-plan` and know it's a user-facing workflow (orchestration command). The agent reads `writing-plans` and knows it's a methodology skill (auto-triggered). The prefix makes the distinction visible in the filesystem.
+**Rationale**: Users type `/wf-plan` and know it's a user-facing workflow (orchestration command). The agent reads `writing-plans` and knows it's a methodology skill (auto-triggered). The prefix makes the distinction visible in the filesystem.
 
 ### D-004: Capability-Based Detection
 
@@ -76,11 +76,11 @@ The CLI (`agy`) cannot read `.agent/workflows/` at all. A hack was introduced (3
 
 | Workflow | Subagent Role | Purpose |
 |----------|--------------|----------|
-| `/_wf-discuss-phase` | `research` subagent | Explore codebase, gather context, propose approaches — then return findings to the orchestrator for user discussion |
-| `/_wf-plan` | `self` subagent | Read the SPEC, follow `writing-plans` skill, produce the PLAN.md — orchestrator reviews output |
-| `/_wf-stress-test` | `self` subagent | Read the SPEC/PLAN, follow adversarial critique methodology, produce findings — orchestrator presents to user |
-| `/_wf-execute` | SDD (multiple subagents) | Already planned — implementer + spec-reviewer + code-quality-reviewer per task |
-| `/_wf-verify` | `self` subagent | Read the SPEC must-haves, verify against codebase, produce VERIFICATION.md — orchestrator reviews |
+| `/wf-discuss-phase` | `research` subagent | Explore codebase, gather context, propose approaches — then return findings to the orchestrator for user discussion |
+| `/wf-plan` | `self` subagent | Read the SPEC, follow `writing-plans` skill, produce the PLAN.md — orchestrator reviews output |
+| `/wf-stress-test` | `self` subagent | Read the SPEC/PLAN, follow adversarial critique methodology, produce findings — orchestrator presents to user |
+| `/wf-execute` | SDD (multiple subagents) | Already planned — implementer + spec-reviewer + code-quality-reviewer per task |
+| `/wf-verify` | `self` subagent | Read the SPEC must-haves, verify against codebase, produce VERIFICATION.md — orchestrator reviews |
 
 **Rationale**: This mirrors how Superpowers uses Claude Code's `Task` tool throughout the entire lifecycle. Subagents provide:
 - **Fresh context** per stage (no context pollution from previous stages)
@@ -108,8 +108,8 @@ The CLI (`agy`) cannot read `.agent/workflows/` at all. A hack was introduced (3
 ├── skills/                     # 18 real skill dirs + 30 symlink dirs
 │   ├── brainstorming/          # Real skill
 │   ├── writing-plans/          # Real skill
-│   ├── _wf-plan/SKILL.md       # SYMLINK → ../../.agent/workflows/plan.md
-│   ├── _wf-execute/SKILL.md    # SYMLINK → ../../.agent/workflows/execute.md
+│   ├── wf-plan/SKILL.md       # SYMLINK → ../../.agent/workflows/plan.md
+│   ├── wf-execute/SKILL.md    # SYMLINK → ../../.agent/workflows/execute.md
 │   └── ... (46 more)
 └── rules/
     └── PROJECT_RULES.md        # SYMLINK → ../../PROJECT_RULES.md
@@ -122,8 +122,8 @@ The CLI (`agy`) cannot read `.agent/workflows/` at all. A hack was introduced (3
 ├── skills/                     # 18 real skill dirs + 30 real workflow dirs
 │   ├── brainstorming/          # Real skill (unchanged)
 │   ├── writing-plans/          # Real skill (unchanged)
-│   ├── _wf-plan/SKILL.md       # REAL FILE (was symlink, now contains plan.md content)
-│   ├── _wf-execute/SKILL.md    # REAL FILE (was symlink, now contains execute.md content)
+│   ├── wf-plan/SKILL.md       # REAL FILE (was symlink, now contains plan.md content)
+│   ├── wf-execute/SKILL.md    # REAL FILE (was symlink, now contains execute.md content)
 │   └── ... (46 more)
 └── rules/
     └── PROJECT_RULES.md        # SYMLINK → ../../PROJECT_RULES.md (kept)
@@ -137,19 +137,19 @@ The CLI (`agy`) cannot read `.agent/workflows/` at all. A hack was introduced (3
 
 ### Deliverable 1: Folder Consolidation
 
-**Objective**: Replace all 30 `_wf-*` symlinks with real files containing the workflow content, then delete `.agent/workflows/` and the `.agent/` directory.
+**Objective**: Replace all 30 `wf-*` symlinks with real files containing the workflow content, then delete `.agent/workflows/` and the `.agent/` directory.
 
 **Actions**:
 
 1. For each of the 30 workflows in `.agent/workflows/*.md`:
    - Read the real file content
-   - Write it to `.agents/skills/_wf-{name}/SKILL.md` (overwriting the symlink)
+   - Write it to `.agents/skills/wf-{name}/SKILL.md` (overwriting the symlink)
    - The `{name}` matches the original filename without `.md` extension
 2. Delete `.agent/workflows/` directory
 3. Delete `.agent/` directory (should be empty after step 2)
-4. Verify all 30 `_wf-*/SKILL.md` files exist and are real files (not symlinks)
+4. Verify all 30 `wf-*/SKILL.md` files exist and are real files (not symlinks)
 
-**Current 30 workflows** (becoming `_wf-{name}/SKILL.md`):
+**Current 30 workflows** (becoming `wf-{name}/SKILL.md`):
 
 ```
 add-phase, add-todo, audit-milestone, check-todos, complete-milestone,
@@ -162,8 +162,8 @@ update, upgrade, verify, web-search, whats-new
 
 **Acceptance Criteria**:
 - `.agent/` directory does not exist
-- All 30 `_wf-*/SKILL.md` files are real files (`test -L` returns false)
-- `ls .agents/skills/ | grep _wf- | wc -l` returns 30
+- All 30 `wf-*/SKILL.md` files are real files (`test -L` returns false)
+- `ls .agents/skills/ | grep wf- | wc -l` returns 30
 - All skill metadata (YAML frontmatter) is preserved
 
 ---
@@ -218,9 +218,9 @@ update, upgrade, verify, web-search, whats-new
 
 ---
 
-### Deliverable 3: `_wf-execute` — Deterministic SDD Selection
+### Deliverable 3: `wf-execute` — Deterministic SDD Selection
 
-**File**: `.agents/skills/_wf-execute/SKILL.md`
+**File**: `.agents/skills/wf-execute/SKILL.md`
 
 **Current state** (line 72): `When subagents are available, prefer .agents/skills/subagent-driven-development/SKILL.md`
 
@@ -248,16 +248,16 @@ update, upgrade, verify, web-search, whats-new
 4. **Update header comment** (line 8): Change "or `subagent-driven-development` when subagents are available" to reflect the deterministic approach
 
 **Acceptance Criteria**:
-- `grep "prefer" .agents/skills/_wf-execute/SKILL.md` returns NO matches related to SDD
-- `grep "invoke_subagent" .agents/skills/_wf-execute/SKILL.md` shows capability check
-- `grep "Do not present a menu" .agents/skills/_wf-execute/SKILL.md` matches
-- `grep "sequentially" .agents/skills/_wf-execute/SKILL.md` matches
+- `grep "prefer" .agents/skills/wf-execute/SKILL.md` returns NO matches related to SDD
+- `grep "invoke_subagent" .agents/skills/wf-execute/SKILL.md` shows capability check
+- `grep "Do not present a menu" .agents/skills/wf-execute/SKILL.md` matches
+- `grep "sequentially" .agents/skills/wf-execute/SKILL.md` matches
 
 ---
 
-### Deliverable 4: `_wf-verify` — Browser Subagent Graceful Fallback
+### Deliverable 4: `wf-verify` — Browser Subagent Graceful Fallback
 
-**File**: `.agents/skills/_wf-verify/SKILL.md`
+**File**: `.agents/skills/wf-verify/SKILL.md`
 
 **Current state**: Lines 82-83, 108, 268 reference `browser_subagent` unconditionally.
 
@@ -280,17 +280,17 @@ update, upgrade, verify, web-search, whats-new
 3. **Do NOT remove** any existing `browser_subagent` instructions — just make them conditional
 
 **Acceptance Criteria**:
-- `grep "browser_subagent.*available" .agents/skills/_wf-verify/SKILL.md` matches
+- `grep "browser_subagent.*available" .agents/skills/wf-verify/SKILL.md` matches
 - Both browser-based and CLI-based evidence paths are documented
 - Existing browser verification instructions remain intact (just gated)
 
 ---
 
-### Deliverable 5: `_wf-quantis-help` — CLI Command Convention
+### Deliverable 5: `wf-quantis-help` — CLI Command Convention
 
-**File**: `.agents/skills/_wf-quantis-help/SKILL.md`
+**File**: `.agents/skills/wf-quantis-help/SKILL.md`
 
-**Current state**: Shows `/command` format only. No mention of `_wf-` prefix.
+**Current state**: Shows `/command` format only. No mention of `wf-` prefix.
 
 **Changes**:
 
@@ -298,33 +298,33 @@ update, upgrade, verify, web-search, whats-new
    ```
    CLI USERS (agy)
    ────────────────
-   On Antigravity CLI, ALL commands use the /_wf- prefix:
+   On Antigravity CLI, ALL commands use the /wf- prefix:
 
-     /_wf-plan, /_wf-execute, /_wf-verify, /_wf-pause, etc.
+     /wf-plan, /wf-execute, /wf-verify, /wf-pause, etc.
 
    Skills work as direct slash commands without prefix:
      /brainstorming, /writing-plans, /systematic-debugging, etc.
 
-   The /_wf- prefix distinguishes workflow commands (user-facing
+   The /wf- prefix distinguishes workflow commands (user-facing
    orchestration) from skill commands (agent methodology).
    ```
 
 2. **Add footer note**:
    ```
-   💡 CLI: prefix all workflow commands with /_wf-
-      Example: /_wf-plan 1 instead of /plan 1
+   💡 CLI: prefix all workflow commands with /wf-
+      Example: /wf-plan 1 instead of /plan 1
    ```
 
 **Acceptance Criteria**:
-- `grep "_wf-" .agents/skills/_wf-quantis-help/SKILL.md` matches
-- `grep "CLI" .agents/skills/_wf-quantis-help/SKILL.md` matches
+- `grep "wf-" .agents/skills/wf-quantis-help/SKILL.md` matches
+- `grep "CLI" .agents/skills/wf-quantis-help/SKILL.md` matches
 - Standard format still shown for IDE/Standalone users
 
 ---
 
-### Deliverable 6: `_wf-install` — Updated File Paths
+### Deliverable 6: `wf-install` — Updated File Paths
 
-**File**: `.agents/skills/_wf-install/SKILL.md`
+**File**: `.agents/skills/wf-install/SKILL.md`
 
 **Current state**: Step 3 copies `.agent/` directory. Confirmation lists `.agent/` as installed.
 
@@ -334,24 +334,24 @@ update, upgrade, verify, web-search, whats-new
    ```diff
    - cp -r .quantis-install-temp/.agent ./
    ```
-   (Workflows are already inside `.agents/skills/_wf-*/` — no separate `.agent/` folder exists)
+   (Workflows are already inside `.agents/skills/wf-*/` — no separate `.agent/` folder exists)
 
-2. **Update Step 6 confirmation** to remove `.agent/` line and note the `_wf-` convention:
+2. **Update Step 6 confirmation** to remove `.agent/` line and note the `wf-` convention:
    ```diff
    - • .agent/        (30 workflows)
-   + • .agents/skills/_wf-*  (30 workflow commands)
+   + • .agents/skills/wf-*  (30 workflow commands)
    ```
 
 3. **Add a note** explaining the unified structure:
    ```
-   > All workflows live in `.agents/skills/_wf-*/SKILL.md` alongside methodology
+   > All workflows live in `.agents/skills/wf-*/SKILL.md` alongside methodology
    > skills. This unified structure works on IDE, CLI, and Standalone without
    > platform-specific setup.
    ```
 
 **Acceptance Criteria**:
-- `grep ".agent/" .agents/skills/_wf-install/SKILL.md` returns NO matches (except `.agents/` which is fine)
-- `grep "_wf-" .agents/skills/_wf-install/SKILL.md` matches
+- `grep ".agent/" .agents/skills/wf-install/SKILL.md` returns NO matches (except `.agents/` which is fine)
+- `grep "wf-" .agents/skills/wf-install/SKILL.md` matches
 - No reference to copying a `.agent/` folder
 
 ---
@@ -383,12 +383,12 @@ update, upgrade, verify, web-search, whats-new
    | `invoke_subagent` | ❌ | ✅ | ✅ |
    | `browser_subagent` | ✅ | ❌ | `/browser` |
    | Skills as `/commands` | ✅ | ✅ | ✅ |
-   | Workflow commands | `/plan` | `/_wf-plan` | `/plan` |
+   | Workflow commands | `/plan` | `/wf-plan` | `/plan` |
 
    ### CLI Command Convention
 
-   On CLI (`agy`), workflow commands use the `/_wf-` prefix:
-   - IDE/Standalone: `/plan 1` → CLI: `/_wf-plan 1`
+   On CLI (`agy`), workflow commands use the `/wf-` prefix:
+   - IDE/Standalone: `/plan 1` → CLI: `/wf-plan 1`
    - Skill commands work the same on all platforms: `/brainstorming`
 
    ### Capability-Based Detection
@@ -416,7 +416,7 @@ update, upgrade, verify, web-search, whats-new
 
 **Acceptance Criteria**:
 - `grep "Platform Compatibility" adapters/ANTIGRAVITY.md` matches
-- `grep "_wf-" adapters/ANTIGRAVITY.md` matches
+- `grep "wf-" adapters/ANTIGRAVITY.md` matches
 - `grep "CLI" adapters/ANTIGRAVITY.md` matches
 - `grep "capability" adapters/ANTIGRAVITY.md` matches (case-insensitive)
 
@@ -431,7 +431,7 @@ update, upgrade, verify, web-search, whats-new
 1. **Update directory structure** (around line 144):
    ```diff
    - .agent/workflows/     30 slash command workflows
-   + (no .agent/ folder — workflows live in .agents/skills/_wf-*/)
+   + (no .agent/ folder — workflows live in .agents/skills/wf-*/)
    ```
 
 2. **Add "Supported Platforms" section**:
@@ -441,7 +441,7 @@ update, upgrade, verify, web-search, whats-new
    | Platform | Command Prefix | Subagents | Browser |
    |----------|---------------|:---------:|:-------:|
    | **IDE** (Antigravity IDE) | `/command` | ❌ inline | ✅ `browser_subagent` |
-   | **CLI** (`agy`) | `/_wf-command` | ✅ `invoke_subagent` | ❌ |
+   | **CLI** (`agy`) | `/wf-command` | ✅ `invoke_subagent` | ❌ |
    | **Standalone** (Antigravity 2.0) | `/command` | ✅ `invoke_subagent` | ✅ `/browser` |
 
    All workflows and skills live in `.agents/skills/`. No platform-specific
@@ -454,16 +454,16 @@ update, upgrade, verify, web-search, whats-new
 
    ```bash
    agy                           # Start Antigravity CLI
-   /_wf-new-project              # Initialize with deep questioning
-   /_wf-plan 1                   # Create Phase 1 plans
-   /_wf-execute 1                # Execute (uses real subagents!)
-   /_wf-verify 1                 # Verify implementation
+   /wf-new-project              # Initialize with deep questioning
+   /wf-plan 1                   # Create Phase 1 plans
+   /wf-execute 1                # Execute (uses real subagents!)
+   /wf-verify 1                 # Verify implementation
    ```
    ```
 
 **Acceptance Criteria**:
 - `grep "Supported Platforms" README.md` matches
-- `grep "_wf-" README.md` matches
+- `grep "wf-" README.md` matches
 - `grep ".agent/workflows" README.md` returns NO matches
 - `grep "CLI Quick Start" README.md` matches
 
@@ -480,9 +480,9 @@ update, upgrade, verify, web-search, whats-new
 -
   .agents/
 - └── skills/               # Agent specializations (Agent Skills standard)
-+ └── skills/               # Workflows (_wf-*) + methodology skills
-+     ├── _wf-plan/         # Workflow: /plan (or /_wf-plan on CLI)
-+     ├── _wf-execute/      # Workflow: /execute
++ └── skills/               # Workflows (wf-*) + methodology skills
++     ├── wf-plan/         # Workflow: /plan (or /wf-plan on CLI)
++     ├── wf-execute/      # Workflow: /execute
 +     ├── brainstorming/    # Skill: auto-triggered methodology
 +     └── writing-plans/    # Skill: auto-triggered methodology
 ```
@@ -492,17 +492,17 @@ update, upgrade, verify, web-search, whats-new
 **Line 19**: Update section header:
 ```diff
 - ### Workflows (`.agent/workflows/*.md`)
-+ ### Workflows (`.agents/skills/_wf-*/SKILL.md`)
++ ### Workflows (`.agents/skills/wf-*/SKILL.md`)
 ```
 
-Update description to explain the `_wf-` naming convention:
+Update description to explain the `wf-` naming convention:
 ```
 Slash commands the user invokes. Each workflow:
-- Lives in `.agents/skills/_wf-{name}/SKILL.md`
+- Lives in `.agents/skills/wf-{name}/SKILL.md`
 - Has YAML frontmatter with `description`
 - Contains XML-structured process blocks
 - Ends with "Next Steps" routing
-- The `_wf-` prefix distinguishes workflows from methodology skills
+- The `wf-` prefix distinguishes workflows from methodology skills
 ```
 
 #### 9c: `MANIFEST.md`
@@ -512,13 +512,13 @@ Slash commands the user invokes. Each workflow:
 - ### Workflows (`.agent/workflows/` — 30 files)
 - - add-phase.md
 - - add-todo.md
-+ ### Workflows (`.agents/skills/_wf-*/` — 30 directories)
-+ - _wf-add-phase
-+ - _wf-add-todo
++ ### Workflows (`.agents/skills/wf-*/` — 30 directories)
++ - wf-add-phase
++ - wf-add-todo
   ...
 ```
 
-All 30 entries updated from `{name}.md` to `_wf-{name}`.
+All 30 entries updated from `{name}.md` to `wf-{name}`.
 
 #### 9d: `CHANGELOG.md`
 
@@ -527,18 +527,18 @@ Add new entry at top:
 ## v3.3 — CLI-First Migration
 
 - **BREAKING**: `.agent/workflows/` directory removed — all workflows now live
-  in `.agents/skills/_wf-*/SKILL.md`
+  in `.agents/skills/wf-*/SKILL.md`
 - CLI (`agy`) is now the primary platform — SDD is the default execution path
 - Capability-based platform detection (no hardcoded platform names)
 - `browser_subagent` graceful fallback when unavailable
 - Unified `adapters/ANTIGRAVITY.md` covers IDE, CLI, and Standalone
-- `_wf-` prefix as taxonomy: workflows vs methodology skills
+- `wf-` prefix as taxonomy: workflows vs methodology skills
 ```
 
 **Acceptance Criteria**:
 - `grep ".agent/" PROJECT_RULES.md` returns NO matches (only `.agents/`)
-- `grep "_wf-" QUANTIS-STYLE.md` matches
-- `grep "_wf-" MANIFEST.md` shows 30 entries
+- `grep "wf-" QUANTIS-STYLE.md` matches
+- `grep "wf-" MANIFEST.md` shows 30 entries
 - CHANGELOG.md has v3.3 entry
 
 ---
@@ -550,14 +550,14 @@ Add new entry at top:
 **Line 14**: Update glob pattern:
 ```diff
 - for file in .agent/workflows/*.md; do
-+ for file in .agents/skills/_wf-*/SKILL.md; do
++ for file in .agents/skills/wf-*/SKILL.md; do
 ```
 
 **Line 16**: Update filename extraction:
 ```diff
 - filename=$(basename "$file")
 + dirname=$(basename "$(dirname "$file")")
-+ filename="${dirname#_wf-}"
++ filename="${dirname#wf-}"
 ```
 
 #### 10b: `scripts/install.sh`
@@ -573,7 +573,7 @@ Add new entry at top:
 - cp -r "$TEMP_DIR/.agent/" ./
 ```
 
-(Workflows are already inside `.agents/skills/_wf-*/` in the source repo)
+(Workflows are already inside `.agents/skills/wf-*/` in the source repo)
 
 #### 10c: `scripts/upgrade.sh`
 
@@ -592,7 +592,7 @@ Add new entry at top:
 **Line 178**: Update summary:
 ```diff
 - echo -e "  • Workflows updated: $(ls .agent/workflows/ | wc -w | xargs)"
-+ echo -e "  • Workflows updated: $(ls -d .agents/skills/_wf-* 2>/dev/null | wc -l | xargs)"
++ echo -e "  • Workflows updated: $(ls -d .agents/skills/wf-* 2>/dev/null | wc -l | xargs)"
 ```
 
 **Acceptance Criteria**:
@@ -613,44 +613,44 @@ Add new entry at top:
    ```diff
    - **In Antigravity 2.0:** Skills are auto-discovered from `.agents/skills/*/SKILL.md`.
    + **All Antigravity platforms:** Skills and workflows are auto-discovered from
-   + `.agents/skills/*/SKILL.md`. On CLI (`agy`), workflow commands use the `/_wf-`
-   + prefix (e.g., `/_wf-plan 1`). Methodology skills work the same everywhere.
+   + `.agents/skills/*/SKILL.md`. On CLI (`agy`), workflow commands use the `/wf-`
+   + prefix (e.g., `/wf-plan 1`). Methodology skills work the same everywhere.
    ```
 
 2. **Update "Workflow Commands" table** (lines 104-119) — add a note below the table:
    ```
-   > **CLI users:** Prefix workflow commands with `/_wf-`. Example: `/_wf-plan 1`
+   > **CLI users:** Prefix workflow commands with `/wf-`. Example: `/wf-plan 1`
    > instead of `/plan 1`. Skill commands (like `/brainstorming`) work without prefix.
    ```
 
 **Acceptance Criteria**:
-- `grep "_wf-" .agents/skills/using-quantis/SKILL.md` matches
+- `grep "wf-" .agents/skills/using-quantis/SKILL.md` matches
 - `grep "CLI" .agents/skills/using-quantis/SKILL.md` matches
 
 ---
 
-### Deliverable 12: `_wf-update` and `_wf-upgrade` — Path Updates
+### Deliverable 12: `wf-update` and `wf-upgrade` — Path Updates
 
-#### 12a: `_wf-update/SKILL.md`
+#### 12a: `wf-update/SKILL.md`
 
-Update all references from `.agent/workflows/` to `.agents/skills/_wf-*/`:
+Update all references from `.agent/workflows/` to `.agents/skills/wf-*/`:
 - MANIFEST-aware workflow replacement logic (around line 95)
 - Summary output counting workflows
 
-#### 12b: `_wf-upgrade/SKILL.md`
+#### 12b: `wf-upgrade/SKILL.md`
 
 Update all references:
 - Line 80: `mkdir -p .agent/workflows` → remove
 - Lines 104-105: `.agent/workflows` copy → remove
-- Line 178: workflow count → `_wf-*` pattern
+- Line 178: workflow count → `wf-*` pattern
 
-#### 12c: `_wf-plan/SKILL.md`
+#### 12c: `wf-plan/SKILL.md`
 
 - Lines 91-92: MANIFEST cross-reference for custom skill detection — update path if it references `.agent/workflows/`
 
 **Acceptance Criteria**:
-- `grep ".agent/" .agents/skills/_wf-update/SKILL.md` returns NO matches (only `.agents/`)
-- `grep ".agent/" .agents/skills/_wf-upgrade/SKILL.md` returns NO matches (only `.agents/`)
+- `grep ".agent/" .agents/skills/wf-update/SKILL.md` returns NO matches (only `.agents/`)
+- `grep ".agent/" .agents/skills/wf-upgrade/SKILL.md` returns NO matches (only `.agents/`)
 
 ---
 
@@ -658,7 +658,7 @@ Update all references:
 
 All five major workflows get subagent dispatch when `invoke_subagent` is available.
 
-#### 13a: `_wf-discuss-phase/SKILL.md`
+#### 13a: `wf-discuss-phase/SKILL.md`
 
 **Current state**: Runs brainstorming inline.
 
@@ -681,11 +681,11 @@ All five major workflows get subagent dispatch when `invoke_subagent` is availab
 2. The brainstorming conversation with the user stays inline (it's interactive — can't be delegated to a subagent). The subagent only handles the research/context-gathering step.
 
 **Acceptance Criteria**:
-- `grep "invoke_subagent" .agents/skills/_wf-discuss-phase/SKILL.md` matches
-- `grep "research" .agents/skills/_wf-discuss-phase/SKILL.md` shows subagent type
+- `grep "invoke_subagent" .agents/skills/wf-discuss-phase/SKILL.md` matches
+- `grep "research" .agents/skills/wf-discuss-phase/SKILL.md` shows subagent type
 - Interactive brainstorming with user remains inline
 
-#### 13b: `_wf-plan/SKILL.md`
+#### 13b: `wf-plan/SKILL.md`
 
 **Current state**: Runs `writing-plans` skill inline.
 
@@ -710,11 +710,11 @@ All five major workflows get subagent dispatch when `invoke_subagent` is availab
    ```
 
 **Acceptance Criteria**:
-- `grep "invoke_subagent" .agents/skills/_wf-plan/SKILL.md` matches
-- `grep "self" .agents/skills/_wf-plan/SKILL.md` shows subagent type
+- `grep "invoke_subagent" .agents/skills/wf-plan/SKILL.md` matches
+- `grep "self" .agents/skills/wf-plan/SKILL.md` shows subagent type
 - Orchestrator reviews subagent output before presenting to user
 
-#### 13c: `_wf-stress-test/SKILL.md`
+#### 13c: `wf-stress-test/SKILL.md`
 
 **Current state**: Runs adversarial critique inline.
 
@@ -738,10 +738,10 @@ All five major workflows get subagent dispatch when `invoke_subagent` is availab
    ```
 
 **Acceptance Criteria**:
-- `grep "invoke_subagent" .agents/skills/_wf-stress-test/SKILL.md` matches
+- `grep "invoke_subagent" .agents/skills/wf-stress-test/SKILL.md` matches
 - Orchestrator filters and presents findings (doesn't just pass through)
 
-#### 13d: `_wf-verify/SKILL.md` (extends Deliverable 4)
+#### 13d: `wf-verify/SKILL.md` (extends Deliverable 4)
 
 **Current state**: Runs verification inline.
 
@@ -766,10 +766,10 @@ All five major workflows get subagent dispatch when `invoke_subagent` is availab
    ```
 
 **Acceptance Criteria**:
-- `grep "invoke_subagent" .agents/skills/_wf-verify/SKILL.md` matches
+- `grep "invoke_subagent" .agents/skills/wf-verify/SKILL.md` matches
 - Orchestrator validates evidence quality before presenting results
 
-#### 13e: `_wf-execute/SKILL.md` (already covered by Deliverable 3)
+#### 13e: `wf-execute/SKILL.md` (already covered by Deliverable 3)
 
 SDD already handles subagent dispatch for execution. No additional changes needed — Deliverable 3 covers this.
 
@@ -785,16 +785,16 @@ SDD already handles subagent dispatch for execution. No additional changes neede
 
 ### In Scope
 
-- Folder consolidation (`.agent/` → `.agents/skills/_wf-*/`)
+- Folder consolidation (`.agent/` → `.agents/skills/wf-*/`)
 - SDD skill platform detection + inline fallback
-- `_wf-execute` deterministic SDD
-- `_wf-verify` browser_subagent fallback + subagent verification
-- `_wf-discuss-phase` subagent research dispatch
-- `_wf-plan` subagent planning dispatch
-- `_wf-stress-test` subagent adversarial dispatch
-- `_wf-quantis-help` CLI command section
-- `_wf-install` path updates
-- `_wf-update` and `_wf-upgrade` path updates
+- `wf-execute` deterministic SDD
+- `wf-verify` browser_subagent fallback + subagent verification
+- `wf-discuss-phase` subagent research dispatch
+- `wf-plan` subagent planning dispatch
+- `wf-stress-test` subagent adversarial dispatch
+- `wf-quantis-help` CLI command section
+- `wf-install` path updates
+- `wf-update` and `wf-upgrade` path updates
 - `adapters/ANTIGRAVITY.md` unified platform docs
 - `README.md` platforms + CLI quick start
 - `PROJECT_RULES.md` repository structure update
@@ -819,10 +819,10 @@ SDD already handles subagent dispatch for execution. No additional changes neede
 After all deliverables complete:
 
 1. **Structure**: `test ! -d .agent` — `.agent/` folder deleted
-2. **No symlinks**: `find .agents/skills/_wf-* -type l | wc -l` returns 0
-3. **30 workflows**: `ls -d .agents/skills/_wf-* | wc -l` returns 30
+2. **No symlinks**: `find .agents/skills/wf-* -type l | wc -l` returns 0
+3. **30 workflows**: `ls -d .agents/skills/wf-* | wc -l` returns 30
 4. **18 skills**: `ls -d .agents/skills/[^_]* | wc -l` returns 18
 5. **No stale refs**: `grep -r ".agent/" . --include="*.md" --include="*.sh" | grep -v ".agents/" | grep -v ".git/" | grep -v CHANGELOG` returns empty
 6. **Scripts pass**: `bash scripts/validate-workflows.sh` exits 0
-7. **MANIFEST correct**: All 30 `_wf-*` entries listed
+7. **MANIFEST correct**: All 30 `wf-*` entries listed
 8. **Git clean**: `git status` shows expected changes, nothing missing

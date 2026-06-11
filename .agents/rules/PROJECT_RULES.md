@@ -160,9 +160,9 @@ PROJECT_RULES.md          # ← This file (canonical rules, in .agents/rules/)
 QUANTIS-STYLE.md              # Style and conventions (in .agents/rules/)
 
 .agents/
-└── skills/               # Workflows (_wf-*) + methodology skills
-    ├── _wf-plan/         # Workflow: /plan (or /_wf-plan on CLI)
-    ├── _wf-execute/      # Workflow: /execute
+└── skills/               # Workflows (wf-*) + methodology skills
+    ├── wf-plan/         # Workflow: /plan (or /wf-plan on CLI)
+    ├── wf-execute/      # Workflow: /execute
     ├── brainstorming/    # Skill: auto-triggered methodology
     └── writing-plans/    # Skill: auto-triggered methodology
 

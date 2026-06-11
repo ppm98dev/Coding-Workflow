@@ -6,26 +6,26 @@ All notable changes to Quantis.
 
 ### 🎉 CLI-First Migration
 
-**BREAKING**: `.agent/workflows/` directory removed — all workflows now live in `.agents/skills/_wf-*/SKILL.md`.
+**BREAKING**: `.agent/workflows/` directory removed — all workflows now live in `.agents/skills/wf-*/SKILL.md`.
 
 #### Added
 - Platform compatibility matrix (IDE, CLI, Standalone) in `adapters/ANTIGRAVITY.md`
 - Capability-based platform detection (no hardcoded platform names)
 - Subagent dispatch for all major workflows: discuss-phase, plan, stress-test, execute, verify
 - CLI quick start section in README
-- `/_wf-` prefix documentation in `/quantis-help`
+- `/wf-` prefix documentation in `/quantis-help`
 
 #### Changed
 - SDD is now the **default** execution path (CLI-first); IDE gets inline fallback
-- `_wf-execute`: deterministic SDD selection, no user menu
-- `_wf-verify`: `browser_subagent` graceful fallback when unavailable
-- `_wf-install`: updated paths for unified structure
+- `wf-execute`: deterministic SDD selection, no user menu
+- `wf-verify`: `browser_subagent` graceful fallback when unavailable
+- `wf-install`: updated paths for unified structure
 - All root docs updated: PROJECT_RULES, QUANTIS-STYLE, MANIFEST, README
 - Scripts updated: validate-workflows.sh, install.sh, upgrade.sh
 
 #### Removed
-- `.agent/workflows/` directory (workflows moved to `.agents/skills/_wf-*/`)
-- 30 `_wf-*` symlinks replaced with real files
+- `.agent/workflows/` directory (workflows moved to `.agents/skills/wf-*/`)
+- 30 `wf-*` symlinks replaced with real files
 
 ---
 

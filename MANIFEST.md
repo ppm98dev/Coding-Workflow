@@ -5,37 +5,37 @@
 
 ## Core Directories
 
-### Workflows (`.agents/skills/_wf-*/` — 30 directories)
-- _wf-add-phase
-- _wf-add-todo
-- _wf-audit-milestone
-- _wf-check-todos
-- _wf-complete-milestone
-- _wf-debug-issue
-- _wf-discuss-phase
-- _wf-execute
-- _wf-insert-phase
-- _wf-install
-- _wf-list-phase-assumptions
-- _wf-map
-- _wf-new-milestone
-- _wf-new-project
-- _wf-pause
-- _wf-plan-milestone-gaps
-- _wf-plan
-- _wf-progress
-- _wf-quantis-help
-- _wf-remove-phase
-- _wf-research-phase
-- _wf-resume-session
-- _wf-sprint
-- _wf-stress-test
-- _wf-update-plan
-- _wf-update
-- _wf-upgrade
-- _wf-verify
-- _wf-web-search
-- _wf-whats-new
+### Workflows (`.agents/skills/wf-*/` — 30 directories)
+- wf-add-phase
+- wf-add-todo
+- wf-audit-milestone
+- wf-check-todos
+- wf-complete-milestone
+- wf-debug-issue
+- wf-discuss-phase
+- wf-execute
+- wf-insert-phase
+- wf-install
+- wf-list-phase-assumptions
+- wf-map
+- wf-new-milestone
+- wf-new-project
+- wf-pause
+- wf-plan-milestone-gaps
+- wf-plan
+- wf-progress
+- wf-quantis-help
+- wf-remove-phase
+- wf-research-phase
+- wf-resume-session
+- wf-sprint
+- wf-stress-test
+- wf-update-plan
+- wf-update
+- wf-upgrade
+- wf-verify
+- wf-web-search
+- wf-whats-new
 
 ### Skills (`.agents/skills/` — 18 directories)
 - brainstorming

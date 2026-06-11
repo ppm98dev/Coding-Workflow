@@ -18,12 +18,12 @@ Quantis works across all three Antigravity platforms:
 | `define_subagent` | ❌ | ✅ | ✅ |
 | `browser_subagent` | ✅ | ❌ | `/browser` |
 | Skills as `/commands` | ✅ | ✅ | ✅ |
-| Workflow commands | `/plan` | `/_wf-plan` | `/plan` |
+| Workflow commands | `/plan` | `/wf-plan` | `/plan` |
 
 ### CLI Command Convention
 
-On CLI (`agy`), workflow commands use the `/_wf-` prefix:
-- IDE/Standalone: `/plan 1` → CLI: `/_wf-plan 1`
+On CLI (`agy`), workflow commands use the `/wf-` prefix:
+- IDE/Standalone: `/plan 1` → CLI: `/wf-plan 1`
 - Skill commands work the same on all platforms: `/brainstorming`
 
 ### Capability-Based Detection

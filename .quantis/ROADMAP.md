@@ -203,15 +203,15 @@
 **Depends on**: Phase 3.1
 
 **Completed:**
-- [x] Consolidated `.agent/workflows/` into `.agents/skills/_wf-*/` (30 real files, 0 symlinks)
+- [x] Consolidated `.agent/workflows/` into `.agents/skills/wf-*/` (30 real files, 0 symlinks)
 - [x] Deleted `.agent/` directory entirely
 - [x] Moved PROJECT_RULES, CONSTITUTION, QUANTIS-STYLE to `.agents/rules/` (auto-discovered)
 - [x] Removed dead adapters (CLAUDE, GEMINI, GPT_OSS) and `model_capabilities.yaml`
 - [x] SDD skill detects `invoke_subagent` availability — uses it when present, falls back to inline when absent
-- [x] `_wf-execute` deterministic SDD selection (no menu)
-- [x] `_wf-verify` graceful `browser_subagent` fallback
+- [x] `wf-execute` deterministic SDD selection (no menu)
+- [x] `wf-verify` graceful `browser_subagent` fallback
 - [x] Subagent dispatch in discuss-phase, plan, stress-test, verify
-- [x] `quantis-help` shows CLI `/_wf-*` variants
+- [x] `quantis-help` shows CLI `/wf-*` variants
 - [x] All scripts updated (validate-workflows, install, upgrade)
 - [x] All root docs updated (README, MANIFEST, CHANGELOG)
 - [x] Platform compatibility matrix in `adapters/ANTIGRAVITY.md`
@@ -232,8 +232,8 @@
 | `sprint` | `executing-plans` + `subagent-driven-development` | Time-boxed execution should use SDD when available |
 
 **Deliverables:**
-- [ ] `_wf-plan-milestone-gaps` delegates to `writing-plans/SKILL.md` for plan generation
-- [ ] `_wf-sprint` delegates to `executing-plans/SKILL.md` and uses SDD when `invoke_subagent` is available
+- [ ] `wf-plan-milestone-gaps` delegates to `writing-plans/SKILL.md` for plan generation
+- [ ] `wf-sprint` delegates to `executing-plans/SKILL.md` and uses SDD when `invoke_subagent` is available
 - [ ] Verification: both workflows produce the same quality output as their full counterparts (`/plan`, `/execute`)
 
 **Nice-to-haves:**

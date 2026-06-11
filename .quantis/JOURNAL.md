@@ -9,14 +9,14 @@ Fix Quantis workflow reliability issues (from stress-test findings) and investig
 - Discovered critical platform feature split: IDE ≠ CLI ≠ Standalone
 - Verified tool inventories across all 3 Antigravity platforms
 - Renamed 3 workflows to avoid CLI builtin collisions (resume→resume-session, help→quantis-help, debug→debug-issue)
-- Created 30 `_wf-*` symlink skills for CLI workflow support
+- Created 30 `wf-*` symlink skills for CLI workflow support
 - Created `.agents/rules/` symlink for CLI rules loading
 - Added Phase 3.2 (CLI-First Migration) to roadmap
 - Sent external review prompt to Claude for architecture analysis
 - Researched antigravity-superpowers comparison project
 
 ### Verification
-- [x] `_wf-resume-session` works on CLI (user confirmed)
+- [x] `wf-resume-session` works on CLI (user confirmed)
 - [x] Builtin collision list verified against CLI docs
 - [x] Symlinks use relative paths (portable across machines)
 - [ ] Full workflow cycle on CLI (plan → execute → verify) — Phase 3.2

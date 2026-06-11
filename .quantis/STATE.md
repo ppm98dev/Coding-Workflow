@@ -8,7 +8,7 @@
 ### Major Discovery: Platform Feature Split
 Verified tool availability across all 3 Antigravity platforms:
 - **IDE**: workflows ✅, browser_subagent ✅, invoke_subagent ❌
-- **CLI** (`agy 1.0.7`): skills as commands ✅, invoke_subagent ✅, workflows ❌ (fixed with _wf- symlinks)
+- **CLI** (`agy 1.0.7`): skills as commands ✅, invoke_subagent ✅, workflows ❌ (fixed with wf- symlinks)
 - **Standalone 2.0**: everything ✅ (workflows, subagents, /browser)
 
 ### Actions Taken
@@ -17,7 +17,7 @@ Verified tool availability across all 3 Antigravity platforms:
    - `help.md` → `quantis-help.md`
    - `debug.md` → `debug-issue.md`
 2. Updated all 10 cross-references to renamed workflows
-3. Created 30 `_wf-*` symlink skills in `.agents/skills/` so CLI can use workflows
+3. Created 30 `wf-*` symlink skills in `.agents/skills/` so CLI can use workflows
 4. Created `.agents/rules/` with symlink to `PROJECT_RULES.md` for CLI rules loading
 5. Added Phase 3.2: CLI-First Migration to ROADMAP.md
 6. Sent comprehensive analysis prompt to Claude (external review of Quantis architecture)
@@ -44,7 +44,7 @@ Files modified (uncommitted):
 - `.agents/skills/subagent-driven-development/SKILL.md` (ref updated)
 - `.agents/skills/executing-plans/SKILL.md` (ref updated)
 - `.agents/skills/token-budget/SKILL.md` (ref updated)
-- `.agents/skills/_wf-*/` (30 symlink directories — NEW)
+- `.agents/skills/wf-*/` (30 symlink directories — NEW)
 - `.agents/rules/PROJECT_RULES.md` (symlink — NEW)
 - `.quantis/ROADMAP.md` (Phase 3.2 added)
 
@@ -55,7 +55,7 @@ Files modified (uncommitted):
 ## Context Dump
 
 ### Decisions Made
-- **_wf- prefix for CLI**: Avoids name collision with existing skills (brainstorming, writing-plans, etc.) while making workflows discoverable as CLI slash commands
+- **wf- prefix for CLI**: Avoids name collision with existing skills (brainstorming, writing-plans, etc.) while making workflows discoverable as CLI slash commands
 - **Symlinks over copies**: One source of truth — edit in `.agent/workflows/`, both IDE and CLI see changes
 - **3 renames**: `/resume` → `/resume-session`, `/help` → `/quantis-help`, `/debug` → `/debug-issue` to avoid CLI builtin conflicts
 - **CLI builtins confirmed**: /help, /resume, /clear, /model, /context, /fork, /rewind, /config, /usage, /goal, /browser, /schedule, /agent, /settings, /undo

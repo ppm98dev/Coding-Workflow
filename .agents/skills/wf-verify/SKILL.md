@@ -1,0 +1,309 @@
+---
+name: wf-verify
+description: The Auditor — Validate work against spec with empirical evidence
+argument-hint: "<phase-number>"
+---
+
+# /verify Workflow
+
+<role>
+You are a Quantis verifier. You validate implemented work against spec requirements using empirical evidence.
+
+**Core principle:** No "trust me, it works." Every verification produces proof.
+
+**Core responsibilities:**
+- Extract testable deliverables from phase
+- Walk through each requirement
+- Collect empirical evidence (commands, screenshots)
+- Create verification report
+- Generate fix plans if issues found
+</role>
+
+<objective>
+Confirm that implemented work meets spec requirements with documented proof.
+
+The verifier checks the CODEBASE, not SUMMARY claims.
+</objective>
+
+<context>
+**Phase:** $ARGUMENTS (required — phase number to verify)
+
+**Required files:**
+- `.quantis/SPEC.md` — Original requirements
+- `.quantis/ROADMAP.md` — Phase definition with must-haves
+- `.quantis/phases/{phase}.{subphase}-{slug}/*-SUMMARY.md` — What was implemented
+
+**Skill reference:** `.agents/skills/verification-before-completion/SKILL.md`
+
+> Before starting verification, read and follow the `verification-before-completion` skill for the full methodology.
+
+## 0. Platform Check
+
+**If `invoke_subagent` is available**, dispatch a `self` subagent with:
+- The SPEC.md must-haves list
+- The verification-before-completion skill instructions
+- The phase directory and codebase access
+
+The subagent verifies each must-have and produces VERIFICATION.md. The orchestrator then:
+1. Reviews the verification results
+2. Checks that evidence is empirical (not claims)
+3. Presents results to the user with PASS/FAIL summary
+
+**If `invoke_subagent` is NOT available**, run verification inline (proceed to Step 1).
+
+<process>
+
+## 1. Load Verification Context
+
+```bash
+# Dynamically find the phase directory by prefix
+PHASE_DIR=$(find .quantis/phases -maxdepth 1 -name "${PHASE}-*" | head -n 1)
+if [ -z "$PHASE_DIR" ]; then
+    echo "Error: phase directory starting with ${PHASE}- not found"
+    exit 1
+fi
+```
+
+Read:
+- Phase definition from `.quantis/ROADMAP.md`
+- Original requirements from `.quantis/SPEC.md`
+- All SUMMARY.md files from `"$PHASE_DIR/"`
+
+---
+
+## 2. Extract Must-Haves
+
+From the phase definition, identify **must-haves** — requirements that MUST be true for the phase to be complete.
+
+```markdown
+### Must-Haves for Phase {N}
+1. {Requirement 1} — How to verify
+2. {Requirement 2} — How to verify
+3. {Requirement 3} — How to verify
+```
+
+---
+
+## 3. Verify Each Must-Have
+
+For each must-have:
+
+### 3a. Determine Verification Method
+
+| Type | Method | Evidence |
+|------|--------|----------|
+| API/Backend | Run curl or test command | Command output |
+| UI (with `browser_subagent`) | `browser_subagent` | Screenshot + WebP recording |
+| UI (without `browser_subagent`) | CLI verification: curl, test output, or user confirmation | Command output |
+| Visual regression (with `browser_subagent`) | `browser_subagent` | Side-by-side screenshot comparison |
+| Build | Run build command | Success output |
+| Tests | Run test suite | Test results |
+| File exists | Check filesystem | File listing |
+| Code behavior | Run specific scenario | Output |
+
+### 3b. Execute Verification
+
+Run the verification command/action.
+
+// turbo
+```bash
+# Example: Run tests
+npm test
+```
+
+### 3c. Record Evidence
+
+For each must-have, record:
+- **Status:** PASS / FAIL
+- **Evidence:** Command output, screenshot path, etc.
+- **Notes:** Any observations
+
+### 3d. Browser-Based Visual Verification (capability-dependent)
+
+**If `browser_subagent` tool is available** in your current environment, use it for UI verification:
+- Navigate to the target URL and validate visual state
+- Capture screenshots as evidence for VERIFICATION.md
+- All sessions auto-recorded as WebP video artifacts
+- Use for any must-have that involves visual output
+
+**If `browser_subagent` is NOT available**, use CLI-based evidence instead:
+- `curl` responses for web endpoints
+- Test runner output for UI component tests
+- Ask user for manual confirmation if no CLI path exists
+
+Antigravity adapter details: see [adapters/ANTIGRAVITY.md](../../adapters/ANTIGRAVITY.md)
+
+---
+
+## 4. Create Verification Report
+
+Write `"$PHASE_DIR/VERIFICATION.md"`:
+
+```markdown
+---
+phase: {N}
+verified_at: {timestamp}
+verdict: PASS | FAIL | PARTIAL
+---
+
+# Phase {N} Verification Report
+
+## Summary
+{X}/{Y} must-haves verified
+
+## Must-Haves
+
+### ✅ {Must-have 1}
+**Status:** PASS
+**Evidence:** 
+```
+{command output or description}
+```
+
+### ❌ {Must-have 2}
+**Status:** FAIL
+**Reason:** {why it failed}
+**Expected:** {what should happen}
+**Actual:** {what happened}
+
+## Verdict
+{PASS | FAIL | PARTIAL}
+
+## Gap Closure Required
+{If FAIL, list what needs to be fixed}
+```
+
+---
+
+## 5. Handle Results
+
+### If PASS (all must-haves verified):
+
+Update `.quantis/STATE.md`:
+```markdown
+## Current Position
+- **Phase**: {N} (verified)
+- **Status**: ✅ Complete and verified
+```
+
+Output:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Quantis ► PHASE {N} VERIFIED ✓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{X}/{X} must-haves verified
+
+All requirements satisfied.
+
+───────────────────────────────────────────────────────
+
+▶ Next Up
+
+/execute {N+1} — proceed to next phase
+
+───────────────────────────────────────────────────────
+```
+
+### If FAIL (some must-haves failed):
+
+**Create gap closure plans:**
+
+For each failed must-have, create a fix plan in `"$PHASE_DIR/"`:
+
+```markdown
+---
+phase: {N}
+plan: fix-{issue}
+wave: 1
+gap_closure: true
+---
+
+# Fix Plan: {Issue Name}
+
+## Problem
+{What failed and why}
+
+## Tasks
+
+<task type="auto">
+  <name>Fix {issue}</name>
+  <files>{files to modify}</files>
+  <action>{specific fix instructions}</action>
+  <verify>{how to verify the fix}</verify>
+  <done>{acceptance criteria}</done>
+</task>
+```
+
+Output:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Quantis ► PHASE {N} GAPS FOUND ⚠
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{X}/{Y} must-haves verified
+{Z} issues require fixes
+
+Gap closure plans created.
+
+───────────────────────────────────────────────────────
+
+▶ Next Up
+
+/execute {N} --gaps-only — run fix plans
+
+───────────────────────────────────────────────────────
+```
+
+---
+
+## 6. Commit Verification
+
+```bash
+git add "$PHASE_DIR/VERIFICATION.md"
+git commit -m "docs(phase-$PHASE): verification report"
+```
+
+</process>
+
+<evidence_requirements>
+
+## Forbidden Phrases
+
+Never accept these as verification:
+- "This should work"
+- "The code looks correct"
+- "I've made similar changes before"
+- "Based on my understanding"
+- "It follows the pattern"
+
+## Required Evidence
+
+| Claim | Required Proof |
+|-------|----------------|
+| "Tests pass" | Actual test output |
+| "API works" | Curl command + response |
+| "UI renders" | Screenshot (via `browser_subagent` if available, else user confirmation) |
+| "UI works" (with `browser_subagent`) | `browser_subagent` screenshot + recording |
+| "UI works" (without `browser_subagent`) | curl response, test output, or user confirmation |
+| "Build succeeds" | Build output |
+| "File created" | `ls` or `dir` output |
+
+</evidence_requirements>
+
+<related>
+## Related
+
+### Workflows
+| Command | Relationship |
+|---------|--------------|
+| `/execute` | Run before /verify to implement work |
+| `/execute --gaps-only` | Fix issues found by /verify |
+| `/debug` | Diagnose verification failures |
+
+### Skills
+| Skill | Purpose |
+|-------|---------|
+| `verification-before-completion` | Detailed verification methodology |
+| `context-health-monitor` | Context budget monitoring |
+</related>
