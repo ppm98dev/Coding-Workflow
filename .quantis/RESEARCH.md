@@ -70,7 +70,7 @@ Antigravity already has a planning mode with three special artifacts:
 
 ### Directory Structure (Confirmed)
 ```
-.agent/workflows/          # Slash commands (user-triggered)
+.agents/skills/_wf-*/       # Slash commands (user-triggered, _wf- prefix)
 .agents/skills/<name>/     # Agent skills (agent-triggered, on-demand)
   SKILL.md                 # Required — YAML frontmatter + markdown instructions
   scripts/                 # Optional — helper scripts

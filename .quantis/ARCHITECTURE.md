@@ -1,6 +1,6 @@
 # Architecture
 
-> Updated post-v3.2 milestone completion (2026-05-24)
+> Updated post-v3.3 CLI-first migration (2026-06-11)
 
 ## Overview
 
@@ -17,7 +17,7 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
                          ▼
 ┌───────────────────────────────────────────────────────────────┐
 │                    WORKFLOW LAYER                              │
-│           .agent/workflows/ (30 commands)                     │
+│      .agents/skills/_wf-*/ (30 workflow commands)              │
 │  new-project → plan → execute → verify → complete-milestone   │
 └──────────┬─────────────────────┬──────────────────────────────┘
            │                     │
@@ -49,19 +49,19 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
 
 ## Components
 
-### Workflow Layer (`.agent/workflows/`)
+### Workflow Layer (`.agents/skills/_wf-*/`)
 - **Purpose:** 30 slash commands that drive the development lifecycle
-- **Location:** `.agent/workflows/*.md`
+- **Location:** `.agents/skills/_wf-*/SKILL.md` (unified with skills, `_wf-` prefix = workflow)
 - **Key files:**
-  - `new-project.md` — 10-phase project initialization with deep questioning
-  - `plan.md` — Discovers active MCP tools and custom skills dynamically (from skills.sh), prints a high-visibility ecosystem discovery card, and generates execution plans inside dynamic hierarchical phase folders
-  - `execute.md` — Dynamic subphase directory resolution and plan execution
-  - `verify.md` — Empirical verification with prefix-based resolution
-  - `map.md` — Codebase analysis (this output)
-  - `debug.md` — 3-strike systematic debugging
-  - `sprint.md` — Time-boxed sprint management
-  - `pause.md` / `resume.md` — Session persistence
-- **Total size:** ~120KB across 30 files
+  - `_wf-new-project/SKILL.md` — 10-phase project initialization with deep questioning
+  - `_wf-plan/SKILL.md` — Discovers active MCP tools and custom skills dynamically (from skills.sh), prints a high-visibility ecosystem discovery card, and generates execution plans inside dynamic hierarchical phase folders
+  - `_wf-execute/SKILL.md` — Dynamic subphase directory resolution and plan execution (deterministic SDD when `invoke_subagent` available)
+  - `_wf-verify/SKILL.md` — Empirical verification with prefix-based resolution
+  - `_wf-map/SKILL.md` — Codebase analysis (this output)
+  - `_wf-debug-issue/SKILL.md` — 3-strike systematic debugging
+  - `_wf-sprint/SKILL.md` — Time-boxed sprint management
+  - `_wf-pause/SKILL.md` / `_wf-resume-session/SKILL.md` — Session persistence
+- **CLI note:** On CLI (`agy`), invoke with `/_wf-` prefix (e.g., `/_wf-plan 1`)
 
 ### Skills Layer (`.agents/skills/`)
 - **Purpose:** 18 specialized agent behaviors that workflows reference
@@ -108,7 +108,7 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
 ## Data Flow
 
 1. **User invokes** slash command (e.g., `/plan 1.1`)
-2. **Workflow loads** from `.agent/workflows/plan.md`
+2. **Workflow loads** from `.agents/skills/_wf-plan/SKILL.md`
 3. **Workflow reads** state from `.quantis/` (SPEC, ROADMAP, STATE)
 4. **Workflow resolves** descriptive subphase directory (e.g. `.quantis/phases/1.1-hierarchical-folders/`)
 5. **Workflow invokes** skills from `.agents/skills/` as needed
@@ -133,7 +133,7 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
 
 ## Conventions
 
-**Naming:** Workflows use kebab-case (`add-phase.md`), skills use kebab-case folders (`context-compressor/`), templates use mixed case
+**Naming:** Workflows use `_wf-{name}` prefix in `.agents/skills/`, skills use kebab-case folders (`context-compressor/`), templates use mixed case
 **Structure:** Workflows use XML semantic containers (`<role>`, `<objective>`, `<process>`), skills use YAML frontmatter
 **Testing:** Validation scripts only (no unit/integration tests)
 **Commits:** `type(scope): description` — one task per commit
