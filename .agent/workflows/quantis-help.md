@@ -2,7 +2,7 @@
 description: Show all available Quantis commands
 ---
 
-# /help Workflow
+# /quantis-help Workflow
 
 <objective>
 Display all available Quantis commands with descriptions and usage hints.
@@ -35,7 +35,7 @@ SKILL-POWERED COMMANDS (slash command → skill)
 
 SKILL-ENHANCED COMMANDS (workflow + skill)
 ──────────────────────────────────────────
-/debug [desc]     Systematic debugging         + systematic-debugging
+/debug-issue [desc] Systematic debugging       + systematic-debugging
 /verify [N]       Must-haves validation        + verification-before-completion
 /new-project      Deep questioning → SPEC.md   + brainstorming
 
@@ -57,14 +57,14 @@ NAVIGATION & STATE
 ──────────────────
 /progress         Show current position in roadmap
 /pause            Save state for session handoff
-/resume           Restore from last session
+/resume-session   Restore from last session
 /sprint           Time-boxed focused work session
 /add-todo         Quick capture idea
 /check-todos      List pending items
 
 UTILITIES
 ─────────
-/help             Show this help
+/quantis-help     Show this help
 /web-search       Search web for information
 /whats-new        Show recent Quantis changes
 /install          Install Quantis into a project

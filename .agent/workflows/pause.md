@@ -116,7 +116,7 @@ State saved to:
 
 To resume later:
 
-/resume
+/resume-session
 
 ───────────────────────────────────────────────────────
 

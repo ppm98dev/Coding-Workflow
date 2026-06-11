@@ -297,4 +297,4 @@ After marking each task complete, update Quantis state files:
 2. **JOURNAL.md** — Add entry: task name, files changed, verification result
 3. **ROADMAP.md** — Check off deliverable if the completed task satisfies one
 
-This ensures session persistence across `/pause` and `/resume` cycles.
+This ensures session persistence across `/pause` and `/resume-session` cycles.

@@ -160,7 +160,7 @@ Tasks completed: {N}/{total}
 
 ▶ NEXT
 
-/resume — Return to milestone work
+/resume-session — Return to milestone work
 /sprint new — Start another sprint
 
 ───────────────────────────────────────────────────────

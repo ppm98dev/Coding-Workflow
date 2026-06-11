@@ -110,13 +110,13 @@ These slash commands are available. Some invoke Superpowers skills for enhanced 
 | `/stress-test` | Adversarial spec/plan review | brainstorming (critique) |
 | `/research-phase {N}` | Deep technical research | brainstorming (research) |
 | `/update-plan {N}` | Revise plans | writing-plans (revision) |
-| `/debug` | Systematic debugging | systematic-debugging |
+| `/debug-issue` | Systematic debugging | systematic-debugging |
 | `/verify {N}` | Validate work against spec | verification-before-completion |
 | `/new-project` | Initialize project | brainstorming |
 | `/pause` | Dump context for session handoff | — |
-| `/resume` | Restore context from previous | — |
+| `/resume-session` | Restore context from previous | — |
 | `/progress` | Show roadmap position | — |
-| `/help` | Show all commands | — |
+| `/quantis-help` | Show all commands | — |
 
 ## File Conventions
 

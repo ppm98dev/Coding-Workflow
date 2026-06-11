@@ -193,3 +193,36 @@
 - [ ] SPEC.md scaling for large projects
 - [ ] Parallel subagent dispatch for independent tasks
 - [ ] Community skill adoption framework
+
+---
+
+#### Phase 3.2: CLI-First Migration ⬜
+
+**Status**: ⬜ Not Started
+**Objective**: Fully adapt Quantis to run on Antigravity CLI (`agy`) as the primary platform, enabling subagent-driven development, VM/SSH workflows, and cross-platform compatibility.
+**Depends on**: Phase 3.1
+
+**Context — Platform Matrix (verified)**:
+| Feature | IDE | CLI | Standalone |
+|---------|:---:|:---:|:---:|
+| `invoke_subagent` | ❌ | ✅ | ✅ |
+| `browser_subagent` | ✅ | ❌ | `/browser` |
+| Workflows as `/commands` | ✅ | ❌ (needs `_wf-` skills) | ✅ |
+| Skills as `/commands` | ✅ | ✅ | ✅ |
+| SSH/Remote | ✅ | ✅ | ❌ |
+| Rules from `PROJECT_RULES.md` | ✅ | ❌ (needs `.agents/rules/`) | ? |
+
+**Deliverables:**
+- [ ] All workflow "next step" suggestions detect platform and show correct command prefix
+- [ ] `quantis-help.md` shows CLI command variants (`/_wf-*`)
+- [ ] Workflows that reference `browser_subagent` gracefully fallback when unavailable
+- [ ] SDD skill detects `invoke_subagent` availability — uses it when present, falls back to inline when absent
+- [ ] Verify `_wf-` symlinks work on Linux VMs after `git clone`
+- [ ] Update install workflow to auto-create `_wf-` symlinks and `.agents/rules/` symlink
+- [ ] End-to-end test: full Quantis cycle on CLI (`discuss → plan → execute → verify`)
+- [ ] Document platform-specific workflows in README
+
+**Verification:**
+- Full `/plan → /execute → /verify` cycle runs successfully on `agy` CLI
+- SDD dispatches real subagents on CLI (not inline fallback)
+- Same repo works on IDE, CLI, and Standalone without manual setup

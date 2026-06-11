@@ -150,7 +150,7 @@ This skill integrates with:
 - `context-fetch` — Search before loading
 - `context-health-monitor` — Quality tracking
 - `context-compressor` — Compression strategies
-- `/pause` and `/resume` — Session handoff
+- `/pause` and `/resume-session` — Session handoff
 
 ---
 

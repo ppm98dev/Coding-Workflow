@@ -1,41 +1,79 @@
-# Quantis State
-
 ## Current Position
-- **Milestone**: v3.3 — Workflow Reliability & Advanced Features
-- **Phase**: 3.1 — Workflow Reliability Fixes
-- **Status**: Paused at 2026-06-01T00:08:00+02:00
+- **Phase**: 3.1 (Workflow Reliability Fixes) + 3.2 (CLI-First Migration) just added
+- **Task**: Phase 3.2 added to roadmap, no plan created yet
+- **Status**: Paused at 2026-06-11T19:00
 
 ## Last Session Summary
-Resumed from v3.2 completion. Discussed, spec'd, planned, and stress-tested Phase 3.1 (Workflow Reliability Fixes). Identified 4 workflow bugs, wrote SPEC.md, created 2 execution plans, then ran adversarial stress-test that surfaced 5 findings — 2 of which require plan revisions before execution.
+
+### Major Discovery: Platform Feature Split
+Verified tool availability across all 3 Antigravity platforms:
+- **IDE**: workflows ✅, browser_subagent ✅, invoke_subagent ❌
+- **CLI** (`agy 1.0.7`): skills as commands ✅, invoke_subagent ✅, workflows ❌ (fixed with _wf- symlinks)
+- **Standalone 2.0**: everything ✅ (workflows, subagents, /browser)
+
+### Actions Taken
+1. Renamed 3 workflows to avoid CLI builtin collisions:
+   - `resume.md` → `resume-session.md`
+   - `help.md` → `quantis-help.md`
+   - `debug.md` → `debug-issue.md`
+2. Updated all 10 cross-references to renamed workflows
+3. Created 30 `_wf-*` symlink skills in `.agents/skills/` so CLI can use workflows
+4. Created `.agents/rules/` with symlink to `PROJECT_RULES.md` for CLI rules loading
+5. Added Phase 3.2: CLI-First Migration to ROADMAP.md
+6. Sent comprehensive analysis prompt to Claude (external review of Quantis architecture)
+
+### Claude External Review
+- Prompt at: `quantis_external_review_prompt.md` (artifact)
+- Claude was actively analyzing when session paused
+- Covers: 5 reliability issues, subagent strategy, senior code reviewer design, stress-test improvements
+- Follow-up needed: send platform findings as additional context
 
 ## In-Progress Work
-- Files modified: None (plans written and committed, stress-test findings not yet applied)
-- Tests status: N/A (markdown workflow edits, no code)
+- Claude analysis still running (external, check results)
+- Phase 3.1 SPEC exists at `.quantis/phases/3.1-workflow-reliability-fixes/SPEC.md` but not started
+- Phase 3.2 added but needs `/plan 3.2`
+
+Files modified (uncommitted):
+- `.agent/workflows/resume-session.md` (renamed from resume.md)
+- `.agent/workflows/quantis-help.md` (renamed from help.md)  
+- `.agent/workflows/debug-issue.md` (renamed from debug.md)
+- `.agent/workflows/pause.md` (updated /resume → /resume-session)
+- `.agent/workflows/sprint.md` (updated reference)
+- `.agents/skills/using-quantis/SKILL.md` (3 command refs updated)
+- `.agents/skills/context-health-monitor/SKILL.md` (ref updated)
+- `.agents/skills/subagent-driven-development/SKILL.md` (ref updated)
+- `.agents/skills/executing-plans/SKILL.md` (ref updated)
+- `.agents/skills/token-budget/SKILL.md` (ref updated)
+- `.agents/skills/_wf-*/` (30 symlink directories — NEW)
+- `.agents/rules/PROJECT_RULES.md` (symlink — NEW)
+- `.quantis/ROADMAP.md` (Phase 3.2 added)
 
 ## Blockers
-None — but a **scope decision** is needed before execution.
+- Claude external review results not yet received
+- Phase 3.1 not started (reliability fixes)
 
 ## Context Dump
 
-### Key Decision Pending
-The stress-test revealed that 2 issues are partially baked into **skills**, not just workflows:
-1. **brainstorming/SKILL.md step 9** auto-invokes writing-plans after SPEC.md — fixable from the workflow by scoping to "steps 1-8 only"
-2. **writing-plans/SKILL.md lines 138-144** presents the "Subagent vs Inline?" execution menu after planning — NOT fixable from execute.md alone (only helps when user runs `/execute` separately)
+### Decisions Made
+- **_wf- prefix for CLI**: Avoids name collision with existing skills (brainstorming, writing-plans, etc.) while making workflows discoverable as CLI slash commands
+- **Symlinks over copies**: One source of truth — edit in `.agent/workflows/`, both IDE and CLI see changes
+- **3 renames**: `/resume` → `/resume-session`, `/help` → `/quantis-help`, `/debug` → `/debug-issue` to avoid CLI builtin conflicts
+- **CLI builtins confirmed**: /help, /resume, /clear, /model, /context, /fork, /rewind, /config, /usage, /goal, /browser, /schedule, /agent, /settings, /undo
 
-**The decision**: Expand scope to also touch `writing-plans/SKILL.md` (remove the execution menu), or keep it workflows-only and accept the menu still appears after `/plan`?
+### Key Finding: SDD Architecture
+- SDD (`invoke_subagent`) works on CLI + Standalone but NOT IDE
+- Workflows that reference subagents need platform detection + fallback
+- The IDE has `browser_subagent` but CLI doesn't; Standalone has `/browser` command
 
-### Stress-Test Findings to Fix in Plans
-- 🔴 **Plan A Task 1**: discuss-phase HARD-GATE must say "steps 1-8 only, NOT step 9" to prevent auto-invoking writing-plans
-- 🟠 **Plan B Task 2**: Pause roadmap sync must check ALL plans have summaries, not just ANY (prevent marking partial phases as complete)
-- 🟡 **Plan B Task 1**: execute.md `<related>` table still says "preferred when subagents available" — contradicts the new HARD-GATE
-- 🔵 **Plan B Task 2 Step 2**: Handoff display update is vague — needs exact insertion point
-
-### Files of Interest
-- `.quantis/phases/3.1-workflow-reliability-fixes/SPEC.md`: Finalized spec
-- `.quantis/phases/3.1-workflow-reliability-fixes/3.1-PLAN-A.md`: discuss-phase + verify fixes
-- `.quantis/phases/3.1-workflow-reliability-fixes/3.1-PLAN-B.md`: execute + pause fixes
+### Platform-Specific Findings
+- CLI reads `.agents/skills/*/SKILL.md` as slash commands but NOT `.agent/workflows/*.md`
+- CLI reads `.agents/rules/` for rules but NOT `PROJECT_RULES.md` at root
+- Standalone reads both `.agent/workflows/` AND `.agents/skills/` — full compatibility
+- Git symlinks with relative paths work across machines (Linux/macOS)
 
 ## Next Steps
-1. **Decide scope**: workflows-only or also touch writing-plans skill?
-2. **Fix plans**: Apply the 4 stress-test findings to Plan A and Plan B
-3. **Execute**: `/execute 3.1`
+1. **Check Claude's analysis results** — incorporate findings
+2. **`/plan 3.2`** in clean context — break CLI-First Migration into tasks
+3. **Execute Phase 3.1** — reliability fixes (4 items in SPEC)
+4. **Execute Phase 3.2** — CLI full adaptation
+5. **Commit current changes** — `git commit -m "feat: CLI compatibility — workflow symlinks + rules bridge + renames"`

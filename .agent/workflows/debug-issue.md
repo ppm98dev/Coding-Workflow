@@ -207,7 +207,7 @@ Options:
 | Command | Relationship |
 |---------|--------------|
 | `/pause` | Use after 3 failed attempts |
-| `/resume` | Start fresh with documented state |
+| `/resume-session` | Start fresh with documented state |
 | `/verify` | Re-verify after fixing issues |
 
 ### Skills

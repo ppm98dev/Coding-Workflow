@@ -93,4 +93,4 @@ After completing each task, update Quantis state files:
    - [x] {deliverable that was just completed}
    ```
 
-This ensures session persistence across `/pause` and `/resume` cycles.
+This ensures session persistence across `/pause` and `/resume-session` cycles.

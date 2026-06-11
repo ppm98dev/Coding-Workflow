@@ -101,5 +101,5 @@ Sessions can terminate abruptly (usage limits, context limits, network errors). 
 
 This skill integrates with:
 - `/pause` — Triggers proper session handoff (includes proactive auto-save)
-- `/resume` — Loads the state dump context
+- `/resume-session` — Loads the state dump context
 - Rule 3 in `GEMINI.md` — Context Hygiene enforcement
