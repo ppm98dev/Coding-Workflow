@@ -1,5 +1,38 @@
 # Quantis Journal
 
+## Session: 2026-06-11 20:00 (continuation)
+
+### Objective
+Post-migration cleanup: spec compliance, scripts, docs cleanup, real-world testing.
+
+### Accomplished
+- Added `name:` field to all 30 workflow SKILL.md (fixed slash command visibility)
+- Renamed `_wf-*` → `wf-*` (Agent Skills spec compliance)
+- Browser verification handoff (CLI→IDE via BROWSER-VERIFY.md)
+- Rewrote install.sh + upgrade.sh for v3.3 migration paths
+- Fixed critical bash bug: `ls glob*` with `set -e` crashes on no matches
+- Made rules additive (never delete existing .agents/rules/ files)
+- Deleted docs/ (redundant with skills) — 1,035 lines removed
+- Deleted .quantis/examples/ (stale GSD content)
+- Successfully tested install on real work repo
+
+### Verification
+- [x] All 48 skills spec-compliant (name field, valid chars, folder match)
+- [x] Slash commands visible in both IDE and CLI
+- [x] install.sh runs successfully on work repo
+- [x] Zero stale docs/ references in active files
+- [x] All changes pushed to GitHub
+
+### Paused Because
+Natural session end.
+
+### Handoff Notes
+- All pushed to GitHub
+- Phase 3.3 (workflow-skill wiring) not yet started
+- `install.sh` has empty comment block on line 40 (cosmetic)
+
+---
+
 ## Session: 2026-06-11 19:30
 
 ### Objective

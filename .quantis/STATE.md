@@ -1,27 +1,31 @@
 ## Current Position
-- **Phase**: 3.2 (CLI-First Migration) ✅ Complete + cleanup
-- **Task**: Session cleanup — consolidation, spec compliance, and features
-- **Status**: Paused at 2026-06-11T20:06
+- **Phase**: 3.2 (CLI-First Migration) ✅ Complete + post-migration cleanup
+- **Task**: Session cleanup — spec compliance, scripts, docs deletion
+- **Status**: Paused at 2026-06-11T21:11
 
 ## Last Session Summary
 
-### Phase 3.2 Fully Executed & Verified
-Completed the entire CLI-first migration, then continued with major cleanup:
+### Continued from Previous Pause
+Resumed and extended Phase 3.2 work with major cleanup:
 
-1. **Folder consolidation**: Converted 30 symlinks to real files, deleted `.agent/` directory
-2. **Rules migration**: Moved PROJECT_RULES, CONSTITUTION, QUANTIS-STYLE from root → `.agents/rules/` (auto-discovered by all platforms)
-3. **Dead file cleanup**: Deleted `model_capabilities.yaml`, adapters (CLAUDE, GEMINI, GPT_OSS)
-4. **Spec compliance**: Renamed `_wf-*` → `wf-*` (Agent Skills spec: lowercase, numbers, hyphens only)
-5. **Critical fix**: Added `name:` field to all 30 workflow SKILL.md frontmatter — this was required for slash command registration on both CLI and IDE
-6. **Browser handoff**: Added CLI→IDE browser verification handoff pattern to `wf-verify`
+1. **Skill discovery fix**: Added `name:` field to all 30 workflow SKILL.md — this was required for slash command registration on both CLI and IDE
+2. **Spec compliance**: Renamed `_wf-*` → `wf-*` (Agent Skills spec: lowercase, numbers, hyphens only)
+3. **Browser handoff**: Added CLI→IDE browser verification pattern to `wf-verify` (BROWSER-VERIFY.md)
+4. **Scripts rewrite**: Updated install.sh, upgrade.sh, wf-install, wf-update, wf-upgrade for v3.3 migration
+5. **Critical bug fix**: `ls _wf-*` with `set -e` crashes when no matches — replaced with `find | grep -q`
+6. **Rules are additive**: Scripts never delete existing `.agents/rules/` files
+7. **docs/ deleted**: Redundant with skills (model-selection, runbook, token-optimization)
+8. **.quantis/examples/ deleted**: Stale GSD-era files
+9. **Tested real upgrade**: Successfully ran `install.sh` on work repo
 
 ### Key Discoveries
-- **Missing `name` field** was why workflows didn't show as slash commands — both IDE and CLI need it
+- **Missing `name` field** was why workflows didn't show as slash commands
 - **Agent Skills spec** requires: folder name == `name` field, lowercase/numbers/hyphens only
-- **Browser verification handoff**: CLI generates BROWSER-VERIFY.md, user hands to IDE for `browser_subagent` execution
+- **`ls glob*` with `set -e`** is a classic bash trap — exits non-zero when no matches
+- **docs/ was dead weight** — content already in skills, never read by agent
 
 ## In-Progress Work
-None — all committed, git clean.
+None — all committed and pushed.
 
 ## Blockers
 None.
@@ -29,11 +33,11 @@ None.
 ## Context Dump
 
 ### Decisions Made
-- **`wf-` prefix** (not `_wf-`): Underscores violate Agent Skills spec; `wf-` is compliant and still distinguishes workflows from skills
-- **Real files over symlinks**: Everywhere — no symlinks in the entire repo anymore
-- **Rules in `.agents/rules/`**: Auto-discovered by all platforms at session start
-- **Dead adapters deleted**: CLAUDE.md, GEMINI.md, GPT_OSS.md — Quantis is Antigravity-first
-- **Browser handoff pattern**: CLI writes BROWSER-VERIFY.md with structured prompts, user opens IDE to execute with `browser_subagent`
+- **`wf-` prefix** (not `_wf-`): Underscores violate Agent Skills spec
+- **docs/ deleted**: Content redundant with token-budget, context-compressor, systematic-debugging skills
+- **Browser handoff**: CLI writes BROWSER-VERIFY.md → user opens IDE → browser_subagent executes
+- **install.sh for v3.x upgrades**: upgrade.sh is for GSD→Quantis migration only
+- **Rules additive**: Never delete existing rules when installing/upgrading
 
 ### Repository Structure (Current)
 ```
@@ -43,20 +47,11 @@ None.
 .gemini/          Platform bootstrap
 .quantis/         Project state + 25 templates
 adapters/         ANTIGRAVITY.md only
-scripts/          Validation scripts + installer
+scripts/          Validation + install/upgrade scripts
 ```
-
-### Commits This Session (15)
-- Workflow content updates, cross-references, root docs
-- Stale `.agent/` ref fixes in ARCHITECTURE.md, RESEARCH.md
-- Rules migration (3 files → `.agents/rules/`)
-- Dead file removal (model_capabilities.yaml, 3 adapters)
-- `_wf-` → `wf-` rename (spec compliance)
-- `name:` field fix (slash command registration)
-- Browser verification handoff (wf-verify)
 
 ## Next Steps
 1. **Phase 3.3**: Wire `wf-plan-milestone-gaps` → `writing-plans`, `wf-sprint` → `executing-plans` + SDD
 2. **Optional**: Delete `adapters/ANTIGRAVITY.md` (content distributed into workflows)
-3. **Optional**: End-to-end CLI test: `discuss → plan → execute → verify`
-4. **Push**: `git push` when ready
+3. **Optional**: End-to-end CLI test cycle
+4. **Clean up install.sh**: Remove empty comment block for docs
