@@ -119,7 +119,6 @@
 - MANIFEST.md
 - README.md
 - VERSION
-- model_capabilities.yaml
 
 ## User Files (NEVER overwritten by /update or /upgrade)
 - .quantis/SPEC.md

@@ -130,7 +130,6 @@ echo -e "⚙️ Copying core configuration files..."
 cp "$TEMP_DIR/.agents/rules/PROJECT_RULES.md" .agents/rules/
 cp "$TEMP_DIR/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
 cp "$TEMP_DIR/VERSION" ./
-cp "$TEMP_DIR/model_capabilities.yaml" ./
 
 # Clean up obsolete GSD style file if exists
 if [ -f "GSD-STYLE.md" ]; then

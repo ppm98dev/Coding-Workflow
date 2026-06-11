@@ -156,7 +156,6 @@ git add -A && git commit -m "feat(phase-N): task name"
 
 ## Model Selection
 
-Reference `model_capabilities.yaml` for detailed guidance:
 
 | Quantis Phase | Recommended Profile | Reason |
 |-----------|-------------------|--------|

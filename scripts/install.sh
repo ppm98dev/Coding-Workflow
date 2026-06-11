@@ -59,7 +59,6 @@ cp "$TEMP_DIR/.agents/rules/CONSTITUTION.md" .agents/rules/
 cp "$TEMP_DIR/.agents/rules/PROJECT_RULES.md" .agents/rules/
 cp "$TEMP_DIR/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
 cp "$TEMP_DIR/VERSION" ./
-cp "$TEMP_DIR/model_capabilities.yaml" ./
 
 # Cleanup
 rm -rf "$TEMP_DIR"

@@ -165,7 +165,6 @@ scripts/              Validation scripts + one-liner installer
 CHANGELOG.md          Release history
 LICENSE               MIT license
 MANIFEST.md           Core file listing (for safe updates)
-model_capabilities.yaml  Model capability matrix
 VERSION               Current version number
 ```
 

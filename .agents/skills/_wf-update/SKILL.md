@@ -122,7 +122,6 @@ cp "$SOURCE/scripts/validate-skills.sh" scripts/
 cp "$SOURCE/.agents/rules/PROJECT_RULES.md" .agents/rules/
 cp "$SOURCE/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
 cp "$SOURCE/VERSION" ./
-cp "$SOURCE/model_capabilities.yaml" ./
 ```
 
 > **Note:** `.agents/rules/CONSTITUTION.md` is NOT overwritten — it's a user file that may have been customized.
@@ -151,7 +150,6 @@ Updated:
 • Core skills (18 from MANIFEST)
 • Templates, Adapters
 • Core Docs and Scripts
-• Root files (VERSION, model_capabilities.yaml)
 • Rules (.agents/rules/PROJECT_RULES.md, QUANTIS-STYLE.md)
 
 Preserved:

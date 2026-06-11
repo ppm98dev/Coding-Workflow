@@ -79,7 +79,6 @@ cp .quantis-install-temp/.agents/rules/CONSTITUTION.md .agents/rules/
 cp .quantis-install-temp/.agents/rules/PROJECT_RULES.md .agents/rules/
 cp .quantis-install-temp/.agents/rules/QUANTIS-STYLE.md .agents/rules/
 cp .quantis-install-temp/VERSION ./
-cp .quantis-install-temp/model_capabilities.yaml ./
 ```
 
 > All workflows live in `.agents/skills/_wf-*/SKILL.md` alongside methodology
@@ -138,7 +137,6 @@ Files installed:
 • docs/          (core documentation guides)
 • scripts/       (validation & search tools)
 • VERSION
-• model_capabilities.yaml
 
 Rules auto-discovered:
 • .agents/rules/PROJECT_RULES.md

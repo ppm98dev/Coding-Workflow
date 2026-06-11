@@ -220,7 +220,6 @@ echo "Updated core docs and scripts"
 cp "$SOURCE/.agents/rules/PROJECT_RULES.md" .agents/rules/
 cp "$SOURCE/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
 cp "$SOURCE/VERSION" ./
-cp "$SOURCE/model_capabilities.yaml" ./
 
 echo "Updated root files"
 ```
