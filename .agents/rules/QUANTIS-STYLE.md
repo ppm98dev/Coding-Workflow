@@ -36,7 +36,6 @@ Specialized agent behaviors. Each skill:
 
 Reusable document structures. Copy, don't reference.
 
-### References (`.quantis/examples/*.md`)
 
 Read-only documentation and examples.
 
