@@ -1,79 +1,63 @@
 ## Current Position
-- **Phase**: 3.1 (Workflow Reliability Fixes) + 3.2 (CLI-First Migration) just added
-- **Task**: Phase 3.2 added to roadmap, no plan created yet
-- **Status**: Active (resumed 2026-06-11T19:01)
+- **Phase**: 3.2 (CLI-First Migration) ✅ Complete + cleanup
+- **Task**: Session cleanup — consolidation, spec compliance, and features
+- **Status**: Paused at 2026-06-11T20:06
 
 ## Last Session Summary
 
-### Major Discovery: Platform Feature Split
-Verified tool availability across all 3 Antigravity platforms:
-- **IDE**: workflows ✅, browser_subagent ✅, invoke_subagent ❌
-- **CLI** (`agy 1.0.7`): skills as commands ✅, invoke_subagent ✅, workflows ❌ (fixed with wf- symlinks)
-- **Standalone 2.0**: everything ✅ (workflows, subagents, /browser)
+### Phase 3.2 Fully Executed & Verified
+Completed the entire CLI-first migration, then continued with major cleanup:
 
-### Actions Taken
-1. Renamed 3 workflows to avoid CLI builtin collisions:
-   - `resume.md` → `resume-session.md`
-   - `help.md` → `quantis-help.md`
-   - `debug.md` → `debug-issue.md`
-2. Updated all 10 cross-references to renamed workflows
-3. Created 30 `wf-*` symlink skills in `.agents/skills/` so CLI can use workflows
-4. Created `.agents/rules/` with symlink to `PROJECT_RULES.md` for CLI rules loading
-5. Added Phase 3.2: CLI-First Migration to ROADMAP.md
-6. Sent comprehensive analysis prompt to Claude (external review of Quantis architecture)
+1. **Folder consolidation**: Converted 30 symlinks to real files, deleted `.agent/` directory
+2. **Rules migration**: Moved PROJECT_RULES, CONSTITUTION, QUANTIS-STYLE from root → `.agents/rules/` (auto-discovered by all platforms)
+3. **Dead file cleanup**: Deleted `model_capabilities.yaml`, adapters (CLAUDE, GEMINI, GPT_OSS)
+4. **Spec compliance**: Renamed `_wf-*` → `wf-*` (Agent Skills spec: lowercase, numbers, hyphens only)
+5. **Critical fix**: Added `name:` field to all 30 workflow SKILL.md frontmatter — this was required for slash command registration on both CLI and IDE
+6. **Browser handoff**: Added CLI→IDE browser verification handoff pattern to `wf-verify`
 
-### Claude External Review
-- Prompt at: `quantis_external_review_prompt.md` (artifact)
-- Claude was actively analyzing when session paused
-- Covers: 5 reliability issues, subagent strategy, senior code reviewer design, stress-test improvements
-- Follow-up needed: send platform findings as additional context
+### Key Discoveries
+- **Missing `name` field** was why workflows didn't show as slash commands — both IDE and CLI need it
+- **Agent Skills spec** requires: folder name == `name` field, lowercase/numbers/hyphens only
+- **Browser verification handoff**: CLI generates BROWSER-VERIFY.md, user hands to IDE for `browser_subagent` execution
 
 ## In-Progress Work
-- Claude analysis still running (external, check results)
-- Phase 3.1 SPEC exists at `.quantis/phases/3.1-workflow-reliability-fixes/SPEC.md` but not started
-- Phase 3.2 added but needs `/plan 3.2`
-
-Files modified (uncommitted):
-- `.agent/workflows/resume-session.md` (renamed from resume.md)
-- `.agent/workflows/quantis-help.md` (renamed from help.md)  
-- `.agent/workflows/debug-issue.md` (renamed from debug.md)
-- `.agent/workflows/pause.md` (updated /resume → /resume-session)
-- `.agent/workflows/sprint.md` (updated reference)
-- `.agents/skills/using-quantis/SKILL.md` (3 command refs updated)
-- `.agents/skills/context-health-monitor/SKILL.md` (ref updated)
-- `.agents/skills/subagent-driven-development/SKILL.md` (ref updated)
-- `.agents/skills/executing-plans/SKILL.md` (ref updated)
-- `.agents/skills/token-budget/SKILL.md` (ref updated)
-- `.agents/skills/wf-*/` (30 symlink directories — NEW)
-- `.agents/rules/PROJECT_RULES.md` (symlink — NEW)
-- `.quantis/ROADMAP.md` (Phase 3.2 added)
+None — all committed, git clean.
 
 ## Blockers
-- Claude external review results not yet received
-- Phase 3.1 not started (reliability fixes)
+None.
 
 ## Context Dump
 
 ### Decisions Made
-- **wf- prefix for CLI**: Avoids name collision with existing skills (brainstorming, writing-plans, etc.) while making workflows discoverable as CLI slash commands
-- **Symlinks over copies**: One source of truth — edit in `.agent/workflows/`, both IDE and CLI see changes
-- **3 renames**: `/resume` → `/resume-session`, `/help` → `/quantis-help`, `/debug` → `/debug-issue` to avoid CLI builtin conflicts
-- **CLI builtins confirmed**: /help, /resume, /clear, /model, /context, /fork, /rewind, /config, /usage, /goal, /browser, /schedule, /agent, /settings, /undo
+- **`wf-` prefix** (not `_wf-`): Underscores violate Agent Skills spec; `wf-` is compliant and still distinguishes workflows from skills
+- **Real files over symlinks**: Everywhere — no symlinks in the entire repo anymore
+- **Rules in `.agents/rules/`**: Auto-discovered by all platforms at session start
+- **Dead adapters deleted**: CLAUDE.md, GEMINI.md, GPT_OSS.md — Quantis is Antigravity-first
+- **Browser handoff pattern**: CLI writes BROWSER-VERIFY.md with structured prompts, user opens IDE to execute with `browser_subagent`
 
-### Key Finding: SDD Architecture
-- SDD (`invoke_subagent`) works on CLI + Standalone but NOT IDE
-- Workflows that reference subagents need platform detection + fallback
-- The IDE has `browser_subagent` but CLI doesn't; Standalone has `/browser` command
+### Repository Structure (Current)
+```
+.agents/
+├── skills/       30 workflow commands (wf-*) + 18 methodology skills
+└── rules/        PROJECT_RULES.md, CONSTITUTION.md, QUANTIS-STYLE.md
+.gemini/          Platform bootstrap
+.quantis/         Project state + 25 templates
+adapters/         ANTIGRAVITY.md only
+docs/             Runbook, model playbook, token guide
+scripts/          Validation scripts + installer
+```
 
-### Platform-Specific Findings
-- CLI reads `.agents/skills/*/SKILL.md` as slash commands but NOT `.agent/workflows/*.md`
-- CLI reads `.agents/rules/` for rules but NOT `PROJECT_RULES.md` at root
-- Standalone reads both `.agent/workflows/` AND `.agents/skills/` — full compatibility
-- Git symlinks with relative paths work across machines (Linux/macOS)
+### Commits This Session (15)
+- Workflow content updates, cross-references, root docs
+- Stale `.agent/` ref fixes in ARCHITECTURE.md, RESEARCH.md
+- Rules migration (3 files → `.agents/rules/`)
+- Dead file removal (model_capabilities.yaml, 3 adapters)
+- `_wf-` → `wf-` rename (spec compliance)
+- `name:` field fix (slash command registration)
+- Browser verification handoff (wf-verify)
 
 ## Next Steps
-1. **Check Claude's analysis results** — incorporate findings
-2. **`/plan 3.2`** in clean context — break CLI-First Migration into tasks
-3. **Execute Phase 3.1** — reliability fixes (4 items in SPEC)
-4. **Execute Phase 3.2** — CLI full adaptation
-5. **Commit current changes** — `git commit -m "feat: CLI compatibility — workflow symlinks + rules bridge + renames"`
+1. **Phase 3.3**: Wire `wf-plan-milestone-gaps` → `writing-plans`, `wf-sprint` → `executing-plans` + SDD
+2. **Optional**: Delete `adapters/ANTIGRAVITY.md` (content distributed into workflows)
+3. **Optional**: End-to-end CLI test: `discuss → plan → execute → verify`
+4. **Push**: `git push` when ready
