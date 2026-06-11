@@ -27,10 +27,19 @@ if [ -d ".gsd" ]; then
 elif [ -d ".agents/skills/planner" ] || [ -d ".agents/skills/executor" ] || [ -d ".agents/skills/verifier" ]; then
     echo -e "🔍 Detected GSD v2.x skills in .agents/skills/..."
     INSTALL_TYPE="gsd-v2"
+elif [ -d ".agent/workflows" ]; then
+    echo -e "🔍 Detected old Quantis with .agent/workflows/ (pre-v3.3)..."
+    INSTALL_TYPE="quantis-old"
+elif ls .agents/skills/_wf-* 1>/dev/null 2>&1; then
+    echo -e "🔍 Detected old Quantis with _wf-* symlinks (pre-v3.3)..."
+    INSTALL_TYPE="quantis-old"
 elif [ -d ".quantis" ]; then
-    if [ -d ".agents/skills/brainstorming" ] || [ -d ".agents/skills/writing-plans" ]; then
-        echo -e "🔍 Detected Quantis v3.x already installed."
-        INSTALL_TYPE="quantis-v3"
+    if [ -d ".agents/skills/wf-plan" ] && [ ! -d ".agent" ]; then
+        echo -e "🔍 Detected current Quantis v3.3+."
+        INSTALL_TYPE="current"
+    elif [ -d ".agents/skills/brainstorming" ] || [ -d ".agents/skills/writing-plans" ]; then
+        echo -e "🔍 Detected Quantis v3.x (needs migration)."
+        INSTALL_TYPE="quantis-old"
     else
         echo -e "🔍 Detected unrecognized .quantis folder. Treating as fresh or partial GSD."
         INSTALL_TYPE="gsd-v2"
@@ -44,15 +53,15 @@ if [ "$INSTALL_TYPE" = "none" ]; then
     exit 1
 fi
 
-if [ "$INSTALL_TYPE" = "quantis-v3" ]; then
-    echo -e "${GREEN}You are already running Quantis v3.x!${NC}"
-    echo -e "To update to the latest version, run the following command in your repository:"
+if [ "$INSTALL_TYPE" = "current" ]; then
+    echo -e "${GREEN}You are already running the latest Quantis!${NC}"
+    echo -e "To update to the latest version, use:"
     echo -e "  ${BLUE}curl -fsSL https://raw.githubusercontent.com/ppm98dev/Coding-Workflow/main/scripts/install.sh | bash${NC}"
-    echo -e "Or run the ${BLUE}/update${NC} workflow inside your AI agent."
+    echo -e "Or run the ${BLUE}/wf-update${NC} workflow inside your AI agent."
     exit 0
 fi
 
-echo -e "🚀 Starting upgrade from GSD v2.x to Quantis..."
+echo -e "🚀 Starting upgrade..."
 
 # Temp directory
 TEMP_DIR=".quantis-upgrade-temp-$(date +%s)"
@@ -68,7 +77,6 @@ fi
 if [ -d ".gsd" ]; then
     echo -e "📂 Renaming .gsd/ directory to .quantis/..."
     if [ -d ".quantis" ]; then
-        # Merge contents just in case
         cp -r .gsd/* .quantis/ 2>/dev/null || true
         rm -rf .gsd
     else
@@ -76,8 +84,8 @@ if [ -d ".gsd" ]; then
     fi
 fi
 
-# Create target folders if they don't exist
-mkdir -p .agents/skills .gemini .quantis/templates adapters docs scripts
+# Create target folders
+mkdir -p .agents/skills .agents/rules .gemini .quantis/templates adapters docs scripts
 
 # Step 2: Remove Old GSD Core Skills
 echo -e "🧹 Removing old GSD core skills..."
@@ -91,33 +99,68 @@ for skill in $OLD_SKILLS; do
     fi
 done
 
-# Step 3: Install Quantis v3.0 Core Skills
-echo -e "⚙️ Installing new Quantis skills..."
+# Step 3: Remove Legacy Directories
+echo -e "🧹 Cleaning up legacy structure..."
+if [ -d ".agent" ]; then
+    rm -rf .agent
+    echo -e "  ${RED}✗${NC} Removed .agent/ directory"
+fi
+
+# Remove _wf-* symlinks/dirs
+for link in .agents/skills/_wf-*; do
+    if [ -e "$link" ]; then
+        rm -rf "$link"
+        echo -e "  ${RED}✗${NC} Removed $(basename "$link")"
+    fi
+done
+
+# Remove dead files
+rm -f model_capabilities.yaml
+rm -f adapters/CLAUDE.md adapters/GEMINI.md adapters/GPT_OSS.md
+rm -f GSD-STYLE.md
+
+# Step 4: Migrate Root Rules to .agents/rules/
+echo -e "📦 Migrating rules to .agents/rules/..."
+for f in PROJECT_RULES.md QUANTIS-STYLE.md; do
+    if [ -f "$f" ] && [ ! -f ".agents/rules/$f" ]; then
+        mv "$f" ".agents/rules/"
+        echo -e "  ${GREEN}→${NC} $f → .agents/rules/"
+    elif [ -f "$f" ]; then
+        rm "$f"
+    fi
+done
+if [ -f "CONSTITUTION.md" ] && [ ! -f ".agents/rules/CONSTITUTION.md" ]; then
+    mv "CONSTITUTION.md" ".agents/rules/"
+    echo -e "  ${GREEN}→${NC} CONSTITUTION.md → .agents/rules/ (preserved)"
+elif [ -f "CONSTITUTION.md" ]; then
+    rm "CONSTITUTION.md"
+fi
+# Remove stale symlinks in .agents/rules/
+find .agents/rules/ -type l -delete 2>/dev/null || true
+
+# Step 5: Install All Skills + Workflows
+echo -e "⚙️ Installing Quantis skills and workflows..."
 for skill_dir in $(ls "$TEMP_DIR/.agents/skills/"); do
     rm -rf ".agents/skills/$skill_dir"
     cp -r "$TEMP_DIR/.agents/skills/$skill_dir" ".agents/skills/"
     echo -e "  ${GREEN}+${NC} Installed: $skill_dir"
 done
 
-# Step 4: Replace Workflows (now in .agents/skills/wf-*/)
-echo -e "⚙️ Workflows are now part of .agents/skills/wf-* (unified structure)"
-
-# Step 5: Update Templates
+# Step 6: Update Templates
 echo -e "⚙️ Updating .quantis templates..."
 rm -rf .quantis/templates
 cp -r "$TEMP_DIR/.quantis/templates" .quantis/
 
-# Step 6: Update Bootstrap and Adapters
-echo -e "⚙️ Updating bootstrap and adapters..."
+# Step 7: Update Bootstrap and Adapter
+echo -e "⚙️ Updating bootstrap and adapter..."
 cp "$TEMP_DIR/.gemini/GEMINI.md" .gemini/GEMINI.md 2>/dev/null || true
-cp -r "$TEMP_DIR/adapters" ./ 2>/dev/null || true
+cp "$TEMP_DIR/adapters/ANTIGRAVITY.md" adapters/ 2>/dev/null || true
 
-# Step 6.5: Update Core Docs and Scripts
+# Step 8: Update Core Docs and Scripts
 echo -e "⚙️ Updating core docs and scripts..."
 cp "$TEMP_DIR/docs/model-selection-playbook.md" docs/ 2>/dev/null || true
 cp "$TEMP_DIR/docs/runbook.md" docs/ 2>/dev/null || true
 cp "$TEMP_DIR/docs/token-optimization-guide.md" docs/ 2>/dev/null || true
-
 cp "$TEMP_DIR/scripts/search_repo.sh" scripts/ 2>/dev/null || true
 cp "$TEMP_DIR/scripts/setup_search.sh" scripts/ 2>/dev/null || true
 cp "$TEMP_DIR/scripts/validate-all.sh" scripts/ 2>/dev/null || true
@@ -125,21 +168,14 @@ cp "$TEMP_DIR/scripts/validate-skills.sh" scripts/ 2>/dev/null || true
 cp "$TEMP_DIR/scripts/validate-workflows.sh" scripts/ 2>/dev/null || true
 cp "$TEMP_DIR/scripts/validate-templates.sh" scripts/ 2>/dev/null || true
 
-# Step 7: Update Root Files
+# Step 9: Update Root Files (rules, not CONSTITUTION)
 echo -e "⚙️ Copying core configuration files..."
 cp "$TEMP_DIR/.agents/rules/PROJECT_RULES.md" .agents/rules/
 cp "$TEMP_DIR/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
 cp "$TEMP_DIR/VERSION" ./
 
-# Clean up obsolete GSD style file if exists
-if [ -f "GSD-STYLE.md" ]; then
-    rm "GSD-STYLE.md"
-    echo -e "  ${RED}✗${NC} Removed obsolete GSD-STYLE.md"
-fi
-
-# Step 8: Replace GSD references in preserved state files
+# Step 10: Replace GSD references in preserved state files
 echo -e "🔄 Replacing GSD references with Quantis..."
-# Find all markdown files in .quantis/ and run sed in-place
 find .quantis -type f -name "*.md" | while read -r file; do
     if [[ "$OSTYPE" == "darwin"* ]]; then
         sed -i '' 's/\.gsd\//\.quantis\//g' "$file" 2>/dev/null || true
@@ -150,7 +186,6 @@ find .quantis -type f -name "*.md" | while read -r file; do
     fi
 done
 
-# Perform same replacement on CONSTITUTION.md if it exists
 if [ -f ".agents/rules/CONSTITUTION.md" ]; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
         sed -i '' 's/GSD/Quantis/g' .agents/rules/CONSTITUTION.md 2>/dev/null || true
@@ -161,7 +196,7 @@ if [ -f ".agents/rules/CONSTITUTION.md" ]; then
     fi
 fi
 
-# Step 9: Cleanup
+# Step 11: Cleanup
 rm -rf "$TEMP_DIR"
 
 echo -e "🧹 Upgrade clean up complete."
@@ -171,14 +206,15 @@ echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━�
 echo -e ""
 echo -e "Summary:"
 echo -e "  • Old GSD core skills removed: $removed_count"
-echo -e "  • New Quantis skills installed: $(ls .agents/skills/ | wc -w | xargs)"
-echo -e "  • Workflows updated: $(ls -d .agents/skills/wf-* 2>/dev/null | wc -l | xargs)"
+echo -e "  • Skills installed: $(ls .agents/skills/ | wc -w | xargs)"
+echo -e "  • Workflows installed: $(ls -d .agents/skills/wf-* 2>/dev/null | wc -l | xargs)"
+echo -e "  • Rules: $(ls .agents/rules/ | wc -l | xargs) files in .agents/rules/ (auto-discovered)"
 echo -e "  • Templates updated: $(ls .quantis/templates/ | wc -w | xargs)"
 echo -e "  • User state preserved: .quantis/*"
 echo -e ""
 echo -e "Next steps:"
 echo -e "  1. Open your AI agent in this project."
-echo -e "  2. Run ${BLUE}/progress${NC} to see your current position."
-echo -e "  3. Run ${BLUE}/whats-new${NC} to see what's new in Quantis!"
+echo -e "  2. Run ${BLUE}/wf-progress${NC} to see your current position."
+echo -e "  3. Run ${BLUE}/wf-whats-new${NC} to see what's new!"
 echo -e ""
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"

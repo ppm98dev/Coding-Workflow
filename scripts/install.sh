@@ -30,12 +30,12 @@ fi
 
 echo -e "⚙️ Copying core files..."
 # Create target folders if they don't exist
-mkdir -p .agents/skills .gemini .quantis adapters docs scripts
+mkdir -p .agents/skills .agents/rules .gemini .quantis adapters docs scripts
 
 # Copy structures
 cp -r "$TEMP_DIR/.agents/" ./
 cp -r "$TEMP_DIR/.gemini/" ./
-cp -r "$TEMP_DIR/adapters/" ./
+cp "$TEMP_DIR/adapters/ANTIGRAVITY.md" adapters/
 
 # Copy specific docs to prevent framework pollution
 cp "$TEMP_DIR/docs/model-selection-playbook.md" docs/ 2>/dev/null || true
@@ -54,11 +54,37 @@ cp "$TEMP_DIR/scripts/validate-templates.sh" scripts/ 2>/dev/null || true
 mkdir -p .quantis/templates
 cp -r "$TEMP_DIR/.quantis/templates/" .quantis/
 
-# Copy root files
-cp "$TEMP_DIR/.agents/rules/CONSTITUTION.md" .agents/rules/
-cp "$TEMP_DIR/.agents/rules/PROJECT_RULES.md" .agents/rules/
-cp "$TEMP_DIR/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
+# Root files
 cp "$TEMP_DIR/VERSION" ./
+
+# Clean up any legacy directories from older installs
+if [ -d ".agent" ]; then
+    rm -rf .agent
+    echo -e "  🧹 Removed legacy .agent/ directory"
+fi
+
+# Clean up legacy root rules files (now in .agents/rules/)
+for f in PROJECT_RULES.md QUANTIS-STYLE.md; do
+    [ -f "$f" ] && rm "$f" && echo -e "  🧹 Removed legacy root $f (now in .agents/rules/)"
+done
+# Migrate CONSTITUTION.md if at root and not yet in .agents/rules/
+if [ -f "CONSTITUTION.md" ] && [ ! -f ".agents/rules/CONSTITUTION.md" ]; then
+    mv "CONSTITUTION.md" ".agents/rules/"
+    echo -e "  📦 Migrated CONSTITUTION.md → .agents/rules/"
+elif [ -f "CONSTITUTION.md" ]; then
+    rm "CONSTITUTION.md"
+    echo -e "  🧹 Removed legacy root CONSTITUTION.md"
+fi
+
+# Clean up dead files from older versions
+rm -f model_capabilities.yaml
+rm -f adapters/CLAUDE.md adapters/GEMINI.md adapters/GPT_OSS.md
+rm -f GSD-STYLE.md
+
+# Remove old _wf-* symlinks
+for link in .agents/skills/_wf-*; do
+    [ -e "$link" ] && rm -rf "$link"
+done
 
 # Cleanup
 rm -rf "$TEMP_DIR"
@@ -68,8 +94,13 @@ echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━�
 echo -e "${GREEN}             Quantis ► INSTALLED SUCCESSFULLY ✓       ${NC}"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e ""
+echo -e "Installed:"
+echo -e "  • .agents/skills/   $(ls -d .agents/skills/wf-* 2>/dev/null | wc -l | xargs) workflows + $(ls -d .agents/skills/[^w]* .agents/skills/w[^f]* 2>/dev/null | wc -l | xargs) skills"
+echo -e "  • .agents/rules/    $(ls .agents/rules/ | wc -l | xargs) auto-discovered rules"
+echo -e "  • .quantis/         templates + state"
+echo -e ""
 echo -e "Next steps:"
 echo -e "  1. Open your AI agent in this project."
-echo -e "  2. Run ${BLUE}/new-project${NC} in the chat to initialize your project spec."
+echo -e "  2. Run ${BLUE}/wf-new-project${NC} in the chat to initialize your project spec."
 echo -e ""
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"

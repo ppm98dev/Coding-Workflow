@@ -89,7 +89,33 @@ Read MANIFEST.md from the remote copy to determine what to update.
 Only replace files and directories listed in the **Core** sections.
 Never touch files listed in **User Files**.
 
+### 5a. Clean Up Legacy Structure (if needed)
+
 ```bash
+# Remove .agent/ directory if it exists (legacy)
+[ -d ".agent" ] && rm -rf .agent && echo "Cleaned: .agent/"
+
+# Remove _wf-* symlinks (replaced by wf-* real dirs)
+for link in .agents/skills/_wf-*; do
+    [ -e "$link" ] && rm -rf "$link"
+done
+
+# Remove dead files from older versions
+rm -f model_capabilities.yaml
+rm -f adapters/CLAUDE.md adapters/GEMINI.md adapters/GPT_OSS.md
+
+# Migrate root rules files if they exist
+for f in PROJECT_RULES.md QUANTIS-STYLE.md; do
+    [ -f "$f" ] && rm "$f"
+done
+if [ -f "CONSTITUTION.md" ] && [ ! -f ".agents/rules/CONSTITUTION.md" ]; then
+    mv "CONSTITUTION.md" ".agents/rules/"
+elif [ -f "CONSTITUTION.md" ]; then
+    rm "CONSTITUTION.md"
+fi
+```
+
+### 5b. Update Core Files
 SOURCE=".quantis-update-temp"
 
 # --- Core Workflows + Skills (MANIFEST-aware) ---

@@ -128,7 +128,7 @@ B) No — Skip
  Quantis ► INSTALLED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Quantis v3.2 has been installed.
+Quantis v3.3 has been installed.
 
 Files installed:
 • .agents/       (30 workflows + 18 skills + 3 rules — unified structure)
