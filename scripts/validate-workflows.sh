@@ -11,9 +11,10 @@ echo " Quantis ► VALIDATING WORKFLOWS"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-for file in .agent/workflows/*.md; do
+for file in .agents/skills/_wf-*/SKILL.md; do
     ((workflows_checked++))
-    filename=$(basename "$file")
+    dirname=$(basename "$(dirname "$file")")
+    filename="${dirname#_wf-}"
     has_errors=false
     
     # Check for frontmatter

@@ -77,7 +77,7 @@ if [ -d ".gsd" ]; then
 fi
 
 # Create target folders if they don't exist
-mkdir -p .agent/workflows .agents/skills .gemini .quantis/templates adapters docs scripts
+mkdir -p .agents/skills .gemini .quantis/templates adapters docs scripts
 
 # Step 2: Remove Old GSD Core Skills
 echo -e "🧹 Removing old GSD core skills..."
@@ -99,10 +99,8 @@ for skill_dir in $(ls "$TEMP_DIR/.agents/skills/"); do
     echo -e "  ${GREEN}+${NC} Installed: $skill_dir"
 done
 
-# Step 4: Replace Workflows
-echo -e "⚙️ Replacing workflows with Quantis workflows..."
-rm -rf .agent/workflows
-cp -r "$TEMP_DIR/.agent/workflows" .agent/
+# Step 4: Replace Workflows (now in .agents/skills/_wf-*/)
+echo -e "⚙️ Workflows are now part of .agents/skills/_wf-* (unified structure)"
 
 # Step 5: Update Templates
 echo -e "⚙️ Updating .quantis templates..."
@@ -175,7 +173,7 @@ echo -e ""
 echo -e "Summary:"
 echo -e "  • Old GSD core skills removed: $removed_count"
 echo -e "  • New Quantis skills installed: $(ls .agents/skills/ | wc -w | xargs)"
-echo -e "  • Workflows updated: $(ls .agent/workflows/ | wc -w | xargs)"
+echo -e "  • Workflows updated: $(ls -d .agents/skills/_wf-* 2>/dev/null | wc -l | xargs)"
 echo -e "  • Templates updated: $(ls .quantis/templates/ | wc -w | xargs)"
 echo -e "  • User state preserved: .quantis/*"
 echo -e ""

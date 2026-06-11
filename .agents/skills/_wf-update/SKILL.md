@@ -91,12 +91,8 @@ Never touch files listed in **User Files**.
 ```bash
 SOURCE=".quantis-update-temp"
 
-# --- Core Workflows ---
-# Replace all workflows listed in MANIFEST.md
-cp -r "$SOURCE/.agent/workflows/"* .agent/workflows/
-
-# --- Core Skills (MANIFEST-aware) ---
-# Only replace skills listed in MANIFEST.md
+# --- Core Workflows + Skills (MANIFEST-aware) ---
+# Replace all workflows and core skills listed in MANIFEST.md
 # This preserves any user-installed skills not in the manifest
 for skill_dir in $(ls "$SOURCE/.agents/skills/"); do
     if grep -q "^- $skill_dir$" "$SOURCE/MANIFEST.md"; then
@@ -151,7 +147,7 @@ rm -rf .quantis-update-temp
 Updated to version {remote-version}
 
 Updated:
-• Workflows (30)
+• Workflows (30 _wf-* dirs)
 • Core skills (18 from MANIFEST)
 • Templates, Adapters
 • Core Docs and Scripts

@@ -16,12 +16,14 @@ Quantis is a **meta-prompting system** where every file is both implementation a
 
 ## File Structure Conventions
 
-### Workflows (`.agent/workflows/*.md`)
+### Workflows (`.agents/skills/_wf-*/SKILL.md`)
 
 Slash commands the user invokes. Each workflow:
+- Lives in `.agents/skills/_wf-{name}/SKILL.md`
 - Has YAML frontmatter with `description`
 - Contains XML-structured process blocks
 - Ends with "Next Steps" routing
+- The `_wf-` prefix distinguishes workflows from methodology skills
 
 ### Skills (`.agents/skills/*/SKILL.md`)
 

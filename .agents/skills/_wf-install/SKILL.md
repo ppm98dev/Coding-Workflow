@@ -15,7 +15,7 @@ Install Quantis for Antigravity into the current project from GitHub.
 Look for Quantis marker directories:
 
 ```bash
-if [ -d ".agents" ] || [ -d ".agent" ] || [ -d ".quantis" ]; then
+if [ -d ".agents" ] || [ -d ".quantis" ]; then
     echo "Quantis files detected in this project."
 fi
 ```
@@ -55,8 +55,7 @@ git clone --depth 1 https://github.com/ppm98dev/Coding-Workflow.git .quantis-ins
 ## 3. Copy Files
 
 ```bash
-# Core directories
-cp -r .quantis-install-temp/.agent ./
+# Core directories (workflows + skills all in .agents/skills/)
 cp -r .quantis-install-temp/.agents ./
 cp -r .quantis-install-temp/.gemini ./
 cp -r .quantis-install-temp/adapters ./
@@ -82,6 +81,10 @@ cp .quantis-install-temp/QUANTIS-STYLE.md ./
 cp .quantis-install-temp/VERSION ./
 cp .quantis-install-temp/model_capabilities.yaml ./
 ```
+
+> All workflows live in `.agents/skills/_wf-*/SKILL.md` alongside methodology
+> skills. This unified structure works on IDE, CLI, and Standalone without
+> platform-specific setup.
 
 ---
 
@@ -128,8 +131,7 @@ B) No — Skip
 Quantis v3.2 has been installed.
 
 Files installed:
-• .agent/        (30 workflows)
-• .agents/       (18 skills — Agent Skills standard)
+• .agents/       (30 workflows + 18 skills — unified structure)
 • .gemini/       (Antigravity bootstrap)
 • .quantis/      (project state templates)
 • adapters/      (platform-specific guidance)

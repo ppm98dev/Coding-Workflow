@@ -160,11 +160,12 @@ type(scope): description
 PROJECT_RULES.md          # ← This file (canonical rules)
 QUANTIS-STYLE.md              # Style and conventions
 
-.agent/
-└── workflows/            # Slash commands (/plan, /execute, etc.)
-
 .agents/
-└── skills/               # Agent specializations (Agent Skills standard)
+└── skills/               # Workflows (_wf-*) + methodology skills
+    ├── _wf-plan/         # Workflow: /plan (or /_wf-plan on CLI)
+    ├── _wf-execute/      # Workflow: /execute
+    ├── brainstorming/    # Skill: auto-triggered methodology
+    └── writing-plans/    # Skill: auto-triggered methodology
 
 .gemini/                  # Gemini-specific configuration
 .quantis/                     # Project state and artifacts

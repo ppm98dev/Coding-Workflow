@@ -5,37 +5,37 @@
 
 ## Core Directories
 
-### Workflows (`.agent/workflows/` — 30 files)
-- add-phase.md
-- add-todo.md
-- audit-milestone.md
-- check-todos.md
-- complete-milestone.md
-- debug.md
-- discuss-phase.md
-- execute.md
-- help.md
-- insert-phase.md
-- install.md
-- list-phase-assumptions.md
-- map.md
-- new-milestone.md
-- new-project.md
-- pause.md
-- plan-milestone-gaps.md
-- plan.md
-- progress.md
-- remove-phase.md
-- research-phase.md
-- resume.md
-- sprint.md
-- stress-test.md
-- update-plan.md
-- update.md
-- upgrade.md
-- verify.md
-- web-search.md
-- whats-new.md
+### Workflows (`.agents/skills/_wf-*/` — 30 directories)
+- _wf-add-phase
+- _wf-add-todo
+- _wf-audit-milestone
+- _wf-check-todos
+- _wf-complete-milestone
+- _wf-debug-issue
+- _wf-discuss-phase
+- _wf-execute
+- _wf-insert-phase
+- _wf-install
+- _wf-list-phase-assumptions
+- _wf-map
+- _wf-new-milestone
+- _wf-new-project
+- _wf-pause
+- _wf-plan-milestone-gaps
+- _wf-plan
+- _wf-progress
+- _wf-quantis-help
+- _wf-remove-phase
+- _wf-research-phase
+- _wf-resume-session
+- _wf-sprint
+- _wf-stress-test
+- _wf-update-plan
+- _wf-update
+- _wf-upgrade
+- _wf-verify
+- _wf-web-search
+- _wf-whats-new
 
 ### Skills (`.agents/skills/` — 18 directories)
 - brainstorming

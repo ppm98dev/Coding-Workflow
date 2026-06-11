@@ -4,13 +4,42 @@
 > For canonical rules, see [PROJECT_RULES.md](../PROJECT_RULES.md).
 > For tool mapping, see `.agents/skills/using-quantis/references/antigravity-tools.md`.
 
-This adapter provides Antigravity-specific enhancements for running Quantis inside Google Antigravity IDE.
+This adapter provides Antigravity-specific enhancements for running Quantis across all Antigravity platforms (IDE, CLI, Standalone).
 
 ---
 
-## Subagent Support (Antigravity 2.0)
+## Platform Compatibility
 
-Antigravity 2.0 provides **full subagent dispatch** — the equivalent of Claude Code's `Task` tool. This is the foundation for subagent-driven development (SDD).
+Quantis works across all three Antigravity platforms:
+
+| Feature | IDE | CLI (`agy`) | Standalone |
+|---------|:---:|:-----------:|:----------:|
+| `invoke_subagent` | ❌ | ✅ | ✅ |
+| `define_subagent` | ❌ | ✅ | ✅ |
+| `browser_subagent` | ✅ | ❌ | `/browser` |
+| Skills as `/commands` | ✅ | ✅ | ✅ |
+| Workflow commands | `/plan` | `/_wf-plan` | `/plan` |
+
+### CLI Command Convention
+
+On CLI (`agy`), workflow commands use the `/_wf-` prefix:
+- IDE/Standalone: `/plan 1` → CLI: `/_wf-plan 1`
+- Skill commands work the same on all platforms: `/brainstorming`
+
+### Capability-Based Detection
+
+Workflows detect platform capabilities at runtime — not by platform name:
+- `invoke_subagent` available? → use SDD with real subagents
+- `browser_subagent` available? → use browser verification
+- This ensures forward compatibility with new platforms
+
+---
+
+## Subagent Support (CLI + Standalone)
+
+Antigravity CLI and Standalone provide **full subagent dispatch** — the equivalent of Claude Code's `Task` tool. This is the foundation for subagent-driven development (SDD).
+
+> **Note:** `invoke_subagent` and `define_subagent` are available on CLI and Standalone only. On IDE, SDD falls back to inline execution with self-review gates. See the `subagent-driven-development` skill for details.
 
 ### Core Subagent APIs
 
@@ -36,9 +65,9 @@ Then dispatch with `invoke_subagent` using the appropriate Role and filled promp
 
 > **Full tool mapping:** See `.agents/skills/using-quantis/references/antigravity-tools.md` for the complete Claude → Antigravity tool translation table.
 
-### Browser Subagent
+### Browser Subagent (IDE only)
 
-The `browser_subagent` is Antigravity's specialized verification tool. Use it during `/verify` for any must-have involving visual output.
+The `browser_subagent` is available on IDE only (Standalone uses the `/browser` platform command). Workflows that reference it gracefully skip browser verification when unavailable.
 
 **When to Use:**
 - **UI verification** — Navigate to pages, validate layout, check interactions
@@ -141,7 +170,7 @@ Reference `model_capabilities.yaml` for detailed guidance:
 
 ❌ **Using Antigravity planning mode AND Quantis simultaneously** — Pick one system.
 
-❌ **Ignoring browser_subagent for UI verification** — It captures screenshots AND recordings automatically.
+❌ **Ignoring browser_subagent for UI verification on IDE** — It captures screenshots AND recordings automatically. (CLI users: use curl/test output instead.)
 
 ❌ **Loading entire files when grep_search would suffice** — Search first, then read targeted ranges.
 

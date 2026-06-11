@@ -23,7 +23,9 @@ If the user says "don't use TDD" and a skill says "always use TDD," follow the u
 
 ## How to Access Skills
 
-**In Antigravity 2.0:** Skills are auto-discovered from `.agents/skills/*/SKILL.md`. The agent loads skill metadata (name and description from YAML frontmatter) at session start with zero context cost. When a task matches a skill's description, read the full SKILL.md via `view_file` to activate it.
+**All Antigravity platforms:** Skills and workflows are auto-discovered from `.agents/skills/*/SKILL.md`. The agent loads skill metadata (name and description from YAML frontmatter) at session start with zero context cost. When a task matches a skill's description, read the full SKILL.md via `view_file` to activate it.
+
+**On CLI (`agy`)**, workflow commands use the `/_wf-` prefix (e.g., `/_wf-plan 1`). Methodology skills work the same everywhere.
 
 **Platform Adaptation:** Skills use Claude Code tool names as reference. See `references/antigravity-tools.md` for the Antigravity 2.0 tool mapping.
 
@@ -117,6 +119,8 @@ These slash commands are available. Some invoke Superpowers skills for enhanced 
 | `/resume-session` | Restore context from previous | — |
 | `/progress` | Show roadmap position | — |
 | `/quantis-help` | Show all commands | — |
+
+> **CLI users (`agy`):** Prefix workflow commands with `/_wf-`. Example: `/_wf-plan 1` instead of `/plan 1`. Skill commands (like `/brainstorming`) work without prefix.
 
 ## File Conventions
 

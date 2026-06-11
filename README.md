@@ -129,20 +129,31 @@ Project state that survives across sessions:
 
 ## Platform Support
 
-| Platform | Status | Notes |
-|----------|--------|-------|
-| **Google Antigravity** | Primary | Native skill auto-discovery, subagent support |
+| Platform | Command Prefix | Subagents | Browser |
+|----------|---------------|:---------:|:-------:|
+| **Antigravity IDE** | `/command` | ❌ inline | ✅ `browser_subagent` |
+| **Antigravity CLI** (`agy`) | `/_wf-command` | ✅ `invoke_subagent` | ❌ |
+| **Standalone** (Antigravity 2.0) | `/command` | ✅ `invoke_subagent` | ✅ `/browser` |
 | Gemini CLI | Adapter | Via `.gemini/GEMINI.md` + adapters |
 | Claude | Adapter | Via `adapters/CLAUDE.md` |
 | GPT / OSS | Adapter | Via `adapters/GPT_OSS.md` |
 
-Skills are platform-agnostic. Adapters handle tool name mapping per platform.
+All workflows and skills live in `.agents/skills/`. No platform-specific setup needed after install.
+
+### CLI Quick Start (`agy`)
+
+```bash
+agy                           # Start Antigravity CLI
+/_wf-new-project              # Initialize with deep questioning
+/_wf-plan 1                   # Create Phase 1 plans
+/_wf-execute 1                # Execute (uses real subagents!)
+/_wf-verify 1                 # Verify implementation
+```
 
 ## File Structure
 
 ```
-.agent/workflows/     30 slash command workflows
-.agents/skills/       18 auto-triggered skills
+.agents/skills/       30 workflow commands (_wf-*) + 18 auto-triggered skills
 .gemini/              Platform bootstrap
 .quantis/             Project state + 25 templates
 adapters/             Platform-specific guidance
