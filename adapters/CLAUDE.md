@@ -49,7 +49,7 @@ When artifacts are supported:
 Claude-specific context tips:
 
 1. **System prompt loading**: Core rules in system prompt, task details in user message
-2. **XML structure**: Claude parses XML well — use task XML format from QUANTIS-STYLE.md
+2. **XML structure**: Claude parses XML well — use task XML format from .agents/rules/QUANTIS-STYLE.md
 3. **Conversation history**: Minimal history preferred; use STATE.md for continuity
 
 ---

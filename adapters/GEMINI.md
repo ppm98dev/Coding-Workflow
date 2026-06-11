@@ -75,7 +75,7 @@ The `.gemini/GEMINI.md` file can reference this adapter:
 ```markdown
 # In .gemini/GEMINI.md
 
-For canonical rules, see PROJECT_RULES.md.
+For canonical rules, see .agents/rules/PROJECT_RULES.md.
 For Gemini-specific tips, see adapters/GEMINI.md.
 ```
 
