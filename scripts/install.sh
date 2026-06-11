@@ -63,7 +63,8 @@ if [ -d ".agent" ]; then
     echo -e "  🧹 Removed legacy .agent/ directory"
 fi
 
-# Clean up legacy root rules files (now in .agents/rules/)
+# Clean up legacy root rules files — move to .agents/rules/ if not already there
+# NOTE: Existing rules in .agents/rules/ are NEVER deleted
 for f in PROJECT_RULES.md QUANTIS-STYLE.md; do
     [ -f "$f" ] && rm "$f" && echo -e "  🧹 Removed legacy root $f (now in .agents/rules/)"
 done
@@ -81,9 +82,9 @@ rm -f model_capabilities.yaml
 rm -f adapters/CLAUDE.md adapters/GEMINI.md adapters/GPT_OSS.md
 rm -f GSD-STYLE.md
 
-# Remove old _wf-* symlinks
-for link in .agents/skills/_wf-*; do
-    [ -e "$link" ] && rm -rf "$link"
+# Remove old _wf-* symlinks (replaced by wf-* real dirs)
+find .agents/skills/ -maxdepth 1 -name '_wf-*' 2>/dev/null | while read -r link; do
+    rm -rf "$link"
 done
 
 # Cleanup

@@ -30,7 +30,7 @@ elif [ -d ".agents/skills/planner" ] || [ -d ".agents/skills/executor" ] || [ -d
 elif [ -d ".agent/workflows" ]; then
     echo -e "🔍 Detected old Quantis with .agent/workflows/ (pre-v3.3)..."
     INSTALL_TYPE="quantis-old"
-elif ls .agents/skills/_wf-* 1>/dev/null 2>&1; then
+elif find .agents/skills/ -maxdepth 1 -name '_wf-*' 2>/dev/null | grep -q .; then
     echo -e "🔍 Detected old Quantis with _wf-* symlinks (pre-v3.3)..."
     INSTALL_TYPE="quantis-old"
 elif [ -d ".quantis" ]; then
@@ -107,11 +107,9 @@ if [ -d ".agent" ]; then
 fi
 
 # Remove _wf-* symlinks/dirs
-for link in .agents/skills/_wf-*; do
-    if [ -e "$link" ]; then
-        rm -rf "$link"
-        echo -e "  ${RED}✗${NC} Removed $(basename "$link")"
-    fi
+find .agents/skills/ -maxdepth 1 -name '_wf-*' 2>/dev/null | while read -r link; do
+    rm -rf "$link"
+    echo -e "  ${RED}✗${NC} Removed $(basename "$link")"
 done
 
 # Remove dead files
@@ -119,14 +117,15 @@ rm -f model_capabilities.yaml
 rm -f adapters/CLAUDE.md adapters/GEMINI.md adapters/GPT_OSS.md
 rm -f GSD-STYLE.md
 
-# Step 4: Migrate Root Rules to .agents/rules/
-echo -e "📦 Migrating rules to .agents/rules/..."
+# Step 4: Migrate Root Rules to .agents/rules/ (ADDITIVE — never delete existing rules)
+echo -e "📦 Adding Quantis rules to .agents/rules/..."
 for f in PROJECT_RULES.md QUANTIS-STYLE.md; do
     if [ -f "$f" ] && [ ! -f ".agents/rules/$f" ]; then
         mv "$f" ".agents/rules/"
         echo -e "  ${GREEN}→${NC} $f → .agents/rules/"
     elif [ -f "$f" ]; then
         rm "$f"
+        echo -e "  ${GREEN}→${NC} Removed root $f (already in .agents/rules/)"
     fi
 done
 if [ -f "CONSTITUTION.md" ] && [ ! -f ".agents/rules/CONSTITUTION.md" ]; then
@@ -135,8 +134,9 @@ if [ -f "CONSTITUTION.md" ] && [ ! -f ".agents/rules/CONSTITUTION.md" ]; then
 elif [ -f "CONSTITUTION.md" ]; then
     rm "CONSTITUTION.md"
 fi
-# Remove stale symlinks in .agents/rules/
+# Remove stale symlinks in .agents/rules/ but keep real files
 find .agents/rules/ -type l -delete 2>/dev/null || true
+echo -e "  ℹ️  Existing rules in .agents/rules/ are preserved"
 
 # Step 5: Install All Skills + Workflows
 echo -e "⚙️ Installing Quantis skills and workflows..."
