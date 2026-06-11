@@ -1,4 +1,4 @@
-# Quantis v3.2 Manifest
+# Quantis v3.3 Manifest
 
 > Core files managed by Quantis. Used by `/install`, `/update`, and `/upgrade`
 > to determine what to replace vs preserve.
@@ -6,6 +6,7 @@
 ## Core Directories
 
 ### Workflows (`.agents/skills/wf-*/` — 30 directories)
+
 - wf-add-phase
 - wf-add-todo
 - wf-audit-milestone
@@ -38,6 +39,7 @@
 - wf-whats-new
 
 ### Skills (`.agents/skills/` — 18 directories)
+
 - brainstorming
 - codebase-mapper
 - context-compressor
@@ -58,6 +60,7 @@
 - writing-skills
 
 ### Templates (`.quantis/templates/` — 25 files)
+
 - DEBUG.md
 - PLAN.md
 - RESEARCH.md
@@ -85,12 +88,15 @@
 - user-setup.md
 
 ### Bootstrap (`.gemini/`)
+
 - GEMINI.md
 
 ### Adapters (`adapters/` — 1 file)
+
 - ANTIGRAVITY.md
 
 ### Documentation (`docs/`)
+
 - README.opencode.md
 - windows/polyglot-hooks.md
 - model-selection-playbook.md
@@ -98,6 +104,7 @@
 - token-optimization-guide.md
 
 ### Scripts (`scripts/`)
+
 - install.sh
 - search_repo.sh
 - setup_search.sh
@@ -107,17 +114,20 @@
 - validate-workflows.sh
 
 ### Rules (`.agents/rules/` — 3 files, auto-discovered)
+
 - CONSTITUTION.md
 - PROJECT_RULES.md
 - QUANTIS-STYLE.md
 
 ### Root Files (project root)
+
 - CHANGELOG.md
 - MANIFEST.md
 - README.md
 - VERSION
 
 ## User Files (NEVER overwritten by /update or /upgrade)
+
 - .quantis/SPEC.md
 - .quantis/ROADMAP.md
 - .quantis/STATE.md
@@ -126,5 +136,5 @@
 - .quantis/DECISIONS.md
 - .quantis/JOURNAL.md
 - .quantis/TODO.md
-- .quantis/phases/* (all phase plans, summaries, research)
+- .quantis/phases/\* (all phase plans, summaries, research)
 - .agents/rules/CONSTITUTION.md (user's customized copy)
