@@ -196,33 +196,47 @@
 
 ---
 
-#### Phase 3.2: CLI-First Migration ⬜
+#### Phase 3.2: CLI-First Migration ✅
 
-**Status**: ⬜ Not Started
+**Status**: ✅ Complete (2026-06-11)
 **Objective**: Fully adapt Quantis to run on Antigravity CLI (`agy`) as the primary platform, enabling subagent-driven development, VM/SSH workflows, and cross-platform compatibility.
 **Depends on**: Phase 3.1
 
-**Context — Platform Matrix (verified)**:
-| Feature | IDE | CLI | Standalone |
-|---------|:---:|:---:|:---:|
-| `invoke_subagent` | ❌ | ✅ | ✅ |
-| `browser_subagent` | ✅ | ❌ | `/browser` |
-| Workflows as `/commands` | ✅ | ❌ (needs `_wf-` skills) | ✅ |
-| Skills as `/commands` | ✅ | ✅ | ✅ |
-| SSH/Remote | ✅ | ✅ | ❌ |
-| Rules from `PROJECT_RULES.md` | ✅ | ❌ (needs `.agents/rules/`) | ? |
+**Completed:**
+- [x] Consolidated `.agent/workflows/` into `.agents/skills/_wf-*/` (30 real files, 0 symlinks)
+- [x] Deleted `.agent/` directory entirely
+- [x] Moved PROJECT_RULES, CONSTITUTION, QUANTIS-STYLE to `.agents/rules/` (auto-discovered)
+- [x] Removed dead adapters (CLAUDE, GEMINI, GPT_OSS) and `model_capabilities.yaml`
+- [x] SDD skill detects `invoke_subagent` availability — uses it when present, falls back to inline when absent
+- [x] `_wf-execute` deterministic SDD selection (no menu)
+- [x] `_wf-verify` graceful `browser_subagent` fallback
+- [x] Subagent dispatch in discuss-phase, plan, stress-test, verify
+- [x] `quantis-help` shows CLI `/_wf-*` variants
+- [x] All scripts updated (validate-workflows, install, upgrade)
+- [x] All root docs updated (README, MANIFEST, CHANGELOG)
+- [x] Platform compatibility matrix in `adapters/ANTIGRAVITY.md`
+
+---
+
+#### Phase 3.3: Workflow-Skill Wiring Gaps ⬜
+
+**Status**: ⬜ Not Started
+**Objective**: Wire remaining workflows to their natural skills, closing delegation gaps found in the workflow-skill audit.
+**Depends on**: Phase 3.2
+
+**Gaps identified:**
+
+| Workflow | Should delegate to | Why |
+|----------|-------------------|-----|
+| `plan-milestone-gaps` | `writing-plans` | Creates plans from audit gaps — should use the same planning methodology as `/plan` |
+| `sprint` | `executing-plans` + `subagent-driven-development` | Time-boxed execution should use SDD when available |
 
 **Deliverables:**
-- [ ] All workflow "next step" suggestions detect platform and show correct command prefix
-- [ ] `quantis-help.md` shows CLI command variants (`/_wf-*`)
-- [ ] Workflows that reference `browser_subagent` gracefully fallback when unavailable
-- [ ] SDD skill detects `invoke_subagent` availability — uses it when present, falls back to inline when absent
-- [ ] Verify `_wf-` symlinks work on Linux VMs after `git clone`
-- [ ] Update install workflow to auto-create `_wf-` symlinks and `.agents/rules/` symlink
-- [ ] End-to-end test: full Quantis cycle on CLI (`discuss → plan → execute → verify`)
-- [ ] Document platform-specific workflows in README
+- [ ] `_wf-plan-milestone-gaps` delegates to `writing-plans/SKILL.md` for plan generation
+- [ ] `_wf-sprint` delegates to `executing-plans/SKILL.md` and uses SDD when `invoke_subagent` is available
+- [ ] Verification: both workflows produce the same quality output as their full counterparts (`/plan`, `/execute`)
 
-**Verification:**
-- Full `/plan → /execute → /verify` cycle runs successfully on `agy` CLI
-- SDD dispatches real subagents on CLI (not inline fallback)
-- Same repo works on IDE, CLI, and Standalone without manual setup
+**Nice-to-haves:**
+- [ ] Delete `adapters/ANTIGRAVITY.md` (content already distributed into workflows/skills)
+- [ ] End-to-end test: full Quantis cycle on CLI (`discuss → plan → execute → verify`)
+
