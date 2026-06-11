@@ -36,6 +36,20 @@ The verifier checks the CODEBASE, not SUMMARY claims.
 
 > Before starting verification, read and follow the `verification-before-completion` skill for the full methodology.
 
+## 0. Platform Check
+
+**If `invoke_subagent` is available**, dispatch a `self` subagent with:
+- The SPEC.md must-haves list
+- The verification-before-completion skill instructions
+- The phase directory and codebase access
+
+The subagent verifies each must-have and produces VERIFICATION.md. The orchestrator then:
+1. Reviews the verification results
+2. Checks that evidence is empirical (not claims)
+3. Presents results to the user with PASS/FAIL summary
+
+**If `invoke_subagent` is NOT available**, run verification inline (proceed to Step 1).
+
 <process>
 
 ## 1. Load Verification Context
@@ -78,9 +92,9 @@ For each must-have:
 | Type | Method | Evidence |
 |------|--------|----------|
 | API/Backend | Run curl or test command | Command output |
-| UI | Use browser tool | Screenshot |
-| UI (Antigravity) | `browser_subagent` | Screenshot + WebP recording |
-| Visual regression | `browser_subagent` | Side-by-side screenshot comparison |
+| UI (with `browser_subagent`) | `browser_subagent` | Screenshot + WebP recording |
+| UI (without `browser_subagent`) | CLI verification: curl, test output, or user confirmation | Command output |
+| Visual regression (with `browser_subagent`) | `browser_subagent` | Side-by-side screenshot comparison |
 | Build | Run build command | Success output |
 | Tests | Run test suite | Test results |
 | File exists | Check filesystem | File listing |
@@ -103,15 +117,19 @@ For each must-have, record:
 - **Evidence:** Command output, screenshot path, etc.
 - **Notes:** Any observations
 
-### 3d. Antigravity Visual Verification (Optional)
+### 3d. Browser-Based Visual Verification (capability-dependent)
 
-When running in Antigravity, use `browser_subagent` for UI verification:
+**If `browser_subagent` tool is available** in your current environment, use it for UI verification:
 - Navigate to the target URL and validate visual state
 - Capture screenshots as evidence for VERIFICATION.md
 - All sessions auto-recorded as WebP video artifacts
 - Use for any must-have that involves visual output
 
-**Note:** This is optional. Traditional command-line verification still works.
+**If `browser_subagent` is NOT available**, use CLI-based evidence instead:
+- `curl` responses for web endpoints
+- Test runner output for UI component tests
+- Ask user for manual confirmation if no CLI path exists
+
 Antigravity adapter details: see [adapters/ANTIGRAVITY.md](../../adapters/ANTIGRAVITY.md)
 
 ---
@@ -264,8 +282,9 @@ Never accept these as verification:
 |-------|----------------|
 | "Tests pass" | Actual test output |
 | "API works" | Curl command + response |
-| "UI renders" | Screenshot |
-| "UI works" (Antigravity) | `browser_subagent` screenshot + recording |
+| "UI renders" | Screenshot (via `browser_subagent` if available, else user confirmation) |
+| "UI works" (with `browser_subagent`) | `browser_subagent` screenshot + recording |
+| "UI works" (without `browser_subagent`) | curl response, test output, or user confirmation |
 | "Build succeeds" | Build output |
 | "File created" | `ls` or `dir` output |
 

@@ -96,6 +96,23 @@ CORE RULES
 🔧 Skills: .agents/skills/ (18 skills, auto-triggered)
 
 ───────────────────────────────────────────────────────
+
+CLI USERS (agy)
+───────────────
+On Antigravity CLI, ALL workflow commands use the /_wf- prefix:
+
+  /_wf-plan, /_wf-execute, /_wf-verify, /_wf-pause, etc.
+
+Skills work as direct slash commands without prefix:
+  /brainstorming, /writing-plans, /systematic-debugging, etc.
+
+The /_wf- prefix distinguishes workflow commands (user-facing
+orchestration) from skill commands (agent methodology).
+
+💡 CLI: prefix all workflow commands with /_wf-
+   Example: /_wf-plan 1 instead of /plan 1
+
+───────────────────────────────────────────────────────
 ```
 
 </process>

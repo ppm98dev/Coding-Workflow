@@ -18,8 +18,20 @@ argument-hint: "<phase-number>"
 
 <process>
 
+## 0. Platform Check
+
+**If `invoke_subagent` is available**, dispatch a `research` subagent to:
+- Explore the codebase (file structure, recent commits, relevant code)
+- Read the phase definition from ROADMAP.md
+- Gather context about dependencies and constraints
+- Return a structured context brief
+
+Then use the returned brief to inform the brainstorming discussion with the user.
+
+**If `invoke_subagent` is NOT available**, gather context yourself inline (proceed to Step 1).
+
 ## 1. Load Phase Context
-Read phase definition from ROADMAP.md. Extract:
+Read phase definition from ROADMAP.md (or use subagent brief from Step 0). Extract:
 - Phase objective
 - Deliverables
 - Dependencies on prior phases

@@ -13,9 +13,23 @@ Execute plan by dispatching fresh subagent per task, with two-stage review after
 
 **Continuous execution:** Do not pause to check in with your human partner between tasks. Execute all tasks from the plan without stopping. The only reasons to stop are: BLOCKED status you cannot resolve, ambiguity that genuinely prevents progress, or all tasks complete. "Should I continue?" prompts and progress summaries waste their time — they asked you to execute the plan, so execute it.
 
-## Session Setup (Antigravity 2.0)
+## Platform Detection
 
-At the start of any session using SDD, define the named subagent types:
+Before starting SDD, check your environment:
+
+1. **Check if `invoke_subagent` tool is available** in your current toolset
+2. **If available** (CLI `agy`, Standalone): Proceed with **full SDD** — dispatch real subagents via `invoke_subagent` for implementation, spec review, and code quality review
+3. **If NOT available** (IDE): Use **inline SDD mode** — execute each task yourself in sequence, but preserve the two-stage review structure:
+   - Execute the task (as if you were the implementer subagent)
+   - Self-review against spec (as if you were the spec reviewer)
+   - Self-review for code quality (as if you were the code quality reviewer)
+   - This preserves SDD's quality gates without requiring actual subagent dispatch
+
+> **Do not ask the user which mode to use.** Check tool availability and proceed automatically.
+
+## Session Setup
+
+**If `invoke_subagent` is available**, define the named subagent types at session start:
 
 ```
 define_subagent("implementer", description="Implements code tasks with TDD", system_prompt=<implementer-prompt.md contents>)
@@ -24,6 +38,8 @@ define_subagent("code-quality-reviewer", description="Reviews code quality", sys
 ```
 
 Then dispatch using `invoke_subagent` with the appropriate Role and filled prompt template.
+
+**If `invoke_subagent` is NOT available**, skip session setup — you will execute tasks inline with self-review gates.
 
 ## When to Use
 

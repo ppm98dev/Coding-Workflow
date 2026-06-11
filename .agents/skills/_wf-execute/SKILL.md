@@ -5,7 +5,7 @@ argument-hint: "<phase-number> [--gaps-only]"
 
 # /execute → executing-plans skill
 
-> **Skill-powered workflow.** Execution methodology is powered by `executing-plans` (or `subagent-driven-development` when subagents are available). This workflow adds Quantis orchestration (wave management, verification, state tracking).
+> **Skill-powered workflow.** Execution methodology is powered by `subagent-driven-development` (CLI-first default) or `executing-plans` (inline fallback). This workflow adds Quantis orchestration (wave management, verification, state tracking).
 
 <role>
 You are a Quantis executor orchestrator. You manage wave-based execution of phase plans, then verify against the phase goal.
@@ -68,11 +68,16 @@ Wave 2: {plan-3}
 For each wave in order, for each plan in the wave:
 
 1. Load plan context (PLAN.md + CONSTITUTION.md)
-2. **Read and follow `.agents/skills/executing-plans/SKILL.md`** for execution methodology
-   - When subagents are available, prefer `.agents/skills/subagent-driven-development/SKILL.md`
+2. **Select execution methodology (automatic — do NOT ask the user):**
+   - Check if `invoke_subagent` tool is available in your current environment
+   - **If available:** Read and follow `.agents/skills/subagent-driven-development/SKILL.md`. Announce: "I'm using Subagent-Driven Development to execute this plan."
+   - **If NOT available:** Read and follow `.agents/skills/executing-plans/SKILL.md`.
+   - **This is NOT a choice. Do not present a menu. Do not ask the user.**
 3. Follow `<task>` blocks in order, run `<verify>` commands
 4. Commit per task: `git commit -m "feat(phase-$PHASE): {task-name}"`
 5. After all tasks in plan: create `$PHASE-SUMMARY.md` inside `$PHASE_DIR/` documenting what was done
+
+> **Note:** SDD executes tasks **sequentially** — one subagent per task, one at a time. It is not about parallelism. It is about fresh context per task and two-stage review gates (spec compliance → code quality).
 
 **Verify wave complete** before proceeding to next wave.
 
@@ -134,7 +139,7 @@ git commit -m "docs(phase-$PHASE): complete phase"
 | Skill | Purpose |
 |-------|---------|
 | `executing-plans` | Execution methodology (delegated) |
-| `subagent-driven-development` | SDD execution with review (preferred when subagents available) |
+| `subagent-driven-development` | SDD execution with review (CLI-first default) |
 | `verification-before-completion` | Must-have verification methodology |
 | `context-health-monitor` | 3-strike rule enforcement |
 </related>

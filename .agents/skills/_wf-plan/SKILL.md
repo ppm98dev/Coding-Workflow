@@ -133,6 +133,24 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 
 ## 4. Delegate to Skill
 
+### Subagent Planning (when available)
+
+**If `invoke_subagent` is available**, dispatch a `self` subagent with:
+- The SPEC.md content
+- The writing-plans skill instructions (`.agents/skills/writing-plans/SKILL.md`)
+- The phase directory path
+- CONSTITUTION.md quality standards
+- RESEARCH.md findings (if exists)
+- ARCHITECTURE.md (if exists)
+- Any custom skills / MCP context discovered in Step 3.5
+
+The subagent produces the PLAN.md file(s). The orchestrator then:
+1. Reviews the plan output
+2. Checks for quality (task specificity, verification commands, wave structure)
+3. Presents key decisions to the user for approval
+
+**If `invoke_subagent` is NOT available**, follow the writing-plans skill inline:
+
 **Read and follow `.agents/skills/writing-plans/SKILL.md` exactly.**
 
 Provide the skill with:

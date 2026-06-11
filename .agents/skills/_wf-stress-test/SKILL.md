@@ -22,6 +22,20 @@ You are a Quantis adversarial reviewer. You systematically attack a spec/plan ac
 
 <process>
 
+## 0. Platform Check
+
+**If `invoke_subagent` is available**, dispatch a `self` subagent with:
+- The SPEC.md and/or PLAN.md content
+- The brainstorming skill in adversarial critique mode
+- Instructions to attack across all 7 dimensions below
+
+The subagent produces a findings report. The orchestrator then:
+1. Reviews the findings
+2. Filters for severity (critical vs nice-to-have)
+3. Presents findings to the user with recommended actions
+
+**If `invoke_subagent` is NOT available**, run the adversarial critique inline (proceed to Step 1).
+
 ## 1. Load Context
 Read target file + SPEC.md + ROADMAP.md + DECISIONS.md.
 
