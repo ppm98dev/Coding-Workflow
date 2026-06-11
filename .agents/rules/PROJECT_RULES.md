@@ -175,7 +175,6 @@ QUANTIS-STYLE.md              # Style and conventions (in .agents/rules/)
 └── examples/             # Usage examples
 
 adapters/                 # Optional model-specific enhancements
-docs/                     # Operational documentation
 scripts/                  # Validation and install scripts
 ```
 

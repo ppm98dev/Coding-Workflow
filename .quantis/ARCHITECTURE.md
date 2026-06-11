@@ -42,7 +42,6 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
 ┌───────────────────────────────────────────────────────────────┐
 │                  SUPPORT LAYER                                │
 │   scripts/ (validation — Bash only, install.sh)               │
-│   docs/ (runbook, model playbook, token guide)                │
 │   .agents/rules/ (PROJECT_RULES, CONSTITUTION, QUANTIS-STYLE)          │
 └───────────────────────────────────────────────────────────────┘
 ```
@@ -102,7 +101,6 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
   - `validate-all.sh`, `validate-workflows.sh`, `validate-skills.sh`, `validate-templates.sh`
   - `setup_search.sh`, `search_repo.sh`
   - `install.sh` — One-command cURL install for macOS/Linux
-- **Docs** (`docs/`): model-selection-playbook, runbook, token-optimization-guide
 - **Rules:** `.agents/rules/PROJECT_RULES.md`, `.agents/rules/CONSTITUTION.md`, `.agents/rules/QUANTIS-STYLE.md`
 
 ## Data Flow

@@ -43,7 +43,6 @@ None.
 .gemini/          Platform bootstrap
 .quantis/         Project state + 25 templates
 adapters/         ANTIGRAVITY.md only
-docs/             Runbook, model playbook, token guide
 scripts/          Validation scripts + installer
 ```
 

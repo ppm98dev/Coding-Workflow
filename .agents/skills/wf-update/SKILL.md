@@ -136,10 +136,7 @@ cp "$SOURCE/.gemini/GEMINI.md" .gemini/GEMINI.md
 cp -r "$SOURCE/adapters" ./ 2>/dev/null || true
 
 # --- Core Docs and Scripts ---
-mkdir -p docs scripts
-cp "$SOURCE/docs/model-selection-playbook.md" docs/
-cp "$SOURCE/docs/runbook.md" docs/
-cp "$SOURCE/docs/token-optimization-guide.md" docs/
+mkdir -p scripts
 cp "$SOURCE/scripts/search_repo.sh" scripts/
 cp "$SOURCE/scripts/setup_search.sh" scripts/
 cp "$SOURCE/scripts/validate-all.sh" scripts/

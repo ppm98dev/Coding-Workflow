@@ -95,13 +95,6 @@
 
 - ANTIGRAVITY.md
 
-### Documentation (`docs/`)
-
-- README.opencode.md
-- windows/polyglot-hooks.md
-- model-selection-playbook.md
-- runbook.md
-- token-optimization-guide.md
 
 ### Scripts (`scripts/`)
 

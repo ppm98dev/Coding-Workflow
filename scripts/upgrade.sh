@@ -158,9 +158,6 @@ cp "$TEMP_DIR/adapters/ANTIGRAVITY.md" adapters/ 2>/dev/null || true
 
 # Step 8: Update Core Docs and Scripts
 echo -e "⚙️ Updating core docs and scripts..."
-cp "$TEMP_DIR/docs/model-selection-playbook.md" docs/ 2>/dev/null || true
-cp "$TEMP_DIR/docs/runbook.md" docs/ 2>/dev/null || true
-cp "$TEMP_DIR/docs/token-optimization-guide.md" docs/ 2>/dev/null || true
 cp "$TEMP_DIR/scripts/search_repo.sh" scripts/ 2>/dev/null || true
 cp "$TEMP_DIR/scripts/setup_search.sh" scripts/ 2>/dev/null || true
 cp "$TEMP_DIR/scripts/validate-all.sh" scripts/ 2>/dev/null || true

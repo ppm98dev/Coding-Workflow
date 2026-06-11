@@ -38,9 +38,6 @@ cp -r "$TEMP_DIR/.gemini/" ./
 cp "$TEMP_DIR/adapters/ANTIGRAVITY.md" adapters/
 
 # Copy specific docs to prevent framework pollution
-cp "$TEMP_DIR/docs/model-selection-playbook.md" docs/ 2>/dev/null || true
-cp "$TEMP_DIR/docs/runbook.md" docs/ 2>/dev/null || true
-cp "$TEMP_DIR/docs/token-optimization-guide.md" docs/ 2>/dev/null || true
 
 # Copy specific scripts to prevent framework pollution
 cp "$TEMP_DIR/scripts/search_repo.sh" scripts/ 2>/dev/null || true

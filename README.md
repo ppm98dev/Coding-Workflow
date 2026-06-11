@@ -156,7 +156,6 @@ agy                           # Start Antigravity CLI
 .gemini/              Platform bootstrap
 .quantis/             Project state + 25 templates
 adapters/             Platform-specific guidance
-docs/                 Runbook, model playbook, token guide
 scripts/              Validation scripts + one-liner installer
 
 CHANGELOG.md          Release history

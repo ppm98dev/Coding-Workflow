@@ -61,11 +61,7 @@ cp -r .quantis-install-temp/.agents ./
 cp -r .quantis-install-temp/.gemini ./
 cp -r .quantis-install-temp/adapters ./
 
-# Core docs and scripts (excluding framework internal dev files)
-mkdir -p docs scripts
-cp .quantis-install-temp/docs/model-selection-playbook.md docs/
-cp .quantis-install-temp/docs/runbook.md docs/
-cp .quantis-install-temp/docs/token-optimization-guide.md docs/
+mkdir -p scripts
 cp .quantis-install-temp/scripts/search_repo.sh scripts/
 cp .quantis-install-temp/scripts/setup_search.sh scripts/
 cp .quantis-install-temp/scripts/validate-all.sh scripts/
@@ -135,7 +131,6 @@ Files installed:
 • .gemini/       (Antigravity bootstrap)
 • .quantis/      (project state templates)
 • adapters/      (platform-specific guidance)
-• docs/          (core documentation guides)
 • scripts/       (validation & search tools)
 • VERSION
 

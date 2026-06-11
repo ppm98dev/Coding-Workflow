@@ -240,20 +240,15 @@ cp "$SOURCE/adapters/ANTIGRAVITY.md" adapters/ 2>/dev/null || true
 echo "Updated bootstrap and adapter"
 ```
 
-### 5g. Update Core Docs and Scripts
 
 ```bash
-mkdir -p docs scripts
-cp "$SOURCE/docs/model-selection-playbook.md" docs/
-cp "$SOURCE/docs/runbook.md" docs/
-cp "$SOURCE/docs/token-optimization-guide.md" docs/
+mkdir -p scripts
 cp "$SOURCE/scripts/search_repo.sh" scripts/
 cp "$SOURCE/scripts/setup_search.sh" scripts/
 cp "$SOURCE/scripts/validate-all.sh" scripts/
 cp "$SOURCE/scripts/validate-skills.sh" scripts/
 cp "$SOURCE/scripts/validate-workflows.sh" scripts/
 cp "$SOURCE/scripts/validate-templates.sh" scripts/
-echo "Updated core docs and scripts"
 ```
 
 ### 5h. Update Root Files
