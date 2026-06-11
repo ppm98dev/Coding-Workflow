@@ -87,11 +87,8 @@
 ### Bootstrap (`.gemini/`)
 - GEMINI.md
 
-### Adapters (`adapters/` — 4 files)
+### Adapters (`adapters/` — 1 file)
 - ANTIGRAVITY.md
-- CLAUDE.md
-- GEMINI.md
-- GPT_OSS.md
 
 ### Documentation (`docs/`)
 - README.opencode.md

@@ -180,5 +180,4 @@ git add -A && git commit -m "feat(phase-N): task name"
 ---
 
 *See .agents/rules/PROJECT_RULES.md for canonical requirements.*
-*See adapters/GEMINI.md for Gemini model-specific tips.*
 *Based on [obra/superpowers](https://github.com/obra/superpowers)*

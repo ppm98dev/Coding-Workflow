@@ -134,9 +134,6 @@ Project state that survives across sessions:
 | **Antigravity IDE** | `/command` | ❌ inline | ✅ `browser_subagent` |
 | **Antigravity CLI** (`agy`) | `/_wf-command` | ✅ `invoke_subagent` | ❌ |
 | **Standalone** (Antigravity 2.0) | `/command` | ✅ `invoke_subagent` | ✅ `/browser` |
-| Gemini CLI | Adapter | Via `.gemini/GEMINI.md` + adapters |
-| Claude | Adapter | Via `adapters/CLAUDE.md` |
-| GPT / OSS | Adapter | Via `adapters/GPT_OSS.md` |
 
 All workflows and skills live in `.agents/skills/`. No platform-specific setup needed after install.
 
