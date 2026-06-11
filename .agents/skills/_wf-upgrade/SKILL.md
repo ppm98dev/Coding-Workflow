@@ -217,8 +217,8 @@ echo "Updated core docs and scripts"
 
 ```bash
 # These are methodology files, safe to replace
-cp "$SOURCE/PROJECT_RULES.md" ./
-cp "$SOURCE/QUANTIS-STYLE.md" ./
+cp "$SOURCE/.agents/rules/PROJECT_RULES.md" .agents/rules/
+cp "$SOURCE/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
 cp "$SOURCE/VERSION" ./
 cp "$SOURCE/model_capabilities.yaml" ./
 

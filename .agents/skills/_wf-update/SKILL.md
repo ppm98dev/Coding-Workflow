@@ -119,13 +119,13 @@ cp "$SOURCE/scripts/validate-all.sh" scripts/
 cp "$SOURCE/scripts/validate-skills.sh" scripts/
 
 # --- Core Root Files ---
-cp "$SOURCE/PROJECT_RULES.md" ./
-cp "$SOURCE/QUANTIS-STYLE.md" ./
+cp "$SOURCE/.agents/rules/PROJECT_RULES.md" .agents/rules/
+cp "$SOURCE/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
 cp "$SOURCE/VERSION" ./
 cp "$SOURCE/model_capabilities.yaml" ./
 ```
 
-> **Note:** CONSTITUTION.md is NOT overwritten — it's a user file that may have been customized.
+> **Note:** `.agents/rules/CONSTITUTION.md` is NOT overwritten — it's a user file that may have been customized.
 
 ---
 
@@ -151,11 +151,12 @@ Updated:
 • Core skills (18 from MANIFEST)
 • Templates, Adapters
 • Core Docs and Scripts
-• Root files (PROJECT_RULES, VERSION, model_capabilities.yaml)
+• Root files (VERSION, model_capabilities.yaml)
+• Rules (.agents/rules/PROJECT_RULES.md, QUANTIS-STYLE.md)
 
 Preserved:
 • Your .quantis/ state (SPEC, ROADMAP, STATE, etc.)
-• Your CONSTITUTION.md
+• Your .agents/rules/CONSTITUTION.md
 • Any user-installed skills not in MANIFEST
 
 ───────────────────────────────────────────────────────
@@ -178,5 +179,5 @@ These user files are NEVER overwritten:
 - .quantis/JOURNAL.md
 - .quantis/TODO.md
 - .quantis/phases/*
-- CONSTITUTION.md
+- .agents/rules/CONSTITUTION.md
 </preserved_files>

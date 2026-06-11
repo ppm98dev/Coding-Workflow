@@ -1,7 +1,7 @@
 # Antigravity Adapter
 
 > **Everything in this file is optional.**
-> For canonical rules, see [PROJECT_RULES.md](../PROJECT_RULES.md).
+> For canonical rules, see [PROJECT_RULES.md](../.agents/rules/PROJECT_RULES.md).
 > For tool mapping, see `.agents/skills/using-quantis/references/antigravity-tools.md`.
 
 This adapter provides Antigravity-specific enhancements for running Quantis across all Antigravity platforms (IDE, CLI, Standalone).
@@ -180,6 +180,6 @@ Reference `model_capabilities.yaml` for detailed guidance:
 
 ---
 
-*See PROJECT_RULES.md for canonical requirements.*
+*See .agents/rules/PROJECT_RULES.md for canonical requirements.*
 *See adapters/GEMINI.md for Gemini model-specific tips.*
 *Based on [obra/superpowers](https://github.com/obra/superpowers)*

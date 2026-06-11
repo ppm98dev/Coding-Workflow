@@ -1,7 +1,7 @@
 # GPT & Open Source Models Adapter
 
 > **Everything in this file is optional.**
-> For canonical rules, see [PROJECT_RULES.md](../PROJECT_RULES.md).
+> For canonical rules, see [PROJECT_RULES.md](../.agents/rules/PROJECT_RULES.md).
 
 This adapter provides guidance for GPT models and open-source alternatives.
 
@@ -127,4 +127,4 @@ Not required, but if organizing:
 
 ---
 
-*See PROJECT_RULES.md for canonical requirements.*
+*See .agents/rules/PROJECT_RULES.md for canonical requirements.*

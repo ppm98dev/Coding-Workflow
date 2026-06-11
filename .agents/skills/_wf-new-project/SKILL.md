@@ -10,7 +10,7 @@ Initialize a new project through unified flow: constitution → questioning → 
 This is the most leveraged moment in any project. Deep questioning here means better plans, better execution, better outcomes. One command takes you from idea to ready-for-planning.
 
 **Creates:**
-- `.quantis/CONSTITUTION.md` — project quality standards (first!)
+- `.agents/rules/CONSTITUTION.md` — project quality standards (first!)
 - `.quantis/SPEC.md` — project specification
 - `.quantis/ROADMAP.md` — phase structure
 - `.quantis/STATE.md` — project memory
@@ -86,7 +86,7 @@ Walk through each article with focused questions. Offer sensible defaults — th
 
 **After all questions:**
 - Fill the constitution template (`.quantis/templates/constitution.md`) with answers
-- Create `.quantis/CONSTITUTION.md`
+- Create `.agents/rules/CONSTITUTION.md`
 - Display summary
 
 ```
@@ -217,7 +217,7 @@ Create `.quantis/SPEC.md` using the template from `.quantis/templates/spec.md`:
 - {Other limitations}
 
 ## Quality Requirements
-<!-- Reference CONSTITUTION.md articles when filling these -->
+<!-- Reference .agents/rules/CONSTITUTION.md articles when filling these -->
 - **Error Handling**: {from constitution or [NEEDS CLARIFICATION]}
 - **Logging**: {from constitution or [NEEDS CLARIFICATION]}
 - **Performance**: {targets or [NEEDS CLARIFICATION]}
@@ -392,7 +392,7 @@ Project: {name}
 Phases: {N}
 
 Files created:
-• .quantis/CONSTITUTION.md (10 articles)
+• .agents/rules/CONSTITUTION.md (10 articles)
 • .quantis/SPEC.md (FINALIZED)
 • .quantis/ROADMAP.md ({N} phases)
 • .quantis/STATE.md

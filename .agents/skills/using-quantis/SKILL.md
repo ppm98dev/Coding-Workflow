@@ -132,4 +132,4 @@ These slash commands are available. Some invoke Superpowers skills for enhanced 
 | Journal | `.quantis/JOURNAL.md` |
 | Decisions | `.quantis/DECISIONS.md` |
 | Roadmap | `.quantis/ROADMAP.md` |
-| Constitution | `CONSTITUTION.md` (project root) |
+| Constitution | `.agents/rules/CONSTITUTION.md` |

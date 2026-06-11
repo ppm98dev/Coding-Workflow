@@ -127,8 +127,8 @@ cp "$TEMP_DIR/scripts/validate-templates.sh" scripts/ 2>/dev/null || true
 
 # Step 7: Update Root Files
 echo -e "⚙️ Copying core configuration files..."
-cp "$TEMP_DIR/PROJECT_RULES.md" ./
-cp "$TEMP_DIR/QUANTIS-STYLE.md" ./
+cp "$TEMP_DIR/.agents/rules/PROJECT_RULES.md" .agents/rules/
+cp "$TEMP_DIR/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
 cp "$TEMP_DIR/VERSION" ./
 cp "$TEMP_DIR/model_capabilities.yaml" ./
 
@@ -152,13 +152,13 @@ find .quantis -type f -name "*.md" | while read -r file; do
 done
 
 # Perform same replacement on CONSTITUTION.md if it exists
-if [ -f "CONSTITUTION.md" ]; then
+if [ -f ".agents/rules/CONSTITUTION.md" ]; then
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        sed -i '' 's/GSD/Quantis/g' CONSTITUTION.md 2>/dev/null || true
-        sed -i '' 's/Get Shit Done/Quantis/g' CONSTITUTION.md 2>/dev/null || true
+        sed -i '' 's/GSD/Quantis/g' .agents/rules/CONSTITUTION.md 2>/dev/null || true
+        sed -i '' 's/Get Shit Done/Quantis/g' .agents/rules/CONSTITUTION.md 2>/dev/null || true
     else
-        sed -i 's/GSD/Quantis/g' CONSTITUTION.md 2>/dev/null || true
-        sed -i 's/Get Shit Done/Quantis/g' CONSTITUTION.md 2>/dev/null || true
+        sed -i 's/GSD/Quantis/g' .agents/rules/CONSTITUTION.md 2>/dev/null || true
+        sed -i 's/Get Shit Done/Quantis/g' .agents/rules/CONSTITUTION.md 2>/dev/null || true
     fi
 fi
 

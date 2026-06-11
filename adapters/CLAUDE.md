@@ -1,7 +1,7 @@
 # Claude Adapter
 
 > **Everything in this file is optional.**
-> For canonical rules, see [PROJECT_RULES.md](../PROJECT_RULES.md).
+> For canonical rules, see [PROJECT_RULES.md](../.agents/rules/PROJECT_RULES.md).
 
 This adapter provides optional enhancements for Claude models in Antigravity.
 
@@ -74,4 +74,4 @@ Not required, but if organizing Claude-specific files:
 
 ---
 
-*See PROJECT_RULES.md for canonical requirements.*
+*See .agents/rules/PROJECT_RULES.md for canonical requirements.*

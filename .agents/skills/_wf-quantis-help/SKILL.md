@@ -92,7 +92,7 @@ CORE RULES
 
 ───────────────────────────────────────────────────────
 
-📚 Docs: QUANTIS-STYLE.md, adapters/
+📚 Docs: .agents/rules/QUANTIS-STYLE.md, adapters/
 🔧 Skills: .agents/skills/ (18 skills, auto-triggered)
 
 ───────────────────────────────────────────────────────

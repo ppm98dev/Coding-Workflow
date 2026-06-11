@@ -49,7 +49,7 @@ Each plan: **2-3 tasks max**. No exceptions.
 ## 1. Planning Lock
 ```bash
 grep -q "FINALIZED" ".quantis/SPEC.md" || echo "Error: SPEC.md must be FINALIZED"
-test -f ".quantis/CONSTITUTION.md" || echo "⚠️ No CONSTITUTION.md"
+test -f ".agents/rules/CONSTITUTION.md" || echo "⚠️ No .agents/rules/CONSTITUTION.md"
 ```
 
 ## 2. Parse Arguments
@@ -139,7 +139,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 - The SPEC.md content
 - The writing-plans skill instructions (`.agents/skills/writing-plans/SKILL.md`)
 - The phase directory path
-- CONSTITUTION.md quality standards
+- .agents/rules/CONSTITUTION.md quality standards
 - RESEARCH.md findings (if exists)
 - ARCHITECTURE.md (if exists)
 - Any custom skills / MCP context discovered in Step 3.5
@@ -156,7 +156,7 @@ The subagent produces the PLAN.md file(s). The orchestrator then:
 Provide the skill with:
 - Phase number and objectives from ROADMAP.md
 - SPEC.md requirements
-- CONSTITUTION.md quality standards
+- .agents/rules/CONSTITUTION.md quality standards
 - RESEARCH.md findings (if exists)
 - ARCHITECTURE.md (if exists)
 

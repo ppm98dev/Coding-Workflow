@@ -292,5 +292,5 @@ git diff --staged
 
 ---
 
-*See PROJECT_RULES.md for canonical rules.*
+*See .agents/rules/PROJECT_RULES.md for canonical rules.*
 *See docs/model-selection-playbook.md for model guidance.*

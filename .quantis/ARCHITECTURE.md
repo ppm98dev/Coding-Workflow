@@ -43,7 +43,7 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
 │                  SUPPORT LAYER                                │
 │   scripts/ (validation — Bash only, install.sh)               │
 │   docs/ (runbook, model playbook, token guide)                │
-│   PROJECT_RULES.md + QUANTIS-STYLE.md (canonical rules)          │
+│   .agents/rules/ (PROJECT_RULES, CONSTITUTION, QUANTIS-STYLE)          │
 └───────────────────────────────────────────────────────────────┘
 ```
 
@@ -103,7 +103,7 @@ Adapted from [gsd-build/get-shit-done](https://github.com/gsd-build/get-shit-don
   - `setup_search.sh`, `search_repo.sh`
   - `install.sh` — One-command cURL install for macOS/Linux
 - **Docs** (`docs/`): model-selection-playbook, runbook, token-optimization-guide
-- **Rules:** `PROJECT_RULES.md` (canonical, 260 lines), `QUANTIS-STYLE.md` (conventions, 272 lines)
+- **Rules:** `.agents/rules/PROJECT_RULES.md`, `.agents/rules/CONSTITUTION.md`, `.agents/rules/QUANTIS-STYLE.md`
 
 ## Data Flow
 

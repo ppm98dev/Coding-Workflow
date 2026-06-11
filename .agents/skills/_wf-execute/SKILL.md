@@ -29,7 +29,7 @@ You are a Quantis executor orchestrator. You manage wave-based execution of phas
 ```bash
 test -f ".quantis/ROADMAP.md" || echo "Error: run /plan first"
 test -f ".quantis/STATE.md" || echo "Error: run /plan first"
-test -f ".quantis/CONSTITUTION.md" || echo "⚠️ No CONSTITUTION.md — quality standards not enforced"
+test -f ".agents/rules/CONSTITUTION.md" || echo "⚠️ No .agents/rules/CONSTITUTION.md — quality standards not enforced"
 ```
 Validate phase exists in ROADMAP.md.
 
@@ -67,7 +67,7 @@ Wave 2: {plan-3}
 
 For each wave in order, for each plan in the wave:
 
-1. Load plan context (PLAN.md + CONSTITUTION.md)
+1. Load plan context (PLAN.md + .agents/rules/CONSTITUTION.md)
 2. **Select execution methodology (automatic — do NOT ask the user):**
    - Check if `invoke_subagent` tool is available in your current environment
    - **If available:** Read and follow `.agents/skills/subagent-driven-development/SKILL.md`. Announce: "I'm using Subagent-Driven Development to execute this plan."

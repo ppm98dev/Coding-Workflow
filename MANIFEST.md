@@ -109,12 +109,14 @@
 - validate-templates.sh
 - validate-workflows.sh
 
-## Core Root Files
-- CHANGELOG.md
+### Rules (`.agents/rules/` — 3 files, auto-discovered)
 - CONSTITUTION.md
-- MANIFEST.md
 - PROJECT_RULES.md
 - QUANTIS-STYLE.md
+
+### Root Files (project root)
+- CHANGELOG.md
+- MANIFEST.md
 - README.md
 - VERSION
 - model_capabilities.yaml
@@ -129,4 +131,4 @@
 - .quantis/JOURNAL.md
 - .quantis/TODO.md
 - .quantis/phases/* (all phase plans, summaries, research)
-- CONSTITUTION.md (user's customized copy)
+- .agents/rules/CONSTITUTION.md (user's customized copy)

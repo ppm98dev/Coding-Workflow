@@ -17,7 +17,7 @@ Read the `using-quantis` skill to understand how Quantis works:
 
 ## References
 
-- [PROJECT_RULES.md](../PROJECT_RULES.md) — Canonical methodology rules
+- [PROJECT_RULES.md](../.agents/rules/PROJECT_RULES.md) — Canonical methodology rules
 - [adapters/ANTIGRAVITY.md](../adapters/ANTIGRAVITY.md) — Antigravity-specific tool guidance
 - [adapters/GEMINI.md](../adapters/GEMINI.md) — Gemini model tips
 - [adapters/CLAUDE.md](../adapters/CLAUDE.md) — Claude model tips

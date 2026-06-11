@@ -198,4 +198,4 @@ Works with:
 
 ---
 
-*Part of Quantis v3.0 Token Optimization. See PROJECT_RULES.md for efficiency rules.*
+*Part of Quantis v3.0 Token Optimization. See .agents/rules/PROJECT_RULES.md for efficiency rules.*

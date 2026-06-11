@@ -74,10 +74,10 @@ cp .quantis-install-temp/scripts/validate-skills.sh scripts/
 mkdir -p .quantis/templates
 cp -r .quantis-install-temp/.quantis/templates/ .quantis/
 
-# Root files
-cp .quantis-install-temp/CONSTITUTION.md ./
-cp .quantis-install-temp/PROJECT_RULES.md ./
-cp .quantis-install-temp/QUANTIS-STYLE.md ./
+# Rules (auto-discovered by all platforms)
+cp .quantis-install-temp/.agents/rules/CONSTITUTION.md .agents/rules/
+cp .quantis-install-temp/.agents/rules/PROJECT_RULES.md .agents/rules/
+cp .quantis-install-temp/.agents/rules/QUANTIS-STYLE.md .agents/rules/
 cp .quantis-install-temp/VERSION ./
 cp .quantis-install-temp/model_capabilities.yaml ./
 ```
@@ -131,17 +131,19 @@ B) No — Skip
 Quantis v3.2 has been installed.
 
 Files installed:
-• .agents/       (30 workflows + 18 skills — unified structure)
+• .agents/       (30 workflows + 18 skills + 3 rules — unified structure)
 • .gemini/       (Antigravity bootstrap)
 • .quantis/      (project state templates)
 • adapters/      (platform-specific guidance)
 • docs/          (core documentation guides)
 • scripts/       (validation & search tools)
-• CONSTITUTION.md
-• PROJECT_RULES.md
-• QUANTIS-STYLE.md
 • VERSION
 • model_capabilities.yaml
+
+Rules auto-discovered:
+• .agents/rules/PROJECT_RULES.md
+• .agents/rules/CONSTITUTION.md
+• .agents/rules/QUANTIS-STYLE.md
 
 ───────────────────────────────────────────────────────
 

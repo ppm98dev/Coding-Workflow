@@ -153,7 +153,9 @@ agy                           # Start Antigravity CLI
 ## File Structure
 
 ```
-.agents/skills/       30 workflow commands (_wf-*) + 18 auto-triggered skills
+.agents/
+├── skills/       30 workflow commands (_wf-*) + 18 auto-triggered skills
+└── rules/        PROJECT_RULES.md, CONSTITUTION.md, QUANTIS-STYLE.md
 .gemini/              Platform bootstrap
 .quantis/             Project state + 25 templates
 adapters/             Platform-specific guidance
@@ -161,12 +163,9 @@ docs/                 Runbook, model playbook, token guide
 scripts/              Validation scripts + one-liner installer
 
 CHANGELOG.md          Release history
-CONSTITUTION.md       Project quality standards
 LICENSE               MIT license
 MANIFEST.md           Core file listing (for safe updates)
 model_capabilities.yaml  Model capability matrix
-PROJECT_RULES.md      Canonical methodology rules
-QUANTIS-STYLE.md      Style and conventions
 VERSION               Current version number
 ```
 

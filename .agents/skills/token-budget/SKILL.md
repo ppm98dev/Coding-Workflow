@@ -39,7 +39,7 @@ You are a token-efficient agent. Your job is to maximize output quality while mi
 
 ## Budget Thresholds
 
-Based on PROJECT_RULES.md context quality thresholds:
+Based on .agents/rules/PROJECT_RULES.md context quality thresholds:
 
 | Usage | Quality | Budget Status |
 |-------|---------|---------------|
@@ -163,4 +163,4 @@ This skill integrates with:
 
 ---
 
-*Part of Quantis v3.0 Token Optimization. See PROJECT_RULES.md for efficiency rules.*
+*Part of Quantis v3.0 Token Optimization. See .agents/rules/PROJECT_RULES.md for efficiency rules.*
