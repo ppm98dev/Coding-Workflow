@@ -1,4 +1,5 @@
 ---
+name: _wf-plan
 description: The Strategist — Decompose requirements into executable phases in ROADMAP.md
 argument-hint: "[phase] [--research] [--skip-research] [--gaps]"
 ---

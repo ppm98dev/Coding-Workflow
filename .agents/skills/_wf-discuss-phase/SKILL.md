@@ -1,4 +1,5 @@
 ---
+name: _wf-discuss-phase
 description: Discuss a phase before planning (clarify scope and approach)
 argument-hint: "<phase-number>"
 ---

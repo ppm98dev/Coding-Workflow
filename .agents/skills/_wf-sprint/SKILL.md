@@ -1,4 +1,5 @@
 ---
+name: _wf-sprint
 description: Create and manage a time-boxed sprint for quick focused work
 argument-hint: "[new|status|close] [sprint-name]"
 ---

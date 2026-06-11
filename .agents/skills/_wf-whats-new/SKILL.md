@@ -1,4 +1,5 @@
 ---
+name: _wf-whats-new
 description: Show recent Quantis changes and new features
 ---
 

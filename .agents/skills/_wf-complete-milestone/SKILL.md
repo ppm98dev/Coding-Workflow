@@ -1,4 +1,5 @@
 ---
+name: _wf-complete-milestone
 description: Mark current milestone as complete and archive
 ---
 

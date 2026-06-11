@@ -1,4 +1,5 @@
 ---
+name: _wf-list-phase-assumptions
 description: List assumptions made during phase planning
 argument-hint: "<phase-number>"
 ---

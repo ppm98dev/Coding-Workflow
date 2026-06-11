@@ -1,4 +1,5 @@
 ---
+name: _wf-remove-phase
 description: Remove a phase from the roadmap (with safety checks)
 argument-hint: "<phase-number>"
 ---

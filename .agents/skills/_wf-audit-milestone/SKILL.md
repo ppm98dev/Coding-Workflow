@@ -1,4 +1,5 @@
 ---
+name: _wf-audit-milestone
 description: Audit a milestone for quality and completeness
 argument-hint: "[milestone-name]"
 ---

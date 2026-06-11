@@ -1,4 +1,5 @@
 ---
+name: _wf-verify
 description: The Auditor — Validate work against spec with empirical evidence
 argument-hint: "<phase-number>"
 ---

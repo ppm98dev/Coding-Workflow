@@ -1,4 +1,5 @@
 ---
+name: _wf-execute
 description: The Engineer — Execute a specific phase with focused context
 argument-hint: "<phase-number> [--gaps-only]"
 ---

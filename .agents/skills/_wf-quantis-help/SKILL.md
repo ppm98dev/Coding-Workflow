@@ -1,4 +1,5 @@
 ---
+name: _wf-quantis-help
 description: Show all available Quantis commands
 ---
 

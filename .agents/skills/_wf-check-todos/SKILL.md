@@ -1,4 +1,5 @@
 ---
+name: _wf-check-todos
 description: List all pending todo items
 argument-hint: "[--all] [--priority high|medium|low]"
 ---

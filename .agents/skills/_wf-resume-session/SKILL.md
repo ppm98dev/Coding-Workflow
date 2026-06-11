@@ -1,4 +1,5 @@
 ---
+name: _wf-resume-session
 description: Restore context from previous session
 ---
 

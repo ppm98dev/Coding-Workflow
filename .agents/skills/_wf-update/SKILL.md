@@ -1,4 +1,5 @@
 ---
+name: _wf-update
 description: Update Quantis to the latest version from GitHub
 ---
 

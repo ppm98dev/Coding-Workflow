@@ -1,4 +1,5 @@
 ---
+name: _wf-insert-phase
 description: Insert a phase between existing phases (renumbers subsequent)
 argument-hint: "<position> <phase-name>"
 ---

@@ -1,4 +1,5 @@
 ---
+name: _wf-map
 description: The Architect — Analyze codebase and update ARCHITECTURE.md and STACK.md
 ---
 

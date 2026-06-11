@@ -1,4 +1,5 @@
 ---
+name: _wf-progress
 description: Show current position in roadmap and next steps
 ---
 

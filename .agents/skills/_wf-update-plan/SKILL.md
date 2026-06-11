@@ -1,4 +1,5 @@
 ---
+name: _wf-update-plan
 description: Review and revise plans based on discussion (optional)
 argument-hint: "<phase-number>"
 ---

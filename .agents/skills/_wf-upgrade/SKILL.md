@@ -1,4 +1,5 @@
 ---
+name: _wf-upgrade
 description: Migrate from GSD/v2.x to Quantis v3.0
 ---
 

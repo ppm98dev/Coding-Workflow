@@ -1,4 +1,5 @@
 ---
+name: _wf-research-phase
 description: Deep technical research for a phase
 argument-hint: "<phase-number>"
 ---

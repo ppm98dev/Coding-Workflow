@@ -1,4 +1,5 @@
 ---
+name: _wf-pause
 description: Context hygiene — dump state for clean session handoff
 ---
 

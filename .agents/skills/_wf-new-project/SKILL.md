@@ -1,4 +1,5 @@
 ---
+name: _wf-new-project
 description: Initialize a new project with deep context gathering
 ---
 

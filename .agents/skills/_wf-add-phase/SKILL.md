@@ -1,4 +1,5 @@
 ---
+name: _wf-add-phase
 description: Add a new phase to the end of the roadmap
 argument-hint: "<phase-name>"
 ---

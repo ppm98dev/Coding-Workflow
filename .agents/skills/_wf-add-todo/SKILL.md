@@ -1,4 +1,5 @@
 ---
+name: _wf-add-todo
 description: Capture a todo item for later
 argument-hint: "<description> [--priority high|medium|low]"
 ---

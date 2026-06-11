@@ -1,4 +1,5 @@
 ---
+name: _wf-stress-test
 description: Adversarial spec review — find ambiguity, contradictions, and gaps
 argument-hint: "[target-file]"
 ---

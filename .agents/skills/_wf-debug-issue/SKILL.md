@@ -1,4 +1,5 @@
 ---
+name: _wf-debug-issue
 description: Systematic debugging with persistent state
 argument-hint: "[description of issue]"
 ---

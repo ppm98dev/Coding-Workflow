@@ -1,4 +1,5 @@
 ---
+name: _wf-web-search
 description: Search the web for information to inform decisions
 argument-hint: "<query> [--domain <site>]"
 ---

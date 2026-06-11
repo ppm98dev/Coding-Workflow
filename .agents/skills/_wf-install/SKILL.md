@@ -1,4 +1,5 @@
 ---
+name: _wf-install
 description: Install Quantis into the current project from GitHub
 ---
 
