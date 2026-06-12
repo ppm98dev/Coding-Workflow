@@ -3,7 +3,8 @@
 > **Status**: FINALIZED
 > **Created**: 2026-06-11 (supersedes 2026-06-01 draft — stale paths, partially shipped)
 > **Verified**: 2026-06-12 (deep audit confirmed 49/50 claims — see claude-audit-report.md)
-> **Scope**: 9 skill files + 1 rules file + ROADMAP.md hygiene. Prose edits only, no code.
+> **Plans re-verified**: 2026-06-12 — plan-vs-audit verification pass closed 6 gaps: `using-quantis`/`executing-plans`/`antigravity-tools` consistency (H1, new Plan 4 Task 5), wf-execute Step 1 STOP gate (C5, Plan 1 Task 3), two broken grep acceptances, the P1↔P4 executing-plans contradiction, QUANTIS-STYLE checkbox-vs-XML reconciliation (C2, Plan 4 Task 3b), stress-test artifact persistence (Plan 4 Task 4b), wf-verify STATE-in-place guard + gap-closure loop cap (Plan 3), H9 FINALIZED precondition (Plan 1), and the systematic-debugging "Phase 4.5" reference.
+> **Scope**: ~16 skill/reference files + 2 rules files + ROADMAP.md hygiene. Prose edits only, no code.
 
 ## Problem Statement
 
@@ -111,7 +112,9 @@ shipped; resolve the 3.2-depends-on-3.1 inversion; regenerate 3.1 plans from thi
 
 ## Out of Scope (→ Phase 3.4 "Verification Depth", Phase 3.5 "Subagent Maximization")
 - Senior code review step in /verify (Issue 5 design in audit §6)
-- Stress-test plan mode + /plan integration + external review (Issue 6 / audit H7)
+- Stress-test plan mode + /plan auto-invoke + external review (Issue 6 / audit H7). **Note:** making the standalone command *persist* its findings (write STRESS-TEST.md + stamp the spec) IS in scope — Plan 4 Task 4b — since SPEC Fix 5 already requires it. Only the /plan *integration* is deferred.
 - Subagent dispatch maximization + dispatching-parallel-agents wiring (Issue 7 / H11)
-- State-schema unification (audit §4) — riskier, separate phase
-- Error-path package (audit §4) — fold the cheap STOPs into Fix 3; rest deferred
+- State-schema unification (audit §4) — riskier, separate phase. **One item pulled in:** the wf-verify "edit STATE.md in place, preserve other sections" guard (Plan 3 Task 1), because Fix 4 makes /verify write STATE actively and would otherwise clobber /resume-session context.
+- Error-path package (audit §4) — fold the cheap STOPs into Fix 3; rest deferred. **Pulled in:** gap-closure loop cap (Plan 3 Task 1, audit H8) — cheap and prevents an unbounded verify→gaps→execute loop.
+- **Branch/worktree isolation in wf-execute** (audit Medium): SDD and executing-plans require not implementing on main without consent, but wf-execute commits directly with no branch step. Deferred — adding worktree/branch mechanics is a behavior change that warrants its own phase (candidate: Phase 3.4). Decided deferral, not an oversight.
+- **wf-plan Step 3.5 ecosystem-discovery robustness** (audit Medium): the MANIFEST-absent crash and the IDE-only hardcoded MCP path (`$HOME/.gemini/antigravity-ide/mcp` → always "None connected" on CLI). Deferred — separate concern from the reliability contracts; track for Phase 3.4.
