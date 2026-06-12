@@ -110,11 +110,32 @@ Acceptance: file has matching open/close tags for all blocks (validate-workflows
 Update Phase 3.1's deliverables to wf-* paths; check off the two items 3.2 already
 shipped; resolve the 3.2-depends-on-3.1 inversion; regenerate 3.1 plans from this SPEC.
 
-## Out of Scope (→ Phase 3.4 "Verification Depth", Phase 3.5 "Subagent Maximization")
-- Senior code review step in /verify (Issue 5 design in audit §6)
-- Stress-test plan mode + /plan auto-invoke + external review (Issue 6 / audit H7). **Note:** making the standalone command *persist* its findings (write STRESS-TEST.md + stamp the spec) IS in scope — Plan 4 Task 4b — since SPEC Fix 5 already requires it. Only the /plan *integration* is deferred.
-- Subagent dispatch maximization + dispatching-parallel-agents wiring (Issue 7 / H11)
-- State-schema unification (audit §4) — riskier, separate phase. **One item pulled in:** the wf-verify "edit STATE.md in place, preserve other sections" guard (Plan 3 Task 1), because Fix 4 makes /verify write STATE actively and would otherwise clobber /resume-session context.
-- Error-path package (audit §4) — fold the cheap STOPs into Fix 3; rest deferred. **Pulled in:** gap-closure loop cap (Plan 3 Task 1, audit H8) — cheap and prevents an unbounded verify→gaps→execute loop.
-- **Branch/worktree isolation in wf-execute** (audit Medium): SDD and executing-plans require not implementing on main without consent, but wf-execute commits directly with no branch step. Deferred — adding worktree/branch mechanics is a behavior change that warrants its own phase (candidate: Phase 3.4). Decided deferral, not an oversight.
-- **wf-plan Step 3.5 ecosystem-discovery robustness** (audit Medium): the MANIFEST-absent crash and the IDE-only hardcoded MCP path (`$HOME/.gemini/antigravity-ide/mcp` → always "None connected" on CLI). Deferred — separate concern from the reliability contracts; track for Phase 3.4.
+## Fix 8 — EVERYTHING ELSE (nothing deferred)
+
+Per explicit decision (2026-06-12), **no finding is deferred** — every Critical, High, Medium, and Low item from `claude-audit-report.md`, plus the Issue-5 senior-code-review design, is now an in-scope plan task. This pulls the formerly-deferred capability work into Phase 3.1:
+- **Issue 5** — senior code review step in /verify (audit §6 design): git-diff-scoped, subagent-or-inline, feeds the verdict + gap closure.
+- **H7** — stress-test /plan integration: Step 1.5 spec stress-test gate, stress-test plan mode, Step 5 adversarial plan review, external-review hook.
+- **H11** — subagent dispatch maximization + `dispatching-parallel-agents` wiring (wf-stress-test 7-way fan-out, wf-debug-issue, wf-research-phase, wf-map), canonical Platform Check block in QUANTIS-STYLE, paste-don't-reference contract, IDE inline fallbacks.
+- **State-schema unification** (audit §4): canonical STATE.md schema in templates, `D-{NNN}` decisions, JOURNAL cadence, concrete field lists for every bare "Update STATE.md", template copy-vs-inline.
+- **Full error-path package** (audit §4): subagent-dispatch failure, never-executed /verify, no-arg guards, /resume-session stub reconstruction, Commit Failure Rule, SDD review-loop cap + DONE independent-check, CONSTITUTION [FILL] defaults, /complete-milestone milestone-scoped grep.
+- **Branch/worktree check** in wf-execute (Step 1.5); **wf-plan Step 3.5** MANIFEST-absent guard + multi-location MCP probe.
+- All **Low §5** dead references and wording fixes.
+
+## Plan Structure (fully reorganized 2026-06-12 — one task per file, no supersession)
+
+Five plan files, **organized by file**: every one of the 32 touched files is edited by exactly **one task in exactly one plan**, with all its edits (original + new + reconciled) merged and applied in order. No SKIP/APPLY banners, no "partially superseded" plans. All 150 edits were simulated in-order per file and verified to apply with **zero collisions** and **100% live-anchor match**.
+
+Plan filenames follow the `{N}.{M}-{plan-slug}-PLAN.md` convention (descriptive slug, ends in `-PLAN.md`, no letter/number prefixes); **execution order is set by the `wave:` frontmatter field, not the filename.**
+
+| Plan | Wave | Tasks | Covers |
+|------|------|-------|--------|
+| `3.1-core-skills-PLAN.md` | 1 | 7 | wf-verify, wf-execute, wf-plan, wf-stress-test (reconciled), writing-plans, brainstorming, wf-discuss-phase |
+| `3.1-execution-methodology-PLAN.md` | 1 | 3 | subagent-driven-development, executing-plans, using-quantis |
+| `3.1-lifecycle-PLAN.md` | 2 | 7 | wf-pause, wf-resume-session, wf-progress, wf-new-milestone, wf-complete-milestone, context-health-monitor, systematic-debugging |
+| `3.1-subagent-dispatch-PLAN.md` | 2 | 5 | dispatching-parallel-agents, requesting-code-review, wf-debug-issue, wf-research-phase, wf-map |
+| `3.1-rules-and-templates-PLAN.md` | 2 | 10 | PROJECT_RULES, QUANTIS-STYLE, CONSTITUTION, antigravity-tools, ROADMAP, 5 templates |
+
+The 7 prior theme-plans (and the interim reconciled/supporting plans) were deleted and replaced by these five.
+
+## Out of Scope
+**Nothing.** Every audited finding is assigned to a plan task above. The 2 human-call decisions (execution fallback = SDD-inline; gap closure routed to `/plan --gaps`) are **locked** — see the LOCKED DECISIONS note at the top of `3.1-core-skills-PLAN.md`.
