@@ -48,10 +48,12 @@ Add new phase to ROADMAP.md:
 
 ## 4. Create PLAN.md for Each Gap
 
+Resolve the gap-closure phase directory (`.quantis/phases/{N}-gap-closure/`, `mkdir -p` if absent). Write one plan per gap inside it, named `{N}-gap-{issue-slug}-PLAN.md` — the `-PLAN.md` suffix is REQUIRED (`/execute {N} --gaps-only` discovers gap plans by it). Each plan uses the **checkbox** task format from `writing-plans` (`### Task N` with `- [ ]` steps and `Run:`/`Expected:` verification — never XML):
+
 ```markdown
 ---
 phase: {N}
-plan: fix-{gap-id}
+plan: gap-{issue-slug}
 wave: 1
 gap_closure: true
 ---
@@ -64,29 +66,34 @@ gap_closure: true
 ## Root Cause
 {Why it exists}
 
-## Tasks
-
-<task type="auto">
-  <name>Fix {issue}</name>
-  <files>{files}</files>
-  <action>{fix instructions}</action>
-  <verify>{original verification that failed}</verify>
-  <done>{criteria}</done>
-</task>
+### Task 1: Fix {issue}
+- [ ] {specific fix step in `{files}`}
+- [ ] Run: `{original verification command that failed}`
+      Expected: `{passing output}`
 ```
+
+`gap_closure: true` is REQUIRED (the `--gaps-only` filter keys on it); `wave: 1` so all gap plans run together.
 
 ---
 
 ## 5. Update STATE.md
 
+**Edit the existing canonical fields in place — do NOT replace the file or add a new section.** Update `## Current Position` and refresh `## Next Steps`; preserve every other section (`Last Session Summary`, `Blockers`, `Context Dump`) that `/resume-session` reads.
 ```markdown
-## Gap Closure Mode
-Addressing {N} gaps from milestone audit.
+## Current Position
+- **Phase**: {N} (gap closure)
+- **Status**: planning — addressing {N} gaps from milestone audit
 ```
 
 ---
 
 ## 6. Commit Plans
+
+```bash
+git add .quantis/phases/{N}-gap-closure/ .quantis/ROADMAP.md .quantis/STATE.md
+git commit -m "docs(phase-{N}): create gap closure plans"
+```
+After committing, confirm success (`git log -1` shows the new commit). On failure, follow the Commit Failure Rule in `.agents/rules/PROJECT_RULES.md` — never bypass with `--no-verify`.
 
 ---
 

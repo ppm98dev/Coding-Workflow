@@ -176,16 +176,19 @@
 
 ### Phases
 
-#### Phase 3.1: Workflow Reliability Fixes ⬜
+#### Phase 3.1: Workflow Reliability Fixes 🔄
 
-**Status**: ⬜ Not Started
-**Objective**: Fix 4 intermittent workflow reliability issues across discuss-phase, execute, verify, and pause workflows.
+**Status**: 🔄 Implemented — pending independent `/verify` (applied 2026-06-12 by hand; never run through `/execute`+`/verify` — see the E2E deliverable)
+**Objective**: Originally 4 reliability fixes; expanded 2026-06-12 to the full audit — every Critical/High/Medium/Low finding + senior code review (Issue 5) across the discuss→plan→execute→verify core (32 files, 150 edits, 5 plans), plus a sweep of previously-untouched workflows/adapters/docs/scripts (17 files, 35 edits). `validate-all.sh` passes; 51/51 anchors verified; independent review pass applied.
 **Deliverables:**
 
-- [ ] `wf-discuss-phase/SKILL.md` — Enforce full brainstorming checklist (always produce SPEC.md)
-- [x] `wf-execute/SKILL.md` — Deterministically use SDD on Antigravity (no user menu) — shipped in Phase 3.2
-- [ ] `wf-verify/SKILL.md` — Explicitly load verification-before-completion skill in process steps
-- [ ] `wf-pause/SKILL.md` — Add roadmap sync check before pausing
+- [x] `wf-discuss-phase/SKILL.md` — full brainstorming checklist + SPEC.md existence gate
+- [x] `wf-execute/SKILL.md` — unified phase-dir resolution, STOP gates, per-task verify gate, completion ownership, branch check
+- [x] `wf-verify/SKILL.md` — loads verification-before-completion (process step) + structural repair + senior code review (Issue 5) + PARTIAL verdict + gap routing
+- [x] `wf-pause/SKILL.md` — ROADMAP reconciliation + mandatory auto-save
+- [x] Full audit remediation (C1–C8, H1–H12, all Medium/Low) across core skills, rules, templates — applied, reviewed, validated
+- [x] Untouched-set sweep (phase-mgmt, planning, dispatch, help, methodology, README/ANTIGRAVITY, install/upgrade) — 35 edits
+- [ ] **End-to-end run** — `discuss→plan→execute→verify` on a real/sandbox project (the one remaining behavioral gap; tracked in Phase 3.3)
 
 > **Note:** Phase 3.2 (CLI-First Migration) shipped ahead of 3.1, resolving the original 3.2-depends-on-3.1 inversion. The deterministic-SDD and `browser_subagent` graceful-fallback items landed there; remaining 3.1 work targets the `wf-*` skills directly.
 
@@ -202,7 +205,7 @@
 
 **Status**: ✅ Complete (2026-06-11)
 **Objective**: Fully adapt Quantis to run on Antigravity CLI (`agy`) as the primary platform, enabling subagent-driven development, VM/SSH workflows, and cross-platform compatibility.
-**Depends on**: Phase 3.1
+**Depends on**: — (3.2 shipped ahead of 3.1; original inversion resolved — see Phase 3.1 note)
 
 **Completed:**
 - [x] Consolidated `.agent/workflows/` into `.agents/skills/wf-*/` (30 real files, 0 symlinks)

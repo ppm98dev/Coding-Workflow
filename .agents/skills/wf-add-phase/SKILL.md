@@ -14,9 +14,23 @@ Add a new phase to the end of the current roadmap.
 
 ## 1. Validate Roadmap Exists
 
+```bash
+test -f ".quantis/ROADMAP.md" || { echo "❌ STOP: No ROADMAP.md — run /plan first."; exit 1; }
+```
+
+**If the STOP line printed: halt.** Do not continue to Step 2.
+
 ---
 
 ## 2. Determine Next Phase Number
+
+The next phase number is one greater than the highest existing phase heading in the current milestone:
+
+```bash
+grep -oE "^#{2,4} Phase [0-9]+" ".quantis/ROADMAP.md" | grep -oE "[0-9]+" | sort -n | tail -n 1
+```
+
+Increment that value to get `{N}`.
 
 ---
 
@@ -51,11 +65,20 @@ Append:
 
 ## 5. Update STATE.md
 
-Note phase added.
+Edit these fields IN PLACE (canonical schema in `.quantis/templates/state.md` — never replace the file):
+- **Last Session Summary** → note the new phase added to the roadmap.
+- **Next Steps** → `/plan {N}` to create execution plans.
 
 ---
 
 ## 6. Commit
+
+```bash
+git add .quantis/ROADMAP.md .quantis/STATE.md
+git commit -m "docs(phase-{N}): add phase {name} to roadmap"
+```
+
+Confirm the commit succeeded (`git log -1`). On failure, route by cause per the Commit Failure Rule in `.agents/rules/PROJECT_RULES.md` — never bypass with `--no-verify`.
 
 ---
 

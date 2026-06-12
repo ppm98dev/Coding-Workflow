@@ -21,6 +21,7 @@ The agent MUST self-monitor for these warning signs, and MUST take the listed Ac
 | Going in circles | Same approach tried twice | Stop and reassess |
 | Confusion indicators | "I'm not sure", backtracking | Document uncertainty |
 | Session length | Extended back-and-forth | Recommend `/pause` |
+| Context volume high | 10+ files read in full, 20+ tool calls, or re-reading files you already summarized | Compress first (Rule 4), pause only if that's not enough |
 
 ## Behavior Rules
 
@@ -54,6 +55,16 @@ When uncertain about an approach:
    - **Decision:** the uncertain decision
    - **Rationale:** why it's uncertain + alternatives considered
 3. **Ask** user for guidance rather than guessing
+
+### Rule 4: Context Volume → Compress Before Pausing
+
+When the "Context volume high" signal fires (or context feels heavy before any hard limit), do this BEFORE recommending `/pause`:
+
+1. **Read and follow `.agents/skills/context-compressor/SKILL.md`** — compress already-understood files to summaries, keeping pointers so they can be re-fetched on demand.
+2. **Apply `.agents/skills/token-budget/SKILL.md`** loading discipline — search before load, sections over whole files, never reload material you already summarized.
+3. Only if compression is not enough → auto-save state and recommend `/pause` (Rules 1–3 above).
+
+Compression is the in-session response to context pressure; `/pause` is the last resort, not the first.
 
 ## State Dump Format
 
@@ -101,4 +112,6 @@ Sessions can terminate abruptly (usage limits, context limits, network errors). 
 This skill integrates with:
 - `/pause` — Triggers proper session handoff (includes proactive auto-save)
 - `/resume-session` — Loads the state dump context
+- `context-compressor` — invoked by Rule 4 to compress understood context in-session
+- `token-budget` — loading discipline applied (Rule 4) when context volume is high
 - `.agents/rules/PROJECT_RULES.md` § Context Management — Context Hygiene rules

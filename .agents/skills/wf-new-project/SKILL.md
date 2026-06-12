@@ -189,11 +189,14 @@ Loop until "Create SPEC.md" selected.
 
 Create `.quantis/SPEC.md` using the template from `.quantis/templates/spec.md`:
 
+Create the spec with `Status: DRAFT`. Do NOT stamp `FINALIZED` here — the Planning Lock requires every `[NEEDS CLARIFICATION]` marker and the Unresolved Questions section to be cleared first. Flip to `FINALIZED` only once they are empty (the user resolves them, or `/stress-test` in Phase 5b does). `/plan` gates on `Status: FINALIZED` and will refuse to run otherwise.
+
 ```markdown
 # SPEC.md — Project Specification
 
-> **Status**: `FINALIZED`
+> **Status**: `DRAFT`
 >
+> ⚠️ **Planning Lock**: No code may be written until this spec is marked `FINALIZED`. All `[NEEDS CLARIFICATION]` markers must be resolved first.
 > ⚠️ **Clarification Rule**: Mark ALL ambiguities with `[NEEDS CLARIFICATION: question]`.
 > 📐 **Separation Rule**: WHAT to build + WHY, not HOW. Tech choices go in PLAN.md.
 
@@ -394,7 +397,7 @@ Phases: {N}
 
 Files created:
 • .agents/rules/CONSTITUTION.md (10 articles)
-• .quantis/SPEC.md (FINALIZED)
+• .quantis/SPEC.md (DRAFT — finalize before /plan)
 • .quantis/ROADMAP.md ({N} phases)
 • .quantis/STATE.md
 • .quantis/DECISIONS.md

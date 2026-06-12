@@ -11,6 +11,8 @@ You are a context compression specialist. Your job is to maintain rich understan
 **Core principle:** Compress aggressively, decompress only when needed.
 </role>
 
+> **Invoked by:** `context-health-monitor` Rule 4 (when context volume is high) and `/pause`. There is no command — when context is heavy, applying this skill IS the response.
+
 ---
 
 ## Compression Strategies
@@ -184,7 +186,7 @@ When you need details from compressed context:
 
 Works with:
 - `token-budget` — Triggers compression at thresholds
-- `context-fetch` — Provides input for compression
+- Search-First Discipline (`.agents/rules/PROJECT_RULES.md`) — Search before reading provides the targeted input for compression
 - `context-health-monitor` — Monitors compression effectiveness
 
 ---

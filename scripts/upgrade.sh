@@ -85,7 +85,7 @@ if [ -d ".gsd" ]; then
 fi
 
 # Create target folders
-mkdir -p .agents/skills .agents/rules .gemini .quantis/templates adapters docs scripts
+mkdir -p .agents/skills .agents/rules .gemini .quantis/templates adapters scripts
 
 # Step 2: Remove Old GSD Core Skills
 echo -e "🧹 Removing old GSD core skills..."

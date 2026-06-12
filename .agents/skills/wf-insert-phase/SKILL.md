@@ -23,11 +23,13 @@ Extract:
 ## 2. Validate Position
 
 ```bash
-total_phases=$(grep -c "### Phase [0-9]" ".quantis/ROADMAP.md")
+total_phases=$(grep -cE "^#{2,4} Phase [0-9]" ".quantis/ROADMAP.md")
 if [ "$position" -lt 1 ] || [ "$position" -gt $((total_phases + 1)) ]; then
-    echo "Error: Invalid position. Valid: 1-$((total_phases + 1))" >&2
+    echo "❌ STOP: Invalid position. Valid: 1-$((total_phases + 1))."; exit 1
 fi
 ```
+
+**If the STOP line printed: halt.** Do not continue to Step 3.
 
 ---
 
@@ -58,7 +60,10 @@ Add at position with correct numbering.
 
 ## 6. Update STATE.md
 
-If currently in a phase >= position, update position reference.
+Edit these fields IN PLACE (canonical schema in `.quantis/templates/state.md` — never replace the file):
+- **Current Position** → if currently in a phase `>= position`, bump its Phase number to reflect the renumbering.
+- **Last Session Summary** → note the insertion and renumbering.
+- **Next Steps** → next action (e.g., `/plan {N}`).
 
 ---
 
@@ -66,8 +71,10 @@ If currently in a phase >= position, update position reference.
 
 ```bash
 git add -A
-git commit -m "docs: insert phase {N} - {name} (renumbered {M} phases)"
+git commit -m "docs(phase-{N}): insert phase {name} (renumbered {M} phases)"
 ```
+
+Confirm the commit succeeded (`git log -1`). On failure, route by cause per the Commit Failure Rule in `.agents/rules/PROJECT_RULES.md` — never bypass with `--no-verify`.
 
 ---
 

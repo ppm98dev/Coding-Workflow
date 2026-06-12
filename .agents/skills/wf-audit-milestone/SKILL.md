@@ -12,6 +12,26 @@ Review a completed (or in-progress) milestone for quality, completeness, and les
 
 <process>
 
+## 0. Platform Check
+
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch** — do not do this work inline. Dispatch a `research` subagent (read-only: it loads the milestone archive, every phase's VERIFICATION.md, TODO.md, and DECISIONS.md, and re-checks must-have evidence — a large read volume that should not pollute the orchestrator). The subagent prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, never paths):
+- The milestone name (or "current milestone from ROADMAP.md" if none given).
+- The exact files to read and analyze: the milestone archive directory under `.quantis/milestones/{name}/` (or `.quantis/ROADMAP.md` for the current milestone), each phase's `VERIFICATION.md`, `.quantis/TODO.md`, and `.quantis/DECISIONS.md`.
+- The four analysis tasks from Steps 2-4 below: re-check each must-have's empirical evidence (still valid? regressions?), review deferred/technical-debt items, and analyze per-phase quality (gap closures, recurring issues).
+- The audit-report markdown structure from Step 5 (paste it as the required output template).
+**Required return format:** a completed audit report following the Step 5 markdown structure, with empirical evidence references per must-have.
+When the subagent returns, **continue at Step 5** (review its report for evidence quality, then run Step 6 yourself).
+
+**If `invoke_subagent` is NOT available** (IDE): proceed inline from Step 1.
+
+**If a dispatch fails or returns unusable output** (missing report, empty sections, non-empirical evidence): re-dispatch once with explicit feedback on what was wrong; on a second failure, fall back to the inline procedure and say so.
+
+> Detection is automatic. Never ask the user which mode to use.
+
+**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `research` = read-only codebase navigation/exploration.
+
+---
+
 ## 1. Load Milestone Context
 
 If milestone name provided, load from archive:

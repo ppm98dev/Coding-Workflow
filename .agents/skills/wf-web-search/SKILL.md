@@ -105,7 +105,7 @@ Use `/web-search` to gather information for RESEARCH.md.
 **During /plan:**
 Use `/web-search` when discovery level 1-3 indicates research needed.
 
-**During /debug:**
+**During /debug-issue:**
 Use `/web-search` to find solutions to error messages.
 </integration>
 
@@ -117,6 +117,6 @@ Use `/web-search` to find solutions to error messages.
 |---------|--------------|
 | `/research-phase` | Uses web-search for phase research |
 | `/plan` | May trigger web-search for discovery |
-| `/debug` | Search for error solutions |
+| `/debug-issue` | Search for error solutions |
 
 </related>

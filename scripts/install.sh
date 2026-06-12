@@ -30,14 +30,12 @@ fi
 
 echo -e "⚙️ Copying core files..."
 # Create target folders if they don't exist
-mkdir -p .agents/skills .agents/rules .gemini .quantis adapters docs scripts
+mkdir -p .agents/skills .agents/rules .gemini .quantis adapters scripts
 
 # Copy structures
 cp -r "$TEMP_DIR/.agents/" ./
 cp -r "$TEMP_DIR/.gemini/" ./
 cp "$TEMP_DIR/adapters/ANTIGRAVITY.md" adapters/
-
-# Copy specific docs to prevent framework pollution
 
 # Copy specific scripts to prevent framework pollution
 cp "$TEMP_DIR/scripts/search_repo.sh" scripts/ 2>/dev/null || true

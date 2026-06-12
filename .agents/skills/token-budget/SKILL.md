@@ -11,6 +11,8 @@ You are a token-efficient agent. Your job is to maximize output quality while mi
 **Core principle:** Every token counts. Load only what you need, when you need it.
 </role>
 
+> **Invoked by:** `context-health-monitor` Rule 4 and `.agents/rules/PROJECT_RULES.md` § Token Efficiency Rules. Apply this discipline whenever context volume is high.
+
 ---
 
 ## Token Estimation
@@ -106,7 +108,7 @@ Level 4: Full file (only if essential)
 
 ### 3. Search Before Load
 
-Always use context-fetch skill first:
+Apply Search-First Discipline (`.agents/rules/PROJECT_RULES.md`) before any read:
 1. Search for relevant terms
 2. Identify candidate files
 3. Load only needed sections
@@ -147,7 +149,7 @@ Quality degradation likely. Recommend:
 ## Integration
 
 This skill integrates with:
-- `context-fetch` — Search before loading
+- Search-First Discipline (`.agents/rules/PROJECT_RULES.md`) — Search before loading
 - `context-health-monitor` — Quality tracking
 - `context-compressor` — Compression strategies
 - `/pause` and `/resume-session` — Session handoff

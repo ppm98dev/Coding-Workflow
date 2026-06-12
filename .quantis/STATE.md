@@ -1,7 +1,7 @@
 ## Current Position
-- **Phase**: 3.2 (CLI-First Migration) ✅ Complete + post-migration cleanup
-- **Task**: Session cleanup — spec compliance, scripts, docs deletion
-- **Status**: Active (resumed 2026-06-12T10:30)
+- **Phase**: 3.1 (Workflow Reliability Fixes) 🔄 Implemented — pending `/verify`
+- **Task**: Full audit remediation applied — 150 core edits (5 plans) + 35 untouched-set sweep edits across 49 files; `validate-all.sh` passes
+- **Status**: Active (2026-06-12). Next: end-to-end `/verify` run (the one untested piece)
 
 ## Last Session Summary
 

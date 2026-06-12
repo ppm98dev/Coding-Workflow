@@ -159,7 +159,7 @@ git add -A && git commit -m "feat(phase-N): task name"
 
 | Quantis Phase | Recommended Profile | Reason |
 |-----------|-------------------|--------|
-| `/plan`, `/debug` | Reasoning (deep thinking) | Complex decisions need depth |
+| `/plan`, `/debug-issue` | Reasoning (deep thinking) | Complex decisions need depth |
 | `/execute` | Fast coder | Frequent iteration needs speed |
 | `/verify`, `/map` | Standard (balanced) | Large context for full analysis |
 

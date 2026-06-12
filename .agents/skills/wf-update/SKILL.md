@@ -116,6 +116,8 @@ fi
 ```
 
 ### 5b. Update Core Files
+
+```bash
 SOURCE=".quantis-update-temp"
 
 # --- Core Workflows + Skills (MANIFEST-aware) ---

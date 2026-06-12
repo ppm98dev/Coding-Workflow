@@ -29,9 +29,9 @@ SKILL-POWERED COMMANDS (slash command → skill)
 /map              Analyze codebase             → codebase-mapper
 /plan [N]         Create phase plans           → writing-plans
 /update-plan [N]  Revise plans                 → writing-plans (revision)
-/execute [N]      Wave-based execution         → executing-plans
+/execute [N]      Wave-based execution         → subagent-driven-development
 /discuss-phase    Clarify scope                → brainstorming
-/stress-test      Adversarial spec review      → brainstorming (critique)
+/stress-test      Adversarial spec review      → wf-stress-test
 /research-phase   Deep technical research      → brainstorming (research)
 
 SKILL-ENHANCED COMMANDS (workflow + skill)
@@ -70,7 +70,7 @@ UTILITIES
 /whats-new        Show recent Quantis changes
 /install          Install Quantis into a project
 /update           Update Quantis to latest version
-/upgrade          Migrate from GSD/v2.x to v3.0
+/upgrade          Migrate from GSD/v2.x to latest
 
 ───────────────────────────────────────────────────────
 

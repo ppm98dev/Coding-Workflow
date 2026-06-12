@@ -45,6 +45,6 @@ Display the latest version(s) from CHANGELOG.md:
 | Command | Relationship |
 |---------|--------------|
 | `/update` | Update Quantis to latest version |
-| `/help` | List all commands |
+| `/quantis-help` | List all commands |
 
 </related>

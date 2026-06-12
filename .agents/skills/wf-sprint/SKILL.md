@@ -70,11 +70,12 @@ Create `.quantis/SPRINT.md` using the template from `.quantis/templates/sprint.m
 
 ### Update STATE.md
 
+**Edit the canonical `## Current Position` fields in place — do NOT replace the file.** Set `Status`, add the sprint marker, and preserve the existing `Phase`/`Task` lines (and every other section `/resume-session` reads) so the paused milestone position is recoverable:
 ```markdown
 ## Current Position
-- **Sprint**: {name}
-- **Status**: Sprint in progress
-- **Milestone**: (paused if active)
+- **Phase**: {existing phase} (paused for sprint)
+- **Task**: {existing task, preserved}
+- **Status**: sprint in progress — {name}
 ```
 
 ### Commit

@@ -15,10 +15,10 @@ Remove a phase from the roadmap, with safety checks for in-progress or completed
 ## 1. Validate Phase Exists
 
 ```bash
-if ! grep -q "### Phase $N:" ".quantis/ROADMAP.md"; then
-    echo "Error: Phase $N not found in ROADMAP.md" >&2
-fi
+grep -qE "^#{2,4} Phase ${N}:" ".quantis/ROADMAP.md" || { echo "❌ STOP: Phase $N not found in ROADMAP.md."; exit 1; }
 ```
+
+**If the STOP line printed: halt.** Do not continue to Step 2.
 
 ---
 
@@ -67,7 +67,7 @@ Status: {status}
 
 This will:
 - Remove phase from ROADMAP.md
-- Delete matched folder in `.quantis/phases/` starting with prefix `{N}-` if exists
+- Delete matched folder in `.quantis/phases/` named `{N}.{M}-{slug}` if it exists
 - Renumber subsequent phases
 
 Type "REMOVE" to confirm:
@@ -78,9 +78,21 @@ Type "REMOVE" to confirm:
 ## 5. Remove Phase
 
 1. Delete from ROADMAP.md
-2. Find and remove matching subphase directory:
+2. Find and remove matching subphase directory (use the unified phase-directory resolution — phase dirs are named `{N}.{M}-{slug}`, so a bare `${N}-*` prefix will NOT match `3.1-...`):
    ```bash
-   PHASE_DIR=$(find .quantis/phases -maxdepth 1 -name "${N}-*" | head -n 1)
+   # ─── Phase Directory Resolution (unified) ───────────────
+   # $N is the phase number being removed (e.g., "3.1", "3")
+   PHASE_DIR=$(find .quantis/phases -maxdepth 1 -type d -name "${N}-*" 2>/dev/null | sort | head -n 1)
+   if [ -z "$PHASE_DIR" ] && echo "$N" | grep -qE '^[0-9]+$'; then
+       MATCHES=$(find .quantis/phases -maxdepth 1 -type d -name "${N}.*-*" 2>/dev/null | sort)
+       COUNT=$(printf '%s\n' "$MATCHES" | grep -c . || true)
+       if [ "$COUNT" -eq 1 ]; then
+           PHASE_DIR="$MATCHES"
+       elif [ "$COUNT" -gt 1 ]; then
+           echo "❌ STOP: Multiple subphases found for phase $N:"; echo "$MATCHES"
+           echo "Specify the full number (e.g., ${N}.1)."; exit 1
+       fi
+   fi
    if [ -n "$PHASE_DIR" ]; then
        rm -rf "$PHASE_DIR"
    fi
@@ -92,7 +104,10 @@ Type "REMOVE" to confirm:
 
 ## 6. Update STATE.md
 
-If currently in removed phase, set to previous phase or "Planning".
+Edit these fields IN PLACE (canonical schema in `.quantis/templates/state.md` — never replace the file):
+- **Current Position** → if the removed phase was current, set Phase to the previous phase (or `Planning`) and Status accordingly.
+- **Last Session Summary** → note the phase removal and renumbering.
+- **Next Steps** → next action after removal.
 
 ---
 
@@ -100,8 +115,10 @@ If currently in removed phase, set to previous phase or "Planning".
 
 ```bash
 git add -A
-git commit -m "docs: remove phase {N} - {name}"
+git commit -m "docs(phase-{N}): remove phase {name} (renumbered {M} phases)"
 ```
+
+Confirm the commit succeeded (`git log -1`). On failure, route by cause per the Commit Failure Rule in `.agents/rules/PROJECT_RULES.md` — never bypass with `--no-verify`.
 
 ---
 

@@ -59,7 +59,7 @@ Slash commands for project orchestration. Skills handle methodology; workflows h
 | `/plan [N]` | Decompose requirements into executable phase plans |
 | `/execute [N]` | Execute a phase with focused context |
 | `/verify [N]` | Validate work against spec with empirical evidence |
-| `/debug` | Systematic debugging with persistent state |
+| `/debug-issue` | Systematic debugging with persistent state |
 | `/complete-milestone` | Archive milestone and prepare for next |
 
 **Planning & Research**
@@ -88,7 +88,7 @@ Slash commands for project orchestration. Skills handle methodology; workflows h
 | Command | Purpose |
 |---------|---------|
 | `/pause` | Dump state for clean session handoff |
-| `/resume` | Restore context from previous session |
+| `/resume-session` | Restore context from previous session |
 | `/progress` | Show current position in roadmap |
 | `/map` | Analyze codebase → ARCHITECTURE.md + STACK.md |
 | `/sprint` | Time-boxed sprint for quick focused work |
@@ -103,7 +103,7 @@ Slash commands for project orchestration. Skills handle methodology; workflows h
 | `/upgrade` | Migrate from GSD v2.x → Quantis |
 | `/whats-new` | Show recent changes and features |
 | `/web-search` | Search the web to inform decisions |
-| `/help` | Show all available commands |
+| `/quantis-help` | Show all available commands |
 
 ### State (`.quantis/`) — Persistent Memory
 
