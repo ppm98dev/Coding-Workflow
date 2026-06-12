@@ -11,7 +11,6 @@ Template for `.quantis/phases/{N}/{plan}-SUMMARY.md` — execution summary after
 phase: {N}
 plan: {M}
 completed_at: [ISO timestamp]
-duration_minutes: {N}
 status: complete | partial | failed
 ---
 
@@ -73,14 +72,6 @@ status: complete | partial | failed
 
 {Any observations, concerns, or recommendations for future phases}
 
----
-
-## Metadata
-
-- **Started:** {timestamp}
-- **Completed:** {timestamp}
-- **Duration:** {N} minutes
-- **Context Usage:** ~{N}%
 ```
 
 ---

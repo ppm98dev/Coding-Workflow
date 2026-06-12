@@ -43,6 +43,20 @@ total_count: {Y}
 **Status:** SKIPPED
 **Reason:** {Why this couldn't be verified}
 
+## Code Review
+
+**Scope:** {N} files changed, {BASE_SHA}..{HEAD_SHA}
+**Mode:** {subagent | inline}
+
+### Critical
+{findings with file:line, or "None"}
+
+### Important
+{findings with file:line, or "None"}
+
+### Minor
+{findings with file:line, or "None"}
+
 ## Gap Closure Required
 
 {If verdict is FAIL or PARTIAL, list what needs fixing}

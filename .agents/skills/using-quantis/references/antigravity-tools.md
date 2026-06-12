@@ -18,7 +18,7 @@ Skills use Claude Code tool names as their reference. When you encounter these i
 
 ## Subagent Support
 
-Antigravity 2.0 supports subagents natively via `invoke_subagent`. Use `define_subagent` to register named subagent types at session start.
+Antigravity supports subagents via `invoke_subagent` on CLI (`agy`) and Standalone only — the IDE does not have this tool. If `invoke_subagent` is not in your tool list, that is normal, not an error: skills fall back to inline execution automatically, and you must never ask the user whether subagents are available. When `invoke_subagent` IS available, use `define_subagent` to register named subagent types at session start.
 
 ### Defining Subagent Types
 

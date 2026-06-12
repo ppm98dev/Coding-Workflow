@@ -11,7 +11,7 @@ Prevent "Context Rot" — the quality degradation that occurs as the agent proce
 
 ## When This Skill Activates
 
-The agent should self-monitor for these warning signs:
+The agent MUST self-monitor for these warning signs, and MUST take the listed Action the moment a threshold is hit — these are not suggestions:
 
 ### Warning Signs
 
@@ -28,13 +28,13 @@ The agent should self-monitor for these warning signs:
 
 If debugging the same issue fails 3 times:
 
-1. **STOP** attempting fixes
-2. **Document** in `.quantis/STATE.md`:
-   - What was tried
-   - What errors occurred
-   - Current hypothesis
-3. **Recommend** user start fresh session
-4. **Do NOT** continue with more attempts
+1. **Auto-save state** — Document in `.quantis/STATE.md`: what was tried, what errors occurred, current hypothesis
+2. **Assess the pattern:**
+   - If failures suggest an architectural problem (same area, same class of error) → **discuss with user** before attempting more fixes (see systematic-debugging Phase 4 → "question the architecture", step 5)
+   - Otherwise → **recommend `/pause`** for a fresh session with fresh context
+3. **Do NOT** continue with attempt #4 without either user discussion or fresh session
+
+> **Cross-reference:** systematic-debugging § Phase 4 "question the architecture" (step 5), wf-execute § context_hygiene (/pause recommendation). This protocol supersedes both when they conflict.
 
 ### Rule 2: Circular Detection
 
@@ -50,18 +50,17 @@ If the same approach is being tried again:
 When uncertain about an approach:
 
 1. **State** the uncertainty clearly
-2. **Document** in `.quantis/DECISIONS.md`:
-   - The uncertain decision
-   - Why it's uncertain
-   - Alternatives considered
+2. **Document** in `.quantis/DECISIONS.md` using the canonical `D-{NNN}` format (see `.quantis/templates/decisions.md`; `NNN` = next integer after the highest existing `D-` ID):
+   - **Decision:** the uncertain decision
+   - **Rationale:** why it's uncertain + alternatives considered
 3. **Ask** user for guidance rather than guessing
 
 ## State Dump Format
 
-When triggered, write to `.quantis/STATE.md`:
+When triggered, edit `.quantis/STATE.md` IN PLACE — update the Phase/Task/Status fields in the existing `## Current Position` section and record the detail under `## Context Dump` (canonical schema in `.quantis/templates/state.md`; never replace the file or add a competing top-level section):
 
 ```markdown
-## Context Health: State Dump
+## Context Dump → Context Health
 
 **Triggered**: [date/time]
 **Reason**: [3 failures / circular / uncertainty]
@@ -89,7 +88,7 @@ When triggered, write to `.quantis/STATE.md`:
 
 ### Steps
 
-1. **Write** a state snapshot to `.quantis/STATE.md` immediately when a threshold is hit
+1. **Write** a state snapshot to `.quantis/STATE.md` immediately when a threshold is hit — edit the canonical `## Current Position` fields in place (schema in `.quantis/templates/state.md`); do not overwrite other sections
 2. **Include** at minimum: current phase, current task, last action, next step
 3. **Then** inform the user of the situation and recommend `/pause`
 
@@ -102,4 +101,4 @@ Sessions can terminate abruptly (usage limits, context limits, network errors). 
 This skill integrates with:
 - `/pause` — Triggers proper session handoff (includes proactive auto-save)
 - `/resume-session` — Loads the state dump context
-- Rule 3 in `GEMINI.md` — Context Hygiene enforcement
+- `.agents/rules/PROJECT_RULES.md` § Context Management — Context Hygiene rules

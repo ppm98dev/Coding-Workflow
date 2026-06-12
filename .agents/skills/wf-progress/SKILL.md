@@ -25,8 +25,8 @@ Count phases:
 - Total phases
 - Completed phases (✅)
 - In progress (🔄)
-- Blocked (⏸️)
 - Not started (⬜)
+- Closed / superseded (⏸) — excluded from the active total
 
 ---
 
@@ -84,7 +84,7 @@ Based on status, recommend:
 | Phase in progress | `/execute {N}` to continue |
 | Phase done, not verified | `/verify {N}` |
 | Verification failed | `/execute {N} --gaps-only` |
-| All phases complete | Celebrate! 🎉 |
+| All phases complete | `/complete-milestone` |
 | No phases started | `/plan 1` to begin |
 | SPEC not finalized | Complete SPEC.md first |
 

@@ -93,10 +93,23 @@ Create entry in `.quantis/JOURNAL.md`:
 
 ---
 
+## 2.5. Reconcile ROADMAP.md
+
+Check for phase-state drift between STATE.md/phase directories and ROADMAP.md:
+
+For each non-Complete phase that has a directory in `.quantis/phases/`:
+- If `VERIFICATION.md` exists and contains `verdict: PASS` → mark `✅ Complete` in ROADMAP (idempotent)
+- If all `*-PLAN.md` files have matching `*-SUMMARY.md` but no `VERIFICATION.md` → leave status, set Next Steps to `/verify {N}`
+- Otherwise → leave as-is
+
+**Never** mark a phase Complete based on SUMMARYs alone — require a verdict-based VERIFICATION.md.
+
+---
+
 ## 3. Commit State
 
 ```bash
-git add .quantis/STATE.md .quantis/JOURNAL.md
+git add .quantis/STATE.md .quantis/JOURNAL.md .quantis/ROADMAP.md
 git commit -m "docs: pause session - {brief reason}"
 ```
 
@@ -112,6 +125,7 @@ git commit -m "docs: pause session - {brief reason}"
 State saved to:
 • .quantis/STATE.md
 • .quantis/JOURNAL.md
+• .quantis/ROADMAP.md (if reconciled in Step 2.5)
 
 ───────────────────────────────────────────────────────
 
@@ -146,13 +160,13 @@ A fresh context often immediately sees solutions that a polluted context missed.
 
 **Problem:** If a session hard-terminates (usage/context limit), `/pause` becomes unreachable.
 
-**Solution:** The agent should auto-save state BEFORE limits are hit.
+**Solution:** The agent MUST auto-save state BEFORE limits are hit. When any trigger in the table fires, writing the snapshot to `.quantis/STATE.md` is mandatory and comes BEFORE any message to the user.
 
 ### When to Auto-Save
 
 | Trigger | Action |
 |---------|--------|
-| Context usage reaches ~50-70% | Write lightweight state snapshot to `.quantis/STATE.md` |
+| Observable proxies — any of: 20+ tool calls this session, 10+ files read in full, the platform reports a context warning, or you notice yourself re-reading files you already summarized | Write lightweight state snapshot to `.quantis/STATE.md` |
 | 3-strike debugging rule fires | Save state dump BEFORE recommending `/pause` |
 | Extended session detected | Periodic state checkpoints to `.quantis/STATE.md` |
 

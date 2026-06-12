@@ -13,6 +13,14 @@ When you have multiple unrelated failures (different test files, different subsy
 
 **Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently.
 
+## Platform Detection
+
+**If `invoke_subagent` is NOT available** (IDE): do not attempt the tool. Investigate the domains sequentially yourself, one at a time, with the same focused scope per domain. The parallelism is lost but the per-domain discipline (focused scope, constraints, defined output) still applies.
+
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): dispatch in parallel as described below.
+
+**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `research` = read-only codebase navigation/exploration; `self` = clone of the calling agent with the same capabilities. Name the type explicitly at each dispatch.
+
 ## When to Use
 
 ```dot
@@ -168,7 +176,7 @@ Agent 3 → Fix tool-approval-race-conditions.test.ts
 
 After agents return:
 1. **Review each summary** - Understand what changed
-2. **Check for conflicts** - Did agents edit same code?
+2. **Check for conflicts** — if two agents edited the same code, reconcile by hand before integrating; do not auto-merge conflicting edits.
 3. **Run full suite** - Verify all fixes work together
 4. **Spot check** - Agents can make systematic errors
 

@@ -27,6 +27,22 @@ The skill handles all 5 analysis domains:
 4. Integration analysis
 5. Technical debt analysis
 
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST run the 5 domains as parallel `research` subagents — do not analyze inline.** Read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch one `research` subagent per domain, all invoked together. Each subagent prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, not paths):
+1. That domain's instructions copied from `.agents/skills/codebase-mapper/SKILL.md`.
+2. The relevant slice of the Step 3 output structure (ARCHITECTURE.md or STACK.md) as the required return format.
+
+**Required return format:** that domain's findings in the Step 3 ARCHITECTURE.md / STACK.md structure.
+
+When the subagents return, **continue at Step 3** — merge their findings into ARCHITECTURE.md and STACK.md.
+
+**If `invoke_subagent` is NOT available** (IDE): analyze all 5 domains inline yourself.
+
+**If a dispatch fails or returns unusable findings:** re-dispatch that domain once with feedback; on a second failure, analyze it inline and note the fallback.
+
+> Detection is automatic. Never ask the user which mode to use.
+
+**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `research` = read-only codebase navigation/exploration.
+
 ## 3. Output
 Write results to:
 - `.quantis/ARCHITECTURE.md` — System design, components, data flow, conventions
@@ -37,7 +53,12 @@ Write results to:
 git add .quantis/ARCHITECTURE.md .quantis/STACK.md
 git commit -m "docs: map codebase architecture"
 ```
-Update STATE.md.
+Edit `.quantis/STATE.md` IN PLACE (canonical schema in `.quantis/templates/state.md`) — set:
+```markdown
+## Current Position
+- **Task**: Architecture mapped — ARCHITECTURE.md / STACK.md updated
+  (Leave **Status** unchanged — `/map` is an analysis pass, not a phase transition; the enum is planning|executing|verifying|blocked|paused.)
+```
 
 </process>
 
@@ -58,4 +79,5 @@ Technical debt items: {M}
 | Skill | Purpose |
 |-------|---------|
 | `codebase-mapper` | Analysis methodology (delegated) |
+| `dispatching-parallel-agents` | Per-domain parallel fan-out when `invoke_subagent` is available |
 </related>

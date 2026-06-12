@@ -212,6 +212,8 @@ You MUST complete each phase before proceeding to the next.
 
    This is NOT a failed hypothesis - this is a wrong architecture.
 
+> **Cross-reference:** See context-health-monitor Rule 1 for the unified 3-strike protocol.
+
 ## Red Flags - STOP and Follow Process
 
 If you catch yourself thinking:
@@ -229,7 +231,7 @@ If you catch yourself thinking:
 
 **ALL of these mean: STOP. Return to Phase 1.**
 
-**If 3+ fixes failed:** Question the architecture (see Phase 4.5)
+**If 3+ fixes failed:** Question the architecture (see step 5 under Phase 4 above)
 
 ## your human partner's Signals You're Doing It Wrong
 

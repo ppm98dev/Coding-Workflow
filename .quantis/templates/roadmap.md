@@ -64,26 +64,9 @@ updated: [ISO timestamp]
 
 ---
 
-## Progress Summary
-
-| Phase | Status | Plans | Complete |
-|-------|--------|-------|----------|
-| 1 | ⬜ | 0/2 | — |
-| 2 | ⬜ | 0/2 | — |
-| 3 | ⬜ | 0/1 | — |
-| 4 | ⬜ | 0/1 | — |
-
----
-
-## Timeline
-
-| Phase | Started | Completed | Duration |
-|-------|---------|-----------|----------|
-| 1 | — | — | — |
-| 2 | — | — | — |
-| 3 | — | — | — |
-| 4 | — | — | — |
 ```
+
+> Progress Summary and Timeline tables are intentionally omitted — `/progress` derives phase status live from this file; no workflow writes summary/timeline tables.
 
 ---
 

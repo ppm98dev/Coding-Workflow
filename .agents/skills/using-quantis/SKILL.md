@@ -6,9 +6,9 @@ description: Use when starting any conversation - establishes how to find and us
 <EXTREMELY-IMPORTANT>
 If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST read and follow the skill.
 
-IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
+IF A SKILL APPLIES TO YOUR TASK, YOU MUST USE IT — unless the user has explicitly told you not to (see the Instruction Priority section below; the user always takes precedence).
 
-This is not negotiable. This is not optional. You cannot rationalize your way out of this.
+This is not optional. You cannot rationalize your way out of it on your own judgment — only an explicit user instruction overrides a skill.
 </EXTREMELY-IMPORTANT>
 
 ## Instruction Priority
@@ -78,7 +78,7 @@ When multiple skills could apply, use this order:
 
 **Rigid** (TDD, debugging, verification): Follow exactly. Don't adapt away discipline.
 
-**Flexible** (patterns, brainstorming): Adapt principles to context.
+**Flexible** (patterns, brainstorming): Adapt principles to context — but required output artifacts (e.g. brainstorming's SPEC.md) are never skippable; 'flexible' applies to dialogue style, not deliverables.
 
 The skill itself tells you which.
 
@@ -106,10 +106,10 @@ These slash commands are available. Some invoke Superpowers skills for enhanced 
 | Command | Purpose | Skill Used |
 |---------|---------|------------|
 | `/plan {N}` | Create phase execution plans | writing-plans |
-| `/execute {N}` | Execute phase plans | executing-plans |
+| `/execute {N}` | Execute phase plans | subagent-driven-development (auto: real subagents or inline; executing-plans only standalone) |
 | `/map` | Analyze codebase structure | codebase-mapper |
 | `/discuss-phase {N}` | Brainstorm before planning | brainstorming |
-| `/stress-test` | Adversarial spec/plan review | brainstorming (critique) |
+| `/stress-test` | Adversarial spec/plan review | — (self-contained 7-dimension framework) |
 | `/research-phase {N}` | Deep technical research | brainstorming (research) |
 | `/update-plan {N}` | Revise plans | writing-plans (revision) |
 | `/debug-issue` | Systematic debugging | systematic-debugging |
@@ -126,7 +126,8 @@ These slash commands are available. Some invoke Superpowers skills for enhanced 
 
 | What | Location |
 |------|----------|
-| Specs | `.quantis/phases/{N}.{M}-{slug}/SPEC.md` |
+| Project spec (Planning Lock) | `.quantis/SPEC.md` |
+| Phase design spec | `.quantis/phases/{N}.{M}-{slug}/SPEC.md` |
 | Plans | `.quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md` |
 | State | `.quantis/STATE.md` |
 | Journal | `.quantis/JOURNAL.md` |

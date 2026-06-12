@@ -182,10 +182,12 @@
 **Objective**: Fix 4 intermittent workflow reliability issues across discuss-phase, execute, verify, and pause workflows.
 **Deliverables:**
 
-- [ ] `discuss-phase.md` — Enforce full brainstorming checklist (always produce SPEC.md)
-- [ ] `execute.md` — Deterministically use SDD on Antigravity (no user menu)
-- [ ] `verify.md` — Explicitly load verification-before-completion skill in process steps
-- [ ] `pause.md` — Add roadmap sync check before pausing
+- [ ] `wf-discuss-phase/SKILL.md` — Enforce full brainstorming checklist (always produce SPEC.md)
+- [x] `wf-execute/SKILL.md` — Deterministically use SDD on Antigravity (no user menu) — shipped in Phase 3.2
+- [ ] `wf-verify/SKILL.md` — Explicitly load verification-before-completion skill in process steps
+- [ ] `wf-pause/SKILL.md` — Add roadmap sync check before pausing
+
+> **Note:** Phase 3.2 (CLI-First Migration) shipped ahead of 3.1, resolving the original 3.2-depends-on-3.1 inversion. The deterministic-SDD and `browser_subagent` graceful-fallback items landed there; remaining 3.1 work targets the `wf-*` skills directly.
 
 ### Future Scope
 

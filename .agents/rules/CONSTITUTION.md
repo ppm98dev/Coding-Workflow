@@ -107,5 +107,6 @@
 - This constitution supersedes personal coding habits during this project.
 - All plans and code must comply. Violations require documented justification in the plan.
 - Amendments: update this file, document rationale, commit with `docs: amend constitution`.
+- **Unfilled placeholders:** if an article still contains a `[FILL: ...]` choice at plan/execute time, treat the FIRST listed option as the active default (e.g. `[FILL: fail-fast / graceful degradation / hybrid]` → fail-fast; `[FILL: mandatory TDD / ...]` → mandatory TDD) and note in the plan that the constitution default was assumed. Workflows MUST NOT stall on unfilled placeholders. A constitution that still contains `[FILL:` is not fully ratified, but defaults keep work moving.
 
 **Version**: 1.0.0 | **Ratified**: [DATE] | **Last Amended**: [DATE]

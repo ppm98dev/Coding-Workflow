@@ -11,7 +11,7 @@ Execute plan by dispatching fresh subagent per task, with two-stage review after
 
 **Core principle:** Fresh subagent per task + two-stage review (spec then quality) = high quality, fast iteration
 
-**Continuous execution:** Do not pause to check in with your human partner between tasks. Execute all tasks from the plan without stopping. The only reasons to stop are: BLOCKED status you cannot resolve, ambiguity that genuinely prevents progress, or all tasks complete. "Should I continue?" prompts and progress summaries waste their time — they asked you to execute the plan, so execute it.
+**Continuous execution:** Do not pause to check in with your human partner between tasks. Execute all tasks from the plan without stopping. The only reasons to stop are: BLOCKED status you cannot resolve, ambiguity that genuinely prevents progress, or all tasks complete …or a task explicitly typed `checkpoint:*` — those exist to stop you; present them to the user and wait for their response. "Should I continue?" prompts and progress summaries waste their time — they asked you to execute the plan, so execute it.
 
 ## Platform Detection
 
@@ -91,6 +91,8 @@ digraph process {
     "Read plan, extract all tasks with full text, note context" [shape=box];
     "More tasks remain?" [shape=diamond];
     "Dispatch final code reviewer subagent for entire implementation" [shape=box];
+    "Final reviewer approves?" [shape=diamond];
+    "Dispatch fix subagent for final-review issues" [shape=box];
     "Use finishing-a-development-branch skill" [shape=box style=filled fillcolor=lightgreen];
 
     "Read plan, extract all tasks with full text, note context" -> "Dispatch implementer subagent (./implementer-prompt.md)";
@@ -110,11 +112,16 @@ digraph process {
     "Mark task complete + update STATE.md" -> "More tasks remain?";
     "More tasks remain?" -> "Dispatch implementer subagent (./implementer-prompt.md)" [label="yes"];
     "More tasks remain?" -> "Dispatch final code reviewer subagent for entire implementation" [label="no"];
-    "Dispatch final code reviewer subagent for entire implementation" -> "Use finishing-a-development-branch skill";
+    "Dispatch final code reviewer subagent for entire implementation" -> "Final reviewer approves?";
+    "Final reviewer approves?" -> "Dispatch fix subagent for final-review issues" [label="no"];
+    "Dispatch fix subagent for final-review issues" -> "Dispatch final code reviewer subagent for entire implementation" [label="re-review"];
+    "Final reviewer approves?" -> "Use finishing-a-development-branch skill" [label="yes"];
 }
 ```
 
 ## Model Selection
+
+> If your platform's `invoke_subagent` does not accept a model parameter, skip this section — dispatch with the default model. When plans carry an `effort` attribute (see QUANTIS-STYLE), map low→cheap, medium→standard, high/max→most capable.
 
 Use the least powerful model that can handle each role to conserve cost and increase speed.
 
@@ -133,7 +140,7 @@ Use the least powerful model that can handle each role to conserve cost and incr
 
 Implementer subagents report one of four statuses. Handle each appropriately:
 
-**DONE:** Proceed to spec compliance review.
+**DONE:** Verify independently BEFORE trusting it — run `git log --oneline -5` and `git diff HEAD~1 --stat` to confirm the claimed commits and files actually exist (never trust an agent's success report; see verification-before-completion). If the diff is empty or the claimed files are missing, treat the status as BLOCKED. Only then proceed to spec compliance review.
 
 **DONE_WITH_CONCERNS:** The implementer completed the work but flagged doubts. Read the concerns before proceeding. If the concerns are about correctness or scope, address them before review. If they're observations (e.g., "this file is getting large"), note them and proceed to review.
 
@@ -233,7 +240,7 @@ Done!
 **vs. Manual execution:**
 - Subagents follow TDD naturally
 - Fresh context per task (no confusion)
-- Parallel-safe (subagents don't interfere)
+- Isolated context per subagent (no cross-task contamination); implementation subagents still run one at a time
 - Subagent can ask questions (before AND during work)
 
 **vs. Executing Plans:**
@@ -287,6 +294,8 @@ Done!
 - Repeat until approved
 - Don't skip the re-review
 
+**Review loop limit:** if the same reviewer rejects the same task 3 times, STOP looping and treat it as BLOCKED: (1) check whether the reviewer lacks context — provide it; (2) re-dispatch the implementer with a more capable model; (3) if the reviewer and the plan genuinely conflict, escalate to the human. Never loop a 4th time. This applies to the final whole-implementation review too.
+
 **If subagent fails task:**
 - Dispatch fix subagent with specific instructions
 - Don't try to fix manually (context pollution)
@@ -299,6 +308,8 @@ Done!
 - **requesting-code-review** — Code review template for reviewer subagents
 - **finishing-a-development-branch** — Complete development after all tasks
 
+> **When invoked from `/execute`:** Skip the final whole-implementation review and finishing-a-development-branch steps. `/execute` Steps 5–6 own phase-level verification and completion. Only run these terminal steps when SDD is invoked standalone (not from a workflow).
+
 **Subagents should use:**
 - **test-driven-development** — Subagents follow TDD for each task
 
@@ -309,8 +320,8 @@ Done!
 
 After marking each task complete, update Quantis state files:
 
-1. **STATE.md** — Update current task progress and summary
-2. **JOURNAL.md** — Add entry: task name, files changed, verification result
+1. **STATE.md** — Update current task progress in place: edit the Phase/Task/Status fields inside the existing `## Current Position` section (canonical schema in `.quantis/templates/state.md`). Never replace the file or add a new layout.
+2. **JOURNAL.md** — Accumulate task results in working memory; write ONE session entry (template: `.quantis/templates/journal.md`), inserted newest-first at the top of the Sessions list, when execution ends or pauses — not after each task.
 3. **ROADMAP.md** — Check off deliverable if the completed task satisfies one
 
 This ensures session persistence across `/pause` and `/resume-session` cycles.

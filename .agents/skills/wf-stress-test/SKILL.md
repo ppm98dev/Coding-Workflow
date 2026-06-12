@@ -4,9 +4,9 @@ description: Adversarial spec review — find ambiguity, contradictions, and gap
 argument-hint: "[target-file]"
 ---
 
-# /stress-test → brainstorming skill (critique mode)
+# /stress-test
 
-> **Skill-powered workflow.** Critique methodology is powered by `brainstorming`. This workflow adds the Quantis 7-dimension adversarial framework.
+> **Self-contained workflow.** The Quantis 7-dimension adversarial framework is the methodology — there is no delegated critique skill. When `invoke_subagent` is available, the 7 dimensions run as parallel read-only subagents.
 
 <role>
 You are a Quantis adversarial reviewer. You systematically attack a spec/plan across 7 dimensions to surface problems before they become bugs.
@@ -25,25 +25,45 @@ You are a Quantis adversarial reviewer. You systematically attack a spec/plan ac
 
 ## 0. Platform Check
 
-**If `invoke_subagent` is available**, dispatch a `self` subagent with:
-- The SPEC.md and/or PLAN.md content
-- The brainstorming skill in adversarial critique mode
-- Instructions to attack across all 7 dimensions below
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch — do not run the critique inline.** Read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch **7 parallel `self` subagents — one per dimension from Step 3**. The dimensions are independent, read-only analyses: invoke all 7 together, never sequentially. Each subagent prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, not paths):
+1. The full text of the target file ($ARGUMENTS, default `.quantis/SPEC.md`), plus `.quantis/ROADMAP.md` phase scope and relevant `.quantis/DECISIONS.md` entries.
+2. The adversarial mandate: "Your job is to BREAK this spec, not validate it. Assume everything is wrong until proven otherwise."
+3. That subagent's single dimension copied verbatim from Step 3 (its questions), and the per-finding report format from Step 4.
 
-The subagent produces a findings report. The orchestrator then:
-1. Reviews the findings
-2. Filters for severity (critical vs nice-to-have)
-3. Presents findings to the user with recommended actions
+**Required return format:** the Step 4 finding blocks (`### [SEVERITY] ...` with Dimension/Problem/Impact/Suggestion), severity-tagged.
 
-**If `invoke_subagent` is NOT available**, run the adversarial critique inline (proceed to Step 1).
+When all 7 return: **continue at Step 4** — merge their findings (dedupe overlaps), then run Steps 4–6 yourself.
+
+**If a dispatch fails or returns an empty/unusable report:** re-dispatch ONCE with explicit feedback on what was wrong; on a second failure, analyze that dimension inline (Step 1) and say so.
+
+**If `invoke_subagent` is NOT available** (IDE): run all 7 dimensions inline yourself (proceed to Step 1).
+
+> Detection is automatic. Never ask the user which mode to use.
+
+**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `self` = clone of the calling agent with the same capabilities.
 
 ## 1. Load Context
 Read target file + SPEC.md + ROADMAP.md + DECISIONS.md.
 
-## 2. Set Critique Mindset
-**Read `.agents/skills/brainstorming/SKILL.md`** and adopt adversarial critique mode.
+## 1.5 Determine Review Mode
+- Target filename matches `*PLAN.md` → **plan mode**
+- Anything else (including the default `.quantis/SPEC.md`) → **spec mode**
 
-Your job is to BREAK the spec, not validate it. Assume everything is wrong until proven otherwise.
+**In spec mode**, apply the 7 dimensions in Step 3 as written.
+
+**In plan mode**, reinterpret each dimension for the plan (compare it against the spec it implements):
+1. **Completeness** — Does every spec requirement map to at least one task? Does every task have a real test and a `Run:`/`Expected:` verification step?
+2. **Consistency** — Do types, function/method signatures, and names match across tasks? Does the plan contradict the spec or itself?
+3. **Feasibility** — Are the steps actually executable as written? Do referenced files/commands exist or get created earlier in the plan?
+4. **Edge Cases** — Are error paths, empty/boundary inputs, and failure handling specified rather than "add error handling"?
+5. **Security** — Does the plan introduce unvalidated input, secrets in code, or authorization gaps?
+6. **Performance** — Will the planned approach scale, or does it bake in an obvious bottleneck?
+7. **Maintainability** — No placeholders (TBD/TODO/"implement later"); each task self-contained; decisions documented.
+
+Flag any dimension violation as a finding in Step 4 using the same severity scale.
+
+## 2. Set Critique Mindset
+Your job is to BREAK the spec, not validate it. Assume everything is wrong until proven otherwise. This framework is self-contained — no methodology skill to load.
 
 ## 3. Apply 7-Dimension Adversarial Review
 
@@ -86,6 +106,8 @@ For each dimension, actively seek problems:
 
 ## 4. Generate Report
 
+Write the full findings report to disk before continuing — `$PHASE_DIR/STRESS-TEST.md` for a phase target, else `.quantis/STRESS-TEST.md`. **Gate:** `test -f` the report before continuing; findings that exist only in chat are lost at session end.
+
 For each finding:
 ```markdown
 ### [SEVERITY] Finding Title
@@ -95,14 +117,26 @@ For each finding:
 **Suggestion:** {how to fix}
 ```
 
-Severity: `🔴 Critical` | `🟠 High` | `🟡 Medium` | `🔵 Low`
+Severity: `🔴 Critical` | `🟠 High` | `🟡 Medium` | `🔵 Low` (canonical Quantis scale for spec/plan findings; code review uses its own Critical/Important/Minor)
 
-## 5. Update Spec (if applicable)
+## 5. Update Spec (mandatory when findings exist)
 Add unresolved questions to SPEC.md's `## Unresolved Questions` section.
-Document decisions in DECISIONS.md.
+Document decisions in `.quantis/DECISIONS.md` using the canonical `D-{NNN}` format (see `.quantis/templates/decisions.md`; `NNN` = next integer after the highest existing `D-` ID).
+After recording unresolved questions, stamp `Stress-tested: {date}` on its own line under the spec's status header. If any 🔴 Critical finding is unresolved, STOP — fix it before `/plan`.
 
 ## 6. Offer Next Steps
-Update STATE.md.
+Edit `.quantis/STATE.md` IN PLACE (canonical schema in `.quantis/templates/state.md`) — set:
+```markdown
+## Current Position
+- **Phase**: {N} ({name})
+- **Task**: Stress test complete — {X} findings ({critical} critical)
+- **Status**: Reviewed, ready to plan
+
+## Next Steps
+1. Fix critical findings, then /plan {N}
+```
+
+Commit the report alongside state — `git add` the STRESS-TEST.md path (from Step 4) plus `.quantis/STATE.md`, `.quantis/SPEC.md`, and `.quantis/DECISIONS.md`, then commit.
 
 </process>
 
@@ -114,7 +148,8 @@ Update STATE.md.
 
 {X} findings: {critical} 🔴  {high} 🟠  {medium} 🟡  {low} 🔵
 
-▶ Fix critical issues, then /plan {N}
+▶ Spec mode: fix critical issues, then /plan {N}
+▶ Plan mode: fix critical issues in PLAN.md, then /execute {N}
 ```
 </offer_next>
 
@@ -122,5 +157,5 @@ Update STATE.md.
 ### Skills
 | Skill | Purpose |
 |-------|---------|
-| `brainstorming` | Critique methodology (delegated) |
+| `dispatching-parallel-agents` | Per-dimension parallel fan-out when `invoke_subagent` is available |
 </related>

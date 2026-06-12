@@ -29,9 +29,13 @@ BASE_SHA=$(git rev-parse HEAD~1)  # or origin/main
 HEAD_SHA=$(git rev-parse HEAD)
 ```
 
-**2. Dispatch code reviewer subagent:**
+**2. Run the review:**
 
-Use `invoke_subagent` with the code reviewer prompt template at `code-reviewer.md`
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): dispatch a `self` code reviewer subagent with the prompt template at `code-reviewer.md`, filled. The subagent does NOT inherit your context — paste the diff (or the BASE_SHA..HEAD_SHA range with instruction to run `git diff` itself) and the filled placeholders into the prompt.
+
+**If `invoke_subagent` is NOT available** (IDE): the review is still Mandatory — do NOT skip it. Read `code-reviewer.md` yourself and apply its criteria to the diff file-by-file, producing the same findings format (Strengths / Critical / Important / Minor / Assessment). Note that it was a self-review.
+
+**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `self` = clone of the calling agent with the same capabilities.
 
 **Placeholders:**
 - `{DESCRIPTION}` - Brief summary of what you built
@@ -42,6 +46,7 @@ Use `invoke_subagent` with the code reviewer prompt template at `code-reviewer.m
 **3. Act on feedback:**
 - Fix Critical issues immediately
 - Fix Important issues before proceeding
+- After fixing Critical/Important issues, re-dispatch the reviewer on the new HEAD_SHA. Repeat until no Critical/Important issues remain — do not merge in between.
 - Note Minor issues for later
 - Push back if reviewer is wrong (with reasoning)
 
@@ -54,10 +59,13 @@ You: Let me request code review before proceeding.
 
 BASE_SHA=$(git log --oneline | grep "Task 1" | head -1 | awk '{print $1}')
 HEAD_SHA=$(git rev-parse HEAD)
+# Guard: if BASE_SHA is empty or does not resolve, do NOT dispatch.
+# Fall back to `git merge-base HEAD origin/main` or the plan's first commit
+# recorded in STATE.md, and confirm both with `git cat-file -t $SHA`.
 
 [Dispatch code reviewer subagent]
   DESCRIPTION: Added verifyIndex() and repairIndex() with 4 issue types
-  PLAN_OR_REQUIREMENTS: Task 2 from .quantis/phases/{N}.{M}-{slug}/deployment-plan.md
+  PLAN_OR_REQUIREMENTS: Task 2 from .quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md
   BASE_SHA: a7981ec
   HEAD_SHA: 3df7661
 

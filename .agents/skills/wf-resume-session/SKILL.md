@@ -15,6 +15,12 @@ Start a new session with full context from where we left off.
 
 Read `.quantis/STATE.md` completely.
 
+**If STATE.md is missing or a stub (no `## Current Position` section):** do not invent a position. Reconstruct from durable evidence and say you are doing so:
+1. `.quantis/ROADMAP.md` — the lowest non-Complete phase is the likely current phase.
+2. `git log --oneline -15` — recent `feat(phase-N)`/`docs(phase-N)` commits show what was last worked on.
+3. `.quantis/phases/` — a `*-PLAN.md` without a matching `*-SUMMARY.md` indicates an in-progress phase.
+Present the reconstructed position to the user for confirmation before continuing. If nothing can be reconstructed, STOP and suggest `/progress` or `/new-project`.
+
 ---
 
 ## 2. Display Context
@@ -71,14 +77,17 @@ Show last entry from `.quantis/JOURNAL.md`:
 git status --porcelain
 ```
 
-**If changes found:**
+**If changes found, run this procedure — do not just print a warning and continue:**
+1. Compare each dirty file against STATE.md's In-Progress / "Files modified" list.
+2. **Files listed in STATE.md** (expected work-in-progress): summarize `git diff` for each, then offer the user a choice — (a) commit as `wip(phase-N): resume checkpoint`, or (b) leave uncommitted and continue the task.
+3. **Files NOT listed in STATE.md** (unexpected): show them and ASK the user what they are before doing anything — do not commit or revert on your own.
+4. Wait for the user's decision before marking the session active (Step 5).
 ```
 ⚠️ UNCOMMITTED CHANGES DETECTED
 
 {list of modified files}
 
-These may be from the previous session.
-Review before proceeding.
+Resolve via the procedure above before continuing.
 ```
 
 ---

@@ -15,12 +15,16 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Context:** If working in an isolated worktree, it should have been created via the `using-git-worktrees` skill at execution time.
 
-**Save plans to:** `.quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md`
+**Save plans to:** `.quantis/phases/{N}.{M}-{slug}/{N}.{M}-{plan-slug}-PLAN.md`
+- Filename MUST end in `-PLAN.md` — `/execute` discovers plans by this suffix.
+- Multiple plans per phase: use descriptive slugs (e.g., `3.1-execution-contract-PLAN.md`, `3.1-gate-semantics-PLAN.md`).
 - (User preferences for plan location override this default)
 
 ## Scope Check
 
 If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it wasn't, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
+
+**Planning Lock precondition:** Before writing any plan, confirm the spec contains `Status: FINALIZED` (the phase spec `.quantis/phases/{N}.{M}-{slug}/SPEC.md` if it exists, otherwise the project `.quantis/SPEC.md`). If it is not FINALIZED, STOP — return to brainstorming/`/discuss-phase` to finalize and approve the spec first. This mirrors `/plan`'s Planning Lock so the brainstorming → writing-plans path cannot bypass it.
 
 ## File Structure
 
@@ -42,14 +46,23 @@ This structure informs the task decomposition. Each task should produce self-con
 - "Run the tests and make sure they pass" - step
 - "Commit" - step
 
+**Per-plan limit:** 2-3 tasks per plan. If the work needs more, split it into multiple plans.
+
 ## Plan Document Header
 
 **Every plan MUST start with this header:**
 
 ```markdown
+---
+phase: {N}.{M}
+plan: {plan-slug}
+wave: {W}
+gap_closure: false
+---
+
 # Phase {N}.{M}: {Description} - Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use subagent-driven-development (recommended) or executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use subagent-driven-development or executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -59,6 +72,8 @@ This structure informs the task decomposition. Each task should produce self-con
 
 ---
 ```
+
+The YAML frontmatter is REQUIRED — `/execute` reads `wave` for ordering and `gap_closure` for filtering. Default `wave: 1` if only one plan. Default `gap_closure: false` for normal plans.
 
 ## Task Structure
 
@@ -99,7 +114,7 @@ Expected: PASS
 
 ```bash
 git add tests/path/test.py src/path/file.py
-git commit -m "feat: add specific feature"
+git commit -m "feat(phase-{N}): add specific feature"
 ```
 ````
 
@@ -118,6 +133,7 @@ Every step must contain the actual content an engineer needs. These are **plan f
 - Complete code in every step — if a step changes code, show the code
 - Exact commands with expected output
 - DRY, YAGNI, TDD, frequent commits
+- Commit scope = phase number for phase work (Quantis convention): `feat(phase-N): ...`
 
 ## Self-Review
 
@@ -133,20 +149,12 @@ If you find issues, fix them inline. No need to re-review — just fix and move 
 
 ## Execution Handoff
 
-After saving the plan, offer execution choice:
+After saving the plan, announce the path and STOP:
 
-**"Plan complete and saved to `.quantis/phases/{N}.{M}-{slug}/{N}.{M}-PLAN.md`. Two execution options:**
+**"Plan complete and saved to `{path}`. Run `/execute {N}` to implement."**
 
-**1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
+Do NOT ask the user to choose an execution mode — `/execute` auto-selects based on platform capabilities (`invoke_subagent` available → subagent-driven-development; else → executing-plans). Never present a menu.
 
-**2. Inline Execution** - Execute tasks in this session using executing-plans, batch execution with checkpoints
-
-**Which approach?"**
-
-**If Subagent-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use subagent-driven-development
-- Fresh subagent per task + two-stage review
-
-**If Inline Execution chosen:**
-- **REQUIRED SUB-SKILL:** Use executing-plans
-- Batch execution with checkpoints for review
+If invoked directly (not from `/plan`), check `invoke_subagent` availability and proceed automatically:
+- **If available:** Read and follow `.agents/skills/subagent-driven-development/SKILL.md`
+- **If NOT available:** Read and follow `.agents/skills/executing-plans/SKILL.md`

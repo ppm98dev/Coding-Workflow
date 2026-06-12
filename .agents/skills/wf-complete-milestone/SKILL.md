@@ -14,16 +14,17 @@ Finalize the current milestone, archive documentation, and prepare for next mile
 ## 1. Verify All Phases Complete
 
 ```bash
-# Check ROADMAP.md for incomplete phases
-grep -E "Status.*Not Started|Status.*In Progress" ".quantis/ROADMAP.md"
+# Scope to the CURRENT milestone only — archived (⏸ CLOSED/SUPERSEDED) sections above contain
+# stale "Not Started"/"In Progress" text that would false-positive against the whole file.
+INCOMPLETE=$(sed -n '/Current Milestone/,$p' ".quantis/ROADMAP.md" | grep -c -E "Status.*Not Started|Status.*In Progress" || true)
+if [ "$INCOMPLETE" -gt 0 ]; then
+    echo "❌ STOP: Cannot complete milestone — $INCOMPLETE phases incomplete."
+    echo "Run /progress to see status."
+    exit 1
+fi
 ```
 
-**If incomplete phases found:**
-```
-⚠️ Cannot complete milestone — {N} phases incomplete
-
-Run /progress to see status.
-```
+**If ANY phase is incomplete: STOP.** Do not proceed to verification or archiving.
 
 ---
 
@@ -33,6 +34,8 @@ Verify all must-haves from ROADMAP.md:
 - Run verification commands
 - Capture evidence
 - Create VERIFICATION.md if not exists
+
+**GATE:** If any must-have FAILS verification, STOP. Do not generate the summary (Step 3), archive (Step 4 — destructive), reset (Step 5), or tag (Step 6). Report which must-haves failed and route to `/verify {N}` or `/execute {N} --gaps-only`, then re-run /complete-milestone once they pass.
 
 ---
 
@@ -77,14 +80,29 @@ mv .quantis/phases/* ".quantis/milestones/{name}/"
 # Archive decisions and journal (prevent monolithic growth across milestones)
 [ -f ".quantis/DECISIONS.md" ] && cp ".quantis/DECISIONS.md" ".quantis/milestones/{name}/DECISIONS.md"
 [ -f ".quantis/JOURNAL.md" ] && cp ".quantis/JOURNAL.md" ".quantis/milestones/{name}/JOURNAL.md"
+
+# GATE: confirm the archive received the files before any reset
+if [ -z "$(ls -A ".quantis/milestones/{name}/" 2>/dev/null)" ] || [ -n "$(ls -A .quantis/phases 2>/dev/null)" ]; then
+    echo "❌ STOP: archive incomplete — .quantis/phases still has contents or the milestone dir is empty."
+    echo "Do not proceed to Step 5 (reset). Investigate the mv/mkdir before continuing."
+    exit 1
+fi
 ```
+
+**If the STOP line printed: halt.** Step 5 resets ROADMAP.md, DECISIONS.md, and JOURNAL.md — never reset until this guard confirms the archive received the files.
 
 ---
 
 ## 5. Reset for Next Milestone
 
 Clear ROADMAP.md phases section (keep header).
-Update STATE.md to show milestone complete.
+Edit `.quantis/STATE.md` IN PLACE (canonical schema in `.quantis/templates/state.md`) — set:
+```markdown
+## Current Position
+- **Phase**: —
+- **Task**: Milestone {name} complete and archived
+- **Status**: Milestone complete — ready for /new-milestone
+```
 
 **Reset DECISIONS.md** — replace contents with a fresh header referencing the archive:
 
@@ -114,7 +132,7 @@ Update `.quantis/ARCHITECTURE.md` to reflect the current state of the codebase a
 
 1. **Scan the project** — identify new components, removed modules, changed dependencies
 2. **Update the architecture diagram** — reflect structural changes from this milestone
-3. **Update STACK.md** — refresh technology and dependency information
+3. **Update `.quantis/STACK.md`** (if it exists) — refresh technology and dependency information; skip if the project doesn't maintain one
 4. **Keep it lean** — remove details about components that no longer exist; summarize, don't accumulate
 
 > This prevents ARCHITECTURE.md from becoming stale or bloated across milestones (addresses the issue where architecture only updates via `/map`).
@@ -143,7 +161,7 @@ git tag -a "{name}" -m "Milestone {name} complete"
 
 ---
 
-## 7. Celebrate
+## 7. Display Completion
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

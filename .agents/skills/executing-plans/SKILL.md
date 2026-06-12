@@ -11,7 +11,7 @@ Load plan, review critically, execute all tasks, report when complete.
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
-**Note:** When subagents are available (Antigravity 2.0 supports them natively), use subagent-driven-development instead of this skill for better quality via two-stage review.
+**Note:** If the `invoke_subagent` tool is in your session's tool list (CLI `agy`, Standalone — not the IDE), use subagent-driven-development instead. If `/execute` routed you here, that check already failed — proceed with this skill and do not ask the user about execution modes.
 
 ## The Process
 
@@ -35,6 +35,8 @@ After all tasks complete and verified:
 - Announce: "I'm using the finishing-a-development-branch skill to complete this work."
 - **REQUIRED SUB-SKILL:** Use finishing-a-development-branch
 - Follow that skill to verify tests, present options, execute choice
+
+> **When invoked from `/execute`:** Skip this step. `/execute` owns phase-level completion. Only run finishing-a-development-branch when executing-plans is invoked standalone.
 
 ## When to Stop and Ask for Help
 
@@ -73,14 +75,14 @@ After all tasks complete and verified:
 
 After completing each task, update Quantis state files:
 
-1. **STATE.md** — Update current position:
+1. **STATE.md** — Update current position in place (edit the fields inside the existing `## Current Position` section; canonical schema in `.quantis/templates/state.md` — never replace the file):
    ```markdown
    - **Phase**: {N}
    - **Task**: {current task name}
    - **Status**: In progress / Complete
    ```
 
-2. **JOURNAL.md** — Append session entry after completing all tasks:
+2. **JOURNAL.md** — After completing all tasks, insert ONE session entry at the TOP of JOURNAL.md (newest-first; template: `.quantis/templates/journal.md`):
    ```markdown
    ## Session: {date}
    ### Accomplished

@@ -18,6 +18,27 @@ argument-hint: "<phase-number>"
 
 <process>
 
+## 0. Platform Check
+
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch research subagents for L1.5+ discovery — do not research inline.** First assess the discovery level (Step 1), then:
+- **L0/L1:** no subagent needed; handle inline.
+- **L1.5/L2/L3:** list the open research questions, read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch **one `research` subagent per independent question, all invoked together**. Each subagent prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, not paths):
+  1. The phase objective copied from `.quantis/ROADMAP.md` and any relevant `.quantis/DECISIONS.md` entries.
+  2. That subagent's single question, and the instruction to use web search and documentation reading.
+  3. The RESEARCH.md section structure (Step 3) as the required return format: Findings (with sources), Decisions, Patterns, Anti-Patterns, Dependencies, Risks.
+
+**Required return format:** the per-question findings in the Step 3 RESEARCH.md structure, with sources.
+
+When the subagents return, **continue at Step 3** — merge their findings into a single RESEARCH.md.
+
+**If `invoke_subagent` is NOT available** (IDE): research all questions inline (proceed to Step 1).
+
+**If a dispatch fails or returns unusable findings:** re-dispatch that question once with feedback; on a second failure, research it inline and note the fallback.
+
+> Detection is automatic. Never ask the user which mode to use.
+
+**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `research` = read-only codebase navigation/exploration (web/doc reading included).
+
 ## 1. Assess Discovery Level
 
 Determine how deep to go:
@@ -41,7 +62,8 @@ Use web search, documentation reading, and analysis to investigate.
 # Dynamically find the phase directory by prefix
 PHASE_DIR=$(find .quantis/phases -maxdepth 1 -name "${PHASE}-*" | head -n 1)
 if [ -z "$PHASE_DIR" ]; then
-    PHASE_TITLE=$(grep -i "Phase $PHASE" .quantis/ROADMAP.md | head -n 1 | sed -E 's/.*Phase [0-9.]+:? (.*)/\1/' | tr -d '')
+    PHASE_TITLE=$(grep -i "Phase $PHASE" .quantis/ROADMAP.md | head -n 1 | sed -E 's/.*Phase [0-9.]+:? (.*)/\1/' | tr -d '
+')
     PHASE_SLUG=$(echo "$PHASE_TITLE" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+|-+$//g')
     PHASE_DIR=".quantis/phases/${PHASE}-${PHASE_SLUG}"
     mkdir -p "$PHASE_DIR"
@@ -105,4 +127,5 @@ Discovery level: L{N}
 | Skill | Purpose |
 |-------|---------|
 | `brainstorming` | Research methodology (delegated) |
+| `dispatching-parallel-agents` | Per-question parallel fan-out when `invoke_subagent` is available |
 </related>

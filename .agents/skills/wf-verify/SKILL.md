@@ -4,7 +4,9 @@ description: The Auditor — Validate work against spec with empirical evidence
 argument-hint: "<phase-number>"
 ---
 
-# /verify Workflow
+# /verify → verification-before-completion skill
+
+> **Skill-powered workflow.** Verification methodology is powered by `verification-before-completion`. This workflow adds Quantis orchestration (state tracking, ROADMAP updates, gap closure routing).
 
 <role>
 You are a Quantis verifier. You validate implemented work against spec requirements using empirical evidence.
@@ -15,8 +17,9 @@ You are a Quantis verifier. You validate implemented work against spec requireme
 - Extract testable deliverables from phase
 - Walk through each requirement
 - Collect empirical evidence (commands, screenshots)
+- Run senior code review on all code changed during the phase
 - Create verification report
-- Generate fix plans if issues found
+- Route gap closure to /plan when issues found
 </role>
 
 <objective>
@@ -26,7 +29,7 @@ The verifier checks the CODEBASE, not SUMMARY claims.
 </objective>
 
 <context>
-**Phase:** $ARGUMENTS (required — phase number to verify)
+**Phase:** $ARGUMENTS (if omitted: read the current phase from `.quantis/STATE.md`; if STATE.md is ambiguous or missing, list the phases that have a `.quantis/phases/` directory and ask the user — do not guess)
 
 **Required files:**
 - `.quantis/SPEC.md` — Original requirements
@@ -34,35 +37,81 @@ The verifier checks the CODEBASE, not SUMMARY claims.
 - `.quantis/phases/{phase}.{subphase}-{slug}/*-SUMMARY.md` — What was implemented
 
 **Skill reference:** `.agents/skills/verification-before-completion/SKILL.md`
-
-> Before starting verification, read and follow the `verification-before-completion` skill for the full methodology.
-
-## 0. Platform Check
-
-**If `invoke_subagent` is available**, dispatch a `self` subagent with:
-- The SPEC.md must-haves list
-- The verification-before-completion skill instructions
-- The phase directory and codebase access
-
-The subagent verifies each must-have and produces VERIFICATION.md. The orchestrator then:
-1. Reviews the verification results
-2. Checks that evidence is empirical (not claims)
-3. Presents results to the user with PASS/FAIL summary
-
-**If `invoke_subagent` is NOT available**, run verification inline (proceed to Step 1).
+</context>
 
 <process>
 
+## 0. Platform Check
+
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch a `self` subagent for the verification work — do not verify inline.** First do Steps 1–2 yourself (load context, extract the must-haves). Then dispatch ONE `self` subagent whose prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, not paths):
+1. The extracted must-haves list (from Step 2) with each one's verification method.
+2. The full text of `.agents/skills/verification-before-completion/SKILL.md` (its Gate Function IDENTIFY → RUN → READ → VERIFY → only then claim governs every check).
+3. The `$PHASE_DIR` path with instruction to read SUMMARY files and inspect the CODEBASE (not SUMMARY claims).
+4. The VERIFICATION.md format from Step 5.
+
+**Required return format:** a completed VERIFICATION.md (Step 5 structure) with empirical evidence per must-have and a PASS/FAIL/PARTIAL verdict.
+
+When the subagent returns, the orchestrator:
+1. Reviews the verification results
+2. Checks that evidence is empirical (not claims)
+3. Runs the senior code review (Step 4) — never skipped
+4. **Continues at Step 5 (Create Verification Report), Step 6 (Handle Results), and Step 7 (Commit) yourself** — the subagent path skips Steps 3–4's per-must-have legwork ONLY; the orchestrator still owns code review, report writing, state update, gap routing, and commit.
+
+**If the dispatch fails or its output is unusable** (tool error, empty report, non-empirical evidence): re-dispatch ONCE with explicit feedback on what was wrong. If it fails again, fall back to inline verification (Step 1 onward) and say so.
+
+**If `invoke_subagent` is NOT available** (IDE): run verification inline (proceed to Step 1).
+
+> Detection is automatic. Never ask the user which mode to use.
+
+**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `self` = clone of the calling agent with the same capabilities.
+
 ## 1. Load Verification Context
 
+**Read and follow `.agents/skills/verification-before-completion/SKILL.md` exactly.** Its Gate Function (IDENTIFY → RUN → READ → VERIFY → only then claim) governs every must-have check below.
+
 ```bash
-# Dynamically find the phase directory by prefix
-PHASE_DIR=$(find .quantis/phases -maxdepth 1 -name "${PHASE}-*" | head -n 1)
+# ─── Phase Directory Resolution (unified) ───────────────
+# $PHASE is set from $ARGUMENTS
+
+if [ -z "$PHASE" ]; then
+    echo "❌ STOP: no phase number — read current phase from STATE.md, or run /progress"
+    exit 1
+fi
+
+# 1. Find directory by exact prefix match
+PHASE_DIR=$(find .quantis/phases -maxdepth 1 -type d -name "${PHASE}-*" 2>/dev/null | sort | head -n 1)
+
+# 2. If no match and PHASE is integer, try N.* subphase pattern
+if [ -z "$PHASE_DIR" ] && echo "$PHASE" | grep -qE '^[0-9]+$'; then
+    MATCHES=$(find .quantis/phases -maxdepth 1 -type d -name "${PHASE}.*-*" 2>/dev/null | sort)
+    COUNT=$(printf '%s\n' "$MATCHES" | grep -c . || true)
+    if [ "$COUNT" -eq 1 ]; then
+        PHASE_DIR="$MATCHES"
+    elif [ "$COUNT" -gt 1 ]; then
+        echo "Multiple subphases found for phase $PHASE:"
+        echo "$MATCHES"
+        echo "Please specify the full number (e.g., ${PHASE}.1)"
+        exit 1
+    fi
+fi
+
+# 3. Validate — /verify requires an existing directory
 if [ -z "$PHASE_DIR" ]; then
-    echo "Error: phase directory starting with ${PHASE}- not found"
+    echo "❌ STOP: No phase directory found for '${PHASE}'."
+    echo "Available: $(ls .quantis/phases/ 2>/dev/null || echo 'none')"
+    echo "Pass the full number (e.g., 3.1) or run /plan first."
+    exit 1
+fi
+
+# 4. Never-executed guard: plans exist but nothing was built
+SUMMARIES=$(ls "$PHASE_DIR"/*-SUMMARY.md 2>/dev/null)
+if [ -z "$SUMMARIES" ] && ls "$PHASE_DIR"/*-PLAN.md >/dev/null 2>&1; then
+    echo "Phase $PHASE not yet executed (plans exist, no SUMMARYs) — run /execute $PHASE"
     exit 1
 fi
 ```
+
+**If no SUMMARY.md files exist but PLAN.md files do: STOP** — report "Phase {N} not yet executed — run /execute {N}". Do NOT extract must-haves, verify, or route gap closure for unexecuted work.
 
 Read:
 - Phase definition from `.quantis/ROADMAP.md`
@@ -105,6 +154,7 @@ For each must-have:
 
 Run the verification command/action.
 
+<!-- `// turbo` marks a command the Antigravity IDE may auto-run without confirmation; ignore on other platforms. -->
 // turbo
 ```bash
 # Example: Run tests
@@ -181,7 +231,49 @@ For each must-have, record:
 
 ---
 
-## 4. Create Verification Report
+## 4. Senior Code Review
+
+Must-haves prove the phase does what the spec asked. This step proves the code is well-built: no bugs, dead code, or unhandled edge cases. It is never skipped. Review findings are evidence-backed (file:line references), not impressions — this does not conflict with the forbidden-phrases rule, which bans unverified success claims.
+
+### 4a. Determine Review Scope
+
+Review the code changed during this phase — never the full codebase. Derive the diff range from git:
+
+```bash
+# First and last commits scoped to this phase (commits are tagged feat/docs(phase-$PHASE))
+FIRST_SHA=$(git log --reverse --grep="(phase-$PHASE)" --format=%H | head -n 1)
+HEAD_SHA=$(git log --grep="(phase-$PHASE)" --format=%H | head -n 1)
+if [ -z "$FIRST_SHA" ] || [ -z "$HEAD_SHA" ]; then
+    echo "⚠️ No (phase-$PHASE) commits found — falling back to SUMMARY 'files changed'"
+else
+    BASE_SHA=$(git rev-parse "$FIRST_SHA^")
+    echo "Review range: $BASE_SHA..$HEAD_SHA"
+    git diff --stat "$BASE_SHA".."$HEAD_SHA"
+fi
+```
+
+**Fallback:** if no `(phase-$PHASE)` commits exist, take the changed-files list from the SUMMARY.md files' "Files Changed" sections and review those files' current contents. Never expand scope to the whole repository.
+
+### 4b. Run the Review
+
+**If `invoke_subagent` is available**, dispatch a senior code reviewer subagent using the template at `.agents/skills/requesting-code-review/code-reviewer.md`. Fill its placeholders:
+- `{DESCRIPTION}` — what the phase implemented (from SUMMARY.md / spec)
+- `{PLAN_OR_REQUIREMENTS}` — the phase SPEC.md must-haves
+- `{BASE_SHA}` / `{HEAD_SHA}` — the range from Step 4a
+
+Paste the template text and the diff into the subagent prompt (subagents do not inherit your context). If the diff is large, batch the changed files across multiple reviewer dispatches and merge their findings. Do not ask the user — dispatch automatically.
+
+**If `invoke_subagent` is NOT available** (IDE), review inline, file-by-file, against the same `code-reviewer.md` checklist (plan alignment, code quality, architecture, testing, production readiness). Read each changed file's actual diff/contents before recording any finding.
+
+This review is a phase-scoped backstop, complementary to SDD's task-scoped `code-quality-reviewer` — run it even when SDD reviews already ran during /execute.
+
+### 4c. Record Findings
+
+Classify every finding as **Critical**, **Important**, or **Minor**, each with a `file:line` reference. These feed the `## Code Review` section of the report (Step 5) and the verdict: PASS additionally requires zero unresolved Critical/Important findings. Unresolved Critical/Important findings are routed to gap closure (Step 6).
+
+---
+
+## 5. Create Verification Report
 
 Write `"$PHASE_DIR/VERIFICATION.md"`:
 
@@ -212,8 +304,23 @@ verdict: PASS | FAIL | PARTIAL
 **Expected:** {what should happen}
 **Actual:** {what happened}
 
+## Code Review
+**Scope:** {N} files changed, {BASE_SHA}..{HEAD_SHA}
+**Mode:** {subagent | inline}
+
+### Critical
+{findings with file:line, or "None"}
+
+### Important
+{findings with file:line, or "None"}
+
+### Minor
+{findings with file:line, or "None"}
+
 ## Verdict
 {PASS | FAIL | PARTIAL}
+
+PASS requires every must-have verified AND no unresolved Critical/Important review findings.
 
 ## Gap Closure Required
 {If FAIL, list what needs to be fixed}
@@ -221,16 +328,18 @@ verdict: PASS | FAIL | PARTIAL
 
 ---
 
-## 5. Handle Results
+## 6. Handle Results
 
-### If PASS (all must-haves verified):
+### If PASS (all must-haves verified, no unresolved Critical/Important review findings):
 
-Update `.quantis/STATE.md`:
+**Update `.quantis/STATE.md` — edit in place, do NOT replace the whole file.** Edit only the **Phase** and **Status** fields inside the existing `## Current Position` section and refresh `## Next Steps`; preserve every other section (`Last Session Summary`, `Blockers`, `Context Dump`) that `/resume-session` reads.
 ```markdown
 ## Current Position
 - **Phase**: {N} (verified)
 - **Status**: ✅ Complete and verified
 ```
+
+**Update `.quantis/ROADMAP.md` — REQUIRED:** Set the phase's status line to `✅ Complete ({date})` and check off its deliverables. Idempotent: if `/execute` already marked it, leave it.
 
 Output:
 ```
@@ -246,40 +355,26 @@ All requirements satisfied.
 
 ▶ Next Up
 
-/execute {N+1} — proceed to next phase
+/plan {N+1} — plan the next phase
 
 ───────────────────────────────────────────────────────
 ```
 
 ### If FAIL (some must-haves failed):
 
-**Create gap closure plans:**
-
-For each failed must-have, create a fix plan in `"$PHASE_DIR/"`:
-
-```markdown
----
-phase: {N}
-plan: fix-{issue}
-wave: 1
-gap_closure: true
----
-
-# Fix Plan: {Issue Name}
-
-## Problem
-{What failed and why}
-
-## Tasks
-
-<task type="auto">
-  <name>Fix {issue}</name>
-  <files>{files to modify}</files>
-  <action>{specific fix instructions}</action>
-  <verify>{how to verify the fix}</verify>
-  <done>{acceptance criteria}</done>
-</task>
+**Update `.quantis/STATE.md`** (edit in place — preserve other sections):
 ```
+- **Status**: ⚠ Verification failed — {Z} gaps
+- **Next**: /plan {N} --gaps
+```
+
+**Update `.quantis/ROADMAP.md`:** Set phase status to `🔄 Gap closure`.
+
+**Route to gap planning — do NOT author fix plans here.**
+
+Recommend `/plan {N} --gaps`. That command reads this VERIFICATION.md and creates one gap-closure plan per FAILed must-have (checkbox format, `gap_closure: true` / `wave: 1` frontmatter, `-PLAN.md` suffix), so `/execute {N} --gaps-only` can discover and run them. /verify owns the verdict and the routing; /plan owns the plans.
+
+**Gap-closure loop cap (audit H8):** If the same must-have fails verification after **2** gap-closure rounds (check VERIFICATION.md history / prior gap plans for the phase), do NOT recommend a third fix round. Treat it as an architectural or spec problem: record the failure history in STATE.md, point the user to `systematic-debugging` Phase 4 ("question the architecture", step 5), and ask whether to revise the spec or the approach. This prevents an unbounded verify → gaps → execute → verify loop.
 
 Output:
 ```
@@ -290,25 +385,47 @@ Output:
 {X}/{Y} must-haves verified
 {Z} issues require fixes
 
-Gap closure plans created.
+Gaps recorded in VERIFICATION.md.
 
 ───────────────────────────────────────────────────────
 
 ▶ Next Up
 
-/execute {N} --gaps-only — run fix plans
+/plan {N} --gaps — generate fix plans from VERIFICATION.md (then /execute {N} --gaps-only)
 
 ───────────────────────────────────────────────────────
 ```
 
+### If PARTIAL (browser-pending or mixed results)
+
+Some must-haves verified, some pending browser confirmation or mixed results.
+
+Update `.quantis/STATE.md` (edit in place — preserve other sections):
+```
+## Current Position
+- **Phase**: {N} (partially verified)
+- **Status**: ⏳ PARTIAL — {X} verified, {Y} pending browser, {Z} failed
+- **Next**: Re-run `/verify {N}` after browser evidence lands
+```
+
+Update `.quantis/ROADMAP.md`: set phase status to `🔄 Verification pending`.
+
+**Do NOT claim the phase is complete.** Do NOT write "verified" in STATE.md. Stage BROWSER-VERIFY.md in the commit if it exists.
+
+Any pending browser must-haves → verdict is PARTIAL, never PASS.
+
 ---
 
-## 6. Commit Verification
+## 7. Commit Verification
 
 ```bash
-git add "$PHASE_DIR/VERIFICATION.md"
+git add "$PHASE_DIR/VERIFICATION.md" .quantis/ROADMAP.md .quantis/STATE.md
+# Include BROWSER-VERIFY.md if it exists
+test -f "$PHASE_DIR/BROWSER-VERIFY.md" && git add "$PHASE_DIR/BROWSER-VERIFY.md"
 git commit -m "docs(phase-$PHASE): verification report"
 ```
+
+**Self-check:** If verdict was PASS, run `git show --stat HEAD` and verify ROADMAP.md is listed. If not, the Step 6 update was skipped — go back, update ROADMAP, then `git commit --amend`.
 
 </process>
 
@@ -345,11 +462,12 @@ Never accept these as verification:
 |---------|--------------|
 | `/execute` | Run before /verify to implement work |
 | `/execute --gaps-only` | Fix issues found by /verify |
-| `/debug` | Diagnose verification failures |
+| `/debug-issue` | Diagnose verification failures |
 
 ### Skills
 | Skill | Purpose |
 |-------|---------|
 | `verification-before-completion` | Detailed verification methodology |
+| `requesting-code-review` | Senior code review template (Step 4) |
 | `context-health-monitor` | Context budget monitoring |
 </related>

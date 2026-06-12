@@ -7,55 +7,44 @@ Template for `.quantis/STATE.md` — project memory across sessions.
 ## File Template
 
 ```markdown
----
-updated: [ISO timestamp]
----
-
-# Project State
-
 ## Current Position
+- **Phase**: {current phase number and name}
+- **Task**: {specific task in progress, if any}
+- **Status**: {planning | executing | verifying | blocked | paused at {timestamp}}
 
-**Milestone:** {name}
-**Phase:** {N} - {name}
-**Status:** {planning | executing | verifying | blocked}
-**Plan:** {current plan if executing}
+## Last Session Summary
+{What was accomplished this session}
 
-## Last Action
-
-{What was just completed}
-
-## Next Steps
-
-1. {Immediate next action}
-2. {Following action}
-3. {Third action if known}
-
-## Active Decisions
-
-Decisions made that affect current work:
-
-| Decision | Choice | Made | Affects |
-|----------|--------|------|---------|
-| {what} | {choice} | {date} | {phases/plans} |
+## In-Progress Work
+{Any uncommitted changes or partial work}
+- Files modified: {list}
+- Tests status: {passing/failing/not run}
 
 ## Blockers
+{What was preventing progress, if anything — "None" if clear}
 
-{None if clear}
+## Context Dump
+{Critical context that would be lost}:
 
-- [ ] {Blocker 1}: {resolution approach}
-- [ ] {Blocker 2}: {resolution approach}
+### Decisions Made
+- {Decision 1}: {rationale}  (full records live in DECISIONS.md; reference D-{NNN} IDs here if relevant)
 
-## Concerns
+### Approaches Tried
+- {Approach 1}: {outcome}
 
-Things to watch but not blocking:
+### Current Hypothesis
+{Best guess at solution/issue}
 
-- {Concern 1}
-- {Concern 2}
+### Files of Interest
+- `{file1}`: {what's relevant}
 
-## Session Context
-
-{Any context the next session needs to know}
+## Next Steps
+1. {Specific first action for next session}
+2. {Second priority}
+3. {Third priority}
 ```
+
+> **Canonical schema.** This is the same schema `/pause` writes and `/resume-session` reads. Every other writer (wf-verify, wf-new-milestone, context-health-monitor, SDD/executing-plans auto-save) edits these fields IN PLACE — never replaces the file or invents a new layout. Decisions are NOT stored here; they live in `.quantis/DECISIONS.md`.
 
 ---
 
@@ -67,10 +56,9 @@ Things to watch but not blocking:
 - Any blocker identified
 - Session end/pause
 
-**What to update:**
-- `updated` timestamp
-- Current Position
-- Last Action
+**What to update (edit these fields in place — never replace the file):**
+- Current Position (Phase / Task / Status)
+- Last Session Summary
 - Next Steps
 
 **Keep it lean:**

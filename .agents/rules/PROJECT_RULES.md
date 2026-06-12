@@ -63,9 +63,11 @@ Plans are grouped into **waves** based on dependencies:
 
 | Wave | Characteristic | Execution |
 |------|----------------|-----------|
-| 1 | Foundation tasks, no dependencies | Run in parallel |
-| 2 | Depends on Wave 1 | Wait for Wave 1, then parallel |
-| 3 | Depends on Wave 2 | Wait for Wave 2, then parallel |
+| 1 | Foundation tasks, no dependencies | Execute sequentially |
+| 2 | Depends on Wave 1 | Wait for Wave 1 complete, then execute |
+| 3 | Depends on Wave 2 | Wait for Wave 2 complete, then execute |
+
+> **Note:** Waves define *ordering constraints*, not parallelism. Implementation is always sequential (one subagent per task). Parallel dispatch is reserved for read-only investigation (see dispatching-parallel-agents skill).
 
 **Wave Completion Protocol:**
 1. All tasks in wave verified
@@ -120,11 +122,8 @@ At the end of each wave or significant work block, create a state snapshot:
 - Duplicating canonical rules in adapters
 
 **Adapter Pattern:**
-```
-adapters/
-```
 
-Each adapter must begin with:
+The only adapter today is `adapters/ANTIGRAVITY.md`. Each adapter must begin with:
 > "Everything in this file is optional. For canonical rules, see `.agents/rules/PROJECT_RULES.md`."
 
 ---
@@ -151,15 +150,22 @@ type(scope): description
 - Verify before commit
 - Scope = phase number for phase work (e.g., `feat(phase-1): ...`)
 
+**Commit Failure Rule** (applies to every workflow that commits — wf-execute, wf-plan, wf-pause, wf-verify, wf-new-milestone, wf-complete-milestone): after each `git commit`, confirm it succeeded (exit code 0, e.g. `git log -1` shows the new commit). On failure, route by cause — do not silently proceed:
+- **Pre-commit hook rejection** — fix the reported issues, then re-commit. Never bypass with `--no-verify`.
+- **Merge/rebase in progress** (`.git/MERGE_HEAD` / rebase dir exists) — STOP and ask the user before touching the conflict.
+- **Detached HEAD** — STOP; ask the user to check out a branch before committing.
+- **Nothing to commit** — not an error: report it and continue (the intended files may already be committed).
+
 ---
 
 ## Repository Structure
 
 ```
-PROJECT_RULES.md          # ← This file (canonical rules, in .agents/rules/)
-QUANTIS-STYLE.md              # Style and conventions (in .agents/rules/)
-
 .agents/
+├── rules/
+│   ├── PROJECT_RULES.md  # ← This file (canonical rules)
+│   ├── QUANTIS-STYLE.md  # Style and conventions
+│   └── CONSTITUTION.md   # Project quality standards
 └── skills/               # Workflows (wf-*) + methodology skills
     ├── wf-plan/         # Workflow: /plan (or /wf-plan on CLI)
     ├── wf-execute/      # Workflow: /execute
@@ -172,7 +178,7 @@ QUANTIS-STYLE.md              # Style and conventions (in .agents/rules/)
 ├── ROADMAP.md            # Phases and progress
 ├── STATE.md              # Session memory
 ├── templates/            # Document templates
-└── examples/             # Usage examples
+└── milestones/           # Archived milestone summaries
 
 adapters/                 # Optional model-specific enhancements
 scripts/                  # Validation and install scripts
@@ -212,13 +218,21 @@ scripts/                  # Validation and install scripts
 | File already understood | Reference summary, don't reload |
 | >5 files needed | Stop, reconsider approach |
 
+**Exemptions:** The following are always read in full regardless of size:
+- SKILL.md files invoked via "Read and follow" directives
+- `.quantis/` state files (STATE.md, ROADMAP.md, SPEC.md)
+- Any file a skill explicitly says to read completely
+- The >5-file cap applies to source code exploration only, not skill/state loading.
+
 ### Budget Thresholds
 
-| Usage | Action Required |
-|-------|-----------------|
-| 0-50% | Proceed normally |
-| 50-70% | Switch to outline mode, compress context |
-| 70%+ | State dump required, recommend fresh session |
+Models cannot introspect token usage, so gate on observable proxies instead.
+
+| Observed signal | Action Required |
+|-----------------|-----------------|
+| Fewer than ~10 files read in full | Proceed normally |
+| 10+ files read in full, or 20+ tool calls this session | Switch to outline mode, compress context, write a lightweight STATE.md snapshot (see wf-pause Proactive Auto-Save) |
+| Platform reports a context warning, or you are re-reading files you already summarized | State dump required, recommend fresh session |
 
 ### Compression Protocol
 

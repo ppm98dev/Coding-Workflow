@@ -19,7 +19,7 @@ Every project goes through this process. A todo list, a single-function utility,
 
 ## Checklist
 
-You MUST create a task for each of these items and complete them in order:
+You MUST track each of these items as a checklist (use your platform's task/todo tool if available, else keep the checklist visible in your messages) and complete them in order:
 
 1. **Explore project context** — check files, docs, recent commits
 2. **Offer visual companion** (if topic will involve visual questions) — this is its own message, not combined with a clarifying question. See the Visual Companion section below.
@@ -30,6 +30,8 @@ You MUST create a task for each of these items and complete them in order:
 7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
 8. **User reviews written spec** — ask user to review the spec file before proceeding
 9. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+
+**If invoked by a workflow command** (`/discuss-phase`, `/stress-test`, etc.): the caller may override step 9 with its own terminal action, but steps 1–8 always apply. A design discussion that ends without a written, committed SPEC.md is incomplete regardless of any scope restriction the caller specifies.
 
 ## Process Flow
 
@@ -63,7 +65,7 @@ digraph brainstorming {
 }
 ```
 
-**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans.
+**The terminal state is invoking writing-plans.** Do NOT invoke any implementation or execution skill (subagent-driven-development, executing-plans, etc.). The ONLY skill you invoke after brainstorming is writing-plans.
 
 ## The Process
 
@@ -110,7 +112,7 @@ digraph brainstorming {
 
 - Write the validated design (spec) to `.quantis/phases/{N}.{M}-{slug}/SPEC.md`
   - (User preferences for spec location override this default)
-- Use elements-of-style:writing-clearly-and-concisely skill if available
+- Write clearly and concisely (see `.agents/rules/QUANTIS-STYLE.md` § Language & Tone)
 - Commit the design document to git
 
 **Spec Self-Review:**
@@ -129,6 +131,8 @@ After the spec review loop passes, ask the user to review the written spec befor
 > "Spec written and committed to `<path>`. Please review it and let me know if you want to make any changes before we start writing out the implementation plan."
 
 Wait for the user's response. If they request changes, make them and re-run the spec review loop. Only proceed once the user approves.
+
+On user approval: set `Status: FINALIZED` in the spec's header and commit. This satisfies the Planning Lock — plans cannot be created until the spec is FINALIZED.
 
 **Implementation:**
 
@@ -161,4 +165,4 @@ A browser-based companion for showing mockups, diagrams, and visual options duri
 A question about a UI topic is not automatically a visual question. "What does personality mean in this context?" is a conceptual question — use the terminal. "Which wizard layout works better?" is a visual question — use the browser.
 
 If they agree to the companion, read the detailed guide before proceeding:
-`skills/brainstorming/visual-companion.md`
+`.agents/skills/brainstorming/visual-companion.md`

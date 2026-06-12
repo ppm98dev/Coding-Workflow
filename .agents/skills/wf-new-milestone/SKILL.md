@@ -16,9 +16,12 @@ Define a new milestone with goal, phases, and success criteria.
 
 ```bash
 if [ ! -f ".quantis/SPEC.md" ]; then
-    echo "Error: SPEC.md required. Run /new-project first." >&2
+    echo "❌ STOP: SPEC.md required. Run /new-project first." >&2
+    exit 1
 fi
 ```
+
+**If SPEC.md is missing: STOP. Do not gather milestone information.**
 
 ---
 
@@ -50,7 +53,9 @@ Ask user to confirm or modify.
 
 ---
 
-## 4. Update ROADMAP.md
+## 4. Append to ROADMAP.md
+
+Do NOT overwrite the file. Update the `> **Current Milestone**:` line at the top, then append the section below as a new milestone — preserve all previous milestone sections.
 
 ```markdown
 # ROADMAP.md
@@ -79,10 +84,12 @@ Ask user to confirm or modify.
 
 ## 5. Update STATE.md
 
+Edit `.quantis/STATE.md` IN PLACE — set the fields inside the existing `## Current Position` section (canonical schema in `.quantis/templates/state.md`); leave all other sections intact:
+
 ```markdown
 ## Current Position
-- **Milestone**: {name}
-- **Phase**: Not started
+- **Phase**: Not started — milestone {name} planned
+- **Task**: —
 - **Status**: Milestone planned
 ```
 
@@ -91,6 +98,17 @@ Ask user to confirm or modify.
 ## 5b. Reset Session Files (if starting fresh)
 
 If DECISIONS.md or JOURNAL.md contain entries from a previous milestone, reset them to prevent monolithic growth:
+
+**Before resetting:** Verify the current DECISIONS.md and JOURNAL.md have been archived.
+```bash
+# Check if archive exists for current milestone
+if [ -f ".quantis/DECISIONS.md" ] && [ "$(wc -l < .quantis/DECISIONS.md)" -gt 5 ]; then
+    if ! find .quantis/milestones -name "DECISIONS.md" -newer .quantis/DECISIONS.md 2>/dev/null | grep -q .; then
+        echo "❌ STOP: DECISIONS.md has unarchived content. Run /complete-milestone first."
+        exit 1
+    fi
+fi
+```
 
 ```bash
 if [ -f ".quantis/DECISIONS.md" ] && [ "$(wc -l < .quantis/DECISIONS.md)" -gt 5 ]; then
