@@ -1,5 +1,27 @@
 # Quantis Journal
 
+## Session: 2026-06-12 — Full audit & remediation of the workflow system
+
+### Objective
+Audit Quantis end-to-end, then fix every finding (user directive: nothing deferred).
+
+### Accomplished
+- **Audit**: 8 known issues + 8 systematic dimensions, adversarially verified → report + raw-findings in phases/3.1
+- **Core remediation**: 150 edits / 32 files for C1–C8, H1–H12, all Medium/Low, Issue 5 (senior code review); reconciled into 5 file-organized plans (one task per file)
+- **Untouched-set sweep**: 35 edits / 17 files (phase-mgmt workflows, dispatch wiring, README/ANTIGRAVITY/scripts dead-refs)
+- **Superpowers integration** reconciled; **context-skill island closed** (context-health-monitor Rule 4 → context-compressor/token-budget)
+- Self-state + install/upgrade scripts corrected
+
+### Verification
+- [x] `validate-all.sh` passes after every batch
+- [x] 150-edit in-sequence simulation: zero collisions; 51/51 reconciled anchors match
+- [x] wf-verify XML tags balanced (C8 fixed); `/execute 3.1` mechanically finds all 5 plans (C1 fixed)
+- [x] Independent 5-agent review pass; 2 hard + softs fixed
+- [ ] **End-to-end behavioral run (/execute + /verify) — NOT done; the one remaining gap (Issue 8)**
+
+### Handoff Notes
+Phase 3.1 is **Implemented, pending `/verify`** — not "verified" (no run yet, per verification-before-completion). ~22 files uncommitted in the working tree, awaiting user review before commit. Decisions recorded as D-001…D-008.
+
 ## Session: 2026-06-11 20:00 (continuation)
 
 ### Objective

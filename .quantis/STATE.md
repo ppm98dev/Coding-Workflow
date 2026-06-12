@@ -1,57 +1,45 @@
 ## Current Position
 - **Phase**: 3.1 (Workflow Reliability Fixes) 🔄 Implemented — pending `/verify`
-- **Task**: Full audit remediation applied — 150 core edits (5 plans) + 35 untouched-set sweep edits across 49 files; `validate-all.sh` passes
+- **Task**: Full audit remediation applied — 150 core edits (5 plans) + 35 untouched-set sweep edits + context-skill wiring, across ~50 files; `validate-all.sh` passes
 - **Status**: Active (2026-06-12). Next: end-to-end `/verify` run (the one untested piece)
 
 ## Last Session Summary
 
-### Continued from Previous Pause
-Resumed and extended Phase 3.2 work with major cleanup:
+Audited the whole Quantis workflow system, then remediated every finding — nothing deferred.
 
-1. **Skill discovery fix**: Added `name:` field to all 30 workflow SKILL.md — this was required for slash command registration on both CLI and IDE
-2. **Spec compliance**: Renamed `_wf-*` → `wf-*` (Agent Skills spec: lowercase, numbers, hyphens only)
-3. **Browser handoff**: Added CLI→IDE browser verification pattern to `wf-verify` (BROWSER-VERIFY.md)
-4. **Scripts rewrite**: Updated install.sh, upgrade.sh, wf-install, wf-update, wf-upgrade for v3.3 migration
-5. **Critical bug fix**: `ls _wf-*` with `set -e` crashes when no matches — replaced with `find | grep -q`
-6. **Rules are additive**: Scripts never delete existing `.agents/rules/` files
-7. **docs/ deleted**: Redundant with skills (model-selection, runbook, token-optimization)
-8. **.quantis/examples/ deleted**: Stale GSD-era files
-9. **Tested real upgrade**: Successfully ran `install.sh` on work repo
+1. **Audit** (8 known issues + 8 systematic dimensions, adversarially verified) → `claude-audit-report.md` + `claude-audit-findings-raw.md` in the phase dir
+2. **Core fix set** (C1–C8, H1–H12, all Medium/Low, Issue 5): 150 edits across 32 core files, reconciled into **5 file-organized plans** (one task per file), applied deterministically + independently reviewed
+3. **Untouched-set sweep**: 35 edits across 17 workflows/adapters/docs/scripts the audit never covered (phase-mgmt resolution + STOP gates, `/debug`→`/debug-issue`, stale command maps)
+4. **Superpowers integration** reconciled (terminal-state conflicts, phantom modes, upstream dead-refs); fork is complete (all 14 upstream skills) but now divergent from upstream
+5. **Context-skill island closed**: `context-health-monitor` Rule 4 now routes to `context-compressor` + `token-budget`
+6. **Self-state + scripts**: ROADMAP 3.1 status corrected, install/upgrade `docs` residue removed
 
 ### Key Discoveries
-- **Missing `name` field** was why workflows didn't show as slash commands
-- **Agent Skills spec** requires: folder name == `name` field, lowercase/numbers/hyphens only
-- **`ls glob*` with `set -e`** is a classic bash trap — exits non-zero when no matches
-- **docs/ was dead weight** — content already in skills, never read by agent
+- The "intermittent" failures were deterministic written contradictions (two competing state machines: wf-* orchestration vs forked Superpowers skills)
+- `/execute 3.1` previously found 0 plans (glob mismatch) → would mark the phase Complete without executing — now finds all 5 (mechanically verified)
+- Everything is **statically** verified (validators pass, anchors match, simulation clean) but has **never been run** end-to-end
 
 ## In-Progress Work
-None — all committed and pushed.
+~22 files modified in the working tree, **uncommitted** (per user instruction): 17 sweep files + 2 scripts + ROADMAP + STATE + context-skill wiring. Core 32-file fix set + 5 plans already committed (`e469ed0`, `1a2d9ac`).
 
 ## Blockers
-None.
+None — but Phase 3.1 cannot be marked **verified** until `/verify` runs.
 
 ## Context Dump
 
 ### Decisions Made
-- **`wf-` prefix** (not `_wf-`): Underscores violate Agent Skills spec
-- **docs/ deleted**: Content redundant with token-budget, context-compressor, systematic-debugging skills
-- **Browser handoff**: CLI writes BROWSER-VERIFY.md → user opens IDE → browser_subagent executes
-- **install.sh for v3.x upgrades**: upgrade.sh is for GSD→Quantis migration only
-- **Rules additive**: Never delete existing rules when installing/upgrading
+Recorded as D-001…D-008 in `.quantis/DECISIONS.md` (scope expansion, SDD-single-fallback, gap-routing, checkbox plan format, one-task-per-file plans, implemented-not-verified, hard-fork, context Rule 4).
 
 ### Repository Structure (Current)
 ```
-.agents/
-├── skills/       30 workflow commands (wf-*) + 18 methodology skills
-└── rules/        PROJECT_RULES.md, CONSTITUTION.md, QUANTIS-STYLE.md
-.gemini/          Platform bootstrap
-.quantis/         Project state + 25 templates
-adapters/         ANTIGRAVITY.md only
-scripts/          Validation + install/upgrade scripts
+.agents/skills/   30 wf-* workflows + 18 methodology skills (all audited or swept)
+.agents/rules/    PROJECT_RULES, CONSTITUTION, QUANTIS-STYLE
+.quantis/         state + 25 templates + phases/3.1-* (SPEC, 5 plans, audit reports)
+adapters/         ANTIGRAVITY.md   scripts/  install/upgrade/validate
 ```
 
 ## Next Steps
-1. **Phase 3.3**: Wire `wf-plan-milestone-gaps` → `writing-plans`, `wf-sprint` → `executing-plans` + SDD
-2. **Optional**: Delete `adapters/ANTIGRAVITY.md` (content distributed into workflows)
-3. **Optional**: End-to-end CLI test cycle
-4. **Clean up install.sh**: Remove empty comment block for docs
+1. **End-to-end `/verify` run** — drive `discuss→plan→execute→verify` on a real/sandbox project; the only behavioral gap (tracked in ROADMAP Phase 3.1 + 3.3)
+2. **Commit** the working-tree changes (or revert) — user reviewing first
+3. **Optional**: whole-system coherence read; methodology-fidelity diff vs upstream Superpowers
+4. **Watch for over-instrumentation** on the first real run — trim gates/dispatch that add friction without compliance
