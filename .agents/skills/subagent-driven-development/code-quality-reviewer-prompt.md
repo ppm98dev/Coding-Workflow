@@ -8,7 +8,7 @@ Use this template when dispatching a code quality reviewer subagent.
 
 ```
 invoke_subagent:
-  Use template at requesting-code-review/code-reviewer.md
+  REQUIRED SUB-SKILL: Read and follow .agents/skills/requesting-code-review/SKILL.md (use its code-reviewer.md template).
 
   DESCRIPTION: [task summary, from implementer's report]
   PLAN_OR_REQUIREMENTS: Task N from [plan-file]

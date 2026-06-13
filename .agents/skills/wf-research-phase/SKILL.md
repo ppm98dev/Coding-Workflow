@@ -23,9 +23,10 @@ argument-hint: "<phase-number>"
 **If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch research subagents for L1.5+ discovery — do not research inline.** First assess the discovery level (Step 1), then:
 - **L0/L1:** no subagent needed; handle inline.
 - **L1.5/L2/L3:** list the open research questions, read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch **one `research` subagent per independent question, all invoked together**. Each subagent prompt MUST contain, **given as PATHS to read** (the subagent reads each into its own clean context window — do NOT paste file contents; pasting is what overloads a subagent):
-  1. The phase objective copied from `.quantis/ROADMAP.md` and any relevant `.quantis/DECISIONS.md` entries.
-  2. That subagent's single question, and the instruction to use web search and documentation reading.
-  3. The RESEARCH.md section structure (Step 3) as the required return format: Findings (with sources), Decisions, Patterns, Anti-Patterns, Dependencies, Risks.
+  1. **REQUIRED SUB-SKILL:** Read and follow `.agents/skills/brainstorming/SKILL.md` in research/explore mode — this is the research methodology the subagent applies. A dispatched subagent inherits none of your loaded skills; hand it the path, not the text.
+  2. The phase objective copied from `.quantis/ROADMAP.md` and any relevant `.quantis/DECISIONS.md` entries.
+  3. That subagent's single question, and the instruction to use web search and documentation reading.
+  4. The RESEARCH.md section structure (Step 3) as the required return format: Findings (with sources), Decisions, Patterns, Anti-Patterns, Dependencies, Risks.
 
 **Required return format:** the per-question findings in the Step 3 RESEARCH.md structure, with sources.
 

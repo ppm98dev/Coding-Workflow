@@ -18,6 +18,7 @@ Review a completed (or in-progress) milestone for quality, completeness, and les
 - The milestone name (or "current milestone from ROADMAP.md" if none given).
 - The exact files to read and analyze: the milestone archive directory under `.quantis/milestones/{name}/` (or `.quantis/ROADMAP.md` for the current milestone), each phase's `VERIFICATION.md`, `.quantis/TODO.md`, and `.quantis/DECISIONS.md`.
 - The four analysis tasks from Steps 2-4 below: re-check each must-have's empirical evidence (still valid? regressions?), review deferred/technical-debt items, and analyze per-phase quality (gap closures, recurring issues).
+- **REQUIRED SUB-SKILL:** Read and follow `.agents/skills/verification-before-completion/SKILL.md` — the milestone audit is verification work, so apply its Gate Function (IDENTIFY → RUN → READ → VERIFY) to each must-have: do not assert evidence is "still valid" without re-confirming it.
 - The audit-report markdown structure from Step 5 (paste it as the required output template).
 **Required return format:** a completed audit report following the Step 5 markdown structure, with empirical evidence references per must-have.
 When the subagent returns, **continue at Step 5** (review its report for evidence quality, then run Step 6 yourself).

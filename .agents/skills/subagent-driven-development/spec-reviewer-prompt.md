@@ -36,6 +36,8 @@ invoke_subagent:
 
     ## Your Job
 
+    **REQUIRED SUB-SKILL:** Read and follow `.agents/skills/verification-before-completion/SKILL.md` — apply its Gate Function (IDENTIFY → RUN → READ → VERIFY) to each spec requirement; do not assert conformance you have not checked.
+
     Read the implementation code and verify:
 
     **Missing requirements:**

@@ -48,6 +48,8 @@ Read phase definition from ROADMAP.md (or use subagent brief from Step 0). Extra
 ## 2. Brainstorm
 **Read and follow `.agents/skills/brainstorming/SKILL.md`, checklist items 1–8 in full** — including writing the spec to the phase directory and the user review gate. **Override:** do NOT execute item 9 (invoking writing-plans); this workflow ends at Step 4 below, suggesting `/wf-plan {N}`.
 
+> **No discussion subagent — inline only.** `brainstorming` is force-loaded by the orchestrator here (the line above); the discussion runs in this window, not in a dispatched subagent. The only dispatch is Step 0's `research` subagent, which gathers read-only context (no methodology), so no `REQUIRED SUB-SKILL` path is handed at a dispatch site.
+
 Present structured discussion points:
 - **Scope**: What's in, what's out?
 - **Concerns**: What could go wrong?

@@ -28,9 +28,13 @@ invoke_subagent:
 
     ## Your Job
 
+    **REQUIRED SUB-SKILL:** Read and follow `.agents/skills/test-driven-development/SKILL.md`
+    before writing any code — RED (failing test) → GREEN (make it pass) → REFACTOR. TDD is
+    mandatory for this work, not optional.
+
     Once you're clear on requirements:
     1. Implement exactly what the task specifies
-    2. Write tests (following TDD if task says to)
+    2. Write tests per the REQUIRED SUB-SKILL above (TDD: RED → GREEN → REFACTOR)
     3. Verify implementation works
     4. Commit your work
     5. Self-review (see below)
@@ -92,7 +96,7 @@ invoke_subagent:
 
     **Testing:**
     - Do tests actually verify behavior (not just mock behavior)?
-    - Did I follow TDD if required?
+    - Did I follow TDD (RED → GREEN → REFACTOR) per the REQUIRED SUB-SKILL?
     - Are tests comprehensive?
 
     If you find issues during self-review, fix them now before reporting.

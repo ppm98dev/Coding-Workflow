@@ -227,6 +227,10 @@ type(scope): description
 
 ## Subagent Dispatch & Delegation
 
+### Every dispatch carries its skill
+
+> **Every dispatch carries its skill.** When you dispatch a subagent to do work governed by a methodology skill, the dispatch prompt MUST include `REQUIRED SUB-SKILL: Read and follow .agents/skills/<X>/SKILL.md` — a **path the subagent reads in its own window**, never pasted skill text. A dispatched subagent inherits none of your loaded skills; if you don't hand it the path, it doesn't have the method. Canonical example: `wf-plan`'s Subagent Planning (hands `writing-plans` by path).
+
 ### Canonical Platform Check Block
 
 Every workflow that can offload work to a subagent opens with `## 0. Platform Check` (inside `<process>`). State it identically everywhere using this block, filling the bracketed slots:

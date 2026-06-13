@@ -39,6 +39,8 @@ define_subagent("code-quality-reviewer", description="Reviews code quality", sys
 
 Then dispatch using `invoke_subagent` with the appropriate Role and filled prompt template.
 
+> **At every dispatch site, the prompt force-loads its REQUIRED SUB-SKILL — do not paste skill text.** Each prompt file (`implementer-prompt.md`, `spec-reviewer-prompt.md`, `code-quality-reviewer-prompt.md`) carries its own `REQUIRED SUB-SKILL: Read and follow .agents/skills/<X>/SKILL.md` path, which the subagent reads in its own window. Hand the prompt template + task text, not the body of any methodology skill.
+
 **If `invoke_subagent` is NOT available**, skip session setup — you will execute tasks inline with self-review gates.
 
 ## When to Use
@@ -159,6 +161,8 @@ Implementer subagents report one of four statuses. Handle each appropriately:
 - `./implementer-prompt.md` - Dispatch implementer subagent
 - `./spec-reviewer-prompt.md` - Dispatch spec compliance reviewer subagent
 - `./code-quality-reviewer-prompt.md` - Dispatch code quality reviewer subagent
+
+> Each template force-loads its REQUIRED SUB-SKILL by path — do not paste skill text into the dispatch.
 
 ## Example Workflow
 
@@ -311,7 +315,7 @@ Done!
 > **When invoked from `/execute`:** Skip the final whole-implementation review and finishing-a-development-branch steps. `/execute` Steps 5–6 own phase-level verification and completion. Only run these terminal steps when SDD is invoked standalone (not from a workflow).
 
 **Subagents should use:**
-- **test-driven-development** — Subagents follow TDD for each task
+- **test-driven-development** — force-loaded by the implementer prompt (REQUIRED SUB-SKILL), not just expected
 
 **Alternative workflow:**
 - **executing-plans** — Use for parallel session instead of same-session execution

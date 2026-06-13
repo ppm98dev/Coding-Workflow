@@ -27,8 +27,8 @@ You are a Quantis adversarial reviewer. You systematically attack a spec/plan ac
 
 **If `invoke_subagent` is available** (CLI `agy`, Standalone): the 7 dimensions are independent, read-only analyses — dispatch them as parallel **`research`** subagents (the reliable type for analysis). Read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch **7 parallel `research` subagents — one per dimension from Step 3**, invoked all together. Give each PATHS to read (it reads them into its own clean window — do not paste):
 1. The target file path ($ARGUMENTS, default `.quantis/SPEC.md`), plus `.quantis/ROADMAP.md` and relevant `.quantis/DECISIONS.md` — instruct it to read them.
-2. The adversarial mandate: "Your job is to BREAK this spec, not validate it. Assume everything is wrong until proven otherwise."
-3. That subagent's single dimension copied verbatim from Step 3 (its questions), and the per-finding report format from Step 4.
+2. **REQUIRED SUB-SKILL:** `Read and follow .agents/skills/wf-stress-test/SKILL.md` — the adversarial methodology itself. Each subagent reads it in its own window for the critique mindset (Step 2), its assigned dimension's questions (Step 3), and the per-finding report format (Step 4). Tell it WHICH dimension number it owns; do not paste the dimension text.
+3. The adversarial mandate: "Your job is to BREAK this spec, not validate it. Assume everything is wrong until proven otherwise."
 
 **Required return format:** the Step 4 finding blocks (`### [SEVERITY] ...` with Dimension/Problem/Impact/Suggestion), severity-tagged.
 

@@ -223,23 +223,38 @@
 
 ---
 
-#### Phase 3.3: Workflow-Skill Wiring Gaps ⬜
+#### Phase 3.3: Subagent & Workflow Skill-Wiring 🔄
 
-**Status**: ⬜ Not Started
-**Objective**: Wire remaining workflows to their natural skills, closing delegation gaps found in the workflow-skill audit.
+**Status**: 🔄 Implemented & self-verified (2026-06-13) — 16-task SDD fan-out applied; `validate-dispatch.sh` + `validate-all.sh` green; negative-test confirms the new validator catches regressions. Pending formal `/wf-verify`. See `3.3-…-SUMMARY.md`.
+**Objective**: Make every **dispatched subagent** actually use the superpowers methodology it embodies — by handing it the skill **path** (read-on-demand) at the dispatch site, never pasted text. Plus reconcile the IDE-fallback routing contradiction and the two carried-in workflow-delegation gaps.
 **Depends on**: Phase 3.2
+**Folder**: `.quantis/phases/3.3-subagent-superpowers-wiring/` (SPEC.md + `3.3-subagent-superpowers-wiring-PLAN.md`, 17 tasks)
 
-**Gaps identified:**
+**Why this matters:** agy can dispatch a subagent in any phase, and a dispatched subagent is a fresh context carrying only its prompt — it inherits **none** of the orchestrator's loaded skills (D-009). A 4-agent verified audit found the `/wf-*`→methodology chain intact, but the dispatched-subagent layer largely cut off from superpowers — most importantly `test-driven-development` is force-loaded by nothing.
 
-| Workflow | Should delegate to | Why |
-|----------|-------------------|-----|
-| `plan-milestone-gaps` | `writing-plans` | Creates plans from audit gaps — should use the same planning methodology as `/plan` |
-| `sprint` | `executing-plans` + `subagent-driven-development` | Time-boxed execution should use SDD when available |
+**Gaps (audit-verified 2026-06-13):**
+
+| Site | Should hand its subagent | Status |
+|------|--------------------------|--------|
+| SDD `implementer-prompt` | `test-driven-development` | ❌ name-drop only |
+| SDD `spec-reviewer-prompt` | `verification-before-completion` (D-011a) | ❌ none |
+| SDD `code-quality-reviewer-prompt` | `requesting-code-review` | ⚠️ "use template at…" (not forced) |
+| `executing-plans` | `test-driven-development` | ❌ none |
+| `wf-stress-test` / `wf-research-phase` / `wf-debug-issue` | stress-test / `brainstorming` / `systematic-debugging` | ❌ none at dispatch |
+| `writing-plans` 156–160 | (IDE fallback routes to `executing-plans`) | ❌ contradicts D-002 |
+| `wf-plan-milestone-gaps` / `wf-sprint` | `writing-plans` / SDD+`executing-plans` | ❌ carried-in gaps |
 
 **Deliverables:**
-- [ ] `wf-plan-milestone-gaps` delegates to `writing-plans/SKILL.md` for plan generation
-- [ ] `wf-sprint` delegates to `executing-plans/SKILL.md` and uses SDD when `invoke_subagent` is available
-- [ ] Verification: both workflows produce the same quality output as their full counterparts (`/plan`, `/execute`)
+- [x] Fix 1 — Dispatch Contract in QUANTIS-STYLE (every dispatch hands its skill by path; D-011)
+- [x] Fix 2 — SDD's 3 dispatched-role prompts wired to their superpowers skill
+- [x] Fix 3 — `executing-plans`, `wf-stress-test`, `wf-research-phase`, `wf-debug-issue`, `wf-audit-milestone`, `wf-discuss-phase` hand their methodology at dispatch (discuss-phase confirmed inline-only)
+- [x] Fix 4 — `writing-plans` IDE-fallback reconciled to D-002 (SDD-only; executing-plans standalone)
+- [x] Fix 5 — `wf-verify` Step 0 hands the skill by path, not paste (D-010) — verified already-compliant
+- [x] Fix 6 — carried-in: `wf-plan-milestone-gaps`→`writing-plans`, `wf-sprint`→SDD/`executing-plans`
+- [x] Fix 7 — `scripts/validate-dispatch.sh` (durability: no bare dispatchers); `validate-all.sh` green
+- [ ] Formal `/wf-verify 3.3` run (final gate)
+
+**Out of scope:** `finishing-a-development-branch`/`using-git-worktrees` wiring (intentionally outside `/wf-execute`); the Phase 3.1 end-to-end `/verify` run (separate deliverable).
 
 **Nice-to-haves:**
 - [ ] Delete `adapters/ANTIGRAVITY.md` (content already distributed into workflows/skills)

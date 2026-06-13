@@ -1,5 +1,26 @@
 # Quantis Journal
 
+## Session: 2026-06-13 — Subagent superpowers-wiring audit → Phase 3.3
+
+### Objective
+Verify whether the superpowers methodology skills are actually used when agy dispatches subagents (in any phase), and plan the fix.
+
+### Accomplished
+- Confirmed via the `agy` binary that skills load from `{workspace}/.agents/skills/{name}/SKILL.md` (progressive disclosure; metadata always, content on-demand/preload) — the core `/wf-*`→methodology chain is force-loaded and intact.
+- Confirmed `agy` routes models **per-session**, not per-subagent (`self` "inherits … system prompt and model") → plan-Claude / execute-Gemini / verify-Claude works at the **phase** level, not subagent level.
+- **Dispatch-site audit + independent 4-agent verification pass** found the **dispatched-subagent layer cut off from superpowers**: `test-driven-development` force-loaded by nothing (SDD only name-drops it); SDD's 3 role prompts carry no skill; `executing-plans`/`wf-stress-test`/`wf-research-phase`/`wf-debug-issue` dispatch without handing methodology; `writing-plans` IDE-fallback contradicts D-002.
+- Verified non-issue: context skills (compressor/health-monitor/token-budget) are condition-triggered, not orphans.
+- Earlier in session: refined the gather/digest rule so the plan-writer reads the change's **full blast radius** (D-010); standardized command names; confirmed skill-loading mechanism.
+- **Created Phase 3.3** (`.quantis/phases/3.3-subagent-superpowers-wiring/`): SPEC FINALIZED + 17-task plan. Recorded D-010, D-011, D-011a.
+
+### Verification
+- [x] 4-agent independent pass: TDD-disconnect (confirmed), core-chain (confirmed intact), routing-contradiction (confirmed), orphans (corrected — context skills are fine)
+- [x] **Phase 3.3 executed** — 16-task SDD fan-out (parallel implementers) + orchestrator verification (Task 17). All dispatching workflows now hand their methodology skill by path.
+- [x] Orchestrator verification caught + fixed a validator false-pass (it matched the literal `<X>` placeholder); hardened `validate-dispatch.sh` (real-skill-name regex + SDD allow-list w/ reason) and confirmed via negative test. `validate-all.sh` green.
+
+### Handoff Notes
+Phase 3.3 is **Implemented & self-verified** — pending formal `/wf-verify 3.3` (the final gate). All edits this session uncommitted per standing instruction. The dispatch contract (D-011): every subagent dispatch hands its methodology skill by **path** (read-on-demand), never paste. Two non-blocking residuals noted in the phase SUMMARY (wf-sprint vs D-002 consistency; implementer self-review wording).
+
 ## Session: 2026-06-12 — Full audit & remediation of the workflow system
 
 ### Objective

@@ -153,8 +153,8 @@ After saving the plan, announce the path and STOP:
 
 **"Plan complete and saved to `{path}`. Run `/execute {N}` to implement."**
 
-Do NOT ask the user to choose an execution mode — `/execute` auto-selects based on platform capabilities (`invoke_subagent` available → subagent-driven-development; else → executing-plans). Never present a menu.
+Do NOT ask the user to choose an execution mode — `/execute` always uses `subagent-driven-development`, which self-selects real subagents (when `invoke_subagent` is available) or inline mode (otherwise) by platform. Never present a menu.
 
-If invoked directly (not from `/plan`), check `invoke_subagent` availability and proceed automatically:
-- **If available:** Read and follow `.agents/skills/subagent-driven-development/SKILL.md`
-- **If NOT available:** Read and follow `.agents/skills/executing-plans/SKILL.md`
+If invoked directly (not from `/plan`), proceed automatically:
+- Read and follow `.agents/skills/subagent-driven-development/SKILL.md` — it handles platform self-selection (real subagents vs. inline) internally.
+- `executing-plans` is for the standalone / separate-session path only — it is not an `/execute` fallback.

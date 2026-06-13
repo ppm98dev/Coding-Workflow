@@ -29,6 +29,12 @@ echo "▶ Running template validation..."
 if [ $? -ne 0 ]; then ((total_errors++)); fi
 echo ""
 
+# Run dispatch-wiring validator
+echo "▶ Running dispatch-wiring validation..."
+"$script_dir/validate-dispatch.sh"
+if [ $? -ne 0 ]; then ((total_errors++)); fi
+echo ""
+
 # Summary
 echo "╔═══════════════════════════════════════════════════════╗"
 echo "║                    SUMMARY                            ║"

@@ -1,7 +1,8 @@
 ## Current Position
-- **Phase**: 3.1 (Workflow Reliability Fixes) 🔄 Implemented — pending `/verify`
-- **Task**: Full audit remediation applied — 150 core edits (5 plans) + 35 untouched-set sweep edits + context-skill wiring, across ~50 files; `validate-all.sh` passes
-- **Status**: Active (2026-06-12). Next: end-to-end `/verify` run (the one untested piece)
+- **Phase**: 3.3 (Subagent & Workflow Skill-Wiring) 🔄 Implemented & self-verified (2026-06-13) — pending formal `/wf-verify`
+- **Task**: Executed the 17-task plan via SDD fan-out (16 parallel implementers + orchestrator verification). Every dispatching workflow now hands its methodology skill by path; new `validate-dispatch.sh` enforces it (negative-test confirmed). See `3.3-…-SUMMARY.md`. Next: `/wf-verify 3.3`.
+- **Status**: Active (2026-06-13). Edits uncommitted per standing instruction.
+- **Prior**: Phase 3.1 (Workflow Reliability Fixes) 🔄 Implemented — still pending its end-to-end `/verify` run (separate deliverable).
 
 ## Last Session Summary
 

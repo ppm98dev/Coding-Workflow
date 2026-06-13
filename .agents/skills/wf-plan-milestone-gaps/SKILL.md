@@ -48,6 +48,8 @@ Add new phase to ROADMAP.md:
 
 ## 4. Create PLAN.md for Each Gap
 
+**REQUIRED SUB-SKILL:** Read and follow `.agents/skills/writing-plans/SKILL.md` for plan generation, so gap-plans match `/wf-plan` quality (same task decomposition, checkbox format, and verification discipline).
+
 Resolve the gap-closure phase directory (`.quantis/phases/{N}-gap-closure/`, `mkdir -p` if absent). Write one plan per gap inside it, named `{N}-gap-{issue-slug}-PLAN.md` — the `-PLAN.md` suffix is REQUIRED (`/wf-execute {N} --gaps-only` discovers gap plans by it). Each plan uses the **checkbox** task format from `writing-plans` (`### Task N` with `- [ ]` steps and `Run:`/`Expected:` verification — never XML):
 
 ```markdown

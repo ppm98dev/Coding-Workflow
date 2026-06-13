@@ -23,6 +23,8 @@ Load plan, review critically, execute all tasks, report when complete.
 
 ### Step 2: Execute Tasks
 
+**REQUIRED SUB-SKILL:** Read and follow `.agents/skills/test-driven-development/SKILL.md` before writing any code — RED (failing test) → GREEN (make it pass) → REFACTOR. This gives the standalone/separate-session path the same discipline as subagent-driven-development.
+
 For each task:
 1. Mark as in_progress
 2. Follow each step exactly (plan has bite-sized steps)

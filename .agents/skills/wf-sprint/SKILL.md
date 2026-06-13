@@ -85,6 +85,14 @@ git add .quantis/SPRINT.md .quantis/STATE.md
 git commit -m "docs: create sprint {name}"
 ```
 
+### Execute Sprint Tasks
+
+Do not hand-roll sprint task execution — delegate to the same methodology `/wf-execute` uses, so sprint work gets real TDD + review gates:
+
+- **Read and follow `.agents/skills/subagent-driven-development/SKILL.md`** — it self-selects real subagents (when `invoke_subagent` is available) or inline mode by platform. (`executing-plans` is standalone/separate-session only — not a sprint fallback; per D-002.)
+
+Update the SPRINT.md task table and Daily Log as each task completes.
+
 ---
 
 ## 2b. Action: Status
