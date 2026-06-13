@@ -3,7 +3,7 @@ name: wf-whats-new
 description: Show recent Quantis changes and new features
 ---
 
-# /whats-new Workflow
+# /wf-whats-new Workflow
 
 <objective>
 Display recent changes, new features, and improvements to Quantis.
@@ -44,7 +44,7 @@ Display the latest version(s) from CHANGELOG.md:
 ### Workflows
 | Command | Relationship |
 |---------|--------------|
-| `/update` | Update Quantis to latest version |
-| `/quantis-help` | List all commands |
+| `/wf-update` | Update Quantis to latest version |
+| `/wf-quantis-help` | List all commands |
 
 </related>

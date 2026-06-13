@@ -4,7 +4,7 @@ description: Deep technical research for a phase
 argument-hint: "<phase-number>"
 ---
 
-# /research-phase → brainstorming skill (research mode)
+# /wf-research-phase → brainstorming skill (research mode)
 
 > **Skill-powered workflow.** Research methodology is powered by `brainstorming`. This workflow adds the Quantis discovery level framework and structured RESEARCH.md output.
 
@@ -118,7 +118,7 @@ git commit -m "docs(phase-$PHASE): research complete"
 Discovery level: L{N}
 {X} questions investigated, {Y} decisions made
 
-▶ /plan {N} — create execution plans
+▶ /wf-plan {N} — create execution plans
 ```
 </offer_next>
 

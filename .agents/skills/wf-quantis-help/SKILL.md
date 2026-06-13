@@ -3,7 +3,7 @@ name: wf-quantis-help
 description: Show all available Quantis commands
 ---
 
-# /quantis-help Workflow
+# /wf-quantis-help Workflow
 
 <objective>
 Display all available Quantis commands with descriptions and usage hints.
@@ -26,60 +26,60 @@ version=$(cat VERSION 2>/dev/null || echo "unknown")
 
 SKILL-POWERED COMMANDS (slash command → skill)
 ──────────────────────────────────────────────
-/map              Analyze codebase             → codebase-mapper
-/plan [N]         Create phase plans           → writing-plans
-/update-plan [N]  Revise plans                 → writing-plans (revision)
-/execute [N]      Wave-based execution         → subagent-driven-development
-/discuss-phase    Clarify scope                → brainstorming
-/stress-test      Adversarial spec review      → wf-stress-test
-/research-phase   Deep technical research      → brainstorming (research)
+/wf-map              Analyze codebase             → codebase-mapper
+/wf-plan [N]         Create phase plans           → writing-plans
+/wf-update-plan [N]  Revise plans                 → writing-plans (revision)
+/wf-execute [N]      Wave-based execution         → subagent-driven-development
+/wf-discuss-phase    Clarify scope                → brainstorming
+/wf-stress-test      Adversarial spec review      → wf-stress-test
+/wf-research-phase   Deep technical research      → brainstorming (research)
 
 SKILL-ENHANCED COMMANDS (workflow + skill)
 ──────────────────────────────────────────
-/debug-issue [desc] Systematic debugging       + systematic-debugging
-/verify [N]       Must-haves validation        + verification-before-completion
-/new-project      Deep questioning → SPEC.md   + brainstorming
+/wf-debug-issue [desc] Systematic debugging       + systematic-debugging
+/wf-verify [N]       Must-haves validation        + verification-before-completion
+/wf-new-project      Deep questioning → SPEC.md   + brainstorming
 
 PROJECT MANAGEMENT
 ──────────────────
-/new-milestone    Create milestone with phases
-/complete-milestone   Archive completed milestone
-/audit-milestone  Review milestone quality
-/plan-milestone-gaps  Create gap closure plans
+/wf-new-milestone    Create milestone with phases
+/wf-complete-milestone   Archive completed milestone
+/wf-audit-milestone  Review milestone quality
+/wf-plan-milestone-gaps  Create gap closure plans
 
 PHASE MANAGEMENT
 ────────────────
-/add-phase        Add phase to end of roadmap
-/insert-phase     Insert phase (renumbers subsequent)
-/remove-phase     Remove phase (with safety checks)
-/list-phase-assumptions   Surface planning assumptions
+/wf-add-phase        Add phase to end of roadmap
+/wf-insert-phase     Insert phase (renumbers subsequent)
+/wf-remove-phase     Remove phase (with safety checks)
+/wf-list-phase-assumptions   Surface planning assumptions
 
 NAVIGATION & STATE
 ──────────────────
-/progress         Show current position in roadmap
-/pause            Save state for session handoff
-/resume-session   Restore from last session
-/sprint           Time-boxed focused work session
-/add-todo         Quick capture idea
-/check-todos      List pending items
+/wf-progress         Show current position in roadmap
+/wf-pause            Save state for session handoff
+/wf-resume-session   Restore from last session
+/wf-sprint           Time-boxed focused work session
+/wf-add-todo         Quick capture idea
+/wf-check-todos      List pending items
 
 UTILITIES
 ─────────
-/quantis-help     Show this help
-/web-search       Search web for information
-/whats-new        Show recent Quantis changes
-/install          Install Quantis into a project
-/update           Update Quantis to latest version
-/upgrade          Migrate from GSD/v2.x to latest
+/wf-quantis-help     Show this help
+/wf-web-search       Search web for information
+/wf-whats-new        Show recent Quantis changes
+/wf-install          Install Quantis into a project
+/wf-update           Update Quantis to latest version
+/wf-upgrade          Migrate from GSD/v2.x to latest
 
 ───────────────────────────────────────────────────────
 
 QUICK START
 ───────────
-1. /new-project      → Initialize with deep questioning
-2. /plan 1           → Create Phase 1 plans
-3. /execute 1        → Implement Phase 1
-4. /verify 1         → Confirm it works
+1. /wf-new-project      → Initialize with deep questioning
+2. /wf-plan 1           → Create Phase 1 plans
+3. /wf-execute 1        → Implement Phase 1
+4. /wf-verify 1         → Confirm it works
 5. Repeat
 
 ───────────────────────────────────────────────────────
@@ -111,7 +111,7 @@ The /wf- prefix distinguishes workflow commands (user-facing
 orchestration) from skill commands (agent methodology).
 
 💡 CLI: prefix all workflow commands with /wf-
-   Example: /wf-plan 1 instead of /plan 1
+   Example: /wf-plan 1 instead of /wf-plan 1
 
 ───────────────────────────────────────────────────────
 ```

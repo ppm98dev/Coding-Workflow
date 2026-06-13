@@ -4,7 +4,7 @@ description: Create a new milestone with phases
 argument-hint: "<milestone-name>"
 ---
 
-# /new-milestone Workflow
+# /wf-new-milestone Workflow
 
 <objective>
 Define a new milestone with goal, phases, and success criteria.
@@ -16,7 +16,7 @@ Define a new milestone with goal, phases, and success criteria.
 
 ```bash
 if [ ! -f ".quantis/SPEC.md" ]; then
-    echo "❌ STOP: SPEC.md required. Run /new-project first." >&2
+    echo "❌ STOP: SPEC.md required. Run /wf-new-project first." >&2
     exit 1
 fi
 ```
@@ -104,7 +104,7 @@ If DECISIONS.md or JOURNAL.md contain entries from a previous milestone, reset t
 # Check if archive exists for current milestone
 if [ -f ".quantis/DECISIONS.md" ] && [ "$(wc -l < .quantis/DECISIONS.md)" -gt 5 ]; then
     if ! find .quantis/milestones -name "DECISIONS.md" -newer .quantis/DECISIONS.md 2>/dev/null | grep -q .; then
-        echo "❌ STOP: DECISIONS.md has unarchived content. Run /complete-milestone first."
+        echo "❌ STOP: DECISIONS.md has unarchived content. Run /wf-complete-milestone first."
         exit 1
     fi
 fi
@@ -125,7 +125,7 @@ if [ -f ".quantis/JOURNAL.md" ] && [ "$(wc -l < .quantis/JOURNAL.md)" -gt 5 ]; t
 fi
 ```
 
-> **Note:** Only resets if files have grown beyond a header. If running `/complete-milestone` first, files are already archived and reset.
+> **Note:** Only resets if files have grown beyond a header. If running `/wf-complete-milestone` first, files are already archived and reset.
 
 ---
 
@@ -152,7 +152,7 @@ Phases: {N}
 
 ▶ NEXT
 
-/plan 1 — Create Phase 1 execution plans
+/wf-plan 1 — Create Phase 1 execution plans
 
 ───────────────────────────────────────────────────────
 ```

@@ -3,7 +3,7 @@ name: wf-progress
 description: Show current position in roadmap and next steps
 ---
 
-# /progress Workflow
+# /wf-progress Workflow
 
 <objective>
 Quick status check — where are we and what's next?
@@ -81,11 +81,11 @@ Based on status, recommend:
 
 | State | Recommendation |
 |-------|----------------|
-| Phase in progress | `/execute {N}` to continue |
-| Phase done, not verified | `/verify {N}` |
-| Verification failed | `/execute {N} --gaps-only` |
-| All phases complete | `/complete-milestone` |
-| No phases started | `/plan 1` to begin |
+| Phase in progress | `/wf-execute {N}` to continue |
+| Phase done, not verified | `/wf-verify {N}` |
+| Verification failed | `/wf-execute {N} --gaps-only` |
+| All phases complete | `/wf-complete-milestone` |
+| No phases started | `/wf-plan 1` to begin |
 | SPEC not finalized | Complete SPEC.md first |
 
 </process>

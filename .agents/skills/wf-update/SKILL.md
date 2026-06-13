@@ -3,7 +3,7 @@ name: wf-update
 description: Update Quantis to the latest version from GitHub
 ---
 
-# /update Workflow
+# /wf-update Workflow
 
 <objective>
 Update Quantis for Antigravity to the latest version from GitHub.
@@ -185,7 +185,7 @@ Preserved:
 
 ───────────────────────────────────────────────────────
 
-/whats-new — See what changed
+/wf-whats-new — See what changed
 
 ───────────────────────────────────────────────────────
 ```

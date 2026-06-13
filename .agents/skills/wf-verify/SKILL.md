@@ -4,7 +4,7 @@ description: The Auditor — Validate work against spec with empirical evidence
 argument-hint: "<phase-number>"
 ---
 
-# /verify → verification-before-completion skill
+# /wf-verify → verification-before-completion skill
 
 > **Skill-powered workflow.** Verification methodology is powered by `verification-before-completion`. This workflow adds Quantis orchestration (state tracking, ROADMAP updates, gap closure routing).
 
@@ -19,7 +19,7 @@ You are a Quantis verifier. You validate implemented work against spec requireme
 - Collect empirical evidence (commands, screenshots)
 - Run senior code review on all code changed during the phase
 - Create verification report
-- Route gap closure to /plan when issues found
+- Route gap closure to /wf-plan when issues found
 </role>
 
 <objective>
@@ -73,7 +73,7 @@ When the subagent returns, the orchestrator:
 # $PHASE is set from $ARGUMENTS
 
 if [ -z "$PHASE" ]; then
-    echo "❌ STOP: no phase number — read current phase from STATE.md, or run /progress"
+    echo "❌ STOP: no phase number — read current phase from STATE.md, or run /wf-progress"
     exit 1
 fi
 
@@ -94,23 +94,23 @@ if [ -z "$PHASE_DIR" ] && echo "$PHASE" | grep -qE '^[0-9]+$'; then
     fi
 fi
 
-# 3. Validate — /verify requires an existing directory
+# 3. Validate — /wf-verify requires an existing directory
 if [ -z "$PHASE_DIR" ]; then
     echo "❌ STOP: No phase directory found for '${PHASE}'."
     echo "Available: $(ls .quantis/phases/ 2>/dev/null || echo 'none')"
-    echo "Pass the full number (e.g., 3.1) or run /plan first."
+    echo "Pass the full number (e.g., 3.1) or run /wf-plan first."
     exit 1
 fi
 
 # 4. Never-executed guard: plans exist but nothing was built
 SUMMARIES=$(ls "$PHASE_DIR"/*-SUMMARY.md 2>/dev/null)
 if [ -z "$SUMMARIES" ] && ls "$PHASE_DIR"/*-PLAN.md >/dev/null 2>&1; then
-    echo "Phase $PHASE not yet executed (plans exist, no SUMMARYs) — run /execute $PHASE"
+    echo "Phase $PHASE not yet executed (plans exist, no SUMMARYs) — run /wf-execute $PHASE"
     exit 1
 fi
 ```
 
-**If no SUMMARY.md files exist but PLAN.md files do: STOP** — report "Phase {N} not yet executed — run /execute {N}". Do NOT extract must-haves, verify, or route gap closure for unexecuted work.
+**If no SUMMARY.md files exist but PLAN.md files do: STOP** — report "Phase {N} not yet executed — run /wf-execute {N}". Do NOT extract must-haves, verify, or route gap closure for unexecuted work.
 
 Read:
 - Phase definition from `.quantis/ROADMAP.md`
@@ -264,7 +264,7 @@ Paste the template text and the diff into the subagent prompt (subagents do not 
 
 **If `invoke_subagent` is NOT available** (IDE), review inline, file-by-file, against the same `code-reviewer.md` checklist (plan alignment, code quality, architecture, testing, production readiness). Read each changed file's actual diff/contents before recording any finding.
 
-This review is a phase-scoped backstop, complementary to SDD's task-scoped `code-quality-reviewer` — run it even when SDD reviews already ran during /execute.
+This review is a phase-scoped backstop, complementary to SDD's task-scoped `code-quality-reviewer` — run it even when SDD reviews already ran during /wf-execute.
 
 ### 4c. Record Findings
 
@@ -331,14 +331,14 @@ PASS requires every must-have verified AND no unresolved Critical/Important revi
 
 ### If PASS (all must-haves verified, no unresolved Critical/Important review findings):
 
-**Update `.quantis/STATE.md` — edit in place, do NOT replace the whole file.** Edit only the **Phase** and **Status** fields inside the existing `## Current Position` section and refresh `## Next Steps`; preserve every other section (`Last Session Summary`, `Blockers`, `Context Dump`) that `/resume-session` reads.
+**Update `.quantis/STATE.md` — edit in place, do NOT replace the whole file.** Edit only the **Phase** and **Status** fields inside the existing `## Current Position` section and refresh `## Next Steps`; preserve every other section (`Last Session Summary`, `Blockers`, `Context Dump`) that `/wf-resume-session` reads.
 ```markdown
 ## Current Position
 - **Phase**: {N} (verified)
 - **Status**: ✅ Complete and verified
 ```
 
-**Update `.quantis/ROADMAP.md` — REQUIRED:** Set the phase's status line to `✅ Complete ({date})` and check off its deliverables. Idempotent: if `/execute` already marked it, leave it.
+**Update `.quantis/ROADMAP.md` — REQUIRED:** Set the phase's status line to `✅ Complete ({date})` and check off its deliverables. Idempotent: if `/wf-execute` already marked it, leave it.
 
 Output:
 ```
@@ -354,7 +354,7 @@ All requirements satisfied.
 
 ▶ Next Up
 
-/plan {N+1} — plan the next phase
+/wf-plan {N+1} — plan the next phase
 
 ───────────────────────────────────────────────────────
 ```
@@ -364,14 +364,14 @@ All requirements satisfied.
 **Update `.quantis/STATE.md`** (edit in place — preserve other sections):
 ```
 - **Status**: ⚠ Verification failed — {Z} gaps
-- **Next**: /plan {N} --gaps
+- **Next**: /wf-plan {N} --gaps
 ```
 
 **Update `.quantis/ROADMAP.md`:** Set phase status to `🔄 Gap closure`.
 
 **Route to gap planning — do NOT author fix plans here.**
 
-Recommend `/plan {N} --gaps`. That command reads this VERIFICATION.md and creates one gap-closure plan per FAILed must-have (checkbox format, `gap_closure: true` / `wave: 1` frontmatter, `-PLAN.md` suffix), so `/execute {N} --gaps-only` can discover and run them. /verify owns the verdict and the routing; /plan owns the plans.
+Recommend `/wf-plan {N} --gaps`. That command reads this VERIFICATION.md and creates one gap-closure plan per FAILed must-have (checkbox format, `gap_closure: true` / `wave: 1` frontmatter, `-PLAN.md` suffix), so `/wf-execute {N} --gaps-only` can discover and run them. /wf-verify owns the verdict and the routing; /wf-plan owns the plans.
 
 **Gap-closure loop cap (audit H8):** If the same must-have fails verification after **2** gap-closure rounds (check VERIFICATION.md history / prior gap plans for the phase), do NOT recommend a third fix round. Treat it as an architectural or spec problem: record the failure history in STATE.md, point the user to `systematic-debugging` Phase 4 ("question the architecture", step 5), and ask whether to revise the spec or the approach. This prevents an unbounded verify → gaps → execute → verify loop.
 
@@ -390,7 +390,7 @@ Gaps recorded in VERIFICATION.md.
 
 ▶ Next Up
 
-/plan {N} --gaps — generate fix plans from VERIFICATION.md (then /execute {N} --gaps-only)
+/wf-plan {N} --gaps — generate fix plans from VERIFICATION.md (then /wf-execute {N} --gaps-only)
 
 ───────────────────────────────────────────────────────
 ```
@@ -404,7 +404,7 @@ Update `.quantis/STATE.md` (edit in place — preserve other sections):
 ## Current Position
 - **Phase**: {N} (partially verified)
 - **Status**: ⏳ PARTIAL — {X} verified, {Y} pending browser, {Z} failed
-- **Next**: Re-run `/verify {N}` after browser evidence lands
+- **Next**: Re-run `/wf-verify {N}` after browser evidence lands
 ```
 
 Update `.quantis/ROADMAP.md`: set phase status to `🔄 Verification pending`.
@@ -459,9 +459,9 @@ Never accept these as verification:
 ### Workflows
 | Command | Relationship |
 |---------|--------------|
-| `/execute` | Run before /verify to implement work |
-| `/execute --gaps-only` | Fix issues found by /verify |
-| `/debug-issue` | Diagnose verification failures |
+| `/wf-execute` | Run before /wf-verify to implement work |
+| `/wf-execute --gaps-only` | Fix issues found by /wf-verify |
+| `/wf-debug-issue` | Diagnose verification failures |
 
 ### Skills
 | Skill | Purpose |

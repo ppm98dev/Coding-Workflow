@@ -3,7 +3,7 @@ name: wf-new-project
 description: Initialize a new project with deep context gathering
 ---
 
-# /new-project Workflow
+# /wf-new-project Workflow
 
 <objective>
 Initialize a new project through unified flow: constitution → questioning → research (optional) → requirements → roadmap.
@@ -18,7 +18,7 @@ This is the most leveraged moment in any project. Deep questioning here means be
 - `.quantis/ARCHITECTURE.md` — system design (if brownfield)
 - All other .quantis/ documentation files
 
-**After this command:** Run `/plan 1` to start execution.
+**After this command:** Run `/wf-plan 1` to start execution.
 </objective>
 
 <process>
@@ -31,7 +31,7 @@ This is the most leveraged moment in any project. Deep questioning here means be
    
       ```bash
    if [ -f ".quantis/SPEC.md" ]; then
-       echo "Error: Project already initialized. Use /progress" >&2
+       echo "Error: Project already initialized. Use /wf-progress" >&2
        exit 1
    fi
    ```
@@ -111,7 +111,7 @@ If "Edit further" — ask what to change, update, and re-display.
 Found {N} source files in this directory.
 
 Options:
-A) Map codebase first — Run /map to understand existing architecture (Recommended)
+A) Map codebase first — Run /wf-map to understand existing architecture (Recommended)
 B) Skip mapping — Proceed with project initialization
 
 Which do you prefer?
@@ -119,7 +119,7 @@ Which do you prefer?
 
 **If "Map codebase first":**
 ```
-Run `/map` first, then return to `/new-project`
+Run `/wf-map` first, then return to `/wf-new-project`
 ```
 Exit command.
 
@@ -189,7 +189,7 @@ Loop until "Create SPEC.md" selected.
 
 Create `.quantis/SPEC.md` using the template from `.quantis/templates/spec.md`:
 
-Create the spec with `Status: DRAFT`. Do NOT stamp `FINALIZED` here — the Planning Lock requires every `[NEEDS CLARIFICATION]` marker and the Unresolved Questions section to be cleared first. Flip to `FINALIZED` only once they are empty (the user resolves them, or `/stress-test` in Phase 5b does). `/plan` gates on `Status: FINALIZED` and will refuse to run otherwise.
+Create the spec with `Status: DRAFT`. Do NOT stamp `FINALIZED` here — the Planning Lock requires every `[NEEDS CLARIFICATION]` marker and the Unresolved Questions section to be cleared first. Flip to `FINALIZED` only once they are empty (the user resolves them, or `/wf-stress-test` in Phase 5b does). `/wf-plan` gates on `Status: FINALIZED` and will refuse to run otherwise.
 
 ```markdown
 # SPEC.md — Project Specification
@@ -243,7 +243,7 @@ Create the spec with `Status: DRAFT`. Do NOT stamp `FINALIZED` here — the Plan
 💡 Mark anything you're unsure about with [NEEDS CLARIFICATION: question].
    These must be resolved before planning can begin.
    
-   Tip: Run /stress-test to have the spec adversarially reviewed.
+   Tip: Run /wf-stress-test to have the spec adversarially reviewed.
 ```
 
 ---
@@ -257,16 +257,16 @@ After SPEC.md is created, suggest:
 
 Your spec is written. Before we plan, consider stress-testing it:
 
-/stress-test — Adversarial review to find gaps and ambiguity
+/wf-stress-test — Adversarial review to find gaps and ambiguity
 
 This is optional but recommended for complex projects.
 Planning will catch unresolved [NEEDS CLARIFICATION] markers either way.
 
-A) Run /stress-test now
+A) Run /wf-stress-test now
 B) Skip — proceed to roadmap
 ```
 
-If user selects A: run /stress-test, then return to /new-project flow.
+If user selects A: run /wf-stress-test, then return to /wf-new-project flow.
 If user selects B: continue to roadmap creation.
 
 ---
@@ -397,7 +397,7 @@ Phases: {N}
 
 Files created:
 • .agents/rules/CONSTITUTION.md (10 articles)
-• .quantis/SPEC.md (DRAFT — finalize before /plan)
+• .quantis/SPEC.md (DRAFT — finalize before /wf-plan)
 • .quantis/ROADMAP.md ({N} phases)
 • .quantis/STATE.md
 • .quantis/DECISIONS.md
@@ -407,8 +407,8 @@ Files created:
 
 ▶ NEXT
 
-/discuss-phase 1 — Clarify scope (optional but recommended)
-/plan 1 — Create Phase 1 execution plans
+/wf-discuss-phase 1 — Clarify scope (optional but recommended)
+/wf-plan 1 — Create Phase 1 execution plans
 
 ───────────────────────────────────────────────────────
 
@@ -423,7 +423,7 @@ Files created:
 <questioning_philosophy>
 ## Why Deep Questioning Matters
 
-The Quantis methodology emphasizes that `/new-project` is the most leveraged moment. 
+The Quantis methodology emphasizes that `/wf-new-project` is the most leveraged moment. 
 Every minute spent understanding what to build saves hours of building the wrong thing.
 
 **Signs questioning is done:**

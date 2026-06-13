@@ -4,7 +4,7 @@ description: List all pending todo items
 argument-hint: "[--all] [--priority high|medium|low]"
 ---
 
-# /check-todos Workflow
+# /wf-check-todos Workflow
 
 <objective>
 Display pending todo items, optionally filtered by priority or status.
@@ -55,7 +55,7 @@ COMPLETED ({M} items)
 
 ───────────────────────────────────────────────────────
 
-/add-todo <item> — add new item
+/wf-add-todo <item> — add new item
 
 ───────────────────────────────────────────────────────
 ```

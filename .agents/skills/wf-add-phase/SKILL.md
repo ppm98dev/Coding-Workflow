@@ -4,7 +4,7 @@ description: Add a new phase to the end of the roadmap
 argument-hint: "<phase-name>"
 ---
 
-# /add-phase Workflow
+# /wf-add-phase Workflow
 
 <objective>
 Add a new phase to the end of the current roadmap.
@@ -15,7 +15,7 @@ Add a new phase to the end of the current roadmap.
 ## 1. Validate Roadmap Exists
 
 ```bash
-test -f ".quantis/ROADMAP.md" || { echo "❌ STOP: No ROADMAP.md — run /plan first."; exit 1; }
+test -f ".quantis/ROADMAP.md" || { echo "❌ STOP: No ROADMAP.md — run /wf-plan first."; exit 1; }
 ```
 
 **If the STOP line printed: halt.** Do not continue to Step 2.
@@ -55,7 +55,7 @@ Append:
 **Depends on**: Phase {N-1}
 
 **Tasks**:
-- [ ] TBD (run /plan {N} to create)
+- [ ] TBD (run /wf-plan {N} to create)
 
 **Verification**:
 - TBD
@@ -67,7 +67,7 @@ Append:
 
 Edit these fields IN PLACE (canonical schema in `.quantis/templates/state.md` — never replace the file):
 - **Last Session Summary** → note the new phase added to the roadmap.
-- **Next Steps** → `/plan {N}` to create execution plans.
+- **Next Steps** → `/wf-plan {N}` to create execution plans.
 
 ---
 
@@ -95,7 +95,7 @@ Phase {N}: {name}
 
 ▶ NEXT
 
-/plan {N} — Create execution plans for this phase
+/wf-plan {N} — Create execution plans for this phase
 
 ───────────────────────────────────────────────────────
 ```

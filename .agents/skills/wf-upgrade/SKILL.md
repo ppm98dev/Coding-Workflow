@@ -3,7 +3,7 @@ name: wf-upgrade
 description: Migrate from GSD/v2.x or old Quantis v3.x to latest Quantis
 ---
 
-# /upgrade Workflow
+# /wf-upgrade Workflow
 
 <objective>
 One-time migration from GSD (Get Shit Done) v2.x or old Quantis v3.x to the latest Quantis.

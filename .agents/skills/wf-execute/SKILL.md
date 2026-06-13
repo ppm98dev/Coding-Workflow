@@ -4,7 +4,7 @@ description: The Engineer — Execute a specific phase with focused context
 argument-hint: "<phase-number> [--gaps-only]"
 ---
 
-# /execute → subagent-driven-development skill
+# /wf-execute → subagent-driven-development skill
 
 > **Skill-powered workflow.** Execution methodology is powered by `subagent-driven-development`, which self-selects real subagents (when `invoke_subagent` is available) or inline mode (when it is not) — no separate fallback skill, no menu. This workflow adds Quantis orchestration (wave management, verification, state tracking).
 
@@ -16,7 +16,7 @@ You are a Quantis executor orchestrator. You manage wave-based execution of phas
 **Phase:** $ARGUMENTS (if omitted: read the current phase from `.quantis/STATE.md`; if STATE.md is ambiguous or missing, list the phases that have a `.quantis/phases/` directory and ask the user — do not guess)
 
 **Flags:**
-- `--gaps-only` — Execute only gap closure plans (created by `/verify`)
+- `--gaps-only` — Execute only gap closure plans (created by `/wf-verify`)
 
 **Required files:**
 - `.quantis/ROADMAP.md` — Phase definitions
@@ -28,11 +28,11 @@ You are a Quantis executor orchestrator. You manage wave-based execution of phas
 
 ## 1. Validate Environment
 ```bash
-test -f ".quantis/ROADMAP.md" || { echo "❌ STOP: No ROADMAP.md — run /plan first."; exit 1; }
-test -f ".quantis/STATE.md"   || { echo "❌ STOP: No STATE.md — run /plan first."; exit 1; }
+test -f ".quantis/ROADMAP.md" || { echo "❌ STOP: No ROADMAP.md — run /wf-plan first."; exit 1; }
+test -f ".quantis/STATE.md"   || { echo "❌ STOP: No STATE.md — run /wf-plan first."; exit 1; }
 test -f ".agents/rules/CONSTITUTION.md" || echo "⚠️ No .agents/rules/CONSTITUTION.md — quality standards not enforced"
 grep -q "\[FILL" .agents/rules/CONSTITUTION.md 2>/dev/null && echo "⚠️ CONSTITUTION.md has unfilled [FILL:] placeholders — treating the FIRST listed option as the default for each (see CONSTITUTION Governance)"
-if [ -z "$PHASE" ]; then echo "❌ STOP: no phase number — read current phase from STATE.md, or run /progress"; exit 1; fi
+if [ -z "$PHASE" ]; then echo "❌ STOP: no phase number — read current phase from STATE.md, or run /wf-progress"; exit 1; fi
 ```
 **If a STOP line printed: halt. Do not continue to Step 2.** (The ⚠️ CONSTITUTION / [FILL] lines are non-blocking warnings.)
 
@@ -70,17 +70,17 @@ if [ -z "$PHASE_DIR" ] && echo "$PHASE" | grep -qE '^[0-9]+$'; then
     fi
 fi
 
-# 3. Validate — /execute requires an existing directory
+# 3. Validate — /wf-execute requires an existing directory
 if [ -z "$PHASE_DIR" ]; then
     echo "❌ STOP: No phase directory found for '${PHASE}'."
     echo "Available: $(ls .quantis/phases/ 2>/dev/null || echo 'none')"
-    echo "Pass the full number (e.g., 3.1) or run /plan first."
+    echo "Pass the full number (e.g., 3.1) or run /wf-plan first."
     exit 1
 fi
 ls "$PHASE_DIR"/*-PLAN.md 2>/dev/null
 ls "$PHASE_DIR"/*-SUMMARY.md 2>/dev/null
 ```
-**If NO `*-PLAN.md` files exist: STOP.** "No plans found for phase {N}. Run `/plan {N}` first." Do not touch ROADMAP.md or STATE.md.
+**If NO `*-PLAN.md` files exist: STOP.** "No plans found for phase {N}. Run `/wf-plan {N}` first." Do not touch ROADMAP.md or STATE.md.
 
 Build list of **incomplete plans** — a plan is incomplete if `X-PLAN.md` has no matching `X-SUMMARY.md` (same filename prefix before `-PLAN.md` → before `-SUMMARY.md`).
 
@@ -104,12 +104,12 @@ Wave 2: {plan-3}
 
 ## 4. Execute Waves
 
-**Set phase status:** Update `.quantis/ROADMAP.md` — set this phase's status to `🔄 In Progress` (if not already set). This ensures `/progress` reflects active work.
+**Set phase status:** Update `.quantis/ROADMAP.md` — set this phase's status to `🔄 In Progress` (if not already set). This ensures `/wf-progress` reflects active work.
 
 **Select execution methodology once, before the first wave (automatic — do NOT ask the user):**
 - **Read and follow `.agents/skills/subagent-driven-development/SKILL.md`** — it handles platform detection internally. SDD auto-selects: `invoke_subagent` available → dispatch real subagents; not available → inline SDD mode (self-execute with two-stage review gates).
 - **This is NOT a choice. Do not present a menu. Do not ask the user.** Apply the selected methodology to every plan below — do not re-check or re-read per plan.
-- **When dispatched by `/execute`, skip SDD's "When to Use" decision tree** — the workflow already chose.
+- **When dispatched by `/wf-execute`, skip SDD's "When to Use" decision tree** — the workflow already chose.
 - **If subagent dispatch fails or returns unusable output** (tool error, timeout, empty/garbage result, non-empirical evidence): re-dispatch ONCE with explicit feedback on what was wrong. If it fails a second time, fall back to inline SDD mode and say so in your output — do not abandon the task.
 
 For each wave in order, for each plan in the wave:
@@ -138,7 +138,7 @@ After all waves:
 
 **Route by verdict:**
 - **PASS** → Step 6
-- **FAIL** → Recommend `/plan {N} --gaps` (it authors the fix plans from VERIFICATION.md), then `/execute {N} --gaps-only`
+- **FAIL** → Recommend `/wf-plan {N} --gaps` (it authors the fix plans from VERIFICATION.md), then `/wf-execute {N} --gaps-only`
 
 ## 6. Update State
 
@@ -158,7 +158,7 @@ git commit -m "docs(phase-$PHASE): complete phase"
 **After 3 failed debugging attempts:**
 1. Stop current approach
 2. Document to `.quantis/STATE.md` what was tried
-3. Recommend `/pause` for fresh session
+3. Recommend `/wf-pause` for fresh session
 
 > **Cross-reference:** See context-health-monitor Rule 1 for the unified 3-strike protocol.
 </context_hygiene>
@@ -170,8 +170,8 @@ git commit -m "docs(phase-$PHASE): complete phase"
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Quantis ► PHASE {N} EXECUTION COMPLETE ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-▶ /verify {N} — independent verification (recommended)
-▶ /plan {N+1} — plan the next phase
+▶ /wf-verify {N} — independent verification (recommended)
+▶ /wf-plan {N+1} — plan the next phase
 ```
 
 **All phases complete:**
@@ -182,7 +182,7 @@ git commit -m "docs(phase-$PHASE): complete phase"
 **Gaps found:**
 ```
  Quantis ► PHASE {N} GAPS FOUND ⚠
-▶ /execute {N} --gaps-only
+▶ /wf-execute {N} --gaps-only
 ```
 </offer_next>
 
@@ -190,7 +190,7 @@ git commit -m "docs(phase-$PHASE): complete phase"
 ### Skills
 | Skill | Purpose |
 |-------|---------|
-| `executing-plans` | Standalone inline execution (only when invoked outside `/execute`) |
+| `executing-plans` | Standalone inline execution (only when invoked outside `/wf-execute`) |
 | `subagent-driven-development` | SDD execution with review (CLI-first default) |
 | `verification-before-completion` | Must-have verification methodology |
 | `context-health-monitor` | 3-strike rule enforcement |

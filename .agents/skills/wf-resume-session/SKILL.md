@@ -3,7 +3,7 @@ name: wf-resume-session
 description: Restore context from previous session
 ---
 
-# /resume-session Workflow
+# /wf-resume-session Workflow
 
 <objective>
 Start a new session with full context from where we left off.
@@ -19,7 +19,7 @@ Read `.quantis/STATE.md` completely.
 1. `.quantis/ROADMAP.md` — the lowest non-Complete phase is the likely current phase.
 2. `git log --oneline -15` — recent `feat(phase-N)`/`docs(phase-N)` commits show what was last worked on.
 3. `.quantis/phases/` — a `*-PLAN.md` without a matching `*-SUMMARY.md` indicates an in-progress phase.
-Present the reconstructed position to the user for confirmation before continuing. If nothing can be reconstructed, STOP and suggest `/progress` or `/new-project`.
+Present the reconstructed position to the user for confirmation before continuing. If nothing can be reconstructed, STOP and suggest `/wf-progress` or `/wf-new-project`.
 
 ---
 
@@ -111,10 +111,10 @@ Mark session as active in `.quantis/STATE.md`:
 Suggested action based on state:
 
 {One of:}
-• /execute {N} — Continue phase execution
-• /verify {N} — Verify completed phase
-• /plan {N} — Create plans for phase
-• /progress — See full roadmap status
+• /wf-execute {N} — Continue phase execution
+• /wf-verify {N} — Verify completed phase
+• /wf-plan {N} — Create plans for phase
+• /wf-progress — See full roadmap status
 
 ───────────────────────────────────────────────────────
 

@@ -3,7 +3,7 @@ name: wf-map
 description: The Architect — Analyze codebase and update ARCHITECTURE.md and STACK.md
 ---
 
-# /map → codebase-mapper skill
+# /wf-map → codebase-mapper skill
 
 > **Skill-powered workflow.** Analysis methodology is powered by `codebase-mapper`. This workflow adds Quantis output routing and project validation.
 
@@ -57,7 +57,7 @@ Edit `.quantis/STATE.md` IN PLACE (canonical schema in `.quantis/templates/state
 ```markdown
 ## Current Position
 - **Task**: Architecture mapped — ARCHITECTURE.md / STACK.md updated
-  (Leave **Status** unchanged — `/map` is an analysis pass, not a phase transition; the enum is planning|executing|verifying|blocked|paused.)
+  (Leave **Status** unchanged — `/wf-map` is an analysis pass, not a phase transition; the enum is planning|executing|verifying|blocked|paused.)
 ```
 
 </process>
@@ -70,7 +70,7 @@ Edit `.quantis/STATE.md` IN PLACE (canonical schema in `.quantis/templates/state
 Components: {N}
 Technical debt items: {M}
 
-▶ /plan {N} — create execution plans with full context
+▶ /wf-plan {N} — create execution plans with full context
 ```
 </offer_next>
 

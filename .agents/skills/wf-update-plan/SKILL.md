@@ -4,7 +4,7 @@ description: Review and revise plans based on discussion (optional)
 argument-hint: "<phase-number>"
 ---
 
-# /update-plan → writing-plans skill (revision mode)
+# /wf-update-plan → writing-plans skill (revision mode)
 
 > **Skill-powered workflow.** Plan revision methodology is powered by `writing-plans`. This workflow adds validation, change tracking, and re-verification.
 
@@ -33,7 +33,7 @@ argument-hint: "<phase-number>"
 # $PHASE is set from $ARGUMENTS
 
 if [ -z "$PHASE" ]; then
-    echo "❌ STOP: no phase number — read current phase from STATE.md, or run /progress"
+    echo "❌ STOP: no phase number — read current phase from STATE.md, or run /wf-progress"
     exit 1
 fi
 
@@ -54,14 +54,14 @@ if [ -z "$PHASE_DIR" ] && echo "$PHASE" | grep -qE '^[0-9]+$'; then
     fi
 fi
 
-# 3. Validate — /update-plan requires an existing directory
+# 3. Validate — /wf-update-plan requires an existing directory
 if [ -z "$PHASE_DIR" ]; then
     echo "❌ STOP: No phase directory found for '${PHASE}'."
     echo "Available: $(ls .quantis/phases/ 2>/dev/null || echo 'none')"
-    echo "Pass the full number (e.g., 3.1) or run /plan first."
+    echo "Pass the full number (e.g., 3.1) or run /wf-plan first."
     exit 1
 fi
-ls "$PHASE_DIR"/*-PLAN.md 2>/dev/null || { echo "❌ STOP: No *-PLAN.md files in $PHASE_DIR — run /plan $PHASE first."; exit 1; }
+ls "$PHASE_DIR"/*-PLAN.md 2>/dev/null || { echo "❌ STOP: No *-PLAN.md files in $PHASE_DIR — run /wf-plan $PHASE first."; exit 1; }
 ```
 **If a STOP line printed: halt.** Do not continue to Step 2 — there are no plans to revise.
 
@@ -78,7 +78,7 @@ Current plans for Phase {N}:
 **Read and follow `.agents/skills/writing-plans/SKILL.md`** in revision mode.
 
 Apply changes based on:
-- Discussion outcomes (from `/discuss-phase`)
+- Discussion outcomes (from `/wf-discuss-phase`)
 - New decisions in DECISIONS.md
 - User feedback
 
@@ -113,7 +113,7 @@ git commit -m "docs(phase-$PHASE): revise plans"
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 {X}/{Y} plans revised
 
-▶ /execute {N} — run updated plans
+▶ /wf-execute {N} — run updated plans
 ```
 </offer_next>
 

@@ -4,7 +4,7 @@ description: Insert a phase between existing phases (renumbers subsequent)
 argument-hint: "<position> <phase-name>"
 ---
 
-# /insert-phase Workflow
+# /wf-insert-phase Workflow
 
 <objective>
 Insert a new phase at a specific position, renumbering all subsequent phases.
@@ -63,7 +63,7 @@ Add at position with correct numbering.
 Edit these fields IN PLACE (canonical schema in `.quantis/templates/state.md` — never replace the file):
 - **Current Position** → if currently in a phase `>= position`, bump its Phase number to reflect the renumbering.
 - **Last Session Summary** → note the insertion and renumbering.
-- **Next Steps** → next action (e.g., `/plan {N}`).
+- **Next Steps** → next action (e.g., `/wf-plan {N}`).
 
 ---
 
@@ -92,8 +92,8 @@ Renumbered: Phases {N+1} through {M}
 
 ▶ NEXT
 
-/plan {N} — Create plans for new phase
-/progress — See updated roadmap
+/wf-plan {N} — Create plans for new phase
+/wf-progress — See updated roadmap
 
 ───────────────────────────────────────────────────────
 ```

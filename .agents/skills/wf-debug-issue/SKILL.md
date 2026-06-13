@@ -156,7 +156,7 @@ Action: STOP and reassess
 
 Options:
 1. Try fundamentally DIFFERENT approach
-2. /pause for fresh session context
+2. /wf-pause for fresh session context
 3. Ask user for additional information
 ```
 
@@ -205,7 +205,7 @@ State saved to .quantis/DEBUG.md
 
 Options:
 • /debug {issue} — try different approach
-• /pause — save state for fresh session
+• /wf-pause — save state for fresh session
 • Provide more context about the issue
 
 ───────────────────────────────────────────────────────
@@ -219,9 +219,9 @@ Options:
 ### Workflows
 | Command | Relationship |
 |---------|--------------|
-| `/pause` | Use after 3 failed attempts |
-| `/resume-session` | Start fresh with documented state |
-| `/verify` | Re-verify after fixing issues |
+| `/wf-pause` | Use after 3 failed attempts |
+| `/wf-resume-session` | Start fresh with documented state |
+| `/wf-verify` | Re-verify after fixing issues |
 
 ### Skills
 | Skill | Purpose |

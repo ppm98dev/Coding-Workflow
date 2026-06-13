@@ -105,22 +105,22 @@ These slash commands are available. Some invoke Superpowers skills for enhanced 
 
 | Command | Purpose | Skill Used |
 |---------|---------|------------|
-| `/plan {N}` | Create phase execution plans | writing-plans |
-| `/execute {N}` | Execute phase plans | subagent-driven-development (auto: real subagents or inline; executing-plans only standalone) |
-| `/map` | Analyze codebase structure | codebase-mapper |
-| `/discuss-phase {N}` | Brainstorm before planning | brainstorming |
-| `/stress-test` | Adversarial spec/plan review | — (self-contained 7-dimension framework) |
-| `/research-phase {N}` | Deep technical research | brainstorming (research) |
-| `/update-plan {N}` | Revise plans | writing-plans (revision) |
-| `/debug-issue` | Systematic debugging | systematic-debugging |
-| `/verify {N}` | Validate work against spec | verification-before-completion |
-| `/new-project` | Initialize project | brainstorming |
-| `/pause` | Dump context for session handoff | — |
-| `/resume-session` | Restore context from previous | — |
-| `/progress` | Show roadmap position | — |
-| `/quantis-help` | Show all commands | — |
+| `/wf-plan {N}` | Create phase execution plans | writing-plans |
+| `/wf-execute {N}` | Execute phase plans | subagent-driven-development (auto: real subagents or inline; executing-plans only standalone) |
+| `/wf-map` | Analyze codebase structure | codebase-mapper |
+| `/wf-discuss-phase {N}` | Brainstorm before planning | brainstorming |
+| `/wf-stress-test` | Adversarial spec/plan review | — (self-contained 7-dimension framework) |
+| `/wf-research-phase {N}` | Deep technical research | brainstorming (research) |
+| `/wf-update-plan {N}` | Revise plans | writing-plans (revision) |
+| `/wf-debug-issue` | Systematic debugging | systematic-debugging |
+| `/wf-verify {N}` | Validate work against spec | verification-before-completion |
+| `/wf-new-project` | Initialize project | brainstorming |
+| `/wf-pause` | Dump context for session handoff | — |
+| `/wf-resume-session` | Restore context from previous | — |
+| `/wf-progress` | Show roadmap position | — |
+| `/wf-quantis-help` | Show all commands | — |
 
-> **CLI users (`agy`):** Prefix workflow commands with `/wf-`. Example: `/wf-plan 1` instead of `/plan 1`. Skill commands (like `/brainstorming`) work without prefix.
+> **Command naming:** Workflow commands are `/wf-*` — they match the skill folder names (e.g. `/wf-plan 1`, `/wf-execute 2`, `/wf-verify 2`). Always suggest the `/wf-` form in "Next steps" output. Methodology skills (brainstorming, writing-plans, …) are activated by reading their `SKILL.md` per the rule above, not via a slash command.
 
 ## File Conventions
 

@@ -3,7 +3,7 @@ name: wf-pause
 description: Context hygiene — dump state for clean session handoff
 ---
 
-# /pause Workflow
+# /wf-pause Workflow
 
 <objective>
 Safely pause work with complete state preservation for session handoff.
@@ -99,7 +99,7 @@ Check for phase-state drift between STATE.md/phase directories and ROADMAP.md:
 
 For each non-Complete phase that has a directory in `.quantis/phases/`:
 - If `VERIFICATION.md` exists and contains `verdict: PASS` → mark `✅ Complete` in ROADMAP (idempotent)
-- If all `*-PLAN.md` files have matching `*-SUMMARY.md` but no `VERIFICATION.md` → leave status, set Next Steps to `/verify {N}`
+- If all `*-PLAN.md` files have matching `*-SUMMARY.md` but no `VERIFICATION.md` → leave status, set Next Steps to `/wf-verify {N}`
 - Otherwise → leave as-is
 
 **Never** mark a phase Complete based on SUMMARYs alone — require a verdict-based VERIFICATION.md.
@@ -131,7 +131,7 @@ State saved to:
 
 To resume later:
 
-/resume-session
+/wf-resume-session
 
 ───────────────────────────────────────────────────────
 
@@ -158,7 +158,7 @@ A fresh context often immediately sees solutions that a polluted context missed.
 <proactive_state_save>
 ## Proactive Auto-Save (Session Limit Protection)
 
-**Problem:** If a session hard-terminates (usage/context limit), `/pause` becomes unreachable.
+**Problem:** If a session hard-terminates (usage/context limit), `/wf-pause` becomes unreachable.
 
 **Solution:** The agent MUST auto-save state BEFORE limits are hit. When any trigger in the table fires, writing the snapshot to `.quantis/STATE.md` is mandatory and comes BEFORE any message to the user.
 
@@ -167,14 +167,14 @@ A fresh context often immediately sees solutions that a polluted context missed.
 | Trigger | Action |
 |---------|--------|
 | Observable proxies — any of: 20+ tool calls this session, 10+ files read in full, the platform reports a context warning, or you notice yourself re-reading files you already summarized | Write lightweight state snapshot to `.quantis/STATE.md` |
-| 3-strike debugging rule fires | Save state dump BEFORE recommending `/pause` |
+| 3-strike debugging rule fires | Save state dump BEFORE recommending `/wf-pause` |
 | Extended session detected | Periodic state checkpoints to `.quantis/STATE.md` |
 
 ### Auto-Save Protocol
 
 1. **Detect** context health warning signals (see context-health-monitor skill)
 2. **Write** current state to `.quantis/STATE.md` immediately
-3. **Then** inform the user and recommend `/pause`
+3. **Then** inform the user and recommend `/wf-pause`
 4. If session terminates unexpectedly, state is already saved
 
 ### Minimum Auto-Save Content
@@ -187,5 +187,5 @@ A fresh context often immediately sees solutions that a polluted context missed.
 - **Next Step**: {what should happen next}
 ```
 
-**Key principle:** Save first, recommend second. Never rely on the user being able to issue `/pause`.
+**Key principle:** Save first, recommend second. Never rely on the user being able to issue `/wf-pause`.
 </proactive_state_save>

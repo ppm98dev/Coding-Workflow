@@ -4,7 +4,7 @@ description: Search the web for information to inform decisions
 argument-hint: "<query> [--domain <site>]"
 ---
 
-# /web-search Workflow
+# /wf-web-search Workflow
 
 <objective>
 Search the web to gather information for technical decisions, API documentation, library comparisons, or any research need.
@@ -99,14 +99,14 @@ Based on findings:
 <integration>
 ## Integration with Quantis
 
-**During /research-phase:**
-Use `/web-search` to gather information for RESEARCH.md.
+**During /wf-research-phase:**
+Use `/wf-web-search` to gather information for RESEARCH.md.
 
-**During /plan:**
-Use `/web-search` when discovery level 1-3 indicates research needed.
+**During /wf-plan:**
+Use `/wf-web-search` when discovery level 1-3 indicates research needed.
 
-**During /debug-issue:**
-Use `/web-search` to find solutions to error messages.
+**During /wf-debug-issue:**
+Use `/wf-web-search` to find solutions to error messages.
 </integration>
 
 <related>
@@ -115,8 +115,8 @@ Use `/web-search` to find solutions to error messages.
 ### Workflows
 | Command | Relationship |
 |---------|--------------|
-| `/research-phase` | Uses web-search for phase research |
-| `/plan` | May trigger web-search for discovery |
-| `/debug-issue` | Search for error solutions |
+| `/wf-research-phase` | Uses web-search for phase research |
+| `/wf-plan` | May trigger web-search for discovery |
+| `/wf-debug-issue` | Search for error solutions |
 
 </related>

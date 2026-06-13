@@ -4,7 +4,7 @@ description: Adversarial spec review — find ambiguity, contradictions, and gap
 argument-hint: "[target-file]"
 ---
 
-# /stress-test
+# /wf-stress-test
 
 > **Self-contained workflow.** The Quantis 7-dimension adversarial framework is the methodology — there is no delegated critique skill. When `invoke_subagent` is available, the 7 dimensions run as parallel read-only subagents.
 
@@ -122,7 +122,7 @@ Severity: `🔴 Critical` | `🟠 High` | `🟡 Medium` | `🔵 Low` (canonical 
 ## 5. Update Spec (mandatory when findings exist)
 Add unresolved questions to SPEC.md's `## Unresolved Questions` section.
 Document decisions in `.quantis/DECISIONS.md` using the canonical `D-{NNN}` format (see `.quantis/templates/decisions.md`; `NNN` = next integer after the highest existing `D-` ID).
-After recording unresolved questions, stamp `Stress-tested: {date}` on its own line under the spec's status header. If any 🔴 Critical finding is unresolved, STOP — fix it before `/plan`.
+After recording unresolved questions, stamp `Stress-tested: {date}` on its own line under the spec's status header. If any 🔴 Critical finding is unresolved, STOP — fix it before `/wf-plan`.
 
 ## 6. Offer Next Steps
 Edit `.quantis/STATE.md` IN PLACE (canonical schema in `.quantis/templates/state.md`) — set:
@@ -133,7 +133,7 @@ Edit `.quantis/STATE.md` IN PLACE (canonical schema in `.quantis/templates/state
 - **Status**: Reviewed, ready to plan
 
 ## Next Steps
-1. Fix critical findings, then /plan {N}
+1. Fix critical findings, then /wf-plan {N}
 ```
 
 Commit the report alongside state — `git add` the STRESS-TEST.md path (from Step 4) plus `.quantis/STATE.md`, `.quantis/SPEC.md`, and `.quantis/DECISIONS.md`, then commit.
@@ -148,8 +148,8 @@ Commit the report alongside state — `git add` the STRESS-TEST.md path (from St
 
 {X} findings: {critical} 🔴  {high} 🟠  {medium} 🟡  {low} 🔵
 
-▶ Spec mode: fix critical issues, then /plan {N}
-▶ Plan mode: fix critical issues in PLAN.md, then /execute {N}
+▶ Spec mode: fix critical issues, then /wf-plan {N}
+▶ Plan mode: fix critical issues in PLAN.md, then /wf-execute {N}
 ```
 </offer_next>
 

@@ -4,7 +4,7 @@ description: Remove a phase from the roadmap (with safety checks)
 argument-hint: "<phase-number>"
 ---
 
-# /remove-phase Workflow
+# /wf-remove-phase Workflow
 
 <objective>
 Remove a phase from the roadmap, with safety checks for in-progress or completed work.
@@ -52,7 +52,7 @@ grep "Depends on.*Phase $N" ".quantis/ROADMAP.md"
 
 Cannot remove. Consider:
 1. Update dependent phases first
-2. Use /insert-phase to restructure
+2. Use /wf-insert-phase to restructure
 ```
 
 ---
@@ -134,7 +134,7 @@ Renumbered: {M} phases
 
 ───────────────────────────────────────────────────────
 
-/progress — See updated roadmap
+/wf-progress — See updated roadmap
 
 ───────────────────────────────────────────────────────
 ```

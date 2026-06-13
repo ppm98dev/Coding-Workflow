@@ -4,7 +4,7 @@ description: Capture a todo item for later
 argument-hint: "<description> [--priority high|medium|low]"
 ---
 
-# /add-todo Workflow
+# /wf-add-todo Workflow
 
 <objective>
 Quickly capture an idea, task, or issue without interrupting current work flow.
@@ -56,7 +56,7 @@ Priority: {priority}
 
 ───────────────────────────────────────────────────────
 
-/check-todos — see all pending items
+/wf-check-todos — see all pending items
 
 ───────────────────────────────────────────────────────
 ```

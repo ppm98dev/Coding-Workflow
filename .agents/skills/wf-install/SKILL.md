@@ -3,7 +3,7 @@ name: wf-install
 description: Install Quantis into the current project from GitHub
 ---
 
-# /install Workflow
+# /wf-install Workflow
 
 <objective>
 Install Quantis for Antigravity into the current project from GitHub.
@@ -34,8 +34,8 @@ Quantis files already exist in this project.
 A) Reinstall — Overwrite with latest version
 B) Cancel — Keep current installation
 
-If you want to update instead: /update
-If you want to migrate from GSD: /upgrade
+If you want to update instead: /wf-update
+If you want to migrate from GSD: /wf-upgrade
 
 ───────────────────────────────────────────────────────
 ```
@@ -143,7 +143,7 @@ Rules auto-discovered:
 
 Next step:
 
-/new-project — Initialize your project with Quantis
+/wf-new-project — Initialize your project with Quantis
 
 ───────────────────────────────────────────────────────
 ```
@@ -153,7 +153,7 @@ Next step:
 <notes>
 - This workflow is designed to work from a clean project (no prior Quantis installation)
 - It copies ALL necessary files, unlike manual installation which may miss some
-- For updates to an existing installation, use /update instead
-- For migration from GSD/v2.x, use /upgrade instead
-- The /new-project command should be run after installation to set up SPEC.md
+- For updates to an existing installation, use /wf-update instead
+- For migration from GSD/v2.x, use /wf-upgrade instead
+- The /wf-new-project command should be run after installation to set up SPEC.md
 </notes>

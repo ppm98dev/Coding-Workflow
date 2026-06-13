@@ -3,7 +3,7 @@ name: wf-complete-milestone
 description: Mark current milestone as complete and archive
 ---
 
-# /complete-milestone Workflow
+# /wf-complete-milestone Workflow
 
 <objective>
 Finalize the current milestone, archive documentation, and prepare for next milestone.
@@ -19,7 +19,7 @@ Finalize the current milestone, archive documentation, and prepare for next mile
 INCOMPLETE=$(sed -n '/Current Milestone/,$p' ".quantis/ROADMAP.md" | grep -c -E "Status.*Not Started|Status.*In Progress" || true)
 if [ "$INCOMPLETE" -gt 0 ]; then
     echo "❌ STOP: Cannot complete milestone — $INCOMPLETE phases incomplete."
-    echo "Run /progress to see status."
+    echo "Run /wf-progress to see status."
     exit 1
 fi
 ```
@@ -35,7 +35,7 @@ Verify all must-haves from ROADMAP.md:
 - Capture evidence
 - Create VERIFICATION.md if not exists
 
-**GATE:** If any must-have FAILS verification, STOP. Do not generate the summary (Step 3), archive (Step 4 — destructive), reset (Step 5), or tag (Step 6). Report which must-haves failed and route to `/verify {N}` or `/execute {N} --gaps-only`, then re-run /complete-milestone once they pass.
+**GATE:** If any must-have FAILS verification, STOP. Do not generate the summary (Step 3), archive (Step 4 — destructive), reset (Step 5), or tag (Step 6). Report which must-haves failed and route to `/wf-verify {N}` or `/wf-execute {N} --gaps-only`, then re-run /wf-complete-milestone once they pass.
 
 ---
 
@@ -101,7 +101,7 @@ Edit `.quantis/STATE.md` IN PLACE (canonical schema in `.quantis/templates/state
 ## Current Position
 - **Phase**: —
 - **Task**: Milestone {name} complete and archived
-- **Status**: Milestone complete — ready for /new-milestone
+- **Status**: Milestone complete — ready for /wf-new-milestone
 ```
 
 **Reset DECISIONS.md** — replace contents with a fresh header referencing the archive:
@@ -135,7 +135,7 @@ Update `.quantis/ARCHITECTURE.md` to reflect the current state of the codebase a
 3. **Update `.quantis/STACK.md`** (if it exists) — refresh technology and dependency information; skip if the project doesn't maintain one
 4. **Keep it lean** — remove details about components that no longer exist; summarize, don't accumulate
 
-> This prevents ARCHITECTURE.md from becoming stale or bloated across milestones (addresses the issue where architecture only updates via `/map`).
+> This prevents ARCHITECTURE.md from becoming stale or bloated across milestones (addresses the issue where architecture only updates via `/wf-map`).
 
 ---
 
@@ -177,8 +177,8 @@ Tag: {name}
 
 ▶ NEXT
 
-/new-milestone — Start next milestone
-/audit-milestone {name} — Review this milestone
+/wf-new-milestone — Start next milestone
+/wf-audit-milestone {name} — Review this milestone
 
 ───────────────────────────────────────────────────────
 ```

@@ -3,7 +3,7 @@ name: wf-plan-milestone-gaps
 description: Create plans to address gaps found in milestone audit
 ---
 
-# /plan-milestone-gaps Workflow
+# /wf-plan-milestone-gaps Workflow
 
 <objective>
 Create targeted plans to address gaps, technical debt, and issues identified during milestone audit.
@@ -48,7 +48,7 @@ Add new phase to ROADMAP.md:
 
 ## 4. Create PLAN.md for Each Gap
 
-Resolve the gap-closure phase directory (`.quantis/phases/{N}-gap-closure/`, `mkdir -p` if absent). Write one plan per gap inside it, named `{N}-gap-{issue-slug}-PLAN.md` — the `-PLAN.md` suffix is REQUIRED (`/execute {N} --gaps-only` discovers gap plans by it). Each plan uses the **checkbox** task format from `writing-plans` (`### Task N` with `- [ ]` steps and `Run:`/`Expected:` verification — never XML):
+Resolve the gap-closure phase directory (`.quantis/phases/{N}-gap-closure/`, `mkdir -p` if absent). Write one plan per gap inside it, named `{N}-gap-{issue-slug}-PLAN.md` — the `-PLAN.md` suffix is REQUIRED (`/wf-execute {N} --gaps-only` discovers gap plans by it). Each plan uses the **checkbox** task format from `writing-plans` (`### Task N` with `- [ ]` steps and `Run:`/`Expected:` verification — never XML):
 
 ```markdown
 ---
@@ -78,7 +78,7 @@ gap_closure: true
 
 ## 5. Update STATE.md
 
-**Edit the existing canonical fields in place — do NOT replace the file or add a new section.** Update `## Current Position` and refresh `## Next Steps`; preserve every other section (`Last Session Summary`, `Blockers`, `Context Dump`) that `/resume-session` reads.
+**Edit the existing canonical fields in place — do NOT replace the file or add a new section.** Update `## Current Position` and refresh `## Next Steps`; preserve every other section (`Last Session Summary`, `Blockers`, `Context Dump`) that `/wf-resume-session` reads.
 ```markdown
 ## Current Position
 - **Phase**: {N} (gap closure)
@@ -111,7 +111,7 @@ Plans created: {M}
 
 ▶ NEXT
 
-/execute {N} --gaps-only — Execute gap closure plans
+/wf-execute {N} --gaps-only — Execute gap closure plans
 
 ───────────────────────────────────────────────────────
 ```

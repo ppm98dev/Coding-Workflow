@@ -4,7 +4,7 @@ description: Discuss a phase before planning (clarify scope and approach)
 argument-hint: "<phase-number>"
 ---
 
-# /discuss-phase → brainstorming skill
+# /wf-discuss-phase → brainstorming skill
 
 > **Skill-powered workflow.** Ideation methodology is powered by `brainstorming`. This workflow adds Quantis phase context and decision documentation.
 
@@ -46,7 +46,7 @@ Read phase definition from ROADMAP.md (or use subagent brief from Step 0). Extra
 - Known constraints
 
 ## 2. Brainstorm
-**Read and follow `.agents/skills/brainstorming/SKILL.md`, checklist items 1–8 in full** — including writing the spec to the phase directory and the user review gate. **Override:** do NOT execute item 9 (invoking writing-plans); this workflow ends at Step 4 below, suggesting `/plan {N}`.
+**Read and follow `.agents/skills/brainstorming/SKILL.md`, checklist items 1–8 in full** — including writing the spec to the phase directory and the user review gate. **Override:** do NOT execute item 9 (invoking writing-plans); this workflow ends at Step 4 below, suggesting `/wf-plan {N}`.
 
 Present structured discussion points:
 - **Scope**: What's in, what's out?
@@ -72,9 +72,9 @@ Edit `.quantis/STATE.md` IN PLACE (canonical schema in `.quantis/templates/state
 - **Status**: Discussed, ready to plan
 
 ## Next Steps
-1. /plan {N}
+1. /wf-plan {N}
 ```
-Then suggest `/plan {N}` or `/stress-test`.
+Then suggest `/wf-plan {N}` or `/wf-stress-test`.
 
 **Gate:** `test -f "$PHASE_DIR/SPEC.md"` — if SPEC.md was not created during brainstorming, the discussion is incomplete. Do not display the completion banner.
 
@@ -83,8 +83,8 @@ Then suggest `/plan {N}` or `/stress-test`.
  Quantis ► PHASE {N} DISCUSSED ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Spec: $PHASE_DIR/SPEC.md ✓
-▶ /stress-test {N} — adversarial spec review (recommended)
-▶ /plan {N} — create execution plans
+▶ /wf-stress-test {N} — adversarial spec review (recommended)
+▶ /wf-plan {N} — create execution plans
 ```
 
 </process>
@@ -96,8 +96,8 @@ Spec: $PHASE_DIR/SPEC.md ✓
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 {X} decisions documented
 
-▶ /plan {N} — create execution plans
-▶ /stress-test — adversarial review (optional)
+▶ /wf-plan {N} — create execution plans
+▶ /wf-stress-test — adversarial review (optional)
 ```
 </offer_next>
 

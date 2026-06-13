@@ -4,7 +4,7 @@ description: Create and manage a time-boxed sprint for quick focused work
 argument-hint: "[new|status|close] [sprint-name]"
 ---
 
-# /sprint Workflow
+# /wf-sprint Workflow
 
 <objective>
 Manage time-boxed sprints for quick, focused work outside the full milestone/phase cycle.
@@ -70,7 +70,7 @@ Create `.quantis/SPRINT.md` using the template from `.quantis/templates/sprint.m
 
 ### Update STATE.md
 
-**Edit the canonical `## Current Position` fields in place — do NOT replace the file.** Set `Status`, add the sprint marker, and preserve the existing `Phase`/`Task` lines (and every other section `/resume-session` reads) so the paused milestone position is recoverable:
+**Edit the canonical `## Current Position` fields in place — do NOT replace the file.** Set `Status`, add the sprint marker, and preserve the existing `Phase`/`Task` lines (and every other section `/wf-resume-session` reads) so the paused milestone position is recoverable:
 ```markdown
 ## Current Position
 - **Phase**: {existing phase} (paused for sprint)
@@ -162,8 +162,8 @@ Tasks completed: {N}/{total}
 
 ▶ NEXT
 
-/resume-session — Return to milestone work
-/sprint new — Start another sprint
+/wf-resume-session — Return to milestone work
+/wf-sprint new — Start another sprint
 
 ───────────────────────────────────────────────────────
 ```
@@ -176,9 +176,9 @@ Tasks completed: {N}/{total}
 ### Workflows
 | Command | Relationship |
 |---------|--------------|
-| `/plan` | Full planning cycle (use for milestone work) |
-| `/execute` | Full execution cycle (use for milestone work) |
-| `/pause` | Pause current work for handoff |
+| `/wf-plan` | Full planning cycle (use for milestone work) |
+| `/wf-execute` | Full execution cycle (use for milestone work) |
+| `/wf-pause` | Pause current work for handoff |
 
 ### Templates
 | Template | Purpose |

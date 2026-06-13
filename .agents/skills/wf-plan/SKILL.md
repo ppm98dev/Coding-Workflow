@@ -4,7 +4,7 @@ description: The Strategist — Create executable PLAN.md files for a phase alre
 argument-hint: "[phase] [--research] [--skip-research] [--gaps] [--skip-stress-test]"
 ---
 
-# /plan → writing-plans skill
+# /wf-plan → writing-plans skill
 
 > **Skill-powered workflow.** Planning methodology is powered by `writing-plans`. This workflow adds Quantis orchestration (validation, research, state tracking).
 
@@ -77,7 +77,7 @@ Extract phase number (or auto-detect next unplanned phase from ROADMAP.md) and f
 # ─── Phase Directory Resolution (unified) ───────────────
 # $PHASE is set from $ARGUMENTS (e.g., "3.1", "3", "1")
 
-# 1. Reuse existing dir if present (keeps /plan, /execute, /verify consistent)
+# 1. Reuse existing dir if present (keeps /wf-plan, /wf-execute, /wf-verify consistent)
 PHASE_DIR=$(find .quantis/phases -maxdepth 1 -type d -name "${PHASE}-*" 2>/dev/null | sort | head -n 1)
 
 # 2. If no match and PHASE is integer, try N.* subphase pattern
@@ -100,7 +100,7 @@ if [ -z "$PHASE_DIR" ]; then
     PHASE_TITLE=$(grep -E "^#{2,4} Phase ${PHASE}:" .quantis/ROADMAP.md | tail -n 1 | sed -E 's/.*Phase [0-9.]+:? (.*)/\1/' | sed 's/ *[✅⬜🔄⏸].*//' | tr -d '\r')
     if [ -z "$PHASE_TITLE" ]; then
         echo "❌ STOP: Phase $PHASE not found in ROADMAP.md."
-        echo "Pass the full number (e.g., 3.1) or check /progress."
+        echo "Pass the full number (e.g., 3.1) or check /wf-progress."
         exit 1
     fi
     PHASE_SLUG=$(echo "$PHASE_TITLE" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+|-+$//g')
@@ -191,12 +191,12 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 Entered only when `--gaps` was passed (routed from Step 3). Skips research and ecosystem discovery.
 
 ```bash
-test -f "$PHASE_DIR/VERIFICATION.md" || { echo "❌ STOP: No VERIFICATION.md for phase $PHASE — run /verify {N} first."; exit 1; }
+test -f "$PHASE_DIR/VERIFICATION.md" || { echo "❌ STOP: No VERIFICATION.md for phase $PHASE — run /wf-verify {N} first."; exit 1; }
 ```
 
 **If the STOP line printed: halt.** Do not author plans without a verification report.
 
-Read `$PHASE_DIR/VERIFICATION.md`. For **each must-have with `Status: FAIL`**, create one fix plan in `$PHASE_DIR/` named `{N}-gap-{issue-slug}-PLAN.md` (the `-PLAN.md` suffix is REQUIRED — `/execute {N} --gaps-only` discovers gap plans by it). Each plan uses the **checkbox** task format from `writing-plans` (`### Task N` with `- [ ]` steps and `Run:`/`Expected:` verification — never XML), with this frontmatter:
+Read `$PHASE_DIR/VERIFICATION.md`. For **each must-have with `Status: FAIL`**, create one fix plan in `$PHASE_DIR/` named `{N}-gap-{issue-slug}-PLAN.md` (the `-PLAN.md` suffix is REQUIRED — `/wf-execute {N} --gaps-only` discovers gap plans by it). Each plan uses the **checkbox** task format from `writing-plans` (`### Task N` with `- [ ]` steps and `Run:`/`Expected:` verification — never XML), with this frontmatter:
 
 ```markdown
 ---
@@ -213,14 +213,15 @@ gap_closure: true
 
 ### Subagent Planning (when available)
 
-**Generate the plans via a LEAN subagent — keep the orchestrator thin, but NOT with a `self` clone** (the clone inherits your full ~60-skill config and stalls; see DECISIONS D-009). Follow **Gather → Digest → Generate** (QUANTIS-STYLE) — the gather/digest already happened in Step 3 (`RESEARCH.md`). If a minimal/templated `define_subagent` is available, dispatch one and give it ONLY: (1) the **`RESEARCH.md` digest** + the one-line phase objective from ROADMAP (inject — they're compact); (2) a PATH to read **`$PHASE_DIR/SPEC.md`** in full (the single source it must see whole); (3) a PATH to **`.agents/skills/writing-plans/SKILL.md`**. **Do NOT hand it the whole pile of files to re-read** — that re-gathers and re-bloats. It **writes the PLAN.md file(s) INCREMENTALLY** (one task/section per write; output caps at **16,384 tokens/turn**). If no lean subagent is available or it stalls, **write inline** — still incrementally — to `$PHASE_DIR/` (naming `{N}.{M}-{plan-slug}-PLAN.md`):
+**Generate the plans via a LEAN subagent — keep the orchestrator thin, but NOT with a `self` clone** (the clone inherits your full ~60-skill config and stalls; see DECISIONS D-009). Follow **Gather → Digest → Generate** (QUANTIS-STYLE) — the gather/digest already happened in Step 3 (`RESEARCH.md`). If a minimal/templated `define_subagent` is available, dispatch one and give it ONLY: (1) the **`RESEARCH.md` digest** + the one-line phase objective from ROADMAP (inject — they're compact); (2) PATHs to read in full — **`$PHASE_DIR/SPEC.md`** *and every file in the change's blast radius* (the files it edits **and** the ones those connect to — callers, dependents, shared config; the writer needs their exact signatures/line numbers/literal values and must see downstream implications a digest would hide); (3) a PATH to **`.agents/skills/writing-plans/SKILL.md`**. **Do NOT hand it the *genuinely-unrelated* pile to re-read** — files the change neither touches nor affects; that re-gathers and re-bloats. It **writes the PLAN.md file(s) INCREMENTALLY** (one task/section per write; output caps at **16,384 tokens/turn**). If no lean subagent is available or it stalls, **write inline** — still incrementally — to `$PHASE_DIR/` (naming `{N}.{M}-{plan-slug}-PLAN.md`):
 
 **Read and follow `.agents/skills/writing-plans/SKILL.md` exactly.**
 
-Provide the writer (or yourself, if inline) with the **digest, not the pile**:
+Provide the writer (or yourself, if inline) with the **digest + the change's blast radius, not the unrelated pile**:
 - The one-line phase objective from ROADMAP.md
-- The `RESEARCH.md` digest (Step 3) — the gathered context
+- The `RESEARCH.md` digest (Step 3) — the gathered context, **including the map of connected/affected files**
 - `SPEC.md` — read directly (it is the source of truth the plan implements)
+- **Every file in the change's blast radius — read in full**: the files it edits *and* the ones those connect to (callers, dependents, shared config), so downstream implications aren't missed
 - CONSTITUTION quality standards as a short rules reminder (not the full file)
 
 Output plans to `.quantis/phases/{N}.{M}-{slug}/` using `{N}.{M}-{plan-slug}-PLAN.md` naming.
@@ -273,7 +274,7 @@ git commit -m "docs(phase-$PHASE): create execution plans"
 
 {X} plans created across {Y} waves
 
-▶ Next: /execute {N}
+▶ Next: /wf-execute {N}
 ```
 </offer_next>
 

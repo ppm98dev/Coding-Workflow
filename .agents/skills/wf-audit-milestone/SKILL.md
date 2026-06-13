@@ -4,7 +4,7 @@ description: Audit a milestone for quality and completeness
 argument-hint: "[milestone-name]"
 ---
 
-# /audit-milestone Workflow
+# /wf-audit-milestone Workflow
 
 <objective>
 Review a completed (or in-progress) milestone for quality, completeness, and lessons learned.
@@ -115,8 +115,8 @@ Health: {GOOD | CONCERNS | NEEDS ATTENTION}
 
 ▶ ACTIONS
 
-/plan-milestone-gaps — Create plans to address gaps
-/add-todo — Capture debt items for later
+/wf-plan-milestone-gaps — Create plans to address gaps
+/wf-add-todo — Capture debt items for later
 
 ───────────────────────────────────────────────────────
 ```
