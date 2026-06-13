@@ -260,7 +260,7 @@ fi
 - `{PLAN_OR_REQUIREMENTS}` — the phase SPEC.md must-haves
 - `{BASE_SHA}` / `{HEAD_SHA}` — the range from Step 4a
 
-Paste the template text and the diff into the subagent prompt (subagents do not inherit your context). If the diff is large, batch the changed files across multiple reviewer dispatches and merge their findings. Do not ask the user — dispatch automatically.
+Paste the template text and the diff into the subagent prompt (subagents do not inherit your context). If the diff is large, batch the changed files across multiple reviewer dispatches **in waves of ≤3 concurrent** (per the Concurrency Cap in `dispatching-parallel-agents/SKILL.md` — never all at once) and merge their findings. Do not ask the user — dispatch automatically.
 
 **If `invoke_subagent` is NOT available** (IDE), review inline, file-by-file, against the same `code-reviewer.md` checklist (plan alignment, code quality, architecture, testing, production readiness). Read each changed file's actual diff/contents before recording any finding.
 

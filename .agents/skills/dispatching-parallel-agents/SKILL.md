@@ -21,6 +21,16 @@ When you have multiple unrelated failures (different test files, different subsy
 
 **Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `research` = read-only codebase navigation/exploration; `self` = clone of the calling agent with the same capabilities. Name the type explicitly at each dispatch.
 
+## Concurrency Cap & Rate Limits (REQUIRED)
+
+`invoke_subagent` has **no built-in concurrency cap or rate-limit backoff** — agy fires every dispatch straight at the model, which enforces per-minute limits. Dispatching too many at once is the documented cause of `429 "exhausted your capacity"` failures.
+
+- **Cap: at most 3 subagents concurrently.** More domains than that → dispatch in **waves of ≤3**: send a wave, wait for it to return, then send the next. (≤3 is the validated default for the current Antigravity tier — drop to 2 if you still hit limits; tunable, not a hard pin.)
+- **On a rate-limit / capacity error (`429`, "exhausted capacity"):** do **NOT** re-dispatch immediately. The *"quota will reset after 0s"* message is an unreliable passthrough — ignore it. **Wait briefly, retry that one dispatch ONCE, then run that domain inline** (yourself, sequentially) and say so.
+- **Never re-fire a batch of failed dispatches together** — re-dispatch them **one at a time**; a simultaneous retry just triggers another 429 (a "thundering herd").
+
+> **Why:** the cap prevents the burst (the root cause); the wait-then-inline rule is the safety net for when a limit is hit anyway (e.g. quota already low from other work). See DECISIONS **D-012**.
+
 ## When to Use
 
 ```dot
@@ -78,7 +88,7 @@ Each agent gets:
 invoke_subagent("Fix agent-tool-abort.test.ts failures")
 invoke_subagent("Fix batch-completion-behavior.test.ts failures")
 invoke_subagent("Fix tool-approval-race-conditions.test.ts failures")
-# All three run concurrently
+# All three run concurrently — ≤3 is the cap; for more domains, dispatch in waves (see Concurrency Cap)
 ```
 
 ### 4. Review and Integrate

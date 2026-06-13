@@ -27,7 +27,7 @@ The skill handles all 5 analysis domains:
 4. Integration analysis
 5. Technical debt analysis
 
-**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST run the 5 domains as parallel `research` subagents — do not analyze inline.** Read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch one `research` subagent per domain, all invoked together. Each subagent prompt MUST contain, **given as PATHS to read** (the subagent reads each into its own clean context window — do NOT paste file contents; pasting is what overloads a subagent):
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST run the 5 domains as parallel `research` subagents — do not analyze inline.** Read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch one `research` subagent per domain — **but ≤3 concurrent** (per the Concurrency Cap in that skill; 5 domains = two waves). Each subagent prompt MUST contain, **given as PATHS to read** (the subagent reads each into its own clean context window — do NOT paste file contents; pasting is what overloads a subagent):
 1. That domain's instructions copied from `.agents/skills/codebase-mapper/SKILL.md`.
 2. The relevant slice of the Step 3 output structure (ARCHITECTURE.md or STACK.md) as the required return format.
 

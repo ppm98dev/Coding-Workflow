@@ -25,7 +25,7 @@ You are a Quantis adversarial reviewer. You systematically attack a spec/plan ac
 
 ## 0. Platform Check
 
-**If `invoke_subagent` is available** (CLI `agy`, Standalone): the 7 dimensions are independent, read-only analyses — dispatch them as parallel **`research`** subagents (the reliable type for analysis). Read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch **7 parallel `research` subagents — one per dimension from Step 3**, invoked all together. Give each PATHS to read (it reads them into its own clean window — do not paste):
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): the 7 dimensions are independent, read-only analyses — dispatch them as parallel **`research`** subagents (the reliable type for analysis). Read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch the 7 dimensions as `research` subagents **in waves of ≤3 concurrent** (per the Concurrency Cap in that skill — never all 7 at once; the burst is what triggers `429` rate limits). Give each PATHS to read (it reads them into its own clean window — do not paste):
 1. The target file path ($ARGUMENTS, default `.quantis/SPEC.md`), plus `.quantis/ROADMAP.md` and relevant `.quantis/DECISIONS.md` — instruct it to read them.
 2. **REQUIRED SUB-SKILL:** `Read and follow .agents/skills/wf-stress-test/SKILL.md` — the adversarial methodology itself. Each subagent reads it in its own window for the critique mindset (Step 2), its assigned dimension's questions (Step 3), and the per-finding report format (Step 4). Tell it WHICH dimension number it owns; do not paste the dimension text.
 3. The adversarial mandate: "Your job is to BREAK this spec, not validate it. Assume everything is wrong until proven otherwise."
@@ -34,7 +34,7 @@ You are a Quantis adversarial reviewer. You systematically attack a spec/plan ac
 
 When all 7 return: **continue at Step 4** — merge their findings (dedupe overlaps), then run Steps 4–6 yourself.
 
-**If a dispatch fails or returns an empty/unusable report:** re-dispatch ONCE with explicit feedback on what was wrong; on a second failure, analyze that dimension inline (Step 1) and say so.
+**If a dispatch fails or returns an empty/unusable report:** re-dispatch ONCE with explicit feedback on what was wrong. **On a rate-limit / `429` error, do NOT re-dispatch immediately** — wait, retry that one once, then go inline (per the Rate Limits rule in dispatching-parallel-agents). On a second failure, analyze that dimension inline (Step 1) and say so.
 
 **If `invoke_subagent` is NOT available** (IDE): run all 7 dimensions inline yourself (proceed to Step 1).
 

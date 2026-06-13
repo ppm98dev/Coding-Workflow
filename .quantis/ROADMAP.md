@@ -260,3 +260,21 @@
 - [ ] Delete `adapters/ANTIGRAVITY.md` (content already distributed into workflows/skills)
 - [ ] End-to-end test: full Quantis cycle on CLI (`discuss → plan → execute → verify`)
 
+---
+
+#### Phase 3.4: Parallel-Dispatch Concurrency Cap & Rate Limits ✅
+
+**Status**: ✅ Complete (2026-06-13) — implemented + self-verified; **empirically validated on the user's agy tier** (≤3 concurrent does not crash).
+**Objective**: Stop fan-out workflows from blowing the model's per-minute rate limit. `/wf-stress-test` fired **7 subagents at once** → `429 "exhausted capacity"` (twice, in production) → naive immediate re-dispatch looped on the unreliable "reset after 0s." Fix = cap concurrency at **≤3 (waves)** + wait-then-retry-once-then-inline on 429, as one shared rule inherited by every fan-out workflow.
+**Depends on**: Phase 3.2
+**Folder**: `.quantis/phases/3.4-dispatch-concurrency-cap/` (SPEC + PLAN)
+
+**Deliverables:**
+- [x] `dispatching-parallel-agents` — "Concurrency Cap & Rate Limits" contract (≤3 / waves / 429 wait-then-inline / no thundering herd; D-012)
+- [x] `wf-stress-test` — 7-all-together → waves of ≤3; 429-aware retry
+- [x] `wf-research-phase`, `wf-map`, `wf-debug-issue` — dispatch in waves of ≤3
+- [x] `antigravity-tools.md` — document `invoke_subagent` has no built-in cap → ≤3 concurrent
+- [x] D-012 recorded; `validate-all.sh` green
+
+> **Note:** `≤3` is a validated-but-tunable default for the current Antigravity tier, not a hard pin. `wf-audit-milestone` dispatches a single subagent → cap N/A.
+

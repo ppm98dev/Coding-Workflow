@@ -1,5 +1,23 @@
 # Quantis Journal
 
+## Session: 2026-06-13 — Phase 3.4: parallel-dispatch rate-limit fix
+
+### Objective
+Fix `/wf-stress-test` hitting `429 "exhausted capacity"` (twice in production, ARES_APP).
+
+### Accomplished
+- Diagnosed (3-agent fan-out + web research): root cause = **7 subagents dispatched simultaneously** → blows the model's per-minute rate limit; naive immediate re-dispatch loops on the unreliable "reset after 0s" (thundering herd). Systemic across all fan-out workflows; agy has no built-in cap/backoff.
+- **Empirically validated** on the user's agy tier: ≤3 concurrent does NOT crash.
+- Fix: added a **Concurrency Cap & Rate Limits** contract to `dispatching-parallel-agents` (≤3 / waves / 429 wait→retry-once→inline / no thundering herd); `wf-stress-test` (7→waves of ≤3 + 429-aware retry), `wf-research-phase`, `wf-map`, `wf-debug-issue` → ≤3; documented in `antigravity-tools.md`. Phase 3.4 (SPEC + PLAN). **D-012** recorded.
+- Also this session: redesigned README (banner + badges + mermaid + GSD credit); hardened `install.sh` (preserve filled CONSTITUTION) and `/wf-update` (MANIFEST-aware script copy).
+
+### Verification
+- [x] `validate-all.sh` green; no fan-out workflow still says "all together"
+- [x] ≤3 cap empirically non-crashing (user's live agy run)
+
+### Handoff Notes
+Phase 3.4 complete. `≤3` is a tunable default. The v3.4.0 release (VERSION/CHANGELOG staged) now covers 3.3 + 3.4 + the install/update hardening — uncommitted, user commits/pushes.
+
 ## Session: 2026-06-13 — Subagent superpowers-wiring audit → Phase 3.3
 
 ### Objective

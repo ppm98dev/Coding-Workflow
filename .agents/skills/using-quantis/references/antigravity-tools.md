@@ -65,7 +65,7 @@ Skills provide prompt templates with placeholders like `{WHAT_WAS_IMPLEMENTED}` 
 
 ### Parallel Dispatch
 
-Antigravity supports parallel subagent dispatch. When a skill asks you to dispatch multiple independent subagent tasks in parallel, invoke them together. Keep dependent tasks sequential, but do not serialize independent subagent tasks.
+Antigravity supports parallel subagent dispatch. When a skill asks you to dispatch multiple independent subagent tasks in parallel, invoke them together — **but at most 3 concurrently; send more in waves of ≤3** (`invoke_subagent` has no built-in rate-limit backoff, so a larger burst causes `429` "exhausted capacity" errors — see the Concurrency Cap in `dispatching-parallel-agents`). Keep dependent tasks sequential, but do not serialize independent subagent tasks.
 
 ## Antigravity-Exclusive Tools
 

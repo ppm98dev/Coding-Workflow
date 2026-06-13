@@ -2,6 +2,11 @@
 
 All notable changes to Quantis.
 
+## [3.4.1] — 2026-06-13
+
+### Fixed
+- **Parallel-dispatch rate limits (Phase 3.4)** — fan-out workflows (`/wf-stress-test`, `/wf-research-phase`, `/wf-map`, `/wf-debug-issue`) now dispatch in **waves of ≤3 concurrent** with 429-aware backoff (wait → retry once → inline), via a shared **"Concurrency Cap & Rate Limits"** contract in `dispatching-parallel-agents`. Fixes `429 "exhausted capacity"` failures when stress-testing (7-at-once burst). `≤3` is a validated, tunable default. (D-012)
+
 ## [3.4.0] — 2026-06-13
 
 ### 🔌 Subagent Skill-Wiring & Workflow Reliability
@@ -23,6 +28,8 @@ The central theme: a dispatched subagent is a fresh context that inherits none o
 - **Phase 3.1 workflow reliability remediation** — full audit fix set across the discuss→plan→execute→verify core (STOP gates, unified phase-dir resolution, completion ownership, per-task verify gate).
 - Removed a verbatim-paste anti-pattern in `wf-stress-test`'s fan-out dispatch.
 - `validate-dispatch.sh` now ships via `install.sh` / `upgrade.sh` and is listed in `MANIFEST.md`.
+- `install.sh` now **preserves an existing `CONSTITUTION.md`** on reinstall (no longer resets a filled one to the template).
+- `/wf-update` script copy is now **MANIFEST-aware** — new validators (e.g. `validate-dispatch.sh`) ship automatically instead of being missed by a hardcoded list.
 
 ## [3.3.0] — 2026-06-11
 

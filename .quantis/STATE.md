@@ -1,7 +1,7 @@
 ## Current Position
-- **Phase**: 3.3 (Subagent & Workflow Skill-Wiring) ✅ Complete and verified (2026-06-13)
-- **Task**: Formal `/wf-verify 3.3` → **PASS**: 8/8 must-haves verified empirically (Gate Function, incl. negative test) + senior code review with **zero** findings. See `VERIFICATION.md`.
-- **Status**: ✅ Complete and verified. Next: cut the v3.4.0 release (VERSION/CHANGELOG already staged) or plan the next phase.
+- **Phase**: 3.4 (Parallel-Dispatch Concurrency Cap & Rate Limits) ✅ Complete (2026-06-13)
+- **Task**: Fixed the `/wf-stress-test` `429` rate-limit failures — all fan-out workflows now cap at **≤3 concurrent (waves)** + 429 wait-then-inline, via one shared `dispatching-parallel-agents` contract. Empirically validated (≤3 doesn't crash on the user's agy tier). See `.quantis/phases/3.4-dispatch-concurrency-cap/`. D-012 recorded.
+- **Status**: ✅ Complete. Phase 3.3 also ✅ verified (PASS). Next: commit + push the Phase 3.4 fix as **v3.4.1** (v3.4.0 already released; VERSION + CHANGELOG bumped).
 - **Prior**: Phase 3.1 (Workflow Reliability Fixes) 🔄 Implemented — still pending its end-to-end `/verify` run (separate deliverable).
 
 ## Last Session Summary
@@ -29,7 +29,7 @@ None — but Phase 3.1 cannot be marked **verified** until `/verify` runs.
 ## Context Dump
 
 ### Decisions Made
-Recorded as D-001…D-008 in `.quantis/DECISIONS.md` (scope expansion, SDD-single-fallback, gap-routing, checkbox plan format, one-task-per-file plans, implemented-not-verified, hard-fork, context Rule 4).
+Recorded as D-001…D-012 in `.quantis/DECISIONS.md` (D-001–D-008 Phase 3.1 scope/fallback/format; D-009 subagent-dispatch correction; D-010 blast-radius gather; D-011 dispatch contract; D-012 ≤3 concurrency cap + 429 backoff).
 
 ### Repository Structure (Current)
 ```
