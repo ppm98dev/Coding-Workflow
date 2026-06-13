@@ -137,12 +137,15 @@ cp -r "$SOURCE/.quantis/templates/"* .quantis/templates/
 cp "$SOURCE/.gemini/GEMINI.md" .gemini/GEMINI.md
 cp -r "$SOURCE/adapters" ./ 2>/dev/null || true
 
-# --- Core Docs and Scripts ---
+# --- Core Scripts (MANIFEST-aware) ---
+# Copy every script listed in MANIFEST.md's Scripts section, so new validators
+# (e.g. validate-dispatch.sh) ship automatically and the hardcoded list can't drift.
+# Skip install.sh — the curl one-liner runs it from a temp clone; it's not kept here.
 mkdir -p scripts
-cp "$SOURCE/scripts/search_repo.sh" scripts/
-cp "$SOURCE/scripts/setup_search.sh" scripts/
-cp "$SOURCE/scripts/validate-all.sh" scripts/
-cp "$SOURCE/scripts/validate-skills.sh" scripts/
+awk '/^###[ ]+Scripts/{f=1;next} /^#/{f=0} f&&/^- /{sub(/^- /,"");print $1}' "$SOURCE/MANIFEST.md" | while read -r s; do
+    [ "$s" = "install.sh" ] && continue
+    cp "$SOURCE/scripts/$s" scripts/ 2>/dev/null || true
+done
 
 # --- Core Root Files ---
 cp "$SOURCE/.agents/rules/PROJECT_RULES.md" .agents/rules/

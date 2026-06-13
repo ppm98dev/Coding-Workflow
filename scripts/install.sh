@@ -33,7 +33,18 @@ echo -e "⚙️ Copying core files..."
 mkdir -p .agents/skills .agents/rules .gemini .quantis adapters scripts
 
 # Copy structures
+# Preserve an existing CONSTITUTION across reinstall — it's a user file (may be
+# customized per project); the template must never clobber a filled one.
+CONSTITUTION_KEEP=""
+if [ -f ".agents/rules/CONSTITUTION.md" ]; then
+    CONSTITUTION_KEEP=".agents/rules/.CONSTITUTION.keep"
+    cp ".agents/rules/CONSTITUTION.md" "$CONSTITUTION_KEEP"
+fi
 cp -r "$TEMP_DIR/.agents/" ./
+if [ -n "$CONSTITUTION_KEEP" ] && [ -f "$CONSTITUTION_KEEP" ]; then
+    mv "$CONSTITUTION_KEEP" ".agents/rules/CONSTITUTION.md"
+    echo -e "  🛡️  Preserved your existing .agents/rules/CONSTITUTION.md"
+fi
 cp -r "$TEMP_DIR/.gemini/" ./
 cp "$TEMP_DIR/adapters/ANTIGRAVITY.md" adapters/
 
