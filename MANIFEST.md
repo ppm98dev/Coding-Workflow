@@ -102,6 +102,7 @@
 - search_repo.sh
 - setup_search.sh
 - validate-all.sh
+- validate-dispatch.sh
 - validate-skills.sh
 - validate-templates.sh
 - validate-workflows.sh

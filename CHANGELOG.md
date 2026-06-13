@@ -2,6 +2,28 @@
 
 All notable changes to Quantis.
 
+## [3.4.0] — 2026-06-13
+
+### 🔌 Subagent Skill-Wiring & Workflow Reliability
+
+The central theme: a dispatched subagent is a fresh context that inherits none of the orchestrator's loaded skills, so every dispatch must hand the subagent its methodology skill by path. Plus the Phase 3.1 reliability remediation lands.
+
+#### Added
+- **Dispatch Contract (D-011)**: every subagent dispatch hands its methodology skill by path — `REQUIRED SUB-SKILL: Read and follow .agents/skills/<X>/SKILL.md` — never pasted skill text (documented in QUANTIS-STYLE).
+- **`scripts/validate-dispatch.sh`** — enforces the contract (no bare dispatchers; allow-list with reasons); wired into `validate-all.sh`.
+- **TDD wired into execution**: the SDD `implementer` and `executing-plans` now force-load `test-driven-development`; `spec-reviewer` → `verification-before-completion`; `code-quality-reviewer` → `requesting-code-review`.
+- **Methodology handed to dispatched subagents** in `wf-stress-test`, `wf-research-phase`, `wf-debug-issue`, `wf-audit-milestone`; `wf-plan-milestone-gaps` → `writing-plans`; `wf-sprint` → SDD.
+
+#### Changed
+- **All skill commands prefixed `/wf-`** (e.g. `/wf-plan`, `/wf-execute`) — workflows now suggest the correct CLI command names.
+- **Gather→Digest→Generate**: the plan-writer now reads the change's full *blast radius* (files it edits **and** what those connect to), not just edited files (D-010).
+- `writing-plans` IDE fallback reconciled to D-002: `/wf-execute` always uses subagent-driven-development (self-selects real subagents or inline by platform); `executing-plans` is standalone/separate-session only.
+
+#### Fixed
+- **Phase 3.1 workflow reliability remediation** — full audit fix set across the discuss→plan→execute→verify core (STOP gates, unified phase-dir resolution, completion ownership, per-task verify gate).
+- Removed a verbatim-paste anti-pattern in `wf-stress-test`'s fan-out dispatch.
+- `validate-dispatch.sh` now ships via `install.sh` / `upgrade.sh` and is listed in `MANIFEST.md`.
+
 ## [3.3.0] — 2026-06-11
 
 ### 🎉 CLI-First Migration

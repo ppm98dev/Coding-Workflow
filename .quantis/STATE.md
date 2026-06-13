@@ -1,7 +1,7 @@
 ## Current Position
-- **Phase**: 3.3 (Subagent & Workflow Skill-Wiring) 🔄 Implemented & self-verified (2026-06-13) — pending formal `/wf-verify`
-- **Task**: Executed the 17-task plan via SDD fan-out (16 parallel implementers + orchestrator verification). Every dispatching workflow now hands its methodology skill by path; new `validate-dispatch.sh` enforces it (negative-test confirmed). See `3.3-…-SUMMARY.md`. Next: `/wf-verify 3.3`.
-- **Status**: Active (2026-06-13). Edits uncommitted per standing instruction.
+- **Phase**: 3.3 (Subagent & Workflow Skill-Wiring) ✅ Complete and verified (2026-06-13)
+- **Task**: Formal `/wf-verify 3.3` → **PASS**: 8/8 must-haves verified empirically (Gate Function, incl. negative test) + senior code review with **zero** findings. See `VERIFICATION.md`.
+- **Status**: ✅ Complete and verified. Next: cut the v3.4.0 release (VERSION/CHANGELOG already staged) or plan the next phase.
 - **Prior**: Phase 3.1 (Workflow Reliability Fixes) 🔄 Implemented — still pending its end-to-end `/verify` run (separate deliverable).
 
 ## Last Session Summary

@@ -44,6 +44,7 @@ cp "$TEMP_DIR/scripts/validate-all.sh" scripts/ 2>/dev/null || true
 cp "$TEMP_DIR/scripts/validate-skills.sh" scripts/ 2>/dev/null || true
 cp "$TEMP_DIR/scripts/validate-workflows.sh" scripts/ 2>/dev/null || true
 cp "$TEMP_DIR/scripts/validate-templates.sh" scripts/ 2>/dev/null || true
+cp "$TEMP_DIR/scripts/validate-dispatch.sh" scripts/ 2>/dev/null || true
 
 # Copy only .quantis templates (NOT the source repo's own dev state)
 mkdir -p .quantis/templates

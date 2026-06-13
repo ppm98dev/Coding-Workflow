@@ -225,7 +225,7 @@
 
 #### Phase 3.3: Subagent & Workflow Skill-Wiring 🔄
 
-**Status**: 🔄 Implemented & self-verified (2026-06-13) — 16-task SDD fan-out applied; `validate-dispatch.sh` + `validate-all.sh` green; negative-test confirms the new validator catches regressions. Pending formal `/wf-verify`. See `3.3-…-SUMMARY.md`.
+**Status**: ✅ Complete (2026-06-13) — 16-task SDD fan-out applied + formal `/wf-verify` **PASS** (8/8 must-haves verified empirically, senior code review 0 findings). See `VERIFICATION.md`.
 **Objective**: Make every **dispatched subagent** actually use the superpowers methodology it embodies — by handing it the skill **path** (read-on-demand) at the dispatch site, never pasted text. Plus reconcile the IDE-fallback routing contradiction and the two carried-in workflow-delegation gaps.
 **Depends on**: Phase 3.2
 **Folder**: `.quantis/phases/3.3-subagent-superpowers-wiring/` (SPEC.md + `3.3-subagent-superpowers-wiring-PLAN.md`, 17 tasks)
@@ -252,7 +252,7 @@
 - [x] Fix 5 — `wf-verify` Step 0 hands the skill by path, not paste (D-010) — verified already-compliant
 - [x] Fix 6 — carried-in: `wf-plan-milestone-gaps`→`writing-plans`, `wf-sprint`→SDD/`executing-plans`
 - [x] Fix 7 — `scripts/validate-dispatch.sh` (durability: no bare dispatchers); `validate-all.sh` green
-- [ ] Formal `/wf-verify 3.3` run (final gate)
+- [x] Formal `/wf-verify 3.3` run (final gate) — PASS (8/8 must-haves, 0 review findings)
 
 **Out of scope:** `finishing-a-development-branch`/`using-git-worktrees` wiring (intentionally outside `/wf-execute`); the Phase 3.1 end-to-end `/verify` run (separate deliverable).
 
