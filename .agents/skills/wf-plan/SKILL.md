@@ -125,7 +125,7 @@ echo "Phase directory: $PHASE_DIR"
   - **L1.5 (discovery)** — Quick A-vs-B comparison → DISCOVERY.md
   - **L2 (standard)** — 2-3 options, new integration → RESEARCH.md
   - **L3 (deep dive)** — Architectural decision, novel problem → full RESEARCH.md
-- Create RESEARCH.md inside `$PHASE_DIR/`
+- Create RESEARCH.md inside `$PHASE_DIR/` as a **bounded digest** (≤~400 words: relevant files (path — purpose), current patterns, dependencies & constraints, open questions). This is the **context the plan-writer consumes** (Gather → Digest → Generate — see QUANTIS-STYLE). Keep it compact; never dump raw file contents into it.
 
 ## 3.5 Discover Ecosystem Assets
 
@@ -213,39 +213,22 @@ gap_closure: true
 
 ### Subagent Planning (when available)
 
-**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch a `self` subagent to write the plans — do not write them inline.** The subagent prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, not paths, except where noted):
-- The SPEC.md content.
-- The full contents of `.agents/skills/writing-plans/SKILL.md`.
-- The `$PHASE_DIR` path and the naming convention `{N}.{M}-{plan-slug}-PLAN.md`.
-- The `.agents/rules/CONSTITUTION.md` quality standards.
-- RESEARCH.md findings and ARCHITECTURE.md (if they exist).
-- Any custom skills / MCP context discovered in Step 3.5.
-
-**Required return format:** PLAN.md file(s) written to `$PHASE_DIR/` following writing-plans' header and task structure.
-
-When the subagent returns, **continue at Step 5** (Plan Checker): review the output for task specificity, executable verify commands, and wave structure, then present key decisions to the user.
-
-**If the dispatch fails or returns unusable plans** (tool error, empty/missing file, unusable output): re-dispatch ONCE with explicit feedback on what was wrong. On a second failure, fall back to the inline procedure below and say so.
-
-**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `self` = clone of the calling agent with the same capabilities.
-
-**If `invoke_subagent` is NOT available**, follow the writing-plans skill inline:
+**Generate the plans via a LEAN subagent — keep the orchestrator thin, but NOT with a `self` clone** (the clone inherits your full ~60-skill config and stalls; see DECISIONS D-009). Follow **Gather → Digest → Generate** (QUANTIS-STYLE) — the gather/digest already happened in Step 3 (`RESEARCH.md`). If a minimal/templated `define_subagent` is available, dispatch one and give it ONLY: (1) the **`RESEARCH.md` digest** + the one-line phase objective from ROADMAP (inject — they're compact); (2) a PATH to read **`$PHASE_DIR/SPEC.md`** in full (the single source it must see whole); (3) a PATH to **`.agents/skills/writing-plans/SKILL.md`**. **Do NOT hand it the whole pile of files to re-read** — that re-gathers and re-bloats. It **writes the PLAN.md file(s) INCREMENTALLY** (one task/section per write; output caps at **16,384 tokens/turn**). If no lean subagent is available or it stalls, **write inline** — still incrementally — to `$PHASE_DIR/` (naming `{N}.{M}-{plan-slug}-PLAN.md`):
 
 **Read and follow `.agents/skills/writing-plans/SKILL.md` exactly.**
 
-Provide the skill with:
-- Phase number and objectives from ROADMAP.md
-- SPEC.md requirements
-- .agents/rules/CONSTITUTION.md quality standards
-- RESEARCH.md findings (if exists)
-- ARCHITECTURE.md (if exists)
+Provide the writer (or yourself, if inline) with the **digest, not the pile**:
+- The one-line phase objective from ROADMAP.md
+- The `RESEARCH.md` digest (Step 3) — the gathered context
+- `SPEC.md` — read directly (it is the source of truth the plan implements)
+- CONSTITUTION quality standards as a short rules reminder (not the full file)
 
 Output plans to `.quantis/phases/{N}.{M}-{slug}/` using `{N}.{M}-{plan-slug}-PLAN.md` naming.
 
 ## 5. Adversarial Plan Review (max 3 iterations)
 The plan's author must not be its only reviewer.
 
-**If `invoke_subagent` is available:** dispatch a fresh `self` subagent that has NOT seen this planning conversation. Paste in full (subagents do not inherit context): the PLAN.md file(s), `.quantis/SPEC.md`, and `.agents/skills/wf-stress-test/SKILL.md`, with the instruction "Run this skill in PLAN MODE against these plans and return the findings report."
+**If `invoke_subagent` is available:** dispatch a fresh `research` subagent that has NOT seen this planning conversation. Give it PATHS to read (it reads them into its own clean window — do not paste): the PLAN.md file(s) in `$PHASE_DIR/`, `.quantis/SPEC.md`, and `.agents/skills/wf-stress-test/SKILL.md`, with the instruction "Read these, run wf-stress-test in PLAN MODE against the plans, and return the findings report." If it stalls or returns nothing usable, run the review inline.
 
 **If `invoke_subagent` is NOT available:** dispatch the plan review inline using the template at `.agents/skills/writing-plans/plan-document-reviewer-prompt.md` — fill in the PLAN and SPEC paths and run its checklist with fresh eyes.
 

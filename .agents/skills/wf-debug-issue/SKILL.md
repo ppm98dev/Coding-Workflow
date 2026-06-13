@@ -98,7 +98,7 @@ Based on evidence, list possible causes:
 
 ## 5. Test Hypotheses
 
-**If 2+ hypotheses are independent (different subsystems / failure domains) and `invoke_subagent` is available** (CLI `agy`, Standalone): read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch **one subagent per hypothesis** — invoke them together when the tests are independent; keep them sequential if they share state (edit the same files / resources). Each subagent prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, not paths):
+**If 2+ hypotheses are independent (different subsystems / failure domains) and `invoke_subagent` is available** (CLI `agy`, Standalone): read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch **one subagent per hypothesis** — invoke them together when the tests are independent; keep them sequential if they share state (edit the same files / resources). Each subagent prompt MUST contain, **given as PATHS to read** (the subagent reads each into its own clean context window — do NOT paste file contents; pasting is what overloads a subagent):
 1. The symptom and evidence from `.quantis/DEBUG.md`.
 2. That subagent's single hypothesis and how to test it (read-only investigation; do NOT apply fixes).
 

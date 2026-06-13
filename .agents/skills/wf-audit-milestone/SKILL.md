@@ -14,7 +14,7 @@ Review a completed (or in-progress) milestone for quality, completeness, and les
 
 ## 0. Platform Check
 
-**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch** — do not do this work inline. Dispatch a `research` subagent (read-only: it loads the milestone archive, every phase's VERIFICATION.md, TODO.md, and DECISIONS.md, and re-checks must-have evidence — a large read volume that should not pollute the orchestrator). The subagent prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, never paths):
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch** — do not do this work inline. Dispatch a `research` subagent (read-only: it loads the milestone archive, every phase's VERIFICATION.md, TODO.md, and DECISIONS.md, and re-checks must-have evidence — a large read volume that should not pollute the orchestrator). The subagent prompt MUST contain, **given as PATHS to read** (the subagent reads each into its own clean context window — do NOT paste file contents; pasting is what overloads a subagent):
 - The milestone name (or "current milestone from ROADMAP.md" if none given).
 - The exact files to read and analyze: the milestone archive directory under `.quantis/milestones/{name}/` (or `.quantis/ROADMAP.md` for the current milestone), each phase's `VERIFICATION.md`, `.quantis/TODO.md`, and `.quantis/DECISIONS.md`.
 - The four analysis tasks from Steps 2-4 below: re-check each must-have's empirical evidence (still valid? regressions?), review deferred/technical-debt items, and analyze per-phase quality (gap closures, recurring issues).

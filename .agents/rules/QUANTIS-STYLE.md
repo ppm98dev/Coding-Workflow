@@ -234,9 +234,12 @@ Every workflow that can offload work to a subagent opens with `## 0. Platform Ch
 ```markdown
 ## 0. Platform Check
 
-**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch** — do not do this work inline. Dispatch a [`self` | `research`] subagent (for parallel fan-out: read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then invoke all subagents together). The subagent prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, never paths):
-- [each input the subagent needs: skill text, spec text, templates, the exact task]
-**Required return format:** [the exact structure/file the subagent must produce].
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): dispatch a subagent, **chosen by task type**:
+- **Analysis / read / review** (explore code, review a spec/plan, verify must-haves, gather context) → a **`research`** subagent. Light, reliable, parallelizable — the default, empirically-proven path. Parallel fan-out: read `.agents/skills/dispatching-parallel-agents/SKILL.md` and invoke all together.
+- **Creating a file** (a PLAN/SPEC/VERIFICATION or other large content) → **dispatch to a LEAN subagent** to keep the orchestrator thin (the whole point): a minimal `define_subagent` (templated/stripped system prompt + only the curated inputs it needs), **never a raw `self` clone** (the clone inherits the full ~60-skill config and stalls). Give it PATHS, not paste. The documented `self` failures were caused mainly by the clone's huge **input** context (~148 KB inherited prompt + skills + paste), **not** the output cap — so *"lean subagent or inline, never `self`"* is the load-bearing fix. For genuinely large files, also **write incrementally** (output caps at 16,384 tokens/turn, all models) as insurance. If no lean subagent is available or the dispatch stalls, write inline.
+
+Give the subagent **paths, not pasted content**: "read `.agents/skills/{skill}/SKILL.md` and `$PHASE_DIR/SPEC.md`, then …". The prompt is instructions, not a data dump — pasting is what overloads the subagent.
+**Required return format:** [the exact structure the subagent must produce].
 When the subagent(s) return, **continue at Step {N}** (review their output, then run the remaining inline steps yourself).
 
 **If `invoke_subagent` is NOT available** (IDE): proceed inline from Step 1.
@@ -246,15 +249,25 @@ When the subagent(s) return, **continue at Step {N}** (review their output, then
 > Detection is automatic. Never ask the user which mode to use.
 ```
 
-**Subagent types** (defined in `.agents/skills/using-quantis/references/antigravity-tools.md`): `research` = read-only codebase navigation/exploration; `self` = clone of the calling agent with the same capabilities; `browser` = sandboxed web operations. Name the type explicitly at every dispatch site.
+**Subagent types** (defined in `.agents/skills/using-quantis/references/antigravity-tools.md`): `research` = read-only codebase navigation/exploration; `self` = clone of the calling agent — inherits the FULL system prompt, skills, and rules (heavyweight; avoid for file-generation or large prompts — the documented cause of dispatch failures); `browser` = sandboxed web operations. Name the type explicitly at every dispatch site.
 
-### Paste, Don't Reference
+### Reference by Path, Don't Paste
 
-A subagent starts with an empty context. Name-dropping a skill ("the writing-plans skill", "brainstorming in critique mode") is unresolvable — the subagent has no access to your files unless you give it the **text** or tell it the **exact path to read**. Default to pasting CONTENTS. The only inputs that may be passed as a path are ones you instruct the subagent to read itself, and you must say "read this path".
+A subagent can read files — so give it the **path** ("read `path/to/file`"), not a pasted copy. The thing the audit warned against is *name-dropping* ("the writing-plans skill" with no path); fix that by naming the **exact path to read**, not by pasting the file's text. Pasting bloats the subagent's context and is the documented cause of dispatch failures — fatally so for `self`, which already carries ~100K tokens of inherited config. Reserve pasting for short, ephemeral snippets that have no path.
+
+### Gather → Digest → Generate (for any write that needs broad context)
+
+Generation (writing a PLAN/SPEC/etc.) usually needs more context than you can hand the writer raw. Split it into three steps so neither the orchestrator nor the writer bloats:
+
+1. **Gather** — a `research` subagent reads broadly (code, spec, prior decisions, history) and returns a **bounded digest** (≤~400 words / a RESEARCH.md): relevant files (path — purpose), current patterns, dependencies & constraints, open questions. The heavy reading happens *here*, in a throwaway window.
+2. **Digest is what the writer consumes** — inject the brief (it's small) **+ a PATH to the one source the writer must read in full** (e.g. the SPEC). Do NOT hand the writer the whole pile of files to re-read — it then re-gathers in its own window and you're back to bloat.
+3. **Generate incrementally** — the writer (lean subagent or inline) builds the file across multiple writes (one task/section per write), never one turn (16,384-token/turn cap).
+
+**Anti-pattern:** skipping the digest and giving the writer "read these 5 files" — that just moves the bloat into the writer.
 
 ### Delegation as a Numbered Process Step
 
-When a workflow delegates to a methodology skill, the load instruction is a **numbered process step**, bolded: `**Read and follow .agents/skills/{skill}/SKILL.md exactly.**` — never buried in `<context>` or a metadata blockquote. Subagent branches paste the skill's text into the dispatch instead.
+When a workflow delegates to a methodology skill, the load instruction is a **numbered process step**, bolded: `**Read and follow .agents/skills/{skill}/SKILL.md exactly.**` — never buried in `<context>` or a metadata blockquote. Subagent branches tell the subagent to **read the skill's path** instead (never paste its full text).
 
 ---
 

@@ -21,7 +21,7 @@ argument-hint: "<phase-number>"
 
 ## 0. Platform Check
 
-**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch a `research` subagent for context gathering — do not explore the codebase inline.** The subagent prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, not paths):
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch a `research` subagent for context gathering — do not explore the codebase inline.** The subagent prompt MUST contain, **given as PATHS to read** (the subagent reads each into its own clean context window — do NOT paste file contents; pasting is what overloads a subagent):
 1. The phase number and the phase's complete text copied from `.quantis/ROADMAP.md`.
 2. Any `.quantis/DECISIONS.md` entries that mention this phase.
 3. The task: "Explore the codebase (file structure, recent commits, relevant code) and gather dependencies and constraints for this phase."

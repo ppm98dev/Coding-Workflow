@@ -21,21 +21,11 @@ argument-hint: "<phase-number>"
 
 ## 0. Platform Check
 
-**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch** — do not revise plans inline. First do Step 1 (validate plans exist) and Step 2 (display structure) yourself. Then dispatch a `self` subagent whose prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, never paths):
-- The existing PLAN.md file(s) from `$PHASE_DIR` and the naming convention `{N}.{M}-{plan-slug}-PLAN.md`.
-- The full contents of `.agents/skills/writing-plans/SKILL.md`.
-- The `.quantis/DECISIONS.md` entries and discussion outcomes driving the revision, plus the relevant ROADMAP phase scope.
-- `.agents/rules/CONSTITUTION.md` quality standards.
-**Required return format:** the revised PLAN.md file(s) written to `$PHASE_DIR/` (checkbox task format — `### Task N` with `- [ ]` steps and `Run:`/`Expected:` verification) plus the Changes Summary from Step 4.
-When the subagent returns, **continue at Step 5** (Re-Validate), then commit yourself.
+**Revise the plans via a LEAN subagent (keep the orchestrator thin) — NOT a `self` clone** (it inherits the full config and stalls; see DECISIONS D-009). Do Step 1 (validate plans exist) and Step 2 (display structure). If a minimal/templated `define_subagent` is available, dispatch it with PATHS to read (the existing PLAN.md file(s), `.agents/skills/writing-plans/SKILL.md`, relevant `.quantis/DECISIONS.md`, `.agents/rules/CONSTITUTION.md`) and have it **rewrite the PLAN.md file(s) INCREMENTALLY** (output is capped at **16,384 tokens/turn**), checkbox format (`### Task N` with `- [ ]` steps, `Run:`/`Expected:`). If unavailable or it stalls, fall back to revising inline — still incrementally. Then continue at Step 5 (Re-Validate) and commit.
 
-**If `invoke_subagent` is NOT available** (IDE): proceed inline from Step 1.
-
-**If a dispatch fails or returns unusable output** (missing file, empty result): re-dispatch once with explicit feedback on what was wrong; on a second failure, fall back to the inline procedure and say so.
+> **Optional offload:** only via a **minimal `define_subagent`** (stripped prompt, never a raw `self`), giving it file PATHS to read. When unsure, write inline.
 
 > Detection is automatic. Never ask the user which mode to use.
-
-**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `self` = clone of the calling agent with the same capabilities.
 
 ## 1. Validate Plans Exist
 ```bash

@@ -4,6 +4,14 @@
 
 ---
 
+### D-009: Subagent dispatch corrected — analysis→`research`+paths, generation→inline (post-forensics)
+**Decision:** Reverse the H11 "MUST dispatch a `self` subagent + paste all content" pattern. (a) **Generation** (writing PLAN/SPEC/VERIFICATION files) → dispatch to a **LEAN subagent** (minimal/templated `define_subagent`, never a raw `self` clone) given **paths**, and **write the file INCREMENTALLY**; inline (still incremental) only as fallback. (b) **Analysis/read** → lightweight **`research`** subagents given **paths**, not paste. (c) Blanket "MUST dispatch / never inline" softens to "dispatch (lean) is the default; inline fallback if it stalls."
+**Rationale:** `subagent_failure_forensics.md` (filed in this phase dir) — a real run — shows `self` subagents told to write a file failed 3/3: a `self` inherits the full parent config (~60 skills + rules) and, with a large pasted payload on top, stalls before emitting any tool call; `research` subagents (light, paths, small calls) succeeded 2/2. Antigravity's documented design also intends subagents to take a clean isolated window and read what they need (paths), not pasted dumps. No published context limit exists, so the fix is principle-based + always-has-an-inline-fallback, not number-based. This partially reverses the H11 edits applied earlier the same day — the empirical loop catching over-instrumentation, as predicted.
+**Real root cause (confirmed against `5.5-origin-resolution-PLAN.md` + the forensics):** the `self` clone's massive **INPUT** context — ~148–157 KB of inherited system prompt + 60 skills + rules + paste — stalled the model before it emitted any write. Proof: that plan (~5,600 output tokens, **well under** the 16,384/turn cap) was written successfully **inline** once the `self` attempts were abandoned. So the load-bearing fix is **"lean subagent or inline, never `self`" + paths-not-paste**; the 16,384/turn output cap is real (research wb9ocq3jb) but was NOT the binding cause here — incremental writing is insurance for genuinely huge files, not the primary fix. A lean `define_subagent` (TemplatedSystemInstructions) can be made clean, unlike `self`.
+
+**Caveat:** Defensible, not verified — based on one forensic run + documented design intent. A clean isolated test would be biased (strips the loaded-session conditions that caused the failure); real verification is observing actual runs over time.
+
+
 ### D-001: Expand Phase 3.1 to full-audit remediation (nothing deferred)
 **Decision:** Pull every audit finding (incl. Issue 5, H7, H11, state-schema, error-paths originally slated for 3.4/3.5) into Phase 3.1.
 **Rationale:** User directive; the deferred items were cheap prose fixes and splitting them across phases left the system half-coherent.

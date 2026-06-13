@@ -31,11 +31,11 @@ HEAD_SHA=$(git rev-parse HEAD)
 
 **2. Run the review:**
 
-**If `invoke_subagent` is available** (CLI `agy`, Standalone): dispatch a `self` code reviewer subagent with the prompt template at `code-reviewer.md`, filled. The subagent does NOT inherit your context — paste the diff (or the BASE_SHA..HEAD_SHA range with instruction to run `git diff` itself) and the filled placeholders into the prompt.
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): dispatch a **`research`** code reviewer subagent (read-only review → returns findings; the reliable type) with the `code-reviewer.md` template filled. Give it the **`BASE_SHA..HEAD_SHA` range and tell it to run `git diff` itself** — do NOT paste the diff (large diffs overload the subagent). If it stalls or returns nothing usable, review inline.
 
 **If `invoke_subagent` is NOT available** (IDE): the review is still Mandatory — do NOT skip it. Read `code-reviewer.md` yourself and apply its criteria to the diff file-by-file, producing the same findings format (Strengths / Critical / Important / Minor / Assessment). Note that it was a self-review.
 
-**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `self` = clone of the calling agent with the same capabilities.
+**Subagent types:** `research` = lightweight read-only (preferred for analysis); `self` = heavyweight clone — avoid for file-generation or large prompts. See `.agents/skills/using-quantis/references/antigravity-tools.md`.
 
 **Placeholders:**
 - `{DESCRIPTION}` - Brief summary of what you built

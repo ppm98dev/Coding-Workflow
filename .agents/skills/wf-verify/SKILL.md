@@ -43,13 +43,12 @@ The verifier checks the CODEBASE, not SUMMARY claims.
 
 ## 0. Platform Check
 
-**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch a `self` subagent for the verification work — do not verify inline.** First do Steps 1–2 yourself (load context, extract the must-haves). Then dispatch ONE `self` subagent whose prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, not paths):
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): dispatch a **`research`** subagent for the must-have *checking* (read-only analysis — the reliable pattern), then **write VERIFICATION.md yourself, inline**, from its returned evidence (file-writing is generation, kept inline). First do Steps 1–2 yourself (load context, extract the must-haves); then dispatch the `research` subagent with PATHS to read (not pasted content):
 1. The extracted must-haves list (from Step 2) with each one's verification method.
-2. The full text of `.agents/skills/verification-before-completion/SKILL.md` (its Gate Function IDENTIFY → RUN → READ → VERIFY → only then claim governs every check).
-3. The `$PHASE_DIR` path with instruction to read SUMMARY files and inspect the CODEBASE (not SUMMARY claims).
-4. The VERIFICATION.md format from Step 5.
+2. Instruction to **read `.agents/skills/verification-before-completion/SKILL.md`** and apply its Gate Function (IDENTIFY → RUN → READ → VERIFY → only then claim) to every check.
+3. The `$PHASE_DIR` path — read SUMMARY files and inspect the actual CODEBASE (not SUMMARY claims).
 
-**Required return format:** a completed VERIFICATION.md (Step 5 structure) with empirical evidence per must-have and a PASS/FAIL/PARTIAL verdict.
+**Required return format:** per must-have — empirical evidence (command output / file refs) + PASS/FAIL/PARTIAL. The orchestrator writes VERIFICATION.md (Step 5) from this — **incrementally if the report is large** (output is capped at 16,384 tokens/turn). If the subagent stalls or returns non-empirical claims, verify inline.
 
 When the subagent returns, the orchestrator:
 1. Reviews the verification results
@@ -63,7 +62,7 @@ When the subagent returns, the orchestrator:
 
 > Detection is automatic. Never ask the user which mode to use.
 
-**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `self` = clone of the calling agent with the same capabilities.
+**Subagent types:** `research` = lightweight read-only (preferred for analysis); `self` = heavyweight clone — avoid for file-generation or large prompts. See `.agents/skills/using-quantis/references/antigravity-tools.md`.
 
 ## 1. Load Verification Context
 

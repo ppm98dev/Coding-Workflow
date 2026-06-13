@@ -25,8 +25,8 @@ You are a Quantis adversarial reviewer. You systematically attack a spec/plan ac
 
 ## 0. Platform Check
 
-**If `invoke_subagent` is available** (CLI `agy`, Standalone): **you MUST dispatch — do not run the critique inline.** Read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch **7 parallel `self` subagents — one per dimension from Step 3**. The dimensions are independent, read-only analyses: invoke all 7 together, never sequentially. Each subagent prompt MUST contain, **pasted in full** (subagents do NOT inherit your context — paste CONTENTS, not paths):
-1. The full text of the target file ($ARGUMENTS, default `.quantis/SPEC.md`), plus `.quantis/ROADMAP.md` phase scope and relevant `.quantis/DECISIONS.md` entries.
+**If `invoke_subagent` is available** (CLI `agy`, Standalone): the 7 dimensions are independent, read-only analyses — dispatch them as parallel **`research`** subagents (the reliable type for analysis). Read `.agents/skills/dispatching-parallel-agents/SKILL.md`, then dispatch **7 parallel `research` subagents — one per dimension from Step 3**, invoked all together. Give each PATHS to read (it reads them into its own clean window — do not paste):
+1. The target file path ($ARGUMENTS, default `.quantis/SPEC.md`), plus `.quantis/ROADMAP.md` and relevant `.quantis/DECISIONS.md` — instruct it to read them.
 2. The adversarial mandate: "Your job is to BREAK this spec, not validate it. Assume everything is wrong until proven otherwise."
 3. That subagent's single dimension copied verbatim from Step 3 (its questions), and the per-finding report format from Step 4.
 
@@ -40,7 +40,7 @@ When all 7 return: **continue at Step 4** — merge their findings (dedupe overl
 
 > Detection is automatic. Never ask the user which mode to use.
 
-**Subagent types** (`.agents/skills/using-quantis/references/antigravity-tools.md`): `self` = clone of the calling agent with the same capabilities.
+**Subagent types:** `research` = lightweight read-only (preferred for analysis); `self` = heavyweight clone — avoid for file-generation or large prompts. See `.agents/skills/using-quantis/references/antigravity-tools.md`.
 
 ## 1. Load Context
 Read target file + SPEC.md + ROADMAP.md + DECISIONS.md.
