@@ -75,7 +75,7 @@ cp -r .quantis-install-temp/.quantis/templates/ .quantis/
 cp .quantis-install-temp/.agents/rules/CONSTITUTION.md .agents/rules/
 cp .quantis-install-temp/.agents/rules/PROJECT_RULES.md .agents/rules/
 cp .quantis-install-temp/.agents/rules/QUANTIS-STYLE.md .agents/rules/
-cp .quantis-install-temp/VERSION ./
+cp .quantis-install-temp/.quantis/VERSION .quantis/
 ```
 
 > All workflows live in `.agents/skills/wf-*/SKILL.md` alongside methodology

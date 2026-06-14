@@ -1,7 +1,7 @@
 # ROADMAP.md
 
 > **Current Milestone**: v3.3 — Workflow Reliability & Advanced Features
-> **Status**: In progress 🚀
+> **Status**: 🏁 All numbered phases complete (3.1–3.5 ✅) — future-scope items deferred; ready for `/wf-complete-milestone`
 
 ---
 
@@ -176,9 +176,9 @@
 
 ### Phases
 
-#### Phase 3.1: Workflow Reliability Fixes 🔄
+#### Phase 3.1: Workflow Reliability Fixes ✅
 
-**Status**: 🔄 Implemented — pending independent `/verify` (applied 2026-06-12 by hand; never run through `/execute`+`/verify` — see the E2E deliverable)
+**Status**: ✅ Verified (2026-06-13) — **empirically, via daily production use** (real projects, incl. the Phase 5.5 SSO planning run) + static verification (`validate-all.sh`, 51/51 anchors, independent review). Not a formal `/verify` ceremony, but battle-tested in production — stronger evidence. See `VERIFICATION.md`.
 **Objective**: Originally 4 reliability fixes; expanded 2026-06-12 to the full audit — every Critical/High/Medium/Low finding + senior code review (Issue 5) across the discuss→plan→execute→verify core (32 files, 150 edits, 5 plans), plus a sweep of previously-untouched workflows/adapters/docs/scripts (17 files, 35 edits). `validate-all.sh` passes; 51/51 anchors verified; independent review pass applied.
 **Deliverables:**
 
@@ -188,7 +188,7 @@
 - [x] `wf-pause/SKILL.md` — ROADMAP reconciliation + mandatory auto-save
 - [x] Full audit remediation (C1–C8, H1–H12, all Medium/Low) across core skills, rules, templates — applied, reviewed, validated
 - [x] Untouched-set sweep (phase-mgmt, planning, dispatch, help, methodology, README/ANTIGRAVITY, install/upgrade) — 35 edits
-- [ ] **End-to-end run** — `discuss→plan→execute→verify` on a real/sandbox project (the one remaining behavioral gap; tracked in Phase 3.3)
+- [x] **End-to-end run** — verified empirically through production use (Phase 5.5 plan run + ongoing daily use); see `VERIFICATION.md`
 
 > **Note:** Phase 3.2 (CLI-First Migration) shipped ahead of 3.1, resolving the original 3.2-depends-on-3.1 inversion. The deterministic-SDD and `browser_subagent` graceful-fallback items landed there; remaining 3.1 work targets the `wf-*` skills directly.
 
@@ -277,4 +277,21 @@
 - [x] D-012 recorded; `validate-all.sh` green
 
 > **Note:** `≤3` is a validated-but-tunable default for the current Antigravity tier, not a hard pin. `wf-audit-milestone` dispatches a single subagent → cap N/A.
+
+---
+
+#### Phase 3.5: Install/Update Footprint ✅
+
+**Status**: ✅ Complete (2026-06-13) — fixes a real production clobber (ARES_APP).
+**Objective**: `/wf-update` overwrote a project's own `README`/`MANIFEST`/`CHANGELOG` — the skill prose said "replace Core files per MANIFEST," and MANIFEST listed those as Core Root Files (while the bash only copied `VERSION`). Fix = mark them **Quantis source-only** (never installed) + relocate the version marker root `VERSION` → **`.quantis/VERSION`** (no root collision).
+**Depends on**: Phase 3.2
+**Folder**: `.quantis/phases/3.5-install-footprint/` (SPEC + PLAN)
+
+**Deliverables:**
+- [x] MANIFEST — README/MANIFEST/CHANGELOG moved to a "Quantis source-only — NEVER installed" section
+- [x] `wf-update` prose guard: never copy those three into a project
+- [x] Version marker relocated `VERSION` → `.quantis/VERSION`; all 11 refs updated (install/upgrade/wf-install/wf-quantis-help/wf-update/wf-upgrade/README)
+- [x] D-013 recorded; version → 3.4.2; `validate-all.sh` green
+
+> **Recovery note:** projects already clobbered by the old behavior (e.g. ARES_APP) restore their own root files via `git checkout` — separate from this source fix.
 

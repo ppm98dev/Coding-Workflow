@@ -1,5 +1,22 @@
 # Quantis Journal
 
+## Session: 2026-06-13 — Phase 3.5: install/update footprint fix
+
+### Objective
+Fix `/wf-update` clobbering a project's own README/MANIFEST/CHANGELOG (reported live on ARES_APP).
+
+### Accomplished
+- Root cause: `wf-update` Step 5 **prose** ("replace files in Core sections") + MANIFEST listing README/MANIFEST/CHANGELOG as "Core Root Files" → agent copied them into the project (the **bash** only copied `VERSION` — prose/bash disagreed; agent followed the prose).
+- Fix: MANIFEST marks README/MANIFEST/CHANGELOG **source-only (never installed)**; `wf-update` prose guard forbids copying them. Relocated version marker root `VERSION` → **`.quantis/VERSION`** (no root collision) — 11 refs updated. Version → 3.4.2. Phase 3.5 (SPEC + PLAN). **D-013**.
+- Correction logged: my earlier "none touch CHANGELOG" was based on the bash only — the prose-driven agent path *did* copy them. Now fixed at the source.
+
+### Verification
+- [x] No bash copies README/MANIFEST/CHANGELOG into a target; wf-update prose forbids it
+- [x] All version refs use `.quantis/VERSION`; `validate-all.sh` green
+
+### Handoff Notes
+v3.4.2 staged (uncommitted). ARES_APP needs its own README/CHANGELOG restored via `git checkout` (separate repo). Earlier this session: Phase 3.4 (≤3 dispatch cap) + 6-agent audit (clean + 2 fixes).
+
 ## Session: 2026-06-13 — Phase 3.4: parallel-dispatch rate-limit fix
 
 ### Objective

@@ -1,8 +1,8 @@
 ## Current Position
-- **Phase**: 3.4 (Parallel-Dispatch Concurrency Cap & Rate Limits) ✅ Complete (2026-06-13)
-- **Task**: Fixed the `/wf-stress-test` `429` rate-limit failures — all fan-out workflows now cap at **≤3 concurrent (waves)** + 429 wait-then-inline, via one shared `dispatching-parallel-agents` contract. Empirically validated (≤3 doesn't crash on the user's agy tier). See `.quantis/phases/3.4-dispatch-concurrency-cap/`. D-012 recorded.
-- **Status**: ✅ Complete. Phase 3.3 also ✅ verified (PASS). Next: commit + push the Phase 3.4 fix as **v3.4.1** (v3.4.0 already released; VERSION + CHANGELOG bumped).
-- **Prior**: Phase 3.1 (Workflow Reliability Fixes) 🔄 Implemented — still pending its end-to-end `/verify` run (separate deliverable).
+- **Phase**: 3.5 (Install/Update Footprint) ✅ Complete (2026-06-13)
+- **Task**: Fixed `/wf-update` clobbering a project's `README`/`MANIFEST`/`CHANGELOG` (now Quantis source-only, never installed) + relocated version marker root `VERSION` → `.quantis/VERSION`. See `.quantis/phases/3.5-install-footprint/`. D-013 recorded. (Prior: 3.4 ≤3 dispatch cap ✅; 3.3 ✅ verified.)
+- **Status**: ✅ Complete. Next: commit + push as **v3.4.2**. Separately, recover ARES_APP's clobbered root files via `git checkout` (that repo).
+- **Prior**: Phase 3.1 (Workflow Reliability Fixes) ✅ Verified (2026-06-13) — empirically, via production use; see its `VERIFICATION.md`. With this, all v3.3 phases (3.1–3.5) are complete.
 
 ## Last Session Summary
 
@@ -24,12 +24,12 @@ Audited the whole Quantis workflow system, then remediated every finding — not
 ~22 files modified in the working tree, **uncommitted** (per user instruction): 17 sweep files + 2 scripts + ROADMAP + STATE + context-skill wiring. Core 32-file fix set + 5 plans already committed (`e469ed0`, `1a2d9ac`).
 
 ## Blockers
-None — but Phase 3.1 cannot be marked **verified** until `/verify` runs.
+None. Phase 3.1 is verified empirically (production use), 2026-06-13 — all v3.3 phases complete.
 
 ## Context Dump
 
 ### Decisions Made
-Recorded as D-001…D-012 in `.quantis/DECISIONS.md` (D-001–D-008 Phase 3.1 scope/fallback/format; D-009 subagent-dispatch correction; D-010 blast-radius gather; D-011 dispatch contract; D-012 ≤3 concurrency cap + 429 backoff).
+Recorded as D-001…D-013 in `.quantis/DECISIONS.md` (D-001–D-008 Phase 3.1; D-009 subagent-dispatch correction; D-010 blast-radius gather; D-011 dispatch contract; D-012 ≤3 concurrency cap + 429 backoff; D-013 install footprint + version relocation).
 
 ### Repository Structure (Current)
 ```
@@ -40,7 +40,7 @@ adapters/         ANTIGRAVITY.md   scripts/  install/upgrade/validate
 ```
 
 ## Next Steps
-1. **End-to-end `/verify` run** — drive `discuss→plan→execute→verify` on a real/sandbox project; the only behavioral gap (tracked in ROADMAP Phase 3.1 + 3.3)
+1. ✅ **Done** — Phase 3.1 verified empirically (production use); the end-to-end gap is closed.
 2. **Commit** the working-tree changes (or revert) — user reviewing first
 3. **Optional**: whole-system coherence read; methodology-fidelity diff vs upstream Superpowers
 4. **Watch for over-instrumentation** on the first real run — trim gates/dispatch that add friction without compliance

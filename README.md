@@ -227,13 +227,12 @@ All workflows and skills live in `.agents/skills/` — no platform-specific setu
 ├── skills/       30 workflow commands (wf-*) + 18 auto-triggered skills
 └── rules/        PROJECT_RULES.md · CONSTITUTION.md · QUANTIS-STYLE.md
 .gemini/          Platform bootstrap
-.quantis/         Project state + templates
+.quantis/         Project state, templates + VERSION (Quantis version marker)
 adapters/         Platform-specific guidance
 scripts/          Validation scripts + one-liner installer
 assets/           README banner
 CHANGELOG.md      Release history
 MANIFEST.md       Core file listing (for safe updates)
-VERSION           Current version
 ```
 
 </details>

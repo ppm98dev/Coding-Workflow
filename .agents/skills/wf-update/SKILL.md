@@ -15,11 +15,11 @@ Uses MANIFEST.md to only replace core files — preserves user-installed skills 
 ## 1. Check Current Version
 
 ```bash
-if [ -f "VERSION" ]; then
-    version=$(cat VERSION)
+if [ -f ".quantis/VERSION" ]; then
+    version=$(cat .quantis/VERSION)
     echo "Current version: $version"
 else
-    echo "No VERSION file found. Current version unknown."
+    echo "No .quantis/VERSION file found. Current version unknown."
 fi
 ```
 
@@ -37,7 +37,7 @@ git clone --depth 1 https://github.com/ppm98dev/Coding-Workflow.git .quantis-upd
 ## 3. Compare Versions
 
 ```bash
-remote_version=$(cat .quantis-update-temp/VERSION 2>/dev/null || echo "unknown")
+remote_version=$(cat .quantis-update-temp/.quantis/VERSION 2>/dev/null || echo "unknown")
 echo "Remote version: $remote_version"
 ```
 
@@ -88,6 +88,8 @@ B) No — Cancel
 Read MANIFEST.md from the remote copy to determine what to update.
 Only replace files and directories listed in the **Core** sections.
 Never touch files listed in **User Files**.
+
+> ⚠️ **NEVER copy `README.md`, `MANIFEST.md`, or `CHANGELOG.md` into the project** — they are Quantis **source-only** (copying them would clobber the project's own README/CHANGELOG). The only version marker written is **`.quantis/VERSION`**; there are **no** Quantis files at the project root.
 
 ### 5a. Clean Up Legacy Structure (if needed)
 
@@ -150,7 +152,7 @@ done
 # --- Core Root Files ---
 cp "$SOURCE/.agents/rules/PROJECT_RULES.md" .agents/rules/
 cp "$SOURCE/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
-cp "$SOURCE/VERSION" ./
+cp "$SOURCE/.quantis/VERSION" .quantis/
 ```
 
 > **Note:** `.agents/rules/CONSTITUTION.md` is NOT overwritten — it's a user file that may have been customized.

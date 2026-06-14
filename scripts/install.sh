@@ -62,7 +62,7 @@ mkdir -p .quantis/templates
 cp -r "$TEMP_DIR/.quantis/templates/" .quantis/
 
 # Root files
-cp "$TEMP_DIR/VERSION" ./
+cp "$TEMP_DIR/.quantis/VERSION" .quantis/   # Quantis version marker (namespaced — never a bare root VERSION)
 
 # Clean up any legacy directories from older installs
 if [ -d ".agent" ]; then

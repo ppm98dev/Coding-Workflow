@@ -113,12 +113,17 @@
 - PROJECT_RULES.md
 - QUANTIS-STYLE.md
 
-### Root Files (project root)
+### Version marker (installed)
 
-- CHANGELOG.md
-- MANIFEST.md
+- `.quantis/VERSION` — the Quantis version, namespaced under `.quantis/` (never a bare root `VERSION`, which would collide with a project's own).
+
+### Quantis SOURCE-ONLY — NEVER copied into a target project
+
+`/install`, `/update`, `/upgrade` MUST NOT write these into a project — they would clobber the project's own files. They live in the Quantis repo only:
+
 - README.md
-- VERSION
+- MANIFEST.md
+- CHANGELOG.md
 
 ## User Files (NEVER overwritten by /update or /upgrade)
 

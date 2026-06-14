@@ -62,7 +62,7 @@ gap_closure: false
 
 # Phase {N}.{M}: {Description} - Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use subagent-driven-development or executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: implement this plan task-by-task with `subagent-driven-development` (the `/wf-execute` path — it self-selects real subagents or inline mode by platform). `executing-plans` is for standalone / separate-session runs only. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** [One sentence describing what this builds]
 

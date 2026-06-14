@@ -14,7 +14,7 @@ Display all available Quantis commands with descriptions and usage hints.
 **First, read and display the version:**
 
 ```bash
-version=$(cat VERSION 2>/dev/null || echo "unknown")
+version=$(cat .quantis/VERSION 2>/dev/null || echo "unknown")
 ```
 
 **Then display help with version in header:**

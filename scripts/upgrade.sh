@@ -170,7 +170,7 @@ cp "$TEMP_DIR/scripts/validate-dispatch.sh" scripts/ 2>/dev/null || true
 echo -e "⚙️ Copying core configuration files..."
 cp "$TEMP_DIR/.agents/rules/PROJECT_RULES.md" .agents/rules/
 cp "$TEMP_DIR/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
-cp "$TEMP_DIR/VERSION" ./
+cp "$TEMP_DIR/.quantis/VERSION" .quantis/
 
 # Step 10: Replace GSD references in preserved state files
 echo -e "🔄 Replacing GSD references with Quantis..."

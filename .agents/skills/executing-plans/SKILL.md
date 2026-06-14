@@ -11,7 +11,7 @@ Load plan, review critically, execute all tasks, report when complete.
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
-**Note:** If the `invoke_subagent` tool is in your session's tool list (CLI `agy`, Standalone — not the IDE), use subagent-driven-development instead. If `/execute` routed you here, that check already failed — proceed with this skill and do not ask the user about execution modes.
+**Note:** This is the **standalone / separate-session** executor. `/wf-execute` does **not** route here — it always uses `subagent-driven-development` (real subagents when `invoke_subagent` is available, inline SDD mode on the IDE). Use this skill only when a plan is run **directly / standalone**, or via SDD's "run in a parallel session" branch.
 
 ## The Process
 
@@ -38,7 +38,7 @@ After all tasks complete and verified:
 - **REQUIRED SUB-SKILL:** Use finishing-a-development-branch
 - Follow that skill to verify tests, present options, execute choice
 
-> **When invoked from `/execute`:** Skip this step. `/execute` owns phase-level completion. Only run finishing-a-development-branch when executing-plans is invoked standalone.
+> **When reached from `/wf-execute`** (via SDD's parallel-session branch): Skip this step — `/wf-execute` owns phase-level completion. Run finishing-a-development-branch only when this skill is invoked **standalone**.
 
 ## When to Stop and Ask for Help
 

@@ -2,6 +2,14 @@
 
 All notable changes to Quantis.
 
+## [3.4.2] — 2026-06-13
+
+### Fixed
+- **`/wf-update` no longer clobbers a project's root files (Phase 3.5)** — `README.md`, `MANIFEST.md`, `CHANGELOG.md` are now marked **Quantis source-only** in MANIFEST and explicitly excluded by the update prose. Previously the skill said "replace Core files per MANIFEST," and MANIFEST listed those three as Core Root Files — so the agent copied them into the project, overwriting the project's own. (D-013)
+
+### Changed
+- **Version marker relocated:** root `VERSION` → **`.quantis/VERSION`** (namespaced — no longer collides with a project's own `VERSION`). All install/update/upgrade references updated.
+
 ## [3.4.1] — 2026-06-13
 
 ### Fixed

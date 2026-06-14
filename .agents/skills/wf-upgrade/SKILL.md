@@ -257,7 +257,7 @@ cp "$SOURCE/scripts/validate-templates.sh" scripts/
 # Rules (overwrite methodology files, NOT CONSTITUTION.md)
 cp "$SOURCE/.agents/rules/PROJECT_RULES.md" .agents/rules/
 cp "$SOURCE/.agents/rules/QUANTIS-STYLE.md" .agents/rules/
-cp "$SOURCE/VERSION" ./
+cp "$SOURCE/.quantis/VERSION" .quantis/
 echo "Updated rules and version"
 ```
 
@@ -325,7 +325,7 @@ for file in .quantis/SPEC.md .quantis/ROADMAP.md .quantis/STATE.md; do
     fi
 done
 
-cat VERSION
+cat .quantis/VERSION
 ```
 
 ---
