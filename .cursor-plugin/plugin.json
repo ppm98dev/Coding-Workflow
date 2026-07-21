@@ -1,0 +1,7 @@
+{
+  "name": "quantis",
+  "version": "4.0.0",
+  "description": "Project tracking for AI coding agents — persistent memory across sessions, roadmap & phase tracking, verify-with-evidence discipline. Bring your own methodology (e.g. superpowers).",
+  "skills": "./.cursor/skills/",
+  "rules": "./.cursor/rules/"
+}

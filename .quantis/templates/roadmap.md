@@ -1,86 +1,35 @@
-# Roadmap Template
+# ROADMAP.md
 
-Template for `.quantis/ROADMAP.md` — phase structure and progress tracking.
+> **Project**: {name}
+> **Milestone**: {v1.0 / MVP / …}
+> **Status**: `DRAFT` <!-- FINALIZED only when no [NEEDS CLARIFICATION] markers remain; no code before FINALIZED -->
 
----
+## Vision
+{One paragraph: what this is and why it matters}
 
-## File Template
+## Non-Goals
+- {Explicitly out of scope}
 
-```markdown
----
-milestone: {name}
-version: {semantic version}
-updated: [ISO timestamp]
----
-
-# Roadmap
-
-> **Current Phase:** {N} - {name}
-> **Status:** {planning | executing | verifying}
-
-## Must-Haves (from SPEC)
-
-- [ ] {Must-have 1}
-- [ ] {Must-have 2}
-- [ ] {Must-have 3}
+## Success Criteria
+- [ ] {Measurable outcome — verification targets these}
 
 ---
 
 ## Phases
 
-### Phase 1: {Foundation}
-**Status:** ⬜ Not Started | 🔄 In Progress | ✅ Complete
-**Objective:** {What this phase delivers}
-**Requirements:** REQ-01, REQ-02
+### Phase 1: {name}
+Status: ⬜
+Objective: {what this phase delivers}
+Plan: — <!-- link the plan file once planned (docs/superpowers/plans/…, .cursor/plans/…) -->
 
-**Plans:**
-- [ ] Plan 1.1: {name}
-- [ ] Plan 1.2: {name}
+### Phase 2: {name}
+Status: ⬜
+Objective: {…}
+Plan: —
 
----
-
-### Phase 2: {Core Feature}
-**Status:** ⬜ Not Started
-**Objective:** {What this phase delivers}
-**Depends on:** Phase 1
-
-**Plans:**
-- [ ] Plan 2.1: {name}
-- [ ] Plan 2.2: {name}
+<!-- 3–5 phases per milestone; each a clear deliverable; dependencies flow forward -->
 
 ---
 
-### Phase 3: {Integration}
-**Status:** ⬜ Not Started
-**Objective:** {What this phase delivers}
-**Depends on:** Phase 2
-
----
-
-### Phase 4: {Polish/Launch}
-**Status:** ⬜ Not Started
-**Objective:** {Final touches and deployment}
-**Depends on:** Phase 3
-
----
-
-```
-
-> Progress Summary and Timeline tables are intentionally omitted — `/progress` derives phase status live from this file; no workflow writes summary/timeline tables.
-
----
-
-## Status Icons
-
-- ⬜ Not Started
-- 🔄 In Progress
-- ✅ Complete
-- ⏸️ Paused
-- ❌ Blocked
-
-## Guidelines
-
-- 3-5 phases per milestone
-- Each phase has clear deliverable
-- Dependencies flow forward
-- Update status as work progresses
+## Decisions
+<!-- Durable, append-only: {date} — {decision}: {rationale} -->

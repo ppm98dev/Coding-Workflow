@@ -5,252 +5,98 @@
 <br/>
 <br/>
 
-![Version](https://img.shields.io/badge/version-3.4.0-2563eb?style=flat-square)
+![Version](https://img.shields.io/badge/version-4.0.0-2563eb?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-16a34a?style=flat-square)
-![Platform](https://img.shields.io/badge/platform-Antigravity-0b1020?style=flat-square)
-![Skills](https://img.shields.io/badge/skills-superpowers%20v5.1.0-8957e5?style=flat-square)
-![Models](https://img.shields.io/badge/models-Claude%20%7C%20Gemini%20%7C%20GPT--OSS-ea580c?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-Cursor-0b1020?style=flat-square)
 
-**Spec-driven development for AI coding agents.**
+**The conductor for your coding skills.**
 
-Persistent memory across sessions · battle-tested code-quality skills · a real **discuss → plan → execute → verify** workflow.
-
-[Quick Start](#quick-start) · [How It Works](#how-it-works) · [Architecture](#architecture) · [Commands](#commands) · [Platforms](#platforms)
+Your plugins do the work. Quantis remembers where you are and calls the right one next.
 
 </div>
 
 ---
 
-Quantis turns AI-assisted coding from *vibecoding* into a structured, repeatable process. It gives your AI agent persistent memory across sessions, forks [obra/superpowers](https://github.com/obra/superpowers)' battle-tested code-quality skills, and wraps them in a project-management workflow that runs natively on [Google Antigravity](https://blog.google/technology/google-deepmind/antigravity/).
+Skills and plugins (like [obra/superpowers](https://github.com/obra/superpowers)) are the real engine of AI-assisted development — brainstorming, planning, TDD, review. What they don't have is a project-level memory: what you're building, which phase you're in, what's verified, where a fresh session should pick up. Cursor doesn't either — resume replays old threads; it can't hand a *new* session a distilled "here's where we are."
 
-> **No "trust me, it works."** Every phase ends in empirical verification — commands run, output read, proof recorded.
+Quantis is that missing layer, kept deliberately tiny: **two markdown files, six commands, one of which matters.**
 
-<a id="quick-start"></a>
+## 🔄 The loop
 
-## 🚀 Quick Start
+```
+/q-init  →  ROADMAP.md (vision, non-goals, success criteria, phases) + STATE.md
 
-### 1 · Install
+/q-next  →  reads the state, runs ONE stage, records the outcome:
+            DEFINE   resolve open questions → intent FINALIZED
+            PLAN     → your planning skill; link the plan in ROADMAP
+            BUILD    → your dev workflow (TDD, subagents, review)
+            VERIFY   evidence against the phase objective → ✅ or gaps
+            MILESTONE  archive, define the next phases
 
-Run this one-liner in your target project directory:
+…repeat /q-next until shipped. /q-pause and /q-resume carry you across sessions.
+```
+
+The methodology skills are invoked *by* the loop, not replaced by it: superpowers plans stay in `docs/superpowers/plans/`, Cursor Plan Mode plans in `.cursor/plans/` — ROADMAP.md just links to them. Plugins track their own tasks; Quantis tracks phases.
+
+## ⌨️ Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/q-init` | Short questioning → ROADMAP.md + STATE.md |
+| `/q-next` | Advance one stage (the conductor — this is the workflow) |
+| `/q-status` | Where are we, and what `/q-next` will do |
+| `/q-pause` | Dump state for a clean session handoff |
+| `/q-resume` | Restore context in a fresh session |
+| `/q-update` | Update the installed Quantis (never touches project state) |
+| `/q-help` | Reference |
+
+Roadmap edits (add/remove/reorder phases, rename milestone) need no command — just ask; the schema lives in the always-loaded rules.
+
+## 💾 State (`.quantis/`)
+
+| Path | Purpose |
+|------|---------|
+| `ROADMAP.md` | Durable truth: intent header (with the `FINALIZED` gate), phases with status + plan links, decisions |
+| `STATE.md` | Session memory: position, context dump, next steps |
+| `phases/{N}-{slug}/` | Verification evidence (`VERIFICATION.md`) — the only way a phase becomes ✅ |
+| `archive/` | Completed milestones |
+| `templates/` | The three file schemas |
+
+## 🛡️ Rules (always loaded via `.cursor/rules/quantis.mdc`)
+
+> 🔒 **Planning Lock** — no code while the roadmap intent is `DRAFT`
+> 🔗 **Link, don't relocate** — plugin artifacts stay in the plugin's home
+> ✅ **Evidence or it didn't happen** — no ✅ without verified proof
+> 💾 **State stays current** — a fresh session can always pick up
+> ☝️ **One tracking layer** — don't pair with Spec Kit / Taskmaster-style trackers
+
+## 🚀 Install
+
+One-liner, from the project root:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/ppm98dev/Coding-Workflow/main/scripts/install.sh | bash
 ```
 
-### 2 · Initialize
+Additive and idempotent — installs/refreshes the Quantis files only, never touches project state; refuses on a v3 footprint (use the migration script below). Alternatively install as a Cursor plugin (the repo ships `.cursor-plugin/plugin.json` — Customize page, `/add-plugin`, or a team marketplace).
 
-Start the Antigravity CLI (`agy` — the primary platform) and tell your agent:
+### Migrating a v3 (Antigravity) project
 
-```
-/wf-new-project   →  Deep questioning to create SPEC.md
-/wf-plan 1        →  Decompose Phase 1 into executable plans
-/wf-execute 1     →  Implement Phase 1 (with real subagents)
-/wf-verify 1      →  Prove it works with evidence
-```
+One script, run from the project root (requires a clean git tree):
 
-> 🔤 **Command prefix:** On the CLI (`agy`) commands use the `/wf-` prefix. In the Antigravity **IDE / Standalone**, drop it — `/new-project`, `/plan 1`, `/execute 1`. See [Platforms](#platforms).
-
-<details>
-<summary><b>Already installed?</b></summary>
-
-<br/>
-
-| Command | Purpose |
-|---------|---------|
-| `/wf-install` | Reinstall Quantis from GitHub |
-| `/wf-update` | Incremental update to the latest version |
-| `/wf-upgrade` | Migrate from GSD v2.x → Quantis |
-
-</details>
-
----
-
-<a id="how-it-works"></a>
-
-## 🔄 How It Works
-
-Quantis is a loop. Each phase produces a durable artifact in `.quantis/`, and nothing advances on vibes — gaps route back to planning.
-
-```mermaid
-flowchart LR
-    S["📋 Spec"] --> P["🗺️ Plan"] --> E["⚙️ Execute"] --> V["✅ Verify"] --> C["💾 Commit"]
-    V -. "gaps" .-> P
-    classDef n fill:#141a38,stroke:#6ea8fe,color:#fff;
-    class S,P,E,V,C n;
+```bash
+curl -sSL https://raw.githubusercontent.com/ppm98dev/Coding-Workflow/main/scripts/migrate-v3-to-v4.sh | bash
 ```
 
-| Stage | Skill | Output |
-|-------|-------|--------|
-| 📋 **Spec** | `brainstorming` | `SPEC.md` (FINALIZED before any code) |
-| 🗺️ **Plan** | `writing-plans` | checkbox plans, one task per file |
-| ⚙️ **Execute** | `subagent-driven-development` | code + tests, TDD per task |
-| ✅ **Verify** | `verification-before-completion` | `VERIFICATION.md` with empirical proof |
+It salvages the old state into the v4 shape — SPEC → the roadmap intent header (FINALIZED status carries over), phases keep their ✅/🔄/⬜ statuses, decisions carry across, a filled CONSTITUTION becomes `.cursor/rules/constitution.mdc` — archives every v3 original under `.quantis/archive/v3/` (nothing is deleted), removes the Antigravity footprint (`.agents/`, `.gemini/`, `adapters/`), and installs v4. Everything lands in **one commit**: `git revert HEAD` undoes the migration. Afterwards: `/q-status`.
 
-### 🛡️ Core Rules
-
-> 🔒 **Planning Lock** — no code until `SPEC.md` is FINALIZED
-> 💾 **State Persistence** — `STATE.md` updated after every task
-> 🧹 **Context Hygiene** — 3 failures → state dump → fresh session
-> ✅ **Empirical Validation** — proof required, never "trust me, it works"
-
----
-
-<a id="architecture"></a>
-
-## 🧩 Architecture
-
-Three layers: **skills** do the methodology, **workflows** run the process, **state** is the memory.
-
-### 🧠 Skills (18) — the methodology engine
-
-Auto-triggered skills that fire on task context. Powered by [obra/superpowers](https://github.com/obra/superpowers) v5.1.0.
-
-| Category | Skills |
-|----------|--------|
-| **Code Quality** | subagent-driven-development · test-driven-development · requesting-code-review · receiving-code-review |
-| **Planning** | brainstorming · writing-plans · executing-plans |
-| **Debugging** | systematic-debugging · verification-before-completion |
-| **Context** | codebase-mapper · context-compressor · context-health-monitor · token-budget |
-| **Git** | using-git-worktrees · finishing-a-development-branch |
-| **Meta** | writing-skills · dispatching-parallel-agents · using-quantis |
-
-### ⚡ Workflows (30) — project management
-
-Slash commands for orchestration. See the [full command reference](#commands) below.
-
-> 🔌 **Ecosystem Discovery:** `/wf-plan` auto-detects custom skills (from [skills.sh](https://www.skills.sh)) and active MCP servers, injecting them into the planning context.
-
-### 💾 State (`.quantis/`) — persistent memory
-
-| File | Purpose |
-|------|---------|
-| `SPEC.md` | Requirements (FINALIZED before coding) |
-| `ROADMAP.md` | Phases, milestones, progress |
-| `STATE.md` | Current position, session handoffs |
-| `JOURNAL.md` | Session logs & decisions |
-| `DECISIONS.md` | Architectural decisions |
-| `phases/` | Isolated subphase folders (e.g. `1.1-user-auth/`) — specs, plans, reports |
-
----
-
-<a id="commands"></a>
-
-## ⌨️ Commands
-
-Command names are shown in their logical form. On the CLI (`agy`) prefix each with `/wf-` (e.g. `/wf-plan`); the IDE and Standalone use them bare.
-
-**Core lifecycle**
-
-| Command | Purpose |
-|---------|---------|
-| `/new-project` | Initialize with deep questioning → SPEC.md |
-| `/plan [N]` | Decompose requirements into executable phase plans |
-| `/execute [N]` | Execute a phase with focused context |
-| `/verify [N]` | Validate work against spec with empirical evidence |
-| `/debug-issue` | Systematic debugging with persistent state |
-| `/complete-milestone` | Archive milestone and prepare for next |
-
-<details>
-<summary><b>Planning &amp; research</b></summary>
-
-| Command | Purpose |
-|---------|---------|
-| `/discuss-phase` | Clarify scope and approach before planning |
-| `/research-phase` | Deep technical research for a phase |
-| `/stress-test` | Adversarial spec review — find ambiguity and gaps |
-| `/update-plan` | Revise plans based on discussion |
-| `/plan-milestone-gaps` | Create plans to address gaps found in audit |
-| `/list-phase-assumptions` | List assumptions made during planning |
-
-</details>
-
-<details>
-<summary><b>Roadmap management</b></summary>
-
-| Command | Purpose |
-|---------|---------|
-| `/new-milestone` | Create a new milestone with phases |
-| `/add-phase` | Add a phase to the end of the roadmap |
-| `/insert-phase` | Insert a phase between existing phases |
-| `/remove-phase` | Remove a phase (with safety checks) |
-| `/audit-milestone` | Audit a milestone for quality and completeness |
-
-</details>
-
-<details>
-<summary><b>Session &amp; state</b></summary>
-
-| Command | Purpose |
-|---------|---------|
-| `/pause` | Dump state for clean session handoff |
-| `/resume-session` | Restore context from previous session |
-| `/progress` | Show current position in roadmap |
-| `/map` | Analyze codebase → ARCHITECTURE.md + STACK.md |
-| `/sprint` | Time-boxed sprint for quick focused work |
-| `/add-todo` · `/check-todos` | Task capture and review |
-
-</details>
-
-<details>
-<summary><b>Package management</b></summary>
-
-| Command | Purpose |
-|---------|---------|
-| `/install` | Install Quantis from GitHub |
-| `/update` | Update to latest version |
-| `/upgrade` | Migrate from GSD v2.x → Quantis |
-| `/whats-new` | Show recent changes and features |
-| `/web-search` | Search the web to inform decisions |
-| `/quantis-help` | Show all available commands |
-
-</details>
-
----
-
-<a id="platforms"></a>
-
-## 🖥️ Platforms
-
-| Platform | Command prefix | Subagents | Browser |
-|----------|:--------------:|:---------:|:-------:|
-| **Antigravity CLI** (`agy`) — *primary* | `/wf-command` | ✅ `invoke_subagent` | ❌ |
-| **Antigravity IDE** | `/command` | ❌ inline | ✅ `browser_subagent` |
-| **Standalone** (Antigravity 2.0) | `/command` | ✅ `invoke_subagent` | ✅ `/browser` |
-
-All workflows and skills live in `.agents/skills/` — no platform-specific setup after install. Workflows detect capabilities at runtime; on `agy`, `/wf-execute` dispatches **real subagents** (implementer + reviewers), each loading its methodology skill by path.
-
-<details>
-<summary><b>Repository layout</b></summary>
-
-```
-.agents/
-├── skills/       30 workflow commands (wf-*) + 18 auto-triggered skills
-└── rules/        PROJECT_RULES.md · CONSTITUTION.md · QUANTIS-STYLE.md
-.gemini/          Platform bootstrap
-.quantis/         Project state, templates + VERSION (Quantis version marker)
-adapters/         Platform-specific guidance
-scripts/          Validation scripts + one-liner installer
-assets/           README banner
-CHANGELOG.md      Release history
-MANIFEST.md       Core file listing (for safe updates)
-```
-
-</details>
-
----
-
-## 🙏 Credits
-
-- 💡 **Inspiration** — [Get Shit Done for Antigravity](https://github.com/toonight/get-shit-done-for-antigravity) (GSD) — the spec-driven, *"stop vibecoding"* workflow that sparked Quantis (our tagline is a grateful riff on theirs)
-- 🧠 **Skills engine** — [obra/superpowers](https://github.com/obra/superpowers) v5.1.0 (TDD, SDD, code review, debugging)
-- 🔄 **Methodology & orchestration** — Quantis (project management, state persistence, workflow layer)
-- 🚀 **Platform** — [Google Antigravity](https://blog.google/technology/google-deepmind/antigravity/)
+> **History:** v1–v3 were a full spec-driven workflow system for Google Antigravity, including a fork of superpowers' skills. v4 keeps only what plugins and Cursor don't provide: the tracking loop. Everything else lives in git history (≤ `b96a40a`).
 
 <div align="center">
 
 <br/>
 
-**Stop vibecoding. Ship with proof.**
+**Skills do the work. Quantis keeps the thread.**
 
 `MIT License`
 

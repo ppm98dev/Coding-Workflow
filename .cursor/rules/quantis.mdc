@@ -1,0 +1,44 @@
+---
+description: Quantis project-tracking rules — roadmap/state persistence, planning lock, verification evidence
+alwaysApply: true
+---
+
+# Quantis Tracking Rules
+
+Quantis tracks WHAT is being built and WHERE the project stands, in `.quantis/`. HOW things get built comes from installed methodology skills (superpowers, Cursor Plan Mode, …). `/q-next` conducts: it reads the state, routes to the right skill, and records the outcome.
+
+## The two files
+
+- **`.quantis/ROADMAP.md`** — durable truth. Intent header (Vision, Non-Goals, Success Criteria, `Status: DRAFT|FINALIZED`), phases, decisions. Schema:
+
+  ```markdown
+  ### Phase {N}: {name}
+  Status: ⬜ | 🔄 | ✅
+  Objective: {what this phase delivers}
+  Plan: {path/to/plan.md, once planned}
+  Gaps: {only after a failed verification}
+  ```
+
+  Edit it in place — update the milestone line, append phases, never regenerate the file. Roadmap edits (add/remove/reorder phases) need no special command; do them when asked, keeping the schema.
+
+- **`.quantis/STATE.md`** — session memory. Current position, session summary, context dump, next steps. Update it as work happens, not just at `/q-pause`. Durable decisions go in ROADMAP's Decisions section, not here.
+
+## Gates
+
+- **Planning Lock**: no implementation code while the ROADMAP header says `Status: DRAFT` or `[NEEDS CLARIFICATION]` markers remain.
+- **Evidence or it didn't happen**: a phase becomes ✅ only via `.quantis/phases/{N}-{slug}/VERIFICATION.md` containing `verdict: PASS` with empirical proof (command output, test results, screenshots — never "looks correct"). Checked-off plan tasks alone don't complete a phase.
+
+## Working with methodology plugins
+
+- **Link, don't relocate.** Tools keep their artifact homes (superpowers: `docs/superpowers/specs|plans/`; Plan Mode: `.cursor/plans/`; others: their defaults). ROADMAP phase entries carry `Plan: {path}` links. `.quantis/phases/` holds only verification evidence.
+- **Don't duplicate task tracking.** The plugin owns tasks/steps/checkboxes (and e.g. `.superpowers/sdd/progress.md`); Quantis tracks phase-level status only.
+- **Precedence while a `q-*` skill runs**: auto-invoked plugin skills are sub-procedures — their output feeds the Quantis artifact, and they cannot skip the Planning Lock, skip verification, jump ahead a stage, or move Quantis files. Afterwards, plugins behave normally.
+- **One tracking layer only.** Never pair Quantis with plugins that are themselves tracking systems (Spec Kit, Taskmaster, OpenSpec, memory-bank) — one owner for project state.
+
+## Commits
+
+`type(scope): description` (feat/fix/docs/refactor/test/chore; scope = `phase-N` for phase work). After each commit, confirm it succeeded (`git log -1`); on hook rejection fix and re-commit (never `--no-verify`); mid-merge/rebase or detached HEAD → stop and ask.
+
+## Session hygiene
+
+After 3 failed debugging attempts: dump state (`/q-pause`) and start a fresh session. If context is degrading (20+ tool calls, re-reading known files, context warnings), snapshot STATE.md before anything else.

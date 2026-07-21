@@ -68,9 +68,8 @@ total_count: {Y}
 
 {Based on verdict}
 
-- If PASS: Proceed to next phase
-- If FAIL: Run `/execute {N} --gaps-only` after fixing
-- If PARTIAL: Address gaps then re-verify
+- If PASS: phase → ✅ in ROADMAP.md; `/q-next` moves on
+- If FAIL or PARTIAL: record the gaps in the phase's ROADMAP entry; `/q-next` routes them back to BUILD, then re-verify
 ```
 
 ## Evidence Types

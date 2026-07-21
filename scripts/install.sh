@@ -1,114 +1,57 @@
 #!/usr/bin/env bash
+# Install Quantis v4 (Cursor) into the current project.
+# Additive: copies skills, rules, and templates — never touches project state
+# (.quantis/ROADMAP.md, STATE.md, phases/, archive/, constitution.mdc).
+# Idempotent: re-running refreshes the Quantis files to the latest version.
+#
+# Usage (from the project root):
+#   curl -sSL https://raw.githubusercontent.com/ppm98dev/Coding-Workflow/main/scripts/install.sh | bash
+
 set -euo pipefail
 
-# Style definitions
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-NC='\033[0m' # No Color
+REPO="${QUANTIS_REPO:-https://github.com/ppm98dev/Coding-Workflow.git}"
+Q=".quantis"
 
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}             Quantis ► INSTALLER                     ${NC}"
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+say() { printf '\033[1m» %s\033[0m\n' "$*"; }
+die() { printf '❌ %s\n' "$*" >&2; exit 1; }
 
-# Check for git
-if ! command -v git &> /dev/null; then
-    echo -e "${RED}Error: git is required to install Quantis.${NC}"
-    exit 1
+# ── Guards ───────────────────────────────────────────────────────────────
+if [ -d .agents/skills ] || [ -f "$Q/SPEC.md" ]; then
+    die "Quantis v3 (Antigravity) footprint detected — use the migration script instead:
+  curl -sSL https://raw.githubusercontent.com/ppm98dev/Coding-Workflow/main/scripts/migrate-v3-to-v4.sh | bash"
 fi
 
-# Temp directory
-TEMP_DIR=".quantis-install-temp-$(date +%s)"
+# ── Fetch ────────────────────────────────────────────────────────────────
+TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
+say "Fetching Quantis…"
+git clone --quiet --depth 1 "$REPO" "$TMP"
+[ -d "$TMP/.cursor/skills" ] || die "The Quantis repo at $REPO doesn't ship v4 (.cursor/skills missing)."
 
-echo -e "📥 Cloning Quantis from GitHub..."
-if ! git clone --depth 1 https://github.com/ppm98dev/Coding-Workflow.git "$TEMP_DIR" &>/dev/null; then
-    echo -e "${RED}Error: Failed to clone Quantis repository.${NC}"
-    rm -rf "$TEMP_DIR"
-    exit 1
+# ── Install (Quantis files only) ─────────────────────────────────────────
+UPDATING=false; [ -f "$Q/VERSION" ] && UPDATING=true
+
+mkdir -p .cursor/skills .cursor/rules "$Q"
+# remove stale q-* skills so renamed/deleted ones don't linger, then copy fresh
+find .cursor/skills -maxdepth 1 -type d -name 'q-*' -exec rm -rf {} +
+cp -R "$TMP/.cursor/skills/." .cursor/skills/
+cp "$TMP/.cursor/rules/quantis.mdc" .cursor/rules/
+rm -rf "$Q/templates" && cp -R "$TMP/.quantis/templates" "$Q/templates"
+cp "$TMP/.quantis/VERSION" "$Q/VERSION"
+
+VERSION=$(cat "$Q/VERSION")
+if $UPDATING; then
+    say "Quantis updated to v$VERSION (project state untouched)."
+else
+    say "Quantis v$VERSION installed."
 fi
 
-echo -e "⚙️ Copying core files..."
-# Create target folders if they don't exist
-mkdir -p .agents/skills .agents/rules .gemini .quantis adapters scripts
-
-# Copy structures
-# Preserve an existing CONSTITUTION across reinstall — it's a user file (may be
-# customized per project); the template must never clobber a filled one.
-CONSTITUTION_KEEP=""
-if [ -f ".agents/rules/CONSTITUTION.md" ]; then
-    CONSTITUTION_KEEP=".agents/rules/.CONSTITUTION.keep"
-    cp ".agents/rules/CONSTITUTION.md" "$CONSTITUTION_KEEP"
+echo
+echo "Installed: .cursor/skills/q-*  ·  .cursor/rules/quantis.mdc  ·  $Q/templates/"
+echo "Review with git status, then commit."
+echo
+echo "Next, in Cursor:"
+if [ -f "$Q/ROADMAP.md" ]; then
+    echo "  /q-status  — see where the project stands"
+else
+    echo "  /q-init    — set up ROADMAP.md and STATE.md"
 fi
-cp -r "$TEMP_DIR/.agents/" ./
-if [ -n "$CONSTITUTION_KEEP" ] && [ -f "$CONSTITUTION_KEEP" ]; then
-    mv "$CONSTITUTION_KEEP" ".agents/rules/CONSTITUTION.md"
-    echo -e "  🛡️  Preserved your existing .agents/rules/CONSTITUTION.md"
-fi
-cp -r "$TEMP_DIR/.gemini/" ./
-cp "$TEMP_DIR/adapters/ANTIGRAVITY.md" adapters/
-
-# Copy specific scripts to prevent framework pollution
-cp "$TEMP_DIR/scripts/search_repo.sh" scripts/ 2>/dev/null || true
-cp "$TEMP_DIR/scripts/setup_search.sh" scripts/ 2>/dev/null || true
-cp "$TEMP_DIR/scripts/validate-all.sh" scripts/ 2>/dev/null || true
-cp "$TEMP_DIR/scripts/validate-skills.sh" scripts/ 2>/dev/null || true
-cp "$TEMP_DIR/scripts/validate-workflows.sh" scripts/ 2>/dev/null || true
-cp "$TEMP_DIR/scripts/validate-templates.sh" scripts/ 2>/dev/null || true
-cp "$TEMP_DIR/scripts/validate-dispatch.sh" scripts/ 2>/dev/null || true
-
-# Copy only .quantis templates (NOT the source repo's own dev state)
-mkdir -p .quantis/templates
-cp -r "$TEMP_DIR/.quantis/templates/" .quantis/
-
-# Root files
-cp "$TEMP_DIR/.quantis/VERSION" .quantis/   # Quantis version marker (namespaced — never a bare root VERSION)
-
-# Clean up any legacy directories from older installs
-if [ -d ".agent" ]; then
-    rm -rf .agent
-    echo -e "  🧹 Removed legacy .agent/ directory"
-fi
-
-# Clean up legacy root rules files — move to .agents/rules/ if not already there
-# NOTE: Existing rules in .agents/rules/ are NEVER deleted
-for f in PROJECT_RULES.md QUANTIS-STYLE.md; do
-    [ -f "$f" ] && rm "$f" && echo -e "  🧹 Removed legacy root $f (now in .agents/rules/)"
-done
-# Migrate CONSTITUTION.md if at root and not yet in .agents/rules/
-if [ -f "CONSTITUTION.md" ] && [ ! -f ".agents/rules/CONSTITUTION.md" ]; then
-    mv "CONSTITUTION.md" ".agents/rules/"
-    echo -e "  📦 Migrated CONSTITUTION.md → .agents/rules/"
-elif [ -f "CONSTITUTION.md" ]; then
-    rm "CONSTITUTION.md"
-    echo -e "  🧹 Removed legacy root CONSTITUTION.md"
-fi
-
-# Clean up dead files from older versions
-rm -f model_capabilities.yaml
-rm -f adapters/CLAUDE.md adapters/GEMINI.md adapters/GPT_OSS.md
-rm -f GSD-STYLE.md
-
-# Remove old _wf-* symlinks (replaced by wf-* real dirs)
-find .agents/skills/ -maxdepth 1 -name '_wf-*' 2>/dev/null | while read -r link; do
-    rm -rf "$link"
-done
-
-# Cleanup
-rm -rf "$TEMP_DIR"
-
-echo -e "🧹 Installation clean up complete."
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${GREEN}             Quantis ► INSTALLED SUCCESSFULLY ✓       ${NC}"
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e ""
-echo -e "Installed:"
-echo -e "  • .agents/skills/   $(ls -d .agents/skills/wf-* 2>/dev/null | wc -l | xargs) workflows + $(ls -d .agents/skills/[^w]* .agents/skills/w[^f]* 2>/dev/null | wc -l | xargs) skills"
-echo -e "  • .agents/rules/    $(ls .agents/rules/ | wc -l | xargs) auto-discovered rules"
-echo -e "  • .quantis/         templates + state"
-echo -e ""
-echo -e "Next steps:"
-echo -e "  1. Open your AI agent in this project."
-echo -e "  2. Run ${BLUE}/wf-new-project${NC} in the chat to initialize your project spec."
-echo -e ""
-echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"

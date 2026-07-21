@@ -2,6 +2,29 @@
 
 All notable changes to Quantis.
 
+## [4.0.0] — 2026-07-21
+
+### 🎯 Cursor Rebase — The Conductor
+
+**Breaking:** Quantis is no longer a workflow system — it's the conductor for one. With the move from Google Antigravity to Cursor, methodology (brainstorming, planning, TDD, review) comes from installed skill plugins like [obra/superpowers](https://github.com/obra/superpowers) and Cursor's own Plan Mode. v4 keeps only what neither provides: a project-level memory and a loop that routes to the right skill next.
+
+#### The design
+- **7 skills** in `.cursor/skills/` (Cursor's native SKILL.md format, `q-` namespaced against `/` menu collisions): `q-init`, **`q-next`** (the conductor: DEFINE → PLAN → BUILD → VERIFY → MILESTONE, one stage per invocation, routing to plugin skills), `q-status`, `q-pause`, `q-resume`, `q-update` (refresh installed Quantis skills/rules/templates from the repo — never touches project state), `q-help`. Setup/conductor/resume/update are `disable-model-invocation: true` (explicit `/command` only); status/pause/help may auto-trigger.
+- **`scripts/install.sh`** — one-liner install into any project (curl | bash): additive and idempotent (re-running refreshes Quantis files), never touches project state, refuses on a v3 footprint. Smoke-tested (fresh install, rerun-as-update, v3 refusal).
+- **`scripts/migrate-v3-to-v4.sh`** — one-shot deterministic migration for Antigravity-era projects (curl | bash): salvages SPEC → roadmap intent header, keeps phase statuses, carries decisions and CONSTITUTION across, archives all v3 originals under `.quantis/archive/v3/`, removes `.agents/`/`.gemini/`/`adapters/`, installs v4 — all in one revertable commit. Smoke-tested end-to-end.
+- **2 state files**: `ROADMAP.md` (intent header with Vision / Non-Goals / Success Criteria and the `Status: DRAFT|FINALIZED` Planning-Lock gate — replacing the separate SPEC.md — plus phases with plan links and a Decisions section) and `STATE.md` (position + session handoff). Roadmap edits are plain-language; the schema lives in the always-loaded rules.
+- **Link, don't relocate**: plugin artifacts stay in their homes (superpowers `docs/superpowers/specs|plans/`, Plan Mode `.cursor/plans/`, SDD ledger `.superpowers/sdd/progress.md`), linked from `Plan:` lines in ROADMAP. `.quantis/phases/` holds only verification evidence — the sole path to a ✅ phase.
+- **`.cursor/rules/quantis.mdc`** (always applied): Planning Lock, evidence gate, plugin precedence (auto-invoked skills are sub-procedures; can't skip gates), one-tracking-layer rule (don't pair with Spec Kit / Taskmaster-style trackers), commit conventions, session hygiene.
+- **`.cursor-plugin/plugin.json`** — installs as a Cursor plugin (Customize page / `/add-plugin` / team marketplace).
+- Skill format verified against cursor.com/docs/skills (July 2026): no `argument-hint`/`$ARGUMENTS` (Cursor doesn't support them).
+
+#### Removed
+- The 18 methodology skills forked from superpowers v5.1.0 — superseded by the superpowers Cursor plugin.
+- All 30 `wf-*` workflows. Their surviving concerns folded into the 6 skills: new-project→`q-init`, progress→`q-status`, pause/resume-session→`q-pause`/`q-resume`, plan/execute/verify/milestone flow→`q-next` stages. Todos, `/map`, and per-verb roadmap-editing commands dropped entirely (plain language + Cursor built-ins cover them).
+- SPEC.md as a separate file — its intent content is now the ROADMAP header; JOURNAL.md and DECISIONS.md — folded into STATE.md's session summary and ROADMAP's Decisions section; TODO.md — dropped.
+- All Antigravity plumbing (`.agents/`, `.gemini/`, `adapters/`, the `invoke_subagent` dispatch contracts D-011/D-012), distribution machinery (`scripts/`, `MANIFEST.md`), and 22 of 25 templates (kept: roadmap, state, VERIFICATION).
+- The repo's own v1–v3 dogfood state — preserved in git history (≤ `b96a40a`).
+
 ## [3.4.2] — 2026-06-13
 
 ### Fixed
@@ -50,7 +73,7 @@ The central theme: a dispatched subagent is a fresh context that inherits none o
 - Capability-based platform detection (no hardcoded platform names)
 - Subagent dispatch for all major workflows: discuss-phase, plan, stress-test, execute, verify
 - CLI quick start section in README
-- `/wf-` prefix documentation in `/quantis-help`
+- `/wf-` prefix documentation in `/wf-quantis-help`
 
 #### Changed
 - SDD is now the **default** execution path (CLI-first); IDE gets inline fallback
@@ -153,8 +176,8 @@ Complete methodology overhaul powered by [obra/superpowers](https://github.com/o
 - `/sprint` workflow — time-boxed sprints for quick focused work
 - Test Quality Rules in `/plan`
 - Discovery template reference (Level 1.5) in `/plan`
-- Journal/decisions archival in `/complete-milestone`
-- Architecture auto-refresh in `/complete-milestone`
+- Journal/decisions archival in `/q-complete-milestone`
+- Architecture auto-refresh in `/q-complete-milestone`
 - Requirements tracking across workflows
 
 ### Changed
@@ -193,7 +216,7 @@ Complete methodology overhaul powered by [obra/superpowers](https://github.com/o
 ### Added
 - 14 templates aligned with original repository
 - Examples directory with workflow walkthrough and quick reference
-- `/add-todo`, `/check-todos`, `/whats-new` workflows
+- `/q-add-todo`, `/q-check-todos`, `/whats-new` workflows
 
 ---
 
