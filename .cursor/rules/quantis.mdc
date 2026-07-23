@@ -15,6 +15,7 @@ Quantis tracks WHAT is being built and WHERE the project stands, in `.quantis/`.
   ### Phase {N}: {name}
   Status: ⬜ | 🔄 | ✅
   Objective: {what this phase delivers}
+  Spec: {path/to/design.md — optional, from the brainstorming/design step}
   Plan: {path/to/plan.md, once planned}
   Gaps: {only after a failed verification}
   ```
@@ -31,7 +32,7 @@ Quantis tracks WHAT is being built and WHERE the project stands, in `.quantis/`.
 ## Working with methodology plugins
 
 - **Link, don't relocate.** Tools keep their artifact homes (superpowers: `docs/superpowers/specs|plans/`; Plan Mode: `.cursor/plans/`; others: their defaults). ROADMAP phase entries carry `Plan: {path}` links. `.quantis/phases/` holds only verification evidence.
-- **Don't duplicate task tracking.** The plugin owns tasks/steps/checkboxes (and e.g. `.superpowers/sdd/progress.md`); Quantis tracks phase-level status only.
+- **Don't duplicate task tracking — and read the plugin's real signals.** The plugin owns tasks/steps/checkboxes; Quantis tracks phase-level status only. A phase counts as build-complete on ANY of: the SDD ledger (`.superpowers/sdd/progress.md`) showing all plan tasks done, git showing the work merged/landed, or all plan checkboxes ticked. Superpowers SDD never ticks plan checkboxes — never treat unticked boxes alone as "not built".
 - **Precedence while a `q-*` skill runs**: auto-invoked plugin skills are sub-procedures — their output feeds the Quantis artifact, and they cannot skip the Planning Lock, skip verification, jump ahead a stage, or move Quantis files. Afterwards, plugins behave normally.
 - **One tracking layer only.** Never pair Quantis with plugins that are themselves tracking systems (Spec Kit, Taskmaster, OpenSpec, memory-bank) — one owner for project state.
 

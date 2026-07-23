@@ -17,7 +17,7 @@ If pausing after debugging failures: exact error messages, what NOT to retry, an
 
 ## 2. Reconcile ROADMAP.md
 
-Fix drift: phase with `verdict: PASS` VERIFICATION.md → ✅ (idempotent). Plan fully checked but unverified → note "needs verification" in Next Steps. Never mark ✅ from checked boxes alone.
+Fix drift: phase with `verdict: PASS` VERIFICATION.md → ✅ (idempotent). Phase build-complete (SDD ledger done, work merged in git, or plan fully checked — see q-next's build-complete signals) but unverified → note "needs verification" in Next Steps. Never mark ✅ without a VERIFICATION.md verdict.
 
 ## 3. Commit
 

@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## 1. Load
 
-Read `.quantis/STATE.md` fully. If missing or a stub, don't invent a position — reconstruct from ROADMAP.md (lowest non-✅ phase), `git log --oneline -15`, and the linked plan's checkboxes (plus `.superpowers/sdd/progress.md` if present), then ask the user to confirm the reconstruction. Nothing to reconstruct → suggest `/q-init`.
+Read `.quantis/STATE.md` fully. If missing or a stub, don't invent a position — reconstruct from ROADMAP.md (lowest non-✅ phase), `git log --oneline -15`, and the linked plan's progress signals (`.superpowers/sdd/progress.md` ledger, merged commits, checkboxes — superpowers SDD doesn't tick boxes, so don't read unticked as unbuilt), then ask the user to confirm the reconstruction. Nothing to reconstruct → suggest `/q-init`.
 
 ## 2. Brief the user
 

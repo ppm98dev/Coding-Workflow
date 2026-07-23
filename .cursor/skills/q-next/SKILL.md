@@ -17,10 +17,17 @@ Read `.quantis/ROADMAP.md` and `.quantis/STATE.md`. If ROADMAP.md is missing →
 | Condition | Stage → what to do |
 |-----------|-------------------|
 | ROADMAP header `Status: DRAFT` or open `[NEEDS CLARIFICATION]` markers | **DEFINE** — resolve the open questions with the user (a brainstorming skill may assist), then set `Status: FINALIZED`. No planning or code before this. |
-| No phase 🔄, next ⬜ phase has no `Plan:` link | **PLAN** — hand off to the planning skill (superpowers `writing-plans`, or suggest Cursor Plan Mode). Let it save the plan in its own home. Then add `Plan: {path}` to the phase entry and flip it to 🔄. |
-| Current 🔄 phase's linked plan has unchecked tasks | **BUILD** — hand off to the execution workflow (superpowers subagent-driven-development / executing-plans). The plugin tracks tasks; you only update STATE.md's position when the hand-off returns. |
-| Linked plan fully checked, no `VERIFICATION.md` for the phase | **VERIFY** — check the result against the phase objective and the roadmap's success criteria, with empirical evidence (run commands, capture output). Write `.quantis/phases/{N}-{slug}/VERIFICATION.md` with `verdict: PASS` or `verdict: FAIL` + gaps. PASS → flip phase to ✅. FAIL → list gaps in the phase entry; next `/q-next` routes them back to BUILD. |
+| No phase 🔄, next ⬜ phase has no `Plan:` link | **PLAN** — spec first, then plan. If the phase has no `Spec:` link and the work is non-trivial, run the brainstorming/design step (superpowers saves it to `docs/superpowers/specs/…`) and record `Spec: {path}`. Then hand the spec to the planning skill (superpowers `writing-plans`, or Cursor Plan Mode), let it save the plan in its own home, add `Plan: {path}`, and flip the phase to 🔄. |
+| Current 🔄 phase is not **build-complete** (see below) | **BUILD** — hand off to the execution workflow (superpowers subagent-driven-development / executing-plans). The plugin tracks tasks; you only update STATE.md's position when the hand-off returns. |
+| Current 🔄 phase is build-complete, no `VERIFICATION.md` for the phase | **VERIFY** — check the result against the phase objective and the roadmap's success criteria, with empirical evidence (run commands, capture output). Write `.quantis/phases/{N}-{slug}/VERIFICATION.md` with `verdict: PASS` or `verdict: FAIL` + gaps. PASS → flip phase to ✅. FAIL → list gaps in the phase entry; next `/q-next` routes them back to BUILD. (VERIFY often runs after the feature branch already merged — that's normal; it's evidence reconciliation, not a merge gate.) |
 | All phases ✅ | **MILESTONE** — confirm the roadmap's success criteria are met (evidence, not vibes). Then offer: archive `.quantis/phases/*` → `.quantis/archive/{milestone}/`, append a short milestone summary there, and define the next milestone's phases with the user (or stop here if the project is done). |
+
+**Build-complete** — ANY of these signals, not just checkboxes (superpowers SDD never ticks plan checkboxes; it tracks progress in its ledger and merges via `finishing-a-development-branch`):
+- `.superpowers/sdd/progress.md` lists every plan task complete, or
+- git shows the work landed (phase's feature branch merged; commits cover the plan's tasks), or
+- the linked plan's `- [ ]` tasks are all checked (the inline `executing-plans` path does tick them).
+
+When the signals disagree, trust the ledger and `git log` over checkboxes; if still ambiguous, ask the user rather than re-running BUILD on finished work.
 
 ## 3. Record
 

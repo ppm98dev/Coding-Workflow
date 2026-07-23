@@ -2,6 +2,14 @@
 
 All notable changes to Quantis.
 
+## [4.0.1] — 2026-07-23
+
+### Fixed — stage-detection drift found in live use
+
+- **Build-complete no longer gated on plan checkboxes.** `/q-next` decided BUILD vs VERIFY by the plan's `- [ ]` boxes, but superpowers SDD never ticks them (it tracks progress in `.superpowers/sdd/progress.md` and merges via `finishing-a-development-branch`) — so a fully built, merged phase looked "unbuilt" forever. Build-complete is now ANY of: SDD ledger shows all plan tasks done, git shows the work merged/landed, or all checkboxes ticked (the inline `executing-plans` path does tick them). Ledger + git win over checkboxes on disagreement; ambiguity → ask, never re-BUILD finished work. Applied consistently in `q-next`, `q-pause` (reconcile), `q-resume` (reconstruction), and `quantis.mdc`.
+- **The superpowers spec step has a home.** Superpowers goes brainstorm → spec (`docs/superpowers/specs/`) → plan, but the phase schema had no `Spec:` field and PLAN routed straight to `writing-plans`. Added `Spec:` to the schema (`quantis.mdc`, roadmap template) and made the PLAN stage spec-aware: no spec + non-trivial work → design step first, record `Spec: {path}`, then hand the spec to the planning skill.
+- Noted in VERIFY that it often runs after the feature branch already merged — evidence reconciliation, not a merge gate.
+
 ## [4.0.0] — 2026-07-21
 
 ### 🎯 Cursor Rebase — The Conductor
