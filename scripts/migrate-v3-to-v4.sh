@@ -77,24 +77,68 @@ NEW_ROADMAP=$(mktemp)
     fi
 } > "$NEW_ROADMAP"
 
+# ── 2b. Link existing v3 plan files into the new roadmap ────────────────
+# Old phase dirs (.quantis/phases/{N}[.{M}]-{slug}/) stay where they are;
+# each "### Phase N:" heading gets Plan: links to its *PLAN*.md files so
+# /q-next sees in-flight phases as planned, not unplanned.
+if [ -d "$Q/phases" ]; then
+    MAP=$(mktemp)
+    for d in "$Q"/phases/*/; do
+        [ -d "$d" ] || continue
+        num=$(basename "$d" | grep -oE '^[0-9]+(\.[0-9]+)?' || true)
+        plans=$(find "$d" -maxdepth 1 -name '*PLAN*.md' 2>/dev/null | sort | paste -sd';' -)
+        [ -n "$num" ] && [ -n "$plans" ] && printf '%s\t%s\n' "$num" "$plans" >> "$MAP"
+    done
+    if [ -s "$MAP" ]; then
+        awk -v mapfile="$MAP" '
+            BEGIN { while ((getline l < mapfile) > 0) { split(l, a, "\t"); m[a[1]] = a[2] } }
+            { print }
+            /^#{2,4} Phase [0-9]/ {
+                n = $0; sub(/^#+ Phase /, "", n); sub(/[:. ]*$/, "", n); sub(/:.*/, "", n)
+                if (n in m) { c = split(m[n], p, ";"); for (i = 1; i <= c; i++) print "Plan: " p[i] }
+            }' "$NEW_ROADMAP" > "$NEW_ROADMAP.linked" && mv "$NEW_ROADMAP.linked" "$NEW_ROADMAP"
+    fi
+    rm -f "$MAP"
+fi
+
 # ── 3. Archive originals (never delete state) ───────────────────────────
-for f in SPEC.md ROADMAP.md JOURNAL.md DECISIONS.md TODO.md AUDIT.md RESEARCH.md; do
-    [ -f "$Q/$f" ] && mv "$Q/$f" "$ARCHIVE/$f"
+# Catch-all: everything in .quantis/ moves to the archive EXCEPT what v4 keeps.
+# Keeps: phases/ (plans + verification, linked in place), STATE.md (still valid),
+# ARCHITECTURE.md/STACK.md (useful planning context), templates/ (replaced below),
+# VERSION (overwritten below). Catches milestones/, brainstorm/, DEBUG.md, and
+# anything else a v3 project accumulated.
+for item in "$Q"/*; do
+    base=$(basename "$item")
+    case "$base" in
+        phases|archive|templates|STATE.md|ARCHITECTURE.md|STACK.md|VERSION) ;;
+        *) mv "$item" "$ARCHIVE/$base" ;;
+    esac
 done
-[ -d "$Q/milestones" ] && mv "$Q/milestones" "$ARCHIVE/milestones"
 mv "$NEW_ROADMAP" "$Q/ROADMAP.md"
 # STATE.md keeps working as-is in v4; create a stub if missing
 [ -f "$Q/STATE.md" ] || printf '# STATE.md\n\n## Position\n- **Phase**: see ROADMAP.md\n- **Status**: migrated from v3\n\n## Next Steps\n1. /q-status\n' > "$Q/STATE.md"
 
-# preserve a filled constitution before removing .agents/
-if [ -f .agents/rules/CONSTITUTION.md ]; then
+# preserve a filled constitution before removing .agents/ (never overwrite an existing one)
+if [ -f .agents/rules/CONSTITUTION.md ] && [ ! -f .cursor/rules/constitution.mdc ]; then
     mkdir -p .cursor/rules
     { printf -- '---\ndescription: Project quality standards (migrated from v3 CONSTITUTION.md)\nalwaysApply: true\n---\n\n'; cat .agents/rules/CONSTITUTION.md; } > .cursor/rules/constitution.mdc
 fi
 
-# ── 4. Remove the Antigravity footprint ─────────────────────────────────
-rm -rf .agents .gemini adapters "$Q/templates"
-rm -f MANIFEST.md 2>/dev/null || true
+# ── 4. Remove the Antigravity footprint (surgically — never whole dirs
+#      that might contain project code) ──────────────────────────────────
+rm -rf .agents .gemini "$Q/templates"
+# adapters/ may be application code in some stacks — only remove the Quantis file
+rm -f adapters/ANTIGRAVITY.md 2>/dev/null || true
+rmdir adapters 2>/dev/null || true
+# root MANIFEST.md: old-installer debris — archive it only if it is Quantis's
+if [ -f MANIFEST.md ] && grep -qi quantis MANIFEST.md; then
+    mv MANIFEST.md "$ARCHIVE/MANIFEST.md"
+fi
+# old Quantis validators in scripts/: remove only files that mention Quantis
+for s in scripts/validate-*.sh scripts/setup_search.sh scripts/search_repo.sh scripts/upgrade.sh; do
+    if [ -f "$s" ] && grep -qi quantis "$s"; then rm -f "$s"; fi
+done
+rmdir scripts 2>/dev/null || true
 
 # ── 5. Install v4 (skills, rules, templates, VERSION) ───────────────────
 TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
